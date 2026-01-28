@@ -1824,7 +1824,7 @@ html[data-theme="dark"] .site-header::before {
 
 /* About */
 #about {
-  background-image: url("images/spectrum4.png");
+  background-image: url("images/spectrum1.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -1862,7 +1862,7 @@ html[data-theme="dark"] .site-header::before {
 
 /* Selected GIS & Environmental Projects */
 #projects {
-  background-image: url("images/spectrum1.png");
+  background-image: url("images/spectrum4.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
