@@ -1822,6 +1822,24 @@ html[data-theme="dark"] .site-header::before {
 
 
 
+/* About */
+#about {
+  background-image: url("images/spectrum4.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+
+/* Technical Skills */
+#skills {
+  background-image: url("images/spectrum5.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+
 /* Video Resume */
 #video {
   background-image: url("images/spectrum2.png");
@@ -1829,6 +1847,18 @@ html[data-theme="dark"] .site-header::before {
   background-position: center;
   background-repeat: no-repeat;
 }
+
+
+
+/* Featured */
+#featured {
+  background-image: url("images/spectrum6.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+
 
 /* Selected GIS & Environmental Projects */
 #projects {
