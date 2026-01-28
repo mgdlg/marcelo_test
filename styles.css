@@ -6,23 +6,18 @@
 :root {
   /* --- PALETTE: Scientific, Editorial, Retro-Future --- */
 
-  /* Light Mode (Clinical, Air, Data) */
-  --bg-color: #ffffff;
+  /* Light Mode (Spectral, Iridescent, Data-Terrain) */
+  --bg-color: #fdfdfd;
   --text-main: #111827;       /* Soft black */
   --text-muted: #52525b;      /* Zinc 600 */
   --accent-color: #0F356E;    /* Deep Technical Blue */
-  --accent-glow: rgba(15, 53, 110, 0.12);
+  --accent-glow: rgba(15, 53, 110, 0.08);
 
   /* Liquid Glass Surfaces (Light) */
-  --glass-surface: rgba(255, 255, 255, 0.65);
-  --glass-border: rgba(15, 53, 110, 0.08);
-  --glass-blur: 16px;
-  --shadow-elevation: 0 10px 40px -10px rgba(15, 53, 110, 0.08);
-
-  /* Fluid Spectral Gradients (Warmth & Energy - Light Mode) */
-  --drift-1: radial-gradient(circle, rgba(56, 189, 248, 0.5), transparent 70%); /* Sky Blue */
-  --drift-2: radial-gradient(circle, rgba(167, 139, 250, 0.45), transparent 70%); /* Soft Violet */
-  --drift-3: radial-gradient(circle, rgba(45, 212, 191, 0.4), transparent 70%);  /* Teal */
+  --glass-surface: rgba(255, 255, 255, 0.55);
+  --glass-border: rgba(255, 255, 255, 0.6);
+  --glass-blur: 20px;
+  --shadow-elevation: 0 12px 40px -8px rgba(15, 53, 110, 0.12);
 
   /* Layout */
   --max-width: 1040px;
@@ -35,7 +30,7 @@
   /* Typography */
   --font-sans: "Inter", system-ui, -apple-system, sans-serif;
   
-  /* Projects Lab Variables (Original Restored) */
+  /* Projects Lab Variables */
   --surface: #ffffff;
   --surface-2: #f3f4f6;
   --border-subtle: rgba(17, 24, 39, 0.14);
@@ -46,29 +41,24 @@
   --accent-soft: rgba(17, 24, 39, 0.06);
 }
 
-/* Dark Mode (Midnight Abyss, Neon Data, Deep Space) */
+/* Dark Mode (Midnight Abyss, Grainy Spectrum, Deep Space) */
 html[data-theme="dark"] {
-  --bg-color: #010215;        /* Midnight Base */
+  --bg-color: #030308;        /* Deep Noise Base */
   --text-main: #E2E8F2;       /* Lavender White */
   --text-muted: #94A3B8;      /* Slate 400 */
-  --accent-color: #4B71AA;    /* Steel Blue Accent */
-  --accent-glow: rgba(75, 113, 170, 0.25);
+  --accent-color: #60A5FA;    /* Electric Blue */
+  --accent-glow: rgba(96, 165, 250, 0.2);
 
   /* Liquid Glass Surfaces (Dark) */
-  --glass-surface: rgba(2, 6, 23, 0.45);
-  --glass-border: rgba(255, 255, 255, 0.08);
-  --shadow-elevation: 0 15px 50px -12px rgba(0, 0, 0, 0.8);
+  --glass-surface: rgba(10, 10, 12, 0.6);
+  --glass-border: rgba(255, 255, 255, 0.12);
+  --shadow-elevation: 0 15px 50px -12px rgba(0, 0, 0, 0.9);
 
-  /* Fluid Spectral Gradients (Warmth & Energy - Dark Mode) */
-  --drift-1: radial-gradient(circle, rgba(14, 165, 233, 0.4), transparent 70%); /* Deep Cyan */
-  --drift-2: radial-gradient(circle, rgba(139, 92, 246, 0.35), transparent 70%); /* Electric Purple */
-  --drift-3: radial-gradient(circle, rgba(16, 185, 129, 0.3), transparent 70%);  /* Emerald Signal */
-  
-  /* Projects Lab Variables (Original Restored Dark) */
-  --surface: #020617;
+  /* Projects Lab Variables (Dark) */
+  --surface: #0a0a0c;
   --surface-2: rgba(15, 23, 42, 0.95);
   --border-subtle: rgba(148, 163, 184, 0.30);
-  --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.75);
+  --shadow-soft: 0 18px 45px rgba(0, 0, 0, 0.8);
   --projects-grid-line: rgba(56, 189, 248, 0.12);
   --projects-grid-bold: rgba(56, 189, 248, 0.18);
   --projects-grid-glow: rgba(56, 189, 248, 0.12);
@@ -80,23 +70,27 @@ html[data-theme="dark"] {
    ========================= */
 
 *, *::before, *::after { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
 
-/* FIX: Prevent horizontal scrolling on mobile */
-html, body {
+html { 
+  scroll-behavior: smooth; 
+  overflow-x: hidden;
+  width: 100%;
+}
+
+body {
   margin: 0; 
   padding: 0;
   font-family: var(--font-sans);
   background-color: var(--bg-color);
   color: var(--text-main);
   line-height: 1.7;
-  overflow-x: hidden; /* Critical for mobile fix */
   width: 100%;
   position: relative;
+  overflow-x: hidden; /* Critical for mobile locking */
   transition: background-color 0.5s ease, color 0.5s ease;
 }
 
-/* FIX: Ensure media doesn't overflow cards */
+/* FIX: Images contain, not cover, to prevent cropping */
 img, video, iframe, object {
   max-width: 100%;
   height: auto;
@@ -113,79 +107,77 @@ img, video, iframe, object {
   z-index: -1;
   overflow: hidden;
   pointer-events: none;
+  background: var(--bg-color);
 }
 
-/* 1. Grain Texture */
+/* 1. Grain Texture (Tactile Film) */
 .noise-overlay {
   position: absolute;
   inset: 0;
-  opacity: 0.04;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
   mix-blend-mode: overlay;
+  pointer-events: none;
 }
 
-/* 2. Contour Flow Lines (Topographic/Signal) */
-.contour-lines {
+/* 2. Spectral Field (The "Living" Background) */
+/* Light Mode: Soft Rainbow Gradient (Spectrum1 inspiration) */
+.spectral-field {
   position: absolute;
-  inset: -100%; /* Large overflow for transformation */
+  inset: -50%;
+  width: 200%;
+  height: 200%;
   background: 
-    repeating-radial-gradient(
-      circle at 50% 50%, 
-      transparent 0, 
-      transparent 40px, 
-      var(--glass-border) 40px, 
-      var(--glass-border) 41px
-    );
-  opacity: 0.6;
-  transform-origin: center;
-  /* Complex warp transform to look like terrain/soundwaves */
-  transform: scale(1.5) perspective(1000px) rotateX(45deg) rotateZ(10deg);
-  mask-image: radial-gradient(circle at center, black 30%, transparent 80%);
-  -webkit-mask-image: radial-gradient(circle at center, black 30%, transparent 80%);
-  animation: contourBreath 20s ease-in-out infinite alternate;
+    radial-gradient(circle at 20% 30%, rgba(200, 230, 255, 0.6), transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255, 220, 220, 0.5), transparent 50%),
+    radial-gradient(circle at 40% 80%, rgba(220, 255, 220, 0.5), transparent 50%),
+    conic-gradient(from 0deg at 50% 50%, rgba(190, 220, 255, 0.3), rgba(255, 230, 210, 0.3), rgba(210, 255, 230, 0.3), rgba(190, 220, 255, 0.3));
+  filter: blur(80px);
+  animation: spectralShift 30s linear infinite;
+  opacity: 1;
 }
 
-@keyframes contourBreath {
-  0% { transform: scale(1.5) perspective(1000px) rotateX(45deg) rotateZ(10deg); }
-  100% { transform: scale(1.6) perspective(1000px) rotateX(40deg) rotateZ(15deg); }
-}
-
-/* 3. Fluid Spectral Drifts (Energy & Warmth) */
-.spectral-drift {
-  position: absolute;
-  border-radius: 50%;
+/* Dark Mode: Deep, Grainy Spectral Flares (Dark reference inspiration) */
+html[data-theme="dark"] .spectral-field {
+  background: 
+    radial-gradient(circle at 10% 20%, rgba(56, 189, 248, 0.25), transparent 60%),  /* Cyan */
+    radial-gradient(circle at 90% 80%, rgba(244, 63, 94, 0.2), transparent 60%),   /* Rose */
+    radial-gradient(circle at 50% 50%, rgba(234, 179, 8, 0.15), transparent 60%),   /* Amber */
+    conic-gradient(from 180deg at 50% 50%, rgba(15, 23, 42, 0), rgba(15, 23, 42, 0.8));
   filter: blur(100px);
-  mix-blend-mode: screen; /* Vibrant blending */
-  opacity: 0.6;
-  animation: driftFloat 25s infinite ease-in-out alternate;
+  opacity: 0.8;
+  mix-blend-mode: screen;
 }
 
-html[data-theme="light"] .spectral-drift { mix-blend-mode: multiply; opacity: 0.4; }
-
-.drift-1 {
-  width: 70vw; height: 70vw;
-  background: var(--drift-1);
-  top: -20%; left: -20%;
-  animation-duration: 35s;
-}
-.drift-2 {
-  width: 60vw; height: 60vw;
-  background: var(--drift-2);
-  bottom: -10%; right: -20%;
-  animation-delay: -5s;
-}
-.drift-3 {
-  width: 50vw; height: 50vw;
-  background: var(--drift-3);
-  top: 40%; left: 30%;
-  animation-delay: -12s;
+@keyframes spectralShift {
+  0% { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(2deg) scale(1.05); }
+  100% { transform: rotate(0deg) scale(1); }
 }
 
-@keyframes driftFloat {
-  0% { transform: translate(0, 0) scale(1); }
-  33% { transform: translate(30px, 50px) scale(1.1); }
-  66% { transform: translate(-20px, 20px) scale(0.9); }
-  100% { transform: translate(10px, -40px) scale(1.05); }
+/* 3. Warped Geospatial Grid (Data Structure) */
+.warped-grid {
+  position: absolute;
+  inset: -100%;
+  background-image: 
+    repeating-linear-gradient(90deg, transparent 0, transparent 98px, rgba(15, 53, 110, 0.06) 98px, rgba(15, 53, 110, 0.06) 100px),
+    repeating-linear-gradient(0deg, transparent 0, transparent 98px, rgba(15, 53, 110, 0.06) 98px, rgba(15, 53, 110, 0.06) 100px);
+  transform: perspective(1000px) rotateX(60deg) rotateZ(15deg) scale(1.5);
+  mask-image: radial-gradient(ellipse at center, black 20%, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse at center, black 20%, transparent 70%);
+  animation: gridFloat 20s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+html[data-theme="dark"] .warped-grid {
+  background-image: 
+    repeating-linear-gradient(90deg, transparent 0, transparent 98px, rgba(255, 255, 255, 0.05) 98px, rgba(255, 255, 255, 0.05) 100px),
+    repeating-linear-gradient(0deg, transparent 0, transparent 98px, rgba(255, 255, 255, 0.05) 98px, rgba(255, 255, 255, 0.05) 100px);
+}
+
+@keyframes gridFloat {
+  0% { transform: perspective(1000px) rotateX(60deg) rotateZ(15deg) scale(1.5) translateY(0); }
+  100% { transform: perspective(1000px) rotateX(58deg) rotateZ(12deg) scale(1.6) translateY(-2%); }
 }
 
 /* =========================
@@ -268,10 +260,6 @@ a {
   position: relative;
 }
 
-.section + .section {
-  padding-top: 2rem;
-}
-
 /* =========================
    HEADER
    ========================= */
@@ -311,25 +299,28 @@ a {
 }
 
 /* =========================
-   NAVIGATION (Floating Glass Pill)
+   NAVIGATION (Fixed)
    ========================= */
 
 .top-nav {
   position: fixed;
   top: 1.5rem;
   left: 50%;
-  transform: translateX(-50%); /* Start centered */
+  transform: translateX(-50%); /* Always centered horizontally */
   width: auto;
-  max-width: 95vw;
+  max-width: 92vw;
   padding: 0.5rem 0.75rem;
   border-radius: 999px;
-  z-index: 1000;
-  transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  z-index: 9999; /* Highest Z-index */
+  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.4s ease;
+  will-change: transform;
 }
 
-/* Nav Hide Logic - keeps X centering while moving Y up */
+/* Hidden state moves it UP and keeps X centered */
 .top-nav.is-hidden {
-  transform: translate(-50%, -200%);
+  transform: translate(-50%, -150%);
+  opacity: 0;
+  pointer-events: none;
 }
 
 .nav-inner {
@@ -346,6 +337,7 @@ a {
   padding: 0.5rem 0.85rem;
   border-radius: 999px;
   transition: all 0.2s;
+  white-space: nowrap;
 }
 
 .top-nav a:hover {
@@ -365,6 +357,7 @@ a {
   gap: 0.5rem;
   font-size: 0.8rem;
   margin-left: 0.5rem;
+  white-space: nowrap;
 }
 
 .toggle-dot {
@@ -545,7 +538,7 @@ a {
 }
 
 /* =========================
-   FEATURED PROJECTS (Carousel)
+   FEATURED PROJECTS (Carousel & Mobile Fixes)
    ========================= */
 
 .featured-carousel-wrapper {
@@ -561,12 +554,16 @@ a {
   align-items: center;
 }
 
+/* FIX: Image containment to prevent cropping */
 .featured-slide-image {
   width: 100%;
+  height: auto;
+  max-height: 400px; /* Cap height */
+  object-fit: contain; /* Ensure full image is visible */
   border-radius: var(--radius-sm);
-  box-shadow: var(--shadow-elevation);
   border: 1px solid var(--glass-border);
-  display: none; /* JS handles active */
+  background: rgba(0,0,0,0.02); /* Subtle bg for transparent pngs */
+  display: none; 
 }
 
 .featured-slide-image.is-active { display: block; }
@@ -582,24 +579,43 @@ a {
   font-size: 0.8rem;
 }
 
-.feature-media { position: relative; }
+/* CAROUSEL BUTTONS FIX */
+.feature-media { 
+  position: relative;
+  z-index: 1; 
+}
 
 /* Mini carousel nav within slide */
 .feature-media-nav {
   display: flex;
   justify-content: space-between;
-  margin-top: 0.5rem;
+  align-items: center;
+  margin-top: 0.75rem;
+  /* Ensure buttons are clickable */
+  position: relative;
+  z-index: 10;
+  pointer-events: auto;
 }
 
 .media-btn {
-  background: transparent;
-  border: none;
+  background: var(--glass-surface);
+  border: 1px solid var(--glass-border);
   color: var(--text-main);
   cursor: pointer;
-  font-size: 1.2rem;
+  width: 36px; 
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
 }
 
-.media-dots { display: flex; gap: 4px; align-items: center; }
+.media-btn:hover {
+  background: var(--accent-glow);
+}
+
+.media-dots { display: flex; gap: 6px; align-items: center; }
 .media-dot {
   width: 8px;
   height: 8px;
@@ -607,8 +623,9 @@ a {
   background: var(--glass-border);
   border: none;
   cursor: pointer;
+  padding: 0;
 }
-.media-dot.is-active { background: var(--accent-color); }
+.media-dot.is-active { background: var(--accent-color); transform: scale(1.2); }
 
 /* Main Carousel Nav */
 .featured-carousel-nav {
@@ -622,8 +639,8 @@ a {
 .featured-nav-btn {
   background: var(--glass-surface);
   border: 1px solid var(--glass-border);
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -648,8 +665,7 @@ a {
 }
 
 /* =========================
-   PROJECTS LAB — RESTORED "REVOLUTIONARY LAB" DESIGN
-   (Completely reverts to the original look inside the Projects section)
+   PROJECTS LAB — "REVOLUTIONARY LAB" (Restored & Fixed)
    ========================= */
 
 .projects-lab {
@@ -786,8 +802,30 @@ html[data-theme="dark"] #proj5:checked ~ .projects-lab-ui label[for="proj5"] {
   box-shadow: var(--shadow-soft);
 }
 
-.project-media { margin-top: 1rem; border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--border-subtle); }
-.project-showcase .showcase-main-img { width: 100%; height: auto; border-radius: 12px; border: 1px solid var(--border-subtle); }
+.project-media { 
+  margin-top: 1rem; 
+  border-radius: var(--radius-lg); 
+  overflow: hidden; 
+  border: 1px solid var(--border-subtle); 
+}
+
+/* FIX: Ensure project panel images are contained */
+.project-media img {
+  width: 100%;
+  height: auto;
+  max-height: 400px;
+  object-fit: contain; /* Prevents cropping */
+  background: rgba(0,0,0,0.02);
+}
+
+.project-showcase .showcase-main-img { 
+  width: 100%; 
+  height: auto; 
+  border-radius: 12px; 
+  border: 1px solid var(--border-subtle); 
+  object-fit: contain; /* Prevents cropping */
+}
+
 .showcase-thumbs { display: flex; gap: 0.5rem; margin-top: 0.5rem; }
 .thumb { width: 60px; height: 40px; border-radius: 8px; border: 1px solid var(--border-subtle); overflow: hidden; padding: 0; cursor: pointer; }
 .thumb img { width: 100%; height: 100%; object-fit: cover; }
@@ -868,16 +906,26 @@ html[data-theme="dark"] #proj5:checked ~ .projects-lab-ui label[for="proj5"] {
     grid-template-columns: 1fr;
   }
   
+  /* Mobile Nav Container */
   .top-nav {
     bottom: 2rem;
-    top: auto;
+    top: auto; /* Move to bottom on mobile */
+    left: 50%;
+    transform: translateX(-50%);
     width: 90%;
+    max-width: 400px;
     justify-content: center;
     overflow-x: auto;
   }
   
+  /* Mobile Hidden State */
+  .top-nav.is-hidden {
+    transform: translate(-50%, 150%); /* Slide DOWN on mobile */
+  }
+  
   .nav-inner {
     white-space: nowrap;
+    padding: 0 0.5rem;
   }
   
   .projects-lab-tabs {

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <title>Marcelo Guzman | GIS & Environmental Portfolio</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <meta
     name="description"
     content="Portfolio of Marcelo Guzmán, biologist and GIS specialist focused on environmental assessments, remote sensing, and conservation."
@@ -18,17 +18,11 @@
 </head>
 <body>
   
-  <!-- AMBIENT BACKGROUND SYSTEM: Expressive Data Substrate -->
+  <!-- AMBIENT BACKGROUND SYSTEM: Expressive, Sensory, Spectral -->
   <div class="ambient-canvas" aria-hidden="true">
     <div class="noise-overlay"></div>
-    
-    <!-- Fluid Spectral Gradients (Warmth & Energy) -->
-    <div class="spectral-drift drift-1"></div>
-    <div class="spectral-drift drift-2"></div>
-    <div class="spectral-drift drift-3"></div>
-
-    <!-- Contour Lines (Geospatial/Topographic Reference) -->
-    <div class="contour-lines"></div>
+    <div class="spectral-field"></div>
+    <div class="warped-grid"></div>
   </div>
 
   <header class="site-header">
@@ -705,7 +699,7 @@
     }, { threshold: 0.15 });
     animatedEls.forEach((el) => observer.observe(el));
 
-    // Nav Hide Function (Improved for stability)
+    // Nav Hide Function (Improved for mobile touch)
     (function () {
       const nav = document.querySelector('.top-nav');
       if (!nav) return;
@@ -741,8 +735,7 @@
       });
     })();
 
-    // Image Belt & Carousels (Restored same logic as before)
-    // ... [Code shortened for brevity in this preview, full code in generated file] ...
+    // Image Belt Logic (Same as before)
     (function initImageBelt() {
       const track = document.getElementById("beltTrack");
       if(!track) return;
@@ -804,7 +797,7 @@
       render();
     })();
 
-    // ... Slideshow logic ...
+    // Main Slideshow Logic
     let slideIndex = 1; showSlides(slideIndex);
     function plusSlides(n) { showSlides(slideIndex += n); }
     function currentSlide(n) { showSlides(slideIndex = n); }
@@ -818,8 +811,30 @@
       if (slides[slideIndex-1]) slides[slideIndex-1].style.display = "block";
       if (dots[slideIndex-1]) dots[slideIndex-1].className += " active";
     }
+
+    // Mini Carousels inside Slides (Buttons fixed)
+    (function initFeaturedMediaCarousels(){
+      document.querySelectorAll("[data-media]").forEach((wrap) => {
+        const imgs = Array.from(wrap.querySelectorAll(".featured-slide-image"));
+        const prev = wrap.querySelector(".media-btn[data-prev]");
+        const next = wrap.querySelector(".media-btn[data-next]");
+        const dots = Array.from(wrap.querySelectorAll(".media-dot"));
+
+        let i = 0;
+        function render(nextIndex){
+          i = (nextIndex + imgs.length) % imgs.length;
+          imgs.forEach((img, idx) => img.classList.toggle("is-active", idx === i));
+          dots.forEach((d, idx) => d.classList.toggle("is-active", idx === i));
+        }
+
+        if(prev) prev.onclick = (e) => { e.stopPropagation(); render(i - 1); };
+        if(next) next.onclick = (e) => { e.stopPropagation(); render(i + 1); };
+        dots.forEach((d) => d.onclick = (e) => { e.stopPropagation(); render(Number(d.dataset.dot)); });
+        render(0);
+      });
+    })();
     
-    // Project Showcases
+    // Project Lab Showcases
     (function initProjectShowcases() {
        const rows = document.querySelectorAll(".project-row");
        const getTheme = () => (document.documentElement.getAttribute("data-theme") === "dark" ? "dark" : "light");
@@ -861,7 +876,7 @@
        window.refreshProjectShowcases = function() {
           document.querySelectorAll(".project-row").forEach(row => {
              if(row._projectShowcase) {
-                row._projectShowcase.setActive(0); // reset to first on theme toggle to refresh src
+                row._projectShowcase.setActive(0); 
              }
           });
        }
