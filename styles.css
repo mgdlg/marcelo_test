@@ -1789,14 +1789,14 @@ html[data-theme="dark"] #projects .projects-lab{
 
 /* Introduction */
 .site-header {
-  background-image: url("images/terrain_texture_light.png");
+  background-image: url("images/spectrum7.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
 }
 
 html[data-theme="dark"] .site-header {
-  background-image: url("images/terrain_texture_dark.png");
+  background-image: url("images/spectrum8.png");
 }
 
 .site-header {
@@ -1860,14 +1860,13 @@ html[data-theme="dark"] .site-header::before {
 }
 
 
-/* Education */
-#education {
-  background-image: url("images/spectrum4.png");
+/* Timeline */
+#timeline {
+  background-image: url("images/spectrum3.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
 }
-
 
 
 /* =========================
