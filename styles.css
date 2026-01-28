@@ -1822,15 +1822,6 @@ html[data-theme="dark"] .site-header::before {
 
 
 
-/* Technical Skills */
-#skills {
-  background-image: url("images/spectrum5.png");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-
 /* Video Resume */
 #video {
   background-image: url("images/spectrum2.png");
