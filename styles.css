@@ -1859,6 +1859,17 @@ html[data-theme="dark"] .site-header::before {
   background-repeat: no-repeat;
 }
 
+
+/* Education */
+#education {
+  background-image: url("images/spectrum4.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+
+
 /* =========================
    MOBILE AUTO-HIDING TOP NAV
    ========================= */
