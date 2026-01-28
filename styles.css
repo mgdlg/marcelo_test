@@ -19,23 +19,35 @@
   --glass-blur: 16px;
   --shadow-elevation: 0 10px 40px -10px rgba(15, 53, 110, 0.08);
 
-  /* Gradients & Accents */
-  --orb-1: #E2E8F2; /* Lavender White */
-  --orb-2: #D1DDF7; /* Soft Blue */
-  
+  /* Fluid Spectral Gradients (Warmth & Energy - Light Mode) */
+  --drift-1: radial-gradient(circle, rgba(56, 189, 248, 0.5), transparent 70%); /* Sky Blue */
+  --drift-2: radial-gradient(circle, rgba(167, 139, 250, 0.45), transparent 70%); /* Soft Violet */
+  --drift-3: radial-gradient(circle, rgba(45, 212, 191, 0.4), transparent 70%);  /* Teal */
+
   /* Layout */
   --max-width: 1040px;
   --header-height: 80px;
   --radius-panel: 24px;
   --radius-sm: 12px;
+  --radius-lg: 18px;
+  --radius-xl: 24px;
 
   /* Typography */
   --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+  
+  /* Projects Lab Variables (Original Restored) */
+  --surface: #ffffff;
+  --surface-2: #f3f4f6;
+  --border-subtle: rgba(17, 24, 39, 0.14);
+  --shadow-soft: 0 18px 45px rgba(17, 24, 39, 0.08);
+  --projects-grid-line: rgba(17, 24, 39, 0.12);
+  --projects-grid-bold: rgba(17, 24, 39, 0.18);
+  --projects-grid-glow: rgba(17, 24, 39, 0.10);
+  --accent-soft: rgba(17, 24, 39, 0.06);
 }
 
 /* Dark Mode (Midnight Abyss, Neon Data, Deep Space) */
 html[data-theme="dark"] {
-  /* Using the user's provided gradient stops for the palette */
   --bg-color: #010215;        /* Midnight Base */
   --text-main: #E2E8F2;       /* Lavender White */
   --text-muted: #94A3B8;      /* Slate 400 */
@@ -47,9 +59,20 @@ html[data-theme="dark"] {
   --glass-border: rgba(255, 255, 255, 0.08);
   --shadow-elevation: 0 15px 50px -12px rgba(0, 0, 0, 0.8);
 
-  /* Organic Gradients */
-  --orb-1: #0F356E; /* Deep Blue */
-  --orb-2: #1e1b4b; /* Indigo Abyss */
+  /* Fluid Spectral Gradients (Warmth & Energy - Dark Mode) */
+  --drift-1: radial-gradient(circle, rgba(14, 165, 233, 0.4), transparent 70%); /* Deep Cyan */
+  --drift-2: radial-gradient(circle, rgba(139, 92, 246, 0.35), transparent 70%); /* Electric Purple */
+  --drift-3: radial-gradient(circle, rgba(16, 185, 129, 0.3), transparent 70%);  /* Emerald Signal */
+  
+  /* Projects Lab Variables (Original Restored Dark) */
+  --surface: #020617;
+  --surface-2: rgba(15, 23, 42, 0.95);
+  --border-subtle: rgba(148, 163, 184, 0.30);
+  --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.75);
+  --projects-grid-line: rgba(56, 189, 248, 0.12);
+  --projects-grid-bold: rgba(56, 189, 248, 0.18);
+  --projects-grid-glow: rgba(56, 189, 248, 0.12);
+  --accent-soft: rgba(56, 189, 248, 0.12);
 }
 
 /* =========================
@@ -58,19 +81,30 @@ html[data-theme="dark"] {
 
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
-body {
+
+/* FIX: Prevent horizontal scrolling on mobile */
+html, body {
   margin: 0; 
   padding: 0;
   font-family: var(--font-sans);
   background-color: var(--bg-color);
   color: var(--text-main);
   line-height: 1.7;
-  overflow-x: hidden;
+  overflow-x: hidden; /* Critical for mobile fix */
+  width: 100%;
+  position: relative;
   transition: background-color 0.5s ease, color 0.5s ease;
 }
 
+/* FIX: Ensure media doesn't overflow cards */
+img, video, iframe, object {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
 /* =========================
-   AMBIENT BACKGROUND CANVAS
+   AMBIENT BACKGROUND CANVAS (Sensory Data Substrate)
    ========================= */
 
 .ambient-canvas {
@@ -81,72 +115,84 @@ body {
   pointer-events: none;
 }
 
-/* 1. Grain Texture (Retro Film) */
+/* 1. Grain Texture */
 .noise-overlay {
   position: absolute;
   inset: 0;
-  opacity: 0.035;
+  opacity: 0.04;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
 }
 
-/* 2. Topographic Grid Lines */
-.topo-grid {
+/* 2. Contour Flow Lines (Topographic/Signal) */
+.contour-lines {
   position: absolute;
-  inset: 0;
-  background-image: 
-    radial-gradient(circle at center, transparent 0%, transparent 98%),
-    linear-gradient(rgba(15, 53, 110, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(15, 53, 110, 0.03) 1px, transparent 1px);
-  background-size: 100% 100%, 60px 60px, 60px 60px;
-  mask-image: radial-gradient(circle at 50% 30%, black 40%, transparent 80%);
-  -webkit-mask-image: radial-gradient(circle at 50% 30%, black 40%, transparent 80%);
+  inset: -100%; /* Large overflow for transformation */
+  background: 
+    repeating-radial-gradient(
+      circle at 50% 50%, 
+      transparent 0, 
+      transparent 40px, 
+      var(--glass-border) 40px, 
+      var(--glass-border) 41px
+    );
+  opacity: 0.6;
+  transform-origin: center;
+  /* Complex warp transform to look like terrain/soundwaves */
+  transform: scale(1.5) perspective(1000px) rotateX(45deg) rotateZ(10deg);
+  mask-image: radial-gradient(circle at center, black 30%, transparent 80%);
+  -webkit-mask-image: radial-gradient(circle at center, black 30%, transparent 80%);
+  animation: contourBreath 20s ease-in-out infinite alternate;
 }
 
-html[data-theme="dark"] .topo-grid {
-  background-image: 
-    linear-gradient(rgba(75, 113, 170, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(75, 113, 170, 0.05) 1px, transparent 1px);
+@keyframes contourBreath {
+  0% { transform: scale(1.5) perspective(1000px) rotateX(45deg) rotateZ(10deg); }
+  100% { transform: scale(1.6) perspective(1000px) rotateX(40deg) rotateZ(15deg); }
 }
 
-/* 3. Globular Orbs (Organic Motion) */
-.orb {
+/* 3. Fluid Spectral Drifts (Energy & Warmth) */
+.spectral-drift {
   position: absolute;
   border-radius: 50%;
-  filter: blur(80px);
+  filter: blur(100px);
+  mix-blend-mode: screen; /* Vibrant blending */
   opacity: 0.6;
-  animation: floatOrb 20s infinite ease-in-out alternate;
+  animation: driftFloat 25s infinite ease-in-out alternate;
 }
 
-.orb-1 {
-  width: 60vw;
-  height: 60vw;
-  background: radial-gradient(circle, var(--orb-1), transparent 70%);
-  top: -20%;
-  left: -10%;
-  animation-duration: 25s;
-}
+html[data-theme="light"] .spectral-drift { mix-blend-mode: multiply; opacity: 0.4; }
 
-.orb-2 {
-  width: 50vw;
-  height: 50vw;
-  background: radial-gradient(circle, var(--orb-2), transparent 70%);
-  bottom: -10%;
-  right: -10%;
-  animation-duration: 30s;
+.drift-1 {
+  width: 70vw; height: 70vw;
+  background: var(--drift-1);
+  top: -20%; left: -20%;
+  animation-duration: 35s;
+}
+.drift-2 {
+  width: 60vw; height: 60vw;
+  background: var(--drift-2);
+  bottom: -10%; right: -20%;
   animation-delay: -5s;
 }
+.drift-3 {
+  width: 50vw; height: 50vw;
+  background: var(--drift-3);
+  top: 40%; left: 30%;
+  animation-delay: -12s;
+}
 
-@keyframes floatOrb {
+@keyframes driftFloat {
   0% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(30px, 50px) scale(1.1); }
-  100% { transform: translate(-20px, -30px) scale(0.95); }
+  33% { transform: translate(30px, 50px) scale(1.1); }
+  66% { transform: translate(-20px, 20px) scale(0.9); }
+  100% { transform: translate(10px, -40px) scale(1.05); }
 }
 
 /* =========================
    LIQUID GLASS UTILITIES
    ========================= */
 
-.glass-panel, .glass-card, .top-nav, .project-card, .featured-carousel-wrapper {
+.glass-panel, .glass-card, .top-nav, .featured-carousel-wrapper {
   background: var(--glass-surface);
   backdrop-filter: blur(var(--glass-blur));
   -webkit-backdrop-filter: blur(var(--glass-blur));
@@ -178,7 +224,6 @@ h2 {
   display: inline-block;
 }
 
-/* Scientific underline accent */
 h2::after {
   content: "";
   display: block;
@@ -223,7 +268,6 @@ a {
   position: relative;
 }
 
-/* Clean, seamless flow between sections */
 .section + .section {
   padding-top: 2rem;
 }
@@ -274,7 +318,7 @@ a {
   position: fixed;
   top: 1.5rem;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translateX(-50%); /* Start centered */
   width: auto;
   max-width: 95vw;
   padding: 0.5rem 0.75rem;
@@ -283,8 +327,9 @@ a {
   transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
+/* Nav Hide Logic - keeps X centering while moving Y up */
 .top-nav.is-hidden {
-  transform: translate(-50%, -150%);
+  transform: translate(-50%, -200%);
 }
 
 .nav-inner {
@@ -382,13 +427,13 @@ a {
   max-width: 800px;
 }
 
-.card {
+.glass-card {
   border-radius: var(--radius-sm);
   padding: 1.5rem;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.card:hover {
+.glass-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 20px 40px -10px rgba(0,0,0,0.15);
   border-color: var(--accent-color);
@@ -603,121 +648,148 @@ a {
 }
 
 /* =========================
-   PROJECTS LAB (Control Panel Style)
+   PROJECTS LAB — RESTORED "REVOLUTIONARY LAB" DESIGN
+   (Completely reverts to the original look inside the Projects section)
    ========================= */
 
 .projects-lab {
   position: relative;
+  margin-top: 2rem;
+  border-radius: calc(var(--radius-xl) + 6px);
+  border: 1px solid var(--border-subtle);
+  background: radial-gradient(1200px 520px at 15% 10%, rgba(17,24,39,0.10), transparent 60%),
+              radial-gradient(900px 520px at 85% 20%, rgba(17,24,39,0.08), transparent 55%),
+              linear-gradient(to bottom, rgba(255,255,255,0.85), rgba(247,247,248,0.95));
+  box-shadow: 0 28px 70px rgba(17, 24, 39, 0.10);
   overflow: hidden;
-  background: var(--glass-surface);
+  isolation: isolate;
+}
+
+html[data-theme="dark"] .projects-lab {
+  background: radial-gradient(1200px 520px at 15% 10%, rgba(56,189,248,0.18), transparent 60%),
+              radial-gradient(900px 520px at 85% 20%, rgba(56,189,248,0.12), transparent 55%),
+              linear-gradient(to bottom, rgba(2,6,23,0.88), rgba(11,16,32,0.96));
+  box-shadow: 0 32px 88px rgba(2, 6, 23, 0.75);
 }
 
 /* Radio Logic Hiding */
 .projects-lab-radio { display: none; }
 
+/* UI Header */
 .projects-lab-ui {
-  border-bottom: 1px solid var(--glass-border);
-  padding: 1.5rem;
+  padding: 1.35rem;
+  display: grid;
+  gap: 1rem;
+  border-bottom: 1px solid var(--border-subtle);
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(10px);
 }
 
+html[data-theme="dark"] .projects-lab-ui {
+  background: rgba(2, 6, 23, 0.28);
+}
+
+.projects-lab-heading { display: grid; gap: 0.25rem; }
+.projects-lab-kicker { margin: 0; font-size: 0.78rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent-color); font-weight: 700; }
+.projects-lab-subkicker { margin: 0; color: var(--text-muted); font-size: 0.95rem; }
+
+/* Tabs */
 .projects-lab-tabs {
   display: flex;
-  gap: 0.5rem;
-  overflow-x: auto;
-  padding-bottom: 0.5rem;
+  flex-wrap: wrap;
+  gap: 0.75rem;
 }
 
 .projects-lab-tab {
-  flex: 0 0 auto;
-  padding: 0.8rem 1.2rem;
-  border: 1px solid var(--glass-border);
-  border-radius: var(--radius-sm);
+  flex: 1 1 200px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.9rem 0.95rem;
+  border-radius: 16px;
+  border: 1px solid var(--border-subtle);
+  background: rgba(255, 255, 255, 0.72);
+  color: var(--text-main);
   cursor: pointer;
-  transition: all 0.2s;
-  background: rgba(255,255,255,0.05);
-  min-width: 200px;
+  transition: transform 0.14s ease, box-shadow 0.14s ease;
+}
+
+html[data-theme="dark"] .projects-lab-tab {
+  background: rgba(2, 6, 23, 0.40);
 }
 
 .projects-lab-tab:hover {
-  background: var(--accent-glow);
+  transform: translateY(-1px);
+  background: var(--accent-soft);
 }
 
 .tab-index {
-  display: block;
-  font-family: monospace;
-  font-size: 0.75rem;
-  color: var(--text-muted);
-  margin-bottom: 0.25rem;
+  font-weight: 700;
+  font-size: 0.82rem;
+  padding: 0.35rem 0.55rem;
+  border-radius: 999px;
+  background: rgba(17,24,39,0.04);
 }
 
-.tab-title {
-  font-size: 0.9rem;
-  font-weight: 600;
-  line-height: 1.2;
+html[data-theme="dark"] .tab-index {
+  background: rgba(56,189,248,0.10);
+  border-color: rgba(56,189,248,0.28);
 }
 
-/* Active State styling via sibling selector */
+/* Active State styling */
 #proj1:checked ~ .projects-lab-ui label[for="proj1"],
 #proj2:checked ~ .projects-lab-ui label[for="proj2"],
 #proj3:checked ~ .projects-lab-ui label[for="proj3"],
 #proj4:checked ~ .projects-lab-ui label[for="proj4"],
 #proj5:checked ~ .projects-lab-ui label[for="proj5"] {
-  background: var(--accent-glow);
-  border-color: var(--accent-color);
-  box-shadow: 0 0 15px var(--accent-glow);
+  background: linear-gradient(135deg, rgba(17,24,39,0.08), rgba(17,24,39,0.02));
+  border-color: rgba(17,24,39,0.35);
+  box-shadow: 0 16px 40px rgba(17, 24, 39, 0.12);
 }
 
-.projects-lab-panels {
-  padding: 2rem;
-  min-height: 400px;
+html[data-theme="dark"] #proj1:checked ~ .projects-lab-ui label[for="proj1"],
+html[data-theme="dark"] #proj2:checked ~ .projects-lab-ui label[for="proj2"],
+html[data-theme="dark"] #proj3:checked ~ .projects-lab-ui label[for="proj3"],
+html[data-theme="dark"] #proj4:checked ~ .projects-lab-ui label[for="proj4"],
+html[data-theme="dark"] #proj5:checked ~ .projects-lab-ui label[for="proj5"] {
+  background: linear-gradient(135deg, rgba(56,189,248,0.18), rgba(2,6,23,0.10));
+  border-color: rgba(56,189,248,0.45);
+  box-shadow: 0 18px 55px rgba(56, 189, 248, 0.18);
 }
 
-.projects-lab-panel {
-  display: none;
-  animation: fadeUp 0.4s ease forwards;
-}
-
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
+/* Panels */
+.projects-lab-panels { padding: 1.35rem; }
+.projects-lab-panel { display: none; opacity: 0; transform: translateY(8px); transition: opacity 240ms ease, transform 240ms ease; }
 
 #proj1:checked ~ .projects-lab-panels #projPanel1,
 #proj2:checked ~ .projects-lab-panels #projPanel2,
 #proj3:checked ~ .projects-lab-panels #projPanel3,
 #proj4:checked ~ .projects-lab-panels #projPanel4,
 #proj5:checked ~ .projects-lab-panels #projPanel5 {
-  display: block;
+  display: block; opacity: 1; transform: translateY(0);
 }
 
-/* Project Row Layout */
+/* Project Row Layout within Lab */
 .project-row {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2rem;
+  grid-template-columns: minmax(0, 420px) minmax(0, 1fr);
+  gap: 1.5rem;
+  align-items: start;
 }
 
-.project-showcase .showcase-main-img {
-  width: 100%;
-  border-radius: var(--radius-sm);
-  border: 1px solid var(--glass-border);
+.project-card {
+  background: var(--surface);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--border-subtle);
+  padding: 1.3rem 1.4rem;
+  box-shadow: var(--shadow-soft);
 }
 
-.showcase-thumbs {
-  display: flex;
-  gap: 0.5rem;
-  margin-top: 1rem;
-}
-
-.thumb {
-  width: 60px;
-  height: 40px;
-  border-radius: 4px;
-  border: 1px solid var(--glass-border);
-  overflow: hidden;
-  cursor: pointer;
-  padding: 0;
-}
+.project-media { margin-top: 1rem; border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--border-subtle); }
+.project-showcase .showcase-main-img { width: 100%; height: auto; border-radius: 12px; border: 1px solid var(--border-subtle); }
+.showcase-thumbs { display: flex; gap: 0.5rem; margin-top: 0.5rem; }
+.thumb { width: 60px; height: 40px; border-radius: 8px; border: 1px solid var(--border-subtle); overflow: hidden; padding: 0; cursor: pointer; }
 .thumb img { width: 100%; height: 100%; object-fit: cover; }
 .thumb.is-active { border-color: var(--accent-color); }
 
@@ -808,7 +880,13 @@ a {
     white-space: nowrap;
   }
   
-  .orb { opacity: 0.4; }
+  .projects-lab-tabs {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+  }
+
+  /* Reduce glass panel padding on mobile */
+  .glass-panel { padding: 1.5rem; }
   
-  h1 { font-size: 2.5rem; }
+  h1 { font-size: 2.2rem; }
 }
