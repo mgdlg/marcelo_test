@@ -17,6 +17,15 @@
   />
 </head>
 <body>
+  
+  <!-- AMBIENT BACKGROUND SYSTEM (New visual layer) -->
+  <div class="ambient-canvas" aria-hidden="true">
+    <div class="noise-overlay"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="topo-grid"></div>
+  </div>
+
   <header class="site-header">
     <div class="container header-content">
       <div>
@@ -89,17 +98,19 @@
     <section id="about" class="section">
       <div class="container">
         <h2>About</h2>
-        <p>
-          I am a biologist with extensive experience in <strong>GIS, remote sensing, and environmental investigation</strong>.
-          My work sits at the intersection of <strong>geospatial analysis, ecology, and environmental policy</strong>, and
-          spans environmental impact assessments, urban biodiversity research, renewable energy projects, and restoration
-          monitoring.
-        </p>
-        <p>
-          I transform raw spatial and ecological data into <strong>actionable insights</strong> for sustainable
-          development. Whether that's modeling urbanization effects on wildlife, monitoring forest cover with UAVs and
-          satellite imagery, or designing geospatial workflows that keep decision-makers up to date in real time.
-        </p>
+        <div class="glass-panel text-panel">
+          <p>
+            I am a biologist with extensive experience in <strong>GIS, remote sensing, and environmental investigation</strong>.
+            My work sits at the intersection of <strong>geospatial analysis, ecology, and environmental policy</strong>, and
+            spans environmental impact assessments, urban biodiversity research, renewable energy projects, and restoration
+            monitoring.
+          </p>
+          <p>
+            I transform raw spatial and ecological data into <strong>actionable insights</strong> for sustainable
+            development. Whether that's modeling urbanization effects on wildlife, monitoring forest cover with UAVs and
+            satellite imagery, or designing geospatial workflows that keep decision-makers up to date in real time.
+          </p>
+        </div>
       
         <!-- IMAGE BELT (45 images) -->
         <div class="image-belt" aria-label="Image belt">
@@ -128,7 +139,7 @@
       <div class="container">
         <h2>Technical Skills</h2>
         <div class="grid skills-grid">
-          <div class="card">
+          <div class="card glass-card">
             <h3>GIS & Remote Sensing</h3>
             <ul class="tag-list">
               <li>ArcGIS Pro</li>
@@ -145,7 +156,7 @@
 
             </ul>
           </div>
-          <div class="card">
+          <div class="card glass-card">
             <h3>Data Science & Statistics</h3>
             <ul class="tag-list">
               <li>R</li>
@@ -158,7 +169,7 @@
               <li>Reproducible workflows</li>
             </ul>
           </div>
-          <div class="card">
+          <div class="card glass-card">
             <h3>Field & Environmental Work</h3>
             <ul class="tag-list">
               <li>Environmental assessments</li>
@@ -180,7 +191,7 @@
         <h2>Featured Projects</h2>
 
 <!-- FEATURED EXCHANGE & ADVANCED GIS WORK - CAROUSEL VERSION -->
-<div class="featured-carousel-wrapper">
+<div class="featured-carousel-wrapper glass-panel">
   
   <div class="slideshow-container">
   
@@ -479,12 +490,14 @@
     <section id="projects" class="section">
       <div class="container">
         <h2>Selected GIS & Environmental Projects</h2>
-        <p class="section-intro">
-          A selection of projects where I combined <strong>geospatial analysis</strong>, <strong>ecology</strong>, and
-          <strong>fieldwork</strong> to support conservation, urban planning, and environmental compliance.
-        </p>
+        <div class="glass-panel text-panel">
+          <p class="section-intro">
+            A selection of projects where I combined <strong>geospatial analysis</strong>, <strong>ecology</strong>, and
+            <strong>fieldwork</strong> to support conservation, urban planning, and environmental compliance.
+          </p>
+        </div>
 
-                <div class="projects-lab" aria-label="Interactive projects gallery">
+        <div class="projects-lab glass-panel" aria-label="Interactive projects gallery">
           <input class="projects-lab-radio" type="radio" name="projectsDeck" id="proj1" checked />
           <input class="projects-lab-radio" type="radio" name="projectsDeck" id="proj2" />
           <input class="projects-lab-radio" type="radio" name="projectsDeck" id="proj3" />
@@ -509,7 +522,7 @@
           <div class="projects-lab-panels" aria-live="polite">
             <div class="projects-lab-panel" id="projPanel1" role="tabpanel" tabindex="0" aria-label="Drone Photogrammetry for Environmental Compensation">
 <div class="project-row">
-            <article class="card project-card animate-on-scroll">
+            <article class="card project-card animate-on-scroll glass-card">
             <h3>Drone Photogrammetry for Environmental Compensation</h3>
             <p class="project-meta">
               IRCA Consultants · 2025–Present · Project Manager
@@ -544,7 +557,7 @@
             </div>
             <div class="projects-lab-panel" id="projPanel2" role="tabpanel" tabindex="0" aria-label="Riparian Forests & Urban Bird Diversity">
 <div class="project-row">
-            <article class="card project-card animate-on-scroll">
+            <article class="card project-card animate-on-scroll glass-card">
             <h3>Riparian Forests & Urban Bird Diversity</h3>
             <p class="project-meta">
               Lab of Conservation Biology & Sustainable Development — UANL · 2024 · Researcher & GIS Analyst
@@ -600,7 +613,7 @@
           </div>            </div>
             <div class="projects-lab-panel" id="projPanel3" role="tabpanel" tabindex="0" aria-label="Historical Vegetation & Water Surface Analysis for Urban Development">
 <div class="project-row">
-            <article class="card project-card animate-on-scroll">
+            <article class="card project-card animate-on-scroll glass-card">
             <h3>Historical Vegetation & Water Surface Analysis for Urban Development</h3>
             <p class="project-meta">
               Javer Housing Developer · 2024 · GIS Technician & Surveyor
@@ -631,7 +644,7 @@
             </div>
             <div class="projects-lab-panel" id="projPanel4" role="tabpanel" tabindex="0" aria-label="Remote Sensing for Reforestation Monitoring">
 <div class="project-row">
-            <article class="card project-card animate-on-scroll">
+            <article class="card project-card animate-on-scroll glass-card">
             <h3>Remote Sensing for Reforestation Monitoring</h3>
             <p class="project-meta">
               Enel Green Power · 2024–2025 · Ecological Data Analyst & Surveyor
@@ -681,7 +694,7 @@
             </div>
             <div class="projects-lab-panel" id="projPanel5" role="tabpanel" tabindex="0" aria-label="Urban Park Biodiversity Monitoring Framework">
 <div class="project-row">
-            <article class="card project-card animate-on-scroll">
+            <article class="card project-card animate-on-scroll glass-card">
             <h3>Urban Park Biodiversity Monitoring Framework</h3>
             <p class="project-meta">
               San Pedro + Parques · 2024 · Biodiversity Monitoring Intern
@@ -726,7 +739,7 @@
     <section id="experience" class="section section-alt">
       <div class="container">
         <h2>Professional Experience</h2>
-        <div class="timeline">
+        <div class="timeline glass-panel text-panel">
           <div class="timeline-item">
             <div class="timeline-date">  -  Sep 2025 — Present</div>
             <div class="timeline-content">
@@ -806,7 +819,7 @@
       <div class="container">
         <h2>Education & Training</h2>
         <div class="grid edu-grid">
-          <div class="card">
+          <div class="card glass-card">
             <h3>University of Debrecen</h3>
             <p class="edu-meta">
               Geoinformatics M.S. & Environmental Science M.S. · GPA: 4.0/4.0
@@ -819,7 +832,7 @@
               <li>Environmental Policy and Communication</li>
             </ul>
           </div>
-          <div class="card">
+          <div class="card glass-card">
             <h3>Universidad Autónoma de Nuevo León</h3>
             <p class="edu-meta">
               B.S. Biology · GPA: 3.8/4.0
@@ -835,7 +848,7 @@
               <li>International Academic Mobility Scholarship for Studying Abroad in Europe, received based on academic merit, covering my travel expenses and offering a monthly stipend for my studies abroad.</li>
             </ul>
           </div>
-          <div class="card">
+          <div class="card glass-card">
             <h3>Additional Qualifications</h3>
             <p class="edu-meta">
               A.A. Teaching English as a Second Language · International Baccalaureate
@@ -851,36 +864,27 @@
     </section>
 
 
-    
-
-    
-
-    
-
-
-    
-
-
-
     <!-- CONTACT -->
     <section id="contact" class="section section-alt">
       <div class="container">
         <h2>Contact</h2>
-        <p>
-          I am open to collaborations on <strong>environmental assessments, GIS analysis, remote sensing projects, and
-          conservation research</strong>.
-        </p>
-        <div class="contact-card">
-          <p><strong>Email:</strong> <a href="mailto:marcelo.guzmandlg@gmail.com">marcelo.guzmandlg@gmail.com</a></p>
-          <p><strong>Location:</strong> Monterrey, Mexico</p>
+        <div class="glass-panel text-panel" style="text-align:center;">
           <p>
-            <strong>LinkedIn:</strong>
-            <a href="https://bit.ly/45zrtPQ" target="_blank" rel="noopener">View my profile</a>
+            I am open to collaborations on <strong>environmental assessments, GIS analysis, remote sensing projects, and
+            conservation research</strong>.
           </p>
-          <p>
-            <strong>GitHub:</strong>
-            <a href="https://github.com/YOUR-GITHUB-USERNAME" target="_blank" rel="noopener">View my repositories</a>
-          </p>
+          <div class="contact-card glass-card" style="margin: 2rem auto;">
+            <p><strong>Email:</strong> <a href="mailto:marcelo.guzmandlg@gmail.com">marcelo.guzmandlg@gmail.com</a></p>
+            <p><strong>Location:</strong> Monterrey, Mexico</p>
+            <p>
+              <strong>LinkedIn:</strong>
+              <a href="https://bit.ly/45zrtPQ" target="_blank" rel="noopener">View my profile</a>
+            </p>
+            <p>
+              <strong>GitHub:</strong>
+              <a href="https://github.com/YOUR-GITHUB-USERNAME" target="_blank" rel="noopener">View my repositories</a>
+            </p>
+          </div>
         </div>
       </div>
     </section>
@@ -1322,9 +1326,5 @@ function setTheme(theme) {
   })();
 </script>
 
-
-
-
 </body>
-
 </html>
