@@ -1852,7 +1852,7 @@ html[data-theme="dark"] .site-header::before {
 
 
 /* Timeline */
-#timeline {
+#experience {
   background-image: url("images/spectrum3.png");
   background-size: cover;
   background-position: center;
