@@ -1853,3 +1853,129 @@ html[data-theme="dark"] .site-header::before {
     transform: translateY(-100%);
   }
 }
+
+/* =========================
+   LIQUID GLASS (Top nav + buttons)
+   - Uses backdrop-filter with an SVG displacement filter where supported (Chromium).
+   - Falls back to blur + saturation everywhere else.
+   ========================= */
+
+:root {
+  --glass-bg: rgba(255, 255, 255, 0.62);
+  --glass-border: rgba(17, 24, 39, 0.16);
+  --glass-highlight: rgba(255, 255, 255, 0.72);
+  --glass-shadow: 0 14px 40px rgba(17, 24, 39, 0.10);
+  --glass-saturation: 1.35;
+  --glass-blur: 14px;
+}
+
+html[data-theme="dark"] {
+  --glass-bg: rgba(2, 6, 23, 0.46);
+  --glass-border: rgba(148, 163, 184, 0.26);
+  --glass-highlight: rgba(255, 255, 255, 0.10);
+  --glass-shadow: 0 18px 50px rgba(0, 0, 0, 0.35);
+}
+
+/* Shared glass styling */
+.top-nav,
+.btn,
+.theme-toggle {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation));
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation));
+}
+
+@supports (backdrop-filter: url(#glass-filter)) {
+  .top-nav,
+  .btn,
+  .theme-toggle {
+    backdrop-filter: url(#glass-filter) blur(var(--glass-blur)) saturate(var(--glass-saturation));
+    -webkit-backdrop-filter: url(#glass-filter) blur(var(--glass-blur)) saturate(var(--glass-saturation));
+  }
+}
+
+/* Make sure content stays above the highlights */
+.top-nav > *,
+.btn > *,
+.theme-toggle > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Glass highlights */
+.top-nav::before,
+.btn::before,
+.theme-toggle::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  background:
+    radial-gradient(circle at 20% 15%, var(--glass-highlight), transparent 55%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.16), transparent 45%, rgba(255, 255, 255, 0.06));
+  opacity: 0.75;
+  pointer-events: none;
+}
+
+.top-nav::after,
+.btn::after,
+.theme-toggle::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.06) inset;
+  pointer-events: none;
+}
+
+/* Top nav: replace existing background with glass */
+.top-nav {
+  background: var(--glass-bg);
+  box-shadow: var(--glass-shadow);
+  border-bottom: 1px solid var(--glass-border);
+}
+
+/* Buttons: keep your sizing + radius, but glassify surfaces */
+.btn {
+  background: var(--glass-bg);
+  color: var(--text);
+  box-shadow: 0 12px 30px rgba(17, 24, 39, 0.10);
+  transform: translateY(0);
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+/* Primary button: glass + subtle accent tint (still reads as “primary”) */
+.btn.primary {
+  background: color-mix(in oklch, var(--accent) 18%, var(--glass-bg));
+  color: var(--text);
+  border-color: color-mix(in oklch, var(--accent) 22%, var(--glass-border));
+}
+
+html[data-theme="dark"] .btn.primary {
+  background: color-mix(in oklch, var(--accent) 22%, rgba(2, 6, 23, 0.35));
+  color: #e0f2fe;
+  border-color: rgba(56, 189, 248, 0.45);
+}
+
+/* Ghost button stays lighter */
+.btn.ghost {
+  background: rgba(255, 255, 255, 0.40);
+}
+
+html[data-theme="dark"] .btn.ghost {
+  background: rgba(2, 6, 23, 0.30);
+}
+
+/* Theme toggle: match glass system */
+.theme-toggle {
+  background: rgba(255, 255, 255, 0.46);
+  box-shadow: var(--glass-shadow);
+}
+
+html[data-theme="dark"] .theme-toggle {
+  background: rgba(2, 6, 23, 0.32);
+}
