@@ -1830,6 +1830,22 @@ html[data-theme="dark"] .site-header::before {
   background-repeat: no-repeat;
 }
 
+/* About */
+#about {
+  background-image: url("images/spectrum9.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+
+/* Skills */
+#skills {
+  background-image: url("images/spectrum10.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
 
 
 /* Featured */
@@ -1875,3 +1891,18 @@ html[data-theme="dark"] .site-header::before {
     transform: translateY(-100%);
   }
 }
+
+
+/* =========================
+   ABOUT + SKILLS — SPECTRUM SWAP (LIGHT vs DARK)
+   ========================= */
+
+/* Light mode (default) */
+#about{ background-image: url("images/spectrum11.png"); }
+#skills{ background-image: url("images/spectrum12.png"); }
+
+/* Dark mode override */
+html[data-theme="dark"] #about{ background-image: url("images/spectrum9.png"); }
+html[data-theme="dark"] #skills{ background-image: url("images/spectrum10.png"); }
+
+
