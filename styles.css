@@ -96,7 +96,7 @@ body {
    HEADER
    ========================= */
 
-.site-header { padding: 4.5rem 0 3rem; }
+.site-header { padding: 2.2rem 0 1rem; }
 
 .header-content { display: flex; gap: 2rem; }
 
@@ -211,7 +211,7 @@ html[data-theme="dark"] .btn.primary:hover {
   z-index: 999;
 
   width: min(var(--max-width), calc(100vw - 1.75rem));
-  margin: 1.25rem auto 0;    /* creates the “dock space” below the header */
+  margin: 0.50rem auto 0;    /* creates the “dock space” below the header */
   border-radius: 999px;
 
   /* glass */
@@ -238,9 +238,7 @@ html[data-theme="dark"] .btn.primary:hover {
 
 
 /* Since nav is now floating over content, add spacing at top of page */
-body{
-  padding-top: 78px; /* adjust if your nav becomes taller on mobile */
-}
+
 
 /* Use displacement filter when supported (Chromium) */
 @supports (backdrop-filter: url("#filter")) {
