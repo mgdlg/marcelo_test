@@ -96,7 +96,7 @@ body {
    HEADER
    ========================= */
 
-.site-header { padding: 7rem 0 7rem; }
+.site-header { padding: 4.5rem 0 3rem; }
 
 .header-content { display: flex; gap: 2rem; }
 
@@ -203,45 +203,23 @@ html[data-theme="dark"] .btn.primary:hover {
    TOP NAV
    ========================= */
 
-/* Floating top nav (works in all modern browsers) */
-.top-nav{
-  position: fixed;
-  top: 14px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: min(var(--max-width), calc(100vw - 1.75rem));
-  z-index: 999;
-  border-radius: 999px;
-
-  /* glass */
-  background: color-mix(in oklch, var(--nav-bg), transparent 25%);
-  backdrop-filter: blur(14px) saturate(1.35);
-  -webkit-backdrop-filter: blur(14px) saturate(1.35);
-
-  border: 1px solid color-mix(in oklch, var(--border-subtle), transparent 15%);
-  box-shadow: var(--shadow-soft);
+.top-nav {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  backdrop-filter: blur(12px);
+  background: var(--nav-bg);
+  border-bottom: 1px solid var(--border-subtle);
 }
 
-/* tighten inner padding so pill looks intentional */
-.nav-inner{
+.nav-inner {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 1rem;
+  padding: 0.65rem 1.25rem;
   font-size: 0.9rem;
-
-  padding: 0.6rem 0.9rem; /* keep pill padding */
-  border-radius: inherit;
 }
-
-
-/* Use displacement filter when supported (Chromium) */
-@supports (backdrop-filter: url("#filter")) {
-  .top-nav{
-    backdrop-filter: url(#filter) blur(10px) saturate(1.35);
-  }
-}
-
 
 .top-nav a {
   color: var(--muted);
