@@ -234,12 +234,6 @@ html[data-theme="dark"] .btn.primary:hover {
   border-radius: inherit;
 }
 
-
-/* Since nav is now floating over content, add spacing at top of page */
-body{
-  padding-top: 78px; /* adjust if your nav becomes taller on mobile */
-}
-
 /* Use displacement filter when supported (Chromium) */
 @supports (backdrop-filter: url("#filter")) {
   .top-nav{
