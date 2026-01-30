@@ -1937,40 +1937,55 @@ svg.filter {
   pointer-events: none;
 }
 
+/* =========================
+   MOBILE NAV PILL BEHAVIORS
+   ========================= */
+
+
 /* Mobile: keep the pill accessible + centered */
 @media (max-width: 720px) {
+  /* Full-width pill so we can fit multiple items cleanly */
   .top-nav{
-    /* avoid iOS notch/status bar */
     top: calc(env(safe-area-inset-top, 0px) + 10px);
-
-    /* more reliable than left:50%+transform on small screens */
     left: 0.6rem;
     right: 0.6rem;
     width: auto;
     transform: none;
   }
 
+  /* Make nav items always visible: grid instead of horizontal scroll */
   .top-nav .nav-inner{
-    flex-wrap: nowrap;          /* IMPORTANT: prevents 2-line pill */
-    overflow-x: auto;           /* allows access to all links */
-    -webkit-overflow-scrolling: touch;
-    white-space: nowrap;
-    gap: 0.75rem;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr)); /* 4 items per row */
+    gap: 0.45rem 0.5rem;
+    align-items: center;
+    justify-items: center;
+
+    /* IMPORTANT: remove the scroll behavior */
+    overflow: visible;
+    white-space: normal;
   }
 
-  .top-nav .nav-inner > a,
-  .top-nav .nav-inner > button{
-    flex: 0 0 auto;             /* prevents shrinking/cutting off */
+  /* Make each item fit nicely in its grid cell */
+  .top-nav .nav-inner a,
+  .top-nav .nav-inner button{
+    width: 100%;
+    text-align: center;
+
+    font-size: 0.85rem;   /* smaller to fit */
+    padding: 0.45rem 0.55rem;
+    line-height: 1.1;
+    min-height: 2.1rem;
+    flex: none;
   }
 
-  /* optional: hide scrollbar but keep scrolling */
-  .top-nav .nav-inner::-webkit-scrollbar { display: none; }
-  .top-nav .nav-inner { scrollbar-width: none; }
-}
-
-@media (max-width: 720px) {
+  /*
+    Reserve enough space so the fixed pill doesn’t cover the header.
+    With 4 columns, you’ll likely have 3 rows on mobile.
+    Adjust this if you change columns/spacing.
+  */
   .site-header{
-    /* existing mobile padding-top is 3rem; add room for the fixed nav */
-    padding-top: calc(3rem + 70px);
+    padding-top: calc(3rem + 150px);
   }
 }
+
