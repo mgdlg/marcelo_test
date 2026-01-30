@@ -1936,3 +1936,41 @@ svg.filter {
   overflow: hidden;
   pointer-events: none;
 }
+
+/* Mobile: keep the pill accessible + centered */
+@media (max-width: 720px) {
+  .top-nav{
+    /* avoid iOS notch/status bar */
+    top: calc(env(safe-area-inset-top, 0px) + 10px);
+
+    /* more reliable than left:50%+transform on small screens */
+    left: 0.6rem;
+    right: 0.6rem;
+    width: auto;
+    transform: none;
+  }
+
+  .top-nav .nav-inner{
+    flex-wrap: nowrap;          /* IMPORTANT: prevents 2-line pill */
+    overflow-x: auto;           /* allows access to all links */
+    -webkit-overflow-scrolling: touch;
+    white-space: nowrap;
+    gap: 0.75rem;
+  }
+
+  .top-nav .nav-inner > a,
+  .top-nav .nav-inner > button{
+    flex: 0 0 auto;             /* prevents shrinking/cutting off */
+  }
+
+  /* optional: hide scrollbar but keep scrolling */
+  .top-nav .nav-inner::-webkit-scrollbar { display: none; }
+  .top-nav .nav-inner { scrollbar-width: none; }
+}
+
+@media (max-width: 720px) {
+  .site-header{
+    /* existing mobile padding-top is 3rem; add room for the fixed nav */
+    padding-top: calc(3rem + 70px);
+  }
+}
