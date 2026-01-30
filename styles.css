@@ -96,7 +96,7 @@ body {
    HEADER
    ========================= */
 
-.site-header { padding: 1.5rem 0 1.15rem; }
+.site-header { padding: 4.5rem 0 3rem; }
 
 .header-content { display: flex; gap: 2rem; }
 
@@ -135,7 +135,7 @@ body {
   display: flex;
   flex-wrap: wrap;
   gap: 0.75rem;
-  margin-bottom: 0;
+  margin-bottom: 0.75rem;
 }
 
 .header-links {
@@ -204,14 +204,13 @@ html[data-theme="dark"] .btn.primary:hover {
    ========================= */
 
 /* Floating top nav (works in all modern browsers) */
-/* Floating nav that "spawns" below header and sticks on scroll */
 .top-nav{
-  position: sticky;
-  top: 14px;                 /* change to 0 if you want it flush to the very top */
-  z-index: 999;
-
+  position: fixed;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
   width: min(var(--max-width), calc(100vw - 1.75rem));
-  margin: 0.9rem auto 0;    /* creates the “dock space” below the header */
+  z-index: 999;
   border-radius: 999px;
 
   /* glass */
@@ -222,7 +221,6 @@ html[data-theme="dark"] .btn.primary:hover {
   border: 1px solid color-mix(in oklch, var(--border-subtle), transparent 15%);
   box-shadow: var(--shadow-soft);
 }
-
 
 /* tighten inner padding so pill looks intentional */
 .nav-inner{
@@ -238,7 +236,9 @@ html[data-theme="dark"] .btn.primary:hover {
 
 
 /* Since nav is now floating over content, add spacing at top of page */
-
+body{
+  padding-top: 78px; /* adjust if your nav becomes taller on mobile */
+}
 
 /* Use displacement filter when supported (Chromium) */
 @supports (backdrop-filter: url("#filter")) {
