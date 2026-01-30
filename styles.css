@@ -96,7 +96,7 @@ body {
    HEADER
    ========================= */
 
-.site-header { padding: 7.5rem 0 5rem; }
+.site-header { padding: 7rem 0 5rem; }
 
 .header-content { display: flex; gap: 2rem; }
 
