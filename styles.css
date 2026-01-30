@@ -96,8 +96,6 @@ body {
    HEADER
    ========================= */
 
-.site-header { padding: 7rem 0 0rem; }
-
 .header-content { display: flex; gap: 2rem; }
 
 .eyebrow {
