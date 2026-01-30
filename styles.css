@@ -1947,8 +1947,8 @@ svg.filter {
   /* Full-width pill so we can fit multiple items cleanly */
   .top-nav{
     top: calc(env(safe-area-inset-top, 0px) + 10px);
-    left: 0.6rem;
-    right: 0.6rem;
+    left: 1rem;
+    right: 1rem;
     width: auto;
     transform: none;
   }
@@ -1956,8 +1956,8 @@ svg.filter {
   /* Make nav items always visible: grid instead of horizontal scroll */
   .top-nav .nav-inner{
     display: grid;
-    grid-template-columns: repeat(5, minmax(0, 1fr)); /* 5 items per row */
-    gap: 0.45rem 0.5rem;
+    grid-template-columns: repeat(4, minmax(0, 1fr)); /* 5 items per row */
+    gap: 0.6rem 0.6rem;
     align-items: center;
     justify-items: center;
 
@@ -1972,7 +1972,7 @@ svg.filter {
     width: 100%;
     text-align: center;
 
-    font-size: 0.4rem;   /* smaller to fit */
+    font-size: 0.1rem;   /* smaller to fit */
     padding: 0.65rem 0.55rem;
     line-height: 1.1;
     min-height: 2.1rem;
