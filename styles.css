@@ -1956,7 +1956,7 @@ svg.filter {
   /* Make nav items always visible: grid instead of horizontal scroll */
   .top-nav .nav-inner{
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr)); /* 4 items per row */
+    grid-template-columns: repeat(5, minmax(0, 1fr)); /* 4 items per row */
     gap: 0.45rem 0.5rem;
     align-items: center;
     justify-items: center;
