@@ -1928,3 +1928,11 @@ html[data-theme="dark"] #about{ background-image: url("images/spectrum9.png"); }
 html[data-theme="dark"] #skills{ background-image: url("images/spectrum10.png"); }
 
 
+/* Keep the SVG filter defs in the DOM, but don't let it take layout space */
+svg.filter {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
