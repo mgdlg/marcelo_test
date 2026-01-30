@@ -96,6 +96,8 @@ body {
    HEADER
    ========================= */
 
+.site-header { padding: 4.5rem 0 3rem; }
+
 .header-content { display: flex; gap: 2rem; }
 
 .eyebrow {
@@ -231,6 +233,7 @@ html[data-theme="dark"] .btn.primary:hover {
   padding: 0.6rem 0.9rem; /* keep pill padding */
   border-radius: inherit;
 }
+
 
 /* Use displacement filter when supported (Chromium) */
 @supports (backdrop-filter: url("#filter")) {
