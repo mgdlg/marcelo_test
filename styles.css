@@ -203,14 +203,36 @@ html[data-theme="dark"] .btn.primary:hover {
    TOP NAV
    ========================= */
 
-.top-nav {
-  position: sticky;
-  top: 0;
-  z-index: 20;
-  backdrop-filter: blur(12px);
-  background: var(--nav-bg);
-  border-bottom: 1px solid var(--border-subtle);
+/* Floating top nav (works in all modern browsers) */
+.top-nav{
+  position: fixed;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(var(--max-width), calc(100vw - 1.75rem));
+  z-index: 999;
+  border-radius: 999px;
+
+  /* glass */
+  background: color-mix(in oklch, var(--nav-bg), transparent 25%);
+  backdrop-filter: blur(14px) saturate(1.35);
+  -webkit-backdrop-filter: blur(14px) saturate(1.35);
+
+  border: 1px solid color-mix(in oklch, var(--border-subtle), transparent 15%);
+  box-shadow: var(--shadow-soft);
 }
+
+/* tighten inner padding so pill looks intentional */
+.nav-inner{
+  padding: 0.6rem 0.9rem;
+  border-radius: inherit;
+}
+
+/* Since nav is now floating over content, add spacing at top of page */
+body{
+  padding-top: 78px; /* adjust if your nav becomes taller on mobile */
+}
+
 
 .nav-inner {
   display: flex;
