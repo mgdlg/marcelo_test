@@ -1909,18 +1909,28 @@ html[data-theme="dark"] .site-header::before {
 
 
 /* =========================
-   MOBILE AUTO-HIDING TOP NAV
+   AUTO-HIDING TOP NAV (ALL SIZES)
+   Uses a CSS variable so we can animate Y without breaking X-centering.
    ========================= */
 
-@media (max-width: 768px) {
-  .top-nav {
-    transform: translateY(0);
-    transition: transform 0.28s ease;
-    will-change: transform;
-  }
+.top-nav {
+  --nav-y: 0%;
+  transform: translate3d(-50%, var(--nav-y), 0); /* keeps desktop centering */
+  transition: transform 0.28s ease;
+  will-change: transform;
+}
 
-  .top-nav.is-hidden {
-    transform: translateY(-100%);
+.top-nav.is-hidden {
+  --nav-y: -130%;
+}
+
+/* Mobile positioning override stays, but keeps the same Y animation */
+@media (max-width: 720px) {
+  .top-nav {
+    left: 0.6rem;
+    right: 0.6rem;
+    width: auto;
+    transform: translate3d(0, var(--nav-y), 0); /* no X centering on mobile */
   }
 }
 
