@@ -2374,6 +2374,11 @@ html[data-theme="dark"] .view-project-link {
   gap: 0.65rem;
 }
 
+.project-hero-actions .theme-toggle {
+  margin-left: 0;
+  align-self: flex-start;
+}
+
 .project-back-link {
   display: inline-flex;
   align-items: center;
