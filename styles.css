@@ -2345,3 +2345,316 @@ html[data-theme="dark"] .view-project-link {
   opacity: 1;
   transform: translateY(0);
 }
+
+/* =========================
+   LANDING PAGE MODERNIST OVERHAUL (EXCLUDES #projects)
+   ========================= */
+
+body.landing {
+  --landing-ink: #0b1220;
+  --landing-muted: rgba(11, 18, 32, 0.68);
+  --landing-accent: #47c8ff;
+  --landing-accent-soft: rgba(71, 200, 255, 0.18);
+  --landing-surface: rgba(255, 255, 255, 0.72);
+  --landing-border: rgba(255, 255, 255, 0.38);
+  --landing-shadow: 0 28px 70px rgba(7, 16, 34, 0.22);
+  --landing-glow: rgba(71, 200, 255, 0.35);
+}
+
+html[data-theme="dark"] body.landing {
+  --landing-ink: #e8eef7;
+  --landing-muted: rgba(232, 238, 247, 0.68);
+  --landing-accent: #7fe6ff;
+  --landing-accent-soft: rgba(127, 230, 255, 0.18);
+  --landing-surface: rgba(3, 12, 24, 0.68);
+  --landing-border: rgba(126, 226, 255, 0.22);
+  --landing-shadow: 0 30px 90px rgba(3, 8, 20, 0.65);
+  --landing-glow: rgba(126, 226, 255, 0.35);
+}
+
+.landing .site-header,
+.landing .section:not(#projects) {
+  position: relative;
+  overflow: hidden;
+  color: var(--landing-ink);
+}
+
+.landing .site-header > .container,
+.landing .section:not(#projects) > .container {
+  position: relative;
+  z-index: 2;
+}
+
+.landing .section:not(#projects)::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.45), transparent 55%),
+    radial-gradient(circle at 80% 0%, rgba(71, 200, 255, 0.18), transparent 52%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.15));
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+html[data-theme="dark"] .landing .section:not(#projects)::before {
+  background:
+    radial-gradient(circle at 20% 20%, rgba(127, 230, 255, 0.16), transparent 55%),
+    radial-gradient(circle at 80% 0%, rgba(127, 230, 255, 0.24), transparent 52%),
+    linear-gradient(180deg, rgba(2, 8, 18, 0.78), rgba(2, 8, 18, 0.3));
+}
+
+.landing .section:not(#projects)::after {
+  content: "";
+  position: absolute;
+  inset: -40%;
+  background-image:
+    repeating-linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.12) 0px,
+      rgba(255, 255, 255, 0.12) 1px,
+      transparent 1px,
+      transparent 18px
+    ),
+    repeating-linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.08) 0px,
+      rgba(255, 255, 255, 0.08) 1px,
+      transparent 1px,
+      transparent 22px
+    ),
+    radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.18), transparent 60%);
+  transform: rotate(-4deg) skewY(2deg);
+  opacity: 0.22;
+  mix-blend-mode: soft-light;
+  pointer-events: none;
+}
+
+html[data-theme="dark"] .landing .section:not(#projects)::after {
+  background-image:
+    repeating-linear-gradient(
+      90deg,
+      rgba(127, 230, 255, 0.14) 0px,
+      rgba(127, 230, 255, 0.14) 1px,
+      transparent 1px,
+      transparent 18px
+    ),
+    repeating-linear-gradient(
+      0deg,
+      rgba(127, 230, 255, 0.09) 0px,
+      rgba(127, 230, 255, 0.09) 1px,
+      transparent 1px,
+      transparent 22px
+    ),
+    radial-gradient(circle at 30% 20%, rgba(127, 230, 255, 0.16), transparent 60%);
+  opacity: 0.2;
+}
+
+.landing .section:not(#projects) h2 {
+  font-size: clamp(1.4rem, 1.8vw, 1.75rem);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--landing-ink);
+  margin-bottom: 1.3rem;
+}
+
+.landing .section:not(#projects) p,
+.landing .section:not(#projects) li,
+.landing .section:not(#projects) .section-intro,
+.landing .site-header .subtitle,
+.landing .site-header .header-meta {
+  color: var(--landing-muted);
+}
+
+.landing .section:not(#projects) .card,
+.landing .featured-carousel-wrapper,
+.landing .contact-card,
+.landing .video-wrapper {
+  background: var(--landing-surface);
+  border: 1px solid var(--landing-border);
+  box-shadow: var(--landing-shadow);
+  backdrop-filter: blur(16px) saturate(1.2);
+}
+
+.landing .featured-carousel-wrapper {
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.78), rgba(255, 255, 255, 0.4)),
+    radial-gradient(circle at 15% 10%, rgba(71, 200, 255, 0.2), transparent 55%);
+}
+
+html[data-theme="dark"] .landing .featured-carousel-wrapper {
+  background:
+    linear-gradient(135deg, rgba(3, 12, 24, 0.72), rgba(3, 12, 24, 0.4)),
+    radial-gradient(circle at 15% 10%, rgba(127, 230, 255, 0.18), transparent 55%);
+}
+
+.landing .btn.primary {
+  background: linear-gradient(120deg, rgba(71, 200, 255, 0.95), rgba(88, 255, 215, 0.85));
+  color: #04131f;
+  box-shadow: 0 18px 45px rgba(71, 200, 255, 0.3);
+}
+
+html[data-theme="dark"] .landing .btn.primary {
+  background: linear-gradient(120deg, rgba(127, 230, 255, 0.95), rgba(88, 255, 215, 0.85));
+  color: #02121d;
+}
+
+.landing .btn.ghost {
+  border-color: var(--landing-border);
+  color: var(--landing-ink);
+}
+
+.landing .btn.ghost:hover {
+  background: var(--landing-accent-soft);
+}
+
+.landing .header-actions {
+  gap: 1rem;
+}
+
+.landing .eyebrow {
+  color: var(--landing-accent);
+}
+
+.landing .title {
+  color: var(--landing-ink);
+  text-shadow: 0 30px 60px rgba(10, 20, 40, 0.25);
+}
+
+/* =========================
+   LIQUID GLASS NAV PILL
+   ========================= */
+
+.landing .top-nav {
+  position: fixed;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(18px) saturate(1.4);
+  box-shadow: 0 20px 50px rgba(5, 12, 30, 0.2);
+}
+
+html[data-theme="dark"] .landing .top-nav {
+  background: rgba(4, 12, 24, 0.55);
+  border-color: rgba(127, 230, 255, 0.18);
+  box-shadow: 0 24px 60px rgba(1, 4, 12, 0.7);
+}
+
+.landing .top-nav::before {
+  content: "";
+  position: absolute;
+  inset: -40% -20%;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.8), transparent 45%),
+    radial-gradient(circle at 80% 0%, rgba(71, 200, 255, 0.65), transparent 55%),
+    linear-gradient(120deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.05));
+  opacity: 0.7;
+  filter: url(#liquid-wobble);
+  animation: navWobble 16s ease-in-out infinite;
+  pointer-events: none;
+}
+
+html[data-theme="dark"] .landing .top-nav::before {
+  background:
+    radial-gradient(circle at 20% 20%, rgba(127, 230, 255, 0.5), transparent 45%),
+    radial-gradient(circle at 80% 0%, rgba(126, 226, 255, 0.4), transparent 55%),
+    linear-gradient(120deg, rgba(4, 12, 24, 0.6), rgba(4, 12, 24, 0.2));
+}
+
+.landing .top-nav::after {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  border-radius: inherit;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  box-shadow: inset 0 0 12px rgba(255, 255, 255, 0.35);
+  pointer-events: none;
+}
+
+html[data-theme="dark"] .landing .top-nav::after {
+  border-color: rgba(127, 230, 255, 0.35);
+  box-shadow: inset 0 0 14px rgba(127, 230, 255, 0.2);
+}
+
+.landing .nav-inner {
+  position: relative;
+  z-index: 1;
+}
+
+.landing .top-nav a {
+  color: var(--landing-ink);
+  transition: color 0.2s ease, background 0.2s ease;
+}
+
+.landing .top-nav a:hover {
+  background: var(--landing-accent-soft);
+  color: var(--landing-accent);
+}
+
+.landing .theme-toggle {
+  background: rgba(255, 255, 255, 0.45);
+  border-color: rgba(255, 255, 255, 0.35);
+}
+
+html[data-theme="dark"] .landing .theme-toggle {
+  background: rgba(3, 12, 24, 0.55);
+  border-color: rgba(127, 230, 255, 0.28);
+}
+
+.landing .theme-toggle .toggle-dot {
+  box-shadow: 0 0 10px var(--landing-glow);
+}
+
+@keyframes navWobble {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(-6px, 4px, 0) scale(1.02);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .landing .top-nav::before {
+    animation: none;
+  }
+}
+
+/* =========================
+   SECTION BACKGROUND ASSIGNMENTS (SPECTRUM 1-4)
+   ========================= */
+
+.landing .site-header {
+  background-image: url("images/spectrum2.png");
+}
+
+.landing #video {
+  background-image: url("images/spectrum3.png");
+}
+
+.landing #about {
+  background-image: url("images/spectrum4.png");
+}
+
+.landing #skills {
+  background-image: url("images/spectrum2.png");
+}
+
+.landing #featured {
+  background-image: url("images/spectrum3.png");
+}
+
+.landing #experience {
+  background-image: url("images/spectrum4.png");
+}
+
+.landing #contact {
+  background-image: url("images/spectrum2.png");
+}
+
+.landing #full-portfolio {
+  background-image: url("images/spectrum3.png");
+}
