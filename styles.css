@@ -2369,10 +2369,9 @@ html[data-theme="dark"] .view-project-link {
 
 .project-hero-actions {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.65rem;
 }
 
 .project-back-link {
@@ -2381,7 +2380,7 @@ html[data-theme="dark"] .view-project-link {
   gap: 0.35rem;
   font-weight: 600;
   color: var(--accent);
-  margin-bottom: 1rem;
+  margin-bottom: 0;
   text-decoration: none;
 }
 
