@@ -32,7 +32,7 @@
 
         <div class="header-meta">
           <span>🌎 Monterrey, Mexico</span>
-          <span>✉️ <a href="/cdn-cgi/l/email-protection#dcb1bdaebfb9b0b3f2bba9a6b1bdb2b8b0bb9cbbb1bdb5b0f2bfb3b1"><span class="__cf_email__" data-cfemail="7e131f0c1d1b121150190b04131f101a12193e19131f1712501d1113">[email&#160;protected]</span></a></span>
+          <span>✉️ <a href="mailto:marcelo.guzmandlg@gmail.com">marcelo.guzmandlg@gmail.com</a></span>
         </div>
         <div class="header-actions">
           <a class="btn primary" href="#featured">View Featured Projects</a>
@@ -913,7 +913,7 @@
           conservation research</strong>.
         </p>
         <div class="contact-card">
-          <p><strong>Email:</strong> <a href="/cdn-cgi/l/email-protection#94f9f5e6f7f1f8fbbaf3e1eef9f5faf0f8f3d4f3f9f5fdf8baf7fbf9"><span class="__cf_email__" data-cfemail="016c607362646d6e2f66747b6c606f656d6641666c60686d2f626e6c">[email&#160;protected]</span></a></p>
+          <p><strong>Email:</strong> <a href="mailto:marcelo.guzmandlg@gmail.com">marcelo.guzmandlg@gmail.com</a></p>
           <p><strong>Location:</strong> Monterrey, Mexico</p>
           <p>
             <strong>LinkedIn:</strong>
@@ -933,6 +933,10 @@
   <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     // Footer year
     document.getElementById("year").textContent = new Date().getFullYear();
+
+
+
+
 
     // ----------------------------
     // Theme toggle (default: light)
@@ -1025,17 +1029,9 @@ function setTheme(theme) {
     img.decoding = "async";
     img.src = `${BELT_PATH}${i + 1}.jpg`;
     img.alt = `Belt image ${i + 1}`;
-    img.style.cursor = 'pointer';
 
     li.appendChild(img);
-    
-    // Click on li sets active (for navigation)
-    li.addEventListener("click", (e) => {
-      // Only set active if clicking the container, not the image itself
-      if (e.target === li) {
-        setActive(i, true);
-      }
-    });
+    li.addEventListener("click", () => setActive(i, true));
 
     track.appendChild(li);
     items.push(li);
@@ -1143,9 +1139,6 @@ function setTheme(theme) {
 
   render();
   window.addEventListener("resize", render, { passive: true });
-
-  // Notify that belt images are ready for fullscreen
-  window.dispatchEvent(new CustomEvent('beltImagesReady'));
 })();
   
     // ----------------------------
@@ -1529,22 +1522,6 @@ function setTheme(theme) {
 
     // Initialize on load and after dynamic content updates
     makeImagesClickable();
-    
-    // Re-attach handlers when belt images are loaded
-    window.addEventListener('beltImagesReady', () => {
-      const beltImages = Array.from(document.querySelectorAll('.belt-track img'));
-      beltImages.forEach((img) => {
-        img.style.cursor = 'pointer';
-        // Remove existing listener if any, then add new one
-        const newImg = img.cloneNode(true);
-        img.parentNode.replaceChild(newImg, img);
-        newImg.addEventListener('click', (e) => {
-          e.stopPropagation();
-          const allBeltImages = Array.from(document.querySelectorAll('.belt-track img'));
-          openModal(newImg, allBeltImages);
-        });
-      });
-    });
     
     // Re-initialize when theme changes to update image sources
     const themeToggle = document.getElementById('themeToggle');
