@@ -87,6 +87,7 @@
       <a href="#projects">Projects</a>
       <a href="#experience">Experience</a>
       <a href="#education">Education</a>
+      <a href="#full-portfolio">Portfolio</a>
       <a href="#contact">Contact</a>
 
       <button id="themeToggle" class="theme-toggle" type="button" aria-pressed="false">
@@ -892,17 +893,118 @@
       </div>
     </section>
 
+    <!-- NEW: FULL PORTFOLIO GRID -->
+    <section id="full-portfolio" class="section">
+      <div class="container">
+        <h2>Full Portfolio</h2>
+        <p class="section-intro">
+          Explore the complete catalog of my geospatial and environmental projects.
+        </p>
 
-    
+        <div class="portfolio-grid">
+          <!-- Card 1 -->
+          <a href="project-page-placeholder.html" class="portfolio-card animate-on-scroll">
+            <div class="portfolio-card-bg" style="background-image: url('images/rsc-ndvi.png');"></div>
+            <div class="portfolio-card-overlay"></div>
+            <div class="portfolio-card-content">
+              <h3>Río Santa Catarina: Historical NDVI & Community Cartography</h3>
+              <span class="view-project-link">View Project &rarr;</span>
+            </div>
+          </a>
 
-    
+          <!-- Card 2 -->
+          <a href="project-page-placeholder.html" class="portfolio-card animate-on-scroll">
+            <div class="portfolio-card-bg" style="background-image: url('images/unideb-collage.jpeg');"></div>
+            <div class="portfolio-card-overlay"></div>
+            <div class="portfolio-card-content">
+              <h3>University of Debrecen: Advanced GIS & Research Internship</h3>
+              <span class="view-project-link">View Project &rarr;</span>
+            </div>
+          </a>
 
-    
+          <!-- Card 3 -->
+          <a href="project-page-placeholder.html" class="portfolio-card animate-on-scroll">
+            <div class="portfolio-card-bg" style="background-image: url('images/urbanization-index-map.jpg');"></div>
+            <div class="portfolio-card-overlay"></div>
+            <div class="portfolio-card-content">
+              <h3>Urbanization Index & Blackbird Phenotypes</h3>
+              <span class="view-project-link">View Project &rarr;</span>
+            </div>
+          </a>
 
+          <!-- Card 4 -->
+          <a href="project-page-placeholder.html" class="portfolio-card animate-on-scroll">
+            <div class="portfolio-card-bg" style="background-image: url('images/models-in-gis.png');"></div>
+            <div class="portfolio-card-overlay"></div>
+            <div class="portfolio-card-content">
+              <h3>Models in GIS: ModelBuilder Workflow</h3>
+              <span class="view-project-link">View Project &rarr;</span>
+            </div>
+          </a>
 
-    
+          <!-- Card 5 -->
+          <a href="project-page-placeholder.html" class="portfolio-card animate-on-scroll">
+            <div class="portfolio-card-bg" style="background-image: url('images/udeb-uav-botanical.png');"></div>
+            <div class="portfolio-card-overlay"></div>
+            <div class="portfolio-card-content">
+              <h3>UAV Remote Sensing Accuracy Assessment</h3>
+              <span class="view-project-link">View Project &rarr;</span>
+            </div>
+          </a>
 
+          <!-- Card 6 -->
+          <a href="project-page-placeholder.html" class="portfolio-card animate-on-scroll">
+            <div class="portfolio-card-bg" style="background-image: url('images/frisa-vg.jpg');"></div>
+            <div class="portfolio-card-overlay"></div>
+            <div class="portfolio-card-content">
+              <h3>Drone Photogrammetry for Environmental Compensation</h3>
+              <span class="view-project-link">View Project &rarr;</span>
+            </div>
+          </a>
 
+          <!-- Card 7 -->
+          <a href="project-page-placeholder.html" class="portfolio-card animate-on-scroll">
+            <div class="portfolio-card-bg" style="background-image: url('images/bird-diversity-light.png');"></div>
+            <div class="portfolio-card-overlay"></div>
+            <div class="portfolio-card-content">
+              <h3>Riparian Forests & Urban Bird Diversity</h3>
+              <span class="view-project-link">View Project &rarr;</span>
+            </div>
+          </a>
+
+          <!-- Card 8 -->
+          <a href="project-page-placeholder.html" class="portfolio-card animate-on-scroll">
+            <div class="portfolio-card-bg" style="background-image: url('images/nwi.jpeg');"></div>
+            <div class="portfolio-card-overlay"></div>
+            <div class="portfolio-card-content">
+              <h3>Historical Vegetation & Water Surface Analysis</h3>
+              <span class="view-project-link">View Project &rarr;</span>
+            </div>
+          </a>
+
+          <!-- Card 9 -->
+          <a href="project-page-placeholder.html" class="portfolio-card animate-on-scroll">
+            <div class="portfolio-card-bg" style="background-image: url('images/wind-portrait.png');"></div>
+            <div class="portfolio-card-overlay"></div>
+            <div class="portfolio-card-content">
+              <h3>Remote Sensing for Reforestation Monitoring</h3>
+              <span class="view-project-link">View Project &rarr;</span>
+            </div>
+          </a>
+
+          <!-- Card 10 -->
+          <a href="project-page-placeholder.html" class="portfolio-card animate-on-scroll">
+            <div class="portfolio-card-bg" style="background-image: url('images/urban-parks-biodiversity.png');"></div>
+            <div class="portfolio-card-overlay"></div>
+            <div class="portfolio-card-content">
+              <h3>Urban Park Biodiversity Monitoring Framework</h3>
+              <span class="view-project-link">View Project &rarr;</span>
+            </div>
+          </a>
+
+        </div>
+      </div>
+    </section>
 
     <!-- CONTACT -->
     <section id="contact" class="section section-alt">
@@ -1545,9 +1647,30 @@ function setTheme(theme) {
     let lastScrollY = window.scrollY;
     let ticking = false;
 
+    function onScroll() {
+      const currentScrollY = window.scrollY;
 
+      if (window.innerWidth <= 768) {
+        if (currentScrollY > lastScrollY && currentScrollY > 80) {
+          nav.classList.add('is-hidden');
+        } else {
+          nav.classList.remove('is-hidden');
+        }
+      } else {
+        nav.classList.remove('is-hidden');
+      }
 
-function onScroll() {
-  const currentScrollY = window.scrollY;
+      lastScrollY = currentScrollY;
+      ticking = false;
+    }
 
-  // alw
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        window.requestAnimationFrame(onScroll);
+        ticking = true;
+      }
+    });
+  })();
+</script>
+</body>
+</html>
