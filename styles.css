@@ -2223,3 +2223,16 @@ body:has(.fullscreen-modal.is-open) {
   overflow: hidden;
 }
 
+/* Education & Training: force single-column layout */
+
+.edu-grid {
+  grid-template-columns: 1fr;
+  gap: 1.8rem; /* was 1.5rem via .grid */
+}
+
+
+@media (min-width: 901px) {
+  .edu-grid {
+    grid-template-columns: 1fr;
+  }
+}
