@@ -2345,3 +2345,81 @@ html[data-theme="dark"] .view-project-link {
   opacity: 1;
   transform: translateY(0);
 }
+
+/* =========================
+   PROJECT DETAIL PAGES
+   ========================= */
+
+.project-page {
+  background-color: var(--bg);
+  color: var(--text);
+}
+
+.project-hero {
+  padding: clamp(5rem, 10vh, 7rem) 0 clamp(3rem, 8vh, 4.5rem);
+  background: radial-gradient(circle at top, rgba(56, 189, 248, 0.15), transparent 55%);
+}
+
+.project-hero-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  align-items: center;
+  gap: 2.5rem;
+}
+
+.project-back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-weight: 600;
+  color: var(--accent);
+  margin-bottom: 1rem;
+  text-decoration: none;
+}
+
+.project-back-link:hover {
+  text-decoration: underline;
+}
+
+.project-lead {
+  font-size: 1.1rem;
+  max-width: 34rem;
+  margin: 1rem 0 1.5rem;
+}
+
+.project-meta-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+}
+
+.project-hero-media img {
+  width: 100%;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.25);
+  object-fit: cover;
+}
+
+.project-main .project-section {
+  padding: clamp(2.5rem, 6vh, 3.5rem) 0;
+}
+
+.project-highlights {
+  list-style: disc;
+  padding-left: 1.5rem;
+  display: grid;
+  gap: 0.75rem;
+}
+
+@media (max-width: 720px) {
+  .project-hero {
+    padding-top: 6.5rem;
+  }
+
+  .project-hero-media img {
+    max-height: 320px;
+  }
+}

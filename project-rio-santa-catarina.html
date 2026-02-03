@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Río Santa Catarina — Historical NDVI & Community Cartography</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta
+    name="description"
+    content="Historical NDVI and community cartography project for the Río Santa Catarina urban river corridor."
+  />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+</head>
+<body class="project-page">
+  <header class="project-hero">
+    <div class="container project-hero-grid">
+      <div>
+        <a class="project-back-link" href="index.html#full-portfolio">← Back to Portfolio</a>
+        <h1>Río Santa Catarina: Historical NDVI & Community Cartography</h1>
+        <p class="project-lead">
+          A long-term, community-centered study of ecological change in one of Monterrey’s most critical urban
+          river corridors.
+        </p>
+        <ul class="project-meta-list">
+          <li><strong>Focus:</strong> Urban river ecology, participatory mapping, historical NDVI</li>
+          <li><strong>Role:</strong> Independent project lead</li>
+          <li><strong>Status:</strong> Work in progress</li>
+        </ul>
+      </div>
+      <div class="project-hero-media">
+        <img src="images/rsc-ndvi.png" alt="NDVI analysis for Río Santa Catarina" />
+      </div>
+    </div>
+  </header>
+
+  <main class="project-main">
+    <section class="project-section">
+      <div class="container">
+        <h2>Project Overview</h2>
+        <p>
+          I convened environmental experts, academic researchers, and local NGOs to collaboratively interpret landscape
+          change along the Río Santa Catarina. By combining historical NDVI time series with community-driven cartography,
+          the project builds a shared narrative of ecological degradation and recovery priorities.
+        </p>
+        <p>
+          The goal is to translate satellite-based vegetation trends into accessible maps that can guide restoration,
+          policy, and public engagement for the river corridor.
+        </p>
+      </div>
+    </section>
+
+    <section class="project-section section-alt">
+      <div class="container">
+        <h2>Key Contributions</h2>
+        <ul class="project-highlights">
+          <li>Processed multi-temporal satellite imagery to quantify vegetation change across the river basin.</li>
+          <li>Integrated expert knowledge and community inputs into spatial narratives and map annotations.</li>
+          <li>Facilitated cross-sector collaboration between academia, NGOs, and practitioners.</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>© <span id="year"></span> Marcelo Guzmán. Built with HTML & CSS, hosted on GitHub Pages.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
