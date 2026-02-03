@@ -20,7 +20,13 @@
   <header class="project-hero">
     <div class="container project-hero-grid">
       <div>
-        <a class="project-back-link" href="index.html#full-portfolio">← Back to Portfolio</a>
+        <div class="project-hero-actions">
+          <a class="project-back-link" href="index.html#full-portfolio">← Back to Portfolio</a>
+          <button id="themeToggle" class="theme-toggle" type="button" aria-pressed="false">
+            <span class="toggle-dot" aria-hidden="true"></span>
+            <span id="themeToggleLabel">Dark mode</span>
+          </button>
+        </div>
         <h1>Urbanization Index & Blackbird Phenotypes</h1>
         <p class="project-lead">
           GIS-driven urbanization modeling to quantify how city gradients influence Turdus merula populations.
@@ -59,6 +65,17 @@
         </ul>
       </div>
     </section>
+
+    <section class="project-section">
+      <div class="container">
+        <h2>Reference Contact Information</h2>
+        <ul class="project-reference-list">
+          <li><strong>Primary Contact:</strong> Marcelo Guzmán · <a href="mailto:marcelo.guzmandlg@gmail.com">marcelo.guzmandlg@gmail.com</a></li>
+          <li><strong>Affiliation:</strong> University of Debrecen research internship</li>
+        </ul>
+      </div>
+    </section>
+
   </main>
 
   <footer class="site-footer">
@@ -69,6 +86,32 @@
 
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
+
+    const htmlEl = document.documentElement;
+    const toggleBtn = document.getElementById("themeToggle");
+    const toggleLabel = document.getElementById("themeToggleLabel");
+
+    function setTheme(theme) {
+      if (theme === "dark") {
+        htmlEl.setAttribute("data-theme", "dark");
+        toggleBtn?.setAttribute("aria-pressed", "true");
+        if (toggleLabel) toggleLabel.textContent = "Light mode";
+      } else {
+        htmlEl.removeAttribute("data-theme");
+        toggleBtn?.setAttribute("aria-pressed", "false");
+        if (toggleLabel) toggleLabel.textContent = "Dark mode";
+      }
+    }
+
+    const storedTheme = localStorage.getItem("theme");
+    if (storedTheme) setTheme(storedTheme);
+
+    toggleBtn?.addEventListener("click", () => {
+      const isDark = htmlEl.getAttribute("data-theme") === "dark";
+      const nextTheme = isDark ? "light" : "dark";
+      setTheme(nextTheme);
+      localStorage.setItem("theme", nextTheme);
+    });
   </script>
 </body>
 </html>
