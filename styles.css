@@ -551,37 +551,44 @@ html[data-theme="dark"] .featured-carousel-wrapper {
   to { opacity: 1; }
 }
 
-/* Featured slide layout: media-left, content-right */
 .featured-slide-container {
   display: grid;
-  grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.85fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 2rem;
-  align-items: start; /* important: stop vertical centering */
+  align-items: center;
   min-height: 400px;
 }
 
-/* Swap columns on desktop */
-@media (min-width: 901px) {
-  .featured-slide-right {  /* media */
-    grid-column: 1 / 2;
-  }
-  .featured-slide-left {   /* text + mini cards */
-    grid-column: 2 / 3;
-  }
-}
-
-/* Mobile: keep 1 column, media first then content (your current behavior) */
 @media (max-width: 900px) {
   .featured-slide-container {
     grid-template-columns: 1fr;
     gap: 1.5rem;
     min-height: auto;
   }
-
-  .featured-slide-right { grid-row: 1; }
-  .featured-slide-left  { grid-row: 2; }
 }
 
+.featured-slide-left {
+  grid-column: 1 / 2;
+}
+
+@media (max-width: 900px) {
+  .featured-slide-left {
+    grid-column: 1 / 1;
+    grid-row: 2 / 2;
+  }
+}
+
+.featured-slide-right {
+  grid-column: 2 / 2;
+  position: relative;
+}
+
+@media (max-width: 900px) {
+  .featured-slide-right {
+    grid-column: 1 / 1;
+    grid-row: 1 / 2;
+  }
+}
 
 .featured-slide-text {
   text-align: left;
@@ -766,40 +773,6 @@ html[data-theme="dark"] .next:hover {
     top: -25px;
   }
 }
-
-/* Mini skill cards (right column) */
-.featured-skillstack {
-  margin-top: 1rem;
-  display: grid;
-  gap: 1rem;
-}
-
-.featured-mini-card {
-  background: var(--surface-2);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-lg);
-  padding: 1rem;
-  box-shadow: var(--shadow-soft);
-}
-
-.featured-mini-card h4 {
-  margin: 0 0 0.4rem;
-  font-size: 0.95rem;
-  color: var(--accent);
-  letter-spacing: 0.02em;
-}
-
-.featured-mini-card p {
-  margin: 0;
-  font-size: 0.9rem;
-  line-height: 1.45;
-  color: var(--muted);
-}
-
-
-
-
-
 
 /* =========================
    SCROLL ANIMATIONS
