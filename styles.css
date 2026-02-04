@@ -41,24 +41,24 @@
 
 /* Dark theme (original midnight blue + light blue accent) */
 html[data-theme="dark"] {
-  --bg: #050816;
-  --bg-alt: #0b1020;
-  --surface: #020617;
-  --surface-2: rgba(15, 23, 42, 0.95);
+  --bg: #010209;
+  --bg-alt: #050815;
+  --surface: #02040c;
+  --surface-2: rgba(6, 10, 22, 0.96);
 
   --accent: #38bdf8;
   --accent-soft: rgba(56, 189, 248, 0.12);
 
-  --text: #e5e7eb;
-  --muted: #9ca3af;
-  --border-subtle: rgba(148, 163, 184, 0.30);
+  --text: #f8fafc;
+  --muted: #cbd5f5;
+  --border-subtle: rgba(148, 163, 184, 0.45);
 
   --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.75);
 
-  --page-bg: radial-gradient(circle at top, #1f2937 0, #020617 45%, #020617 100%);
-  --section-alt-bg: radial-gradient(circle at top left, #020617 0, #020617 40%, #020617 100%);
-  --nav-bg: linear-gradient(to right, rgba(2, 6, 23, 0.86), rgba(15, 23, 42, 0.92));
-  --footer-bg: #020617;
+  --page-bg: radial-gradient(circle at top, #0c1228 0, #010209 45%, #010209 100%);
+  --section-alt-bg: radial-gradient(circle at top left, #040611 0, #010209 45%, #010209 100%);
+  --nav-bg: linear-gradient(to right, rgba(1, 2, 9, 0.9), rgba(6, 10, 22, 0.95));
+  --footer-bg: #010209;
 
   --media-bg: #000000;
 }
