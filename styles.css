@@ -37,6 +37,10 @@
 
   /* Media */
   --media-bg: #ffffff;
+
+  /* Liquid glass separators */
+  --glass-fill: linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0.18));
+  --glass-border: rgba(17, 24, 39, 0.16);
 }
 
 /* Dark theme (original midnight blue + light blue accent) */
@@ -61,6 +65,9 @@ html[data-theme="dark"] {
   --footer-bg: #020617;
 
   --media-bg: #000000;
+
+  --glass-fill: linear-gradient(180deg, rgba(15, 23, 42, 0.85), rgba(2, 6, 23, 0.3));
+  --glass-border: rgba(148, 163, 184, 0.28);
 }
 
 /* Slight global zoom-out on desktop */
@@ -100,7 +107,33 @@ body {
   padding: 0 1.25rem;
 }
 
-.section { padding: 4rem 0; }
+.section {
+  position: relative;
+  padding: 4rem 0;
+}
+
+.section > .container {
+  position: relative;
+  z-index: 1;
+}
+
+.section + .section::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -14px;
+  height: 28px;
+  background: var(--glass-fill);
+  border-top: 1px solid var(--glass-border);
+  border-bottom: 1px solid var(--glass-border);
+  filter: url(#liquidGlass);
+  backdrop-filter: blur(14px) saturate(160%);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  pointer-events: none;
+  z-index: 0;
+}
 
 .section-alt { background: var(--section-alt-bg); }
 
