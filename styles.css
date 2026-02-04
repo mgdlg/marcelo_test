@@ -9,6 +9,8 @@
   --text: #1f2937;        /* dark gray */
   --muted: #4b5563;       /* medium gray */
   --text-on-accent: #ffffff;
+  --heading-font: "Space Grotesk", "Inter", system-ui, sans-serif;
+  --body-font: "Inter", system-ui, sans-serif;
 
   /* Surfaces (light) */
   --bg: #ffffff;          /* pure white */
@@ -20,9 +22,12 @@
   /* Accent (kept achromatic in light mode) */
   --accent: #111827;      /* near-black */
   --accent-soft: rgba(17, 24, 39, 0.06);
+  --accent-bright: #4f46e5;
+  --accent-aqua: #14b8a6;
 
   /* Effects */
   --shadow-soft: 0 18px 45px rgba(17, 24, 39, 0.08);
+  --shadow-glow: 0 24px 60px rgba(17, 24, 39, 0.18);
 
   /* Layout */
   --radius-lg: 18px;
@@ -34,6 +39,7 @@
   --section-alt-bg: linear-gradient(to bottom, #fafafa, #f3f4f6);
   --nav-bg: rgba(255, 255, 255, 0.75);
   --footer-bg: #ffffff;
+  --nav-glass: linear-gradient(120deg, rgba(255, 255, 255, 0.85), rgba(246, 248, 255, 0.6));
 
   /* Media */
   --media-bg: #ffffff;
@@ -48,6 +54,8 @@ html[data-theme="dark"] {
 
   --accent: #38bdf8;
   --accent-soft: rgba(56, 189, 248, 0.12);
+  --accent-bright: #a78bfa;
+  --accent-aqua: #22d3ee;
 
   --text: #e5e7eb;
   --muted: #9ca3af;
@@ -59,6 +67,7 @@ html[data-theme="dark"] {
   --section-alt-bg: radial-gradient(circle at top left, #020617 0, #020617 40%, #020617 100%);
   --nav-bg: linear-gradient(to right, rgba(2, 6, 23, 0.86), rgba(15, 23, 42, 0.92));
   --footer-bg: #020617;
+  --nav-glass: linear-gradient(120deg, rgba(2, 6, 23, 0.86), rgba(15, 23, 42, 0.6));
 
   --media-bg: #000000;
 }
@@ -86,8 +95,10 @@ html[data-theme="dark"] {
 html, body { margin: 0; padding: 0; }
 
 body {
-  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  background: var(--page-bg);
+  font-family: var(--body-font);
+  background: radial-gradient(circle at 15% 10%, rgba(79, 70, 229, 0.08), transparent 45%),
+              radial-gradient(circle at 85% 0%, rgba(20, 184, 166, 0.10), transparent 45%),
+              var(--page-bg);
   color: var(--text);
   line-height: 1.6;
 }
@@ -98,11 +109,56 @@ body {
   max-width: var(--max-width);
   margin: 0 auto;
   padding: 0 1.25rem;
+  position: relative;
+  z-index: 1;
 }
 
 .section { padding: 4rem 0; }
 
 .section-alt { background: var(--section-alt-bg); }
+
+.section,
+.site-header {
+  position: relative;
+  overflow: hidden;
+}
+
+.section::after,
+.site-header::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.18), transparent 45%),
+    radial-gradient(circle at 80% 30%, rgba(255, 255, 255, 0.12), transparent 50%),
+    repeating-linear-gradient(
+      120deg,
+      rgba(255, 255, 255, 0.10) 0px,
+      rgba(255, 255, 255, 0.10) 1px,
+      transparent 2px,
+      transparent 6px
+    );
+  mix-blend-mode: soft-light;
+  opacity: 0.35;
+  z-index: 0;
+}
+
+html[data-theme="dark"] .section::after,
+html[data-theme="dark"] .site-header::after {
+  background:
+    radial-gradient(circle at 20% 20%, rgba(56, 189, 248, 0.18), transparent 50%),
+    radial-gradient(circle at 80% 30%, rgba(168, 85, 247, 0.14), transparent 60%),
+    repeating-linear-gradient(
+      120deg,
+      rgba(56, 189, 248, 0.10) 0px,
+      rgba(56, 189, 248, 0.10) 1px,
+      transparent 2px,
+      transparent 7px
+    );
+  mix-blend-mode: screen;
+  opacity: 0.32;
+}
 
 /* =========================
    HEADER
@@ -119,11 +175,13 @@ body {
   color: var(--accent);
   font-weight: 600;
   margin-bottom: 0.5rem;
+  font-family: var(--heading-font);
 }
 
 .title {
   font-size: clamp(2.4rem, 4vw, 3rem);
   margin: 0 0 0.4rem;
+  font-family: var(--heading-font);
 }
 
 .subtitle {
@@ -180,13 +238,14 @@ body {
   text-decoration: none;
   border: 1px solid transparent;
   cursor: pointer;
-  transition: transform 0.12s ease-out, box-shadow 0.12s ease-out, background 0.12s ease-out, border-color 0.12s ease-out;
+  letter-spacing: 0.01em;
+  transition: transform 0.18s ease-out, box-shadow 0.18s ease-out, background 0.18s ease-out, border-color 0.18s ease-out;
 }
 
 .btn.primary {
-  background: var(--accent);
+  background: linear-gradient(135deg, var(--accent), var(--accent-bright));
   color: var(--text-on-accent);
-  box-shadow: 0 14px 35px rgba(17, 24, 39, 0.15);
+  box-shadow: 0 18px 40px rgba(17, 24, 39, 0.18);
 }
 
 html[data-theme="dark"] .btn.primary {
@@ -202,13 +261,14 @@ html[data-theme="dark"] .btn.primary:hover {
 }
 
 .btn.ghost {
-  background: transparent;
-  border-color: var(--border-subtle);
+  background: rgba(255, 255, 255, 0.55);
+  border-color: color-mix(in oklch, var(--border-subtle), transparent 35%);
   color: var(--text);
+  backdrop-filter: blur(8px);
 }
 
 .btn.ghost:hover {
-  background: var(--accent-soft);
+  background: color-mix(in oklch, var(--accent-soft), transparent 35%);
 }
 
 /* =========================
@@ -224,6 +284,8 @@ html[data-theme="dark"] .btn.primary:hover {
   width: min(var(--max-width), calc(100vw - 1.75rem));
   z-index: 999;
   border-radius: 999px;
+  overflow: hidden;
+  isolation: isolate;
 
   /* glass */
   background: color-mix(in oklch, var(--nav-bg), transparent 25%);
@@ -231,7 +293,34 @@ html[data-theme="dark"] .btn.primary:hover {
   -webkit-backdrop-filter: blur(14px) saturate(1.35);
 
   border: 1px solid color-mix(in oklch, var(--border-subtle), transparent 15%);
-  box-shadow: var(--shadow-soft);
+  box-shadow: 0 20px 55px rgba(15, 23, 42, 0.18);
+}
+
+.top-nav::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--nav-glass);
+  border-radius: inherit;
+  opacity: 0.85;
+  z-index: 0;
+  filter: url(#liquid-glass);
+}
+
+.top-nav::after {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  border-radius: inherit;
+  background: linear-gradient(120deg, rgba(255, 255, 255, 0.65), rgba(255, 255, 255, 0));
+  opacity: 0.55;
+  mix-blend-mode: screen;
+  z-index: 0;
+}
+
+html[data-theme="dark"] .top-nav::after {
+  background: linear-gradient(120deg, rgba(56, 189, 248, 0.2), rgba(2, 6, 23, 0));
+  mix-blend-mode: plus-lighter;
 }
 
 /* tighten inner padding so pill looks intentional */
@@ -244,13 +333,15 @@ html[data-theme="dark"] .btn.primary:hover {
 
   padding: 0.6rem 0.9rem; /* keep pill padding */
   border-radius: inherit;
+  position: relative;
+  z-index: 1;
 }
 
 
 /* Use displacement filter when supported (Chromium) */
-@supports (backdrop-filter: url("#filter")) {
+@supports (backdrop-filter: url("#liquid-glass")) {
   .top-nav{
-    backdrop-filter: url(#filter) blur(10px) saturate(1.35);
+    backdrop-filter: url(#liquid-glass) blur(10px) saturate(1.35);
   }
 }
 
@@ -260,7 +351,7 @@ html[data-theme="dark"] .btn.primary:hover {
   text-decoration: none;
   padding: 0.2rem 0.4rem;
   border-radius: 999px;
-  transition: color 0.1s ease-out, background 0.1s ease-out;
+  transition: color 0.2s ease-out, background 0.2s ease-out;
 }
 
 .top-nav a:hover {
@@ -277,11 +368,12 @@ html[data-theme="dark"] .btn.primary:hover {
   padding: 0.45rem 0.75rem;
   border-radius: 999px;
   border: 1px solid var(--border-subtle);
-  background: rgba(255, 255, 255, 0.55);
+  background: rgba(255, 255, 255, 0.65);
   color: var(--text);
   cursor: pointer;
   font-size: 0.9rem;
-  transition: background 0.12s ease-out, transform 0.12s ease-out;
+  transition: background 0.2s ease-out, transform 0.2s ease-out;
+  backdrop-filter: blur(6px);
 }
 
 html[data-theme="dark"] .theme-toggle {
@@ -306,12 +398,15 @@ h2 {
   margin-top: 0;
   font-size: 1.6rem;
   margin-bottom: 1.4rem;
+  font-family: var(--heading-font);
+  letter-spacing: -0.01em;
 }
 
 h3 {
   margin-top: 0;
   font-size: 1.1rem;
   margin-bottom: 0.4rem;
+  font-family: var(--heading-font);
 }
 
 .section-intro {
@@ -333,11 +428,23 @@ h3 {
 .projects-grid { display: grid; gap: 1.5rem; justify-items: center; }
 
 .card {
-  background: var(--surface);
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.85), rgba(243, 244, 246, 0.9));
   border-radius: var(--radius-xl);
-  border: 1px solid var(--border-subtle);
+  border: 1px solid color-mix(in oklch, var(--border-subtle), transparent 35%);
   padding: 1.3rem 1.4rem;
   box-shadow: var(--shadow-soft);
+  backdrop-filter: blur(6px);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+html[data-theme="dark"] .card {
+  background: linear-gradient(160deg, rgba(2, 6, 23, 0.82), rgba(15, 23, 42, 0.78));
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-glow);
+  border-color: color-mix(in oklch, var(--border-subtle), var(--accent) 18%);
 }
 
 .project-card { 
@@ -1821,100 +1928,127 @@ html[data-theme="dark"] #projects .projects-lab{
    SECTION BACKGROUNDS
    ========================= */
 
+/* Shared spectral motion layer */
+.section,
+.site-header {
+  background-size: 120% 120%;
+  background-position: 50% 40%;
+  background-repeat: no-repeat;
+  animation: spectralDrift 18s ease-in-out infinite;
+}
+
+@keyframes spectralDrift {
+  0% { background-position: 40% 35%; }
+  50% { background-position: 60% 55%; }
+  100% { background-position: 40% 35%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .section,
+  .site-header {
+    animation: none;
+  }
+}
+
 /* Introduction */
 .site-header {
-  background-image: url("images/spectrum7.png");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  background-image:
+    radial-gradient(circle at 15% 20%, rgba(79, 70, 229, 0.35), transparent 55%),
+    radial-gradient(circle at 80% 15%, rgba(20, 184, 166, 0.28), transparent 52%),
+    linear-gradient(120deg, rgba(15, 23, 42, 0.24), rgba(255, 255, 255, 0.75)),
+    url("images/spectrum1.png");
 }
 
 html[data-theme="dark"] .site-header {
-  background-image: url("images/spectrum8.png");
-}
-
-.site-header {
-  position: relative;
+  background-image:
+    radial-gradient(circle at 20% 20%, rgba(56, 189, 248, 0.32), transparent 55%),
+    radial-gradient(circle at 80% 15%, rgba(168, 85, 247, 0.25), transparent 55%),
+    linear-gradient(120deg, rgba(2, 6, 23, 0.82), rgba(2, 6, 23, 0.4)),
+    url("images/spectrum1.png");
 }
 
 .site-header::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(255, 255, 255, 0.55); /* light mode */
+  background: rgba(255, 255, 255, 0.55);
   pointer-events: none;
 }
 
 html[data-theme="dark"] .site-header::before {
-  background: rgba(0, 0, 0, 0.55); /* dark mode */
+  background: rgba(0, 0, 0, 0.5);
 }
-
-.site-header > .container {
-  position: relative;
-  z-index: 1;
-}
-
-
 
 /* Video Resume */
 #video {
-  background-image: url("images/spectrum2.png");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  background-image:
+    radial-gradient(circle at 20% 10%, rgba(79, 70, 229, 0.26), transparent 55%),
+    linear-gradient(160deg, rgba(255, 255, 255, 0.68), rgba(255, 255, 255, 0.2)),
+    url("images/spectrum2.png");
 }
 
 /* About */
 #about {
-  background-image: url("images/spectrum9.png");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  background-image:
+    radial-gradient(circle at 15% 25%, rgba(20, 184, 166, 0.3), transparent 60%),
+    linear-gradient(150deg, rgba(255, 255, 255, 0.7), rgba(245, 246, 248, 0.3)),
+    url("images/spectrum3.png");
 }
-
 
 /* Skills */
 #skills {
-  background-image: url("images/spectrum10.png");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  background-image:
+    radial-gradient(circle at 20% 20%, rgba(56, 189, 248, 0.28), transparent 55%),
+    linear-gradient(160deg, rgba(255, 255, 255, 0.75), rgba(245, 246, 248, 0.25)),
+    url("images/spectrum4.png");
 }
-
 
 /* Featured */
 #featured {
-  background-image: url("images/spectrum6.png");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  background-image:
+    radial-gradient(circle at 25% 15%, rgba(79, 70, 229, 0.22), transparent 55%),
+    linear-gradient(160deg, rgba(255, 255, 255, 0.72), rgba(245, 246, 248, 0.25)),
+    url("images/spectrum1.png");
 }
-
-
 
 /* Selected GIS & Environmental Projects */
 #projects {
-  background-image: url("images/spectrum1.png");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  background-image:
+    radial-gradient(circle at 20% 15%, rgba(20, 184, 166, 0.22), transparent 55%),
+    linear-gradient(160deg, rgba(255, 255, 255, 0.7), rgba(245, 246, 248, 0.2)),
+    url("images/spectrum2.png");
 }
-
 
 /* Timeline */
 #experience {
-  background-image: url("images/spectrum3.png");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  background-image:
+    radial-gradient(circle at 20% 15%, rgba(79, 70, 229, 0.2), transparent 55%),
+    linear-gradient(160deg, rgba(255, 255, 255, 0.7), rgba(245, 246, 248, 0.2)),
+    url("images/spectrum3.png");
 }
 
-/* NEW: Full Portfolio Grid Background */
+/* Education */
+#education {
+  background-image:
+    radial-gradient(circle at 15% 15%, rgba(56, 189, 248, 0.22), transparent 55%),
+    linear-gradient(150deg, rgba(255, 255, 255, 0.72), rgba(245, 246, 248, 0.2)),
+    url("images/spectrum4.png");
+}
+
+/* Contact */
+#contact {
+  background-image:
+    radial-gradient(circle at 20% 15%, rgba(20, 184, 166, 0.2), transparent 55%),
+    linear-gradient(150deg, rgba(255, 255, 255, 0.72), rgba(245, 246, 248, 0.2)),
+    url("images/spectrum1.png");
+}
+
+/* Full Portfolio */
 #full-portfolio {
-  background-image: url("images/spectrum4.png"); /* Using unused spectrum image */
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  background-image:
+    radial-gradient(circle at 15% 20%, rgba(79, 70, 229, 0.22), transparent 55%),
+    linear-gradient(150deg, rgba(255, 255, 255, 0.72), rgba(245, 246, 248, 0.2)),
+    url("images/spectrum4.png");
 }
 
 
@@ -1933,19 +2067,6 @@ html[data-theme="dark"] .site-header::before {
     transform: translateY(-100%);
   }
 }
-
-
-/* =========================
-   ABOUT + SKILLS — SPECTRUM SWAP (LIGHT vs DARK)
-   ========================= */
-
-/* Light mode (default) */
-#about{ background-image: url("images/spectrum11.png"); }
-#skills{ background-image: url("images/spectrum12.png"); }
-
-/* Dark mode override */
-html[data-theme="dark"] #about{ background-image: url("images/spectrum9.png"); }
-html[data-theme="dark"] #skills{ background-image: url("images/spectrum10.png"); }
 
 
 /* Keep the SVG filter defs in the DOM, but don't let it take layout space */
