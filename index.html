@@ -1147,26 +1147,7 @@ function setTheme(theme) {
 
   let active = Math.floor((IMAGE_COUNT - 1) / 2);
 
-  // Create DOM once
   const items = [];
-  for (let i = 0; i < IMAGE_COUNT; i++) {
-    const li = document.createElement("li");
-    li.className = "belt-item";
-    li.setAttribute("role", "group");
-    li.setAttribute("aria-label", `Image ${i + 1} of ${IMAGE_COUNT}`);
-
-    const img = document.createElement("img");
-    img.loading = "lazy";
-    img.decoding = "async";
-    img.src = `${BELT_PATH}${i + 1}.jpg`;
-    img.alt = `Belt image ${i + 1}`;
-
-    li.appendChild(img);
-    li.addEventListener("click", () => setActive(i, true));
-
-    track.appendChild(li);
-    items.push(li);
-  }
 
   // Wrap index for infinite loop
   function wrapIndex(n) {
@@ -1213,16 +1194,90 @@ function setTheme(theme) {
     track.setAttribute("aria-label", `Active image ${active + 1} of ${IMAGE_COUNT}`);
   }
 
+  const AUTO_SCROLL_INTERVAL = 2800;
+  const AUTO_SCROLL_DELAY = 5000;
+  let autoDirection = 1;
+  let autoScrollTimer = null;
+  let autoResumeTimer = null;
+
+  const stopAutoScroll = () => {
+    if (autoScrollTimer) clearTimeout(autoScrollTimer);
+    autoScrollTimer = null;
+  };
+
+  const scheduleAutoScroll = (delay = AUTO_SCROLL_INTERVAL) => {
+    stopAutoScroll();
+    autoScrollTimer = setTimeout(() => {
+      setActive(active + autoDirection, false);
+      scheduleAutoScroll();
+    }, delay);
+  };
+
+  const pauseAutoScroll = () => {
+    stopAutoScroll();
+    if (autoResumeTimer) clearTimeout(autoResumeTimer);
+    autoResumeTimer = setTimeout(() => scheduleAutoScroll(), AUTO_SCROLL_DELAY);
+  };
+
+  const registerUserDirection = (direction) => {
+    if (direction !== 0) {
+      autoDirection = direction;
+    }
+    pauseAutoScroll();
+  };
+
+  // Create DOM once
+  for (let i = 0; i < IMAGE_COUNT; i++) {
+    const li = document.createElement("li");
+    li.className = "belt-item";
+    li.setAttribute("role", "group");
+    li.setAttribute("aria-label", `Image ${i + 1} of ${IMAGE_COUNT}`);
+
+    const img = document.createElement("img");
+    img.loading = "lazy";
+    img.decoding = "async";
+    img.src = `${BELT_PATH}${i + 1}.jpg`;
+    img.alt = `Belt image ${i + 1}`;
+
+    li.appendChild(img);
+    li.addEventListener("click", () => {
+      const direction = i === active ? 0 : i > active ? 1 : -1;
+      registerUserDirection(direction);
+      setActive(i, true);
+    });
+
+    track.appendChild(li);
+    items.push(li);
+  }
+
   // Button navigation with wrapping
-  prevBtn.addEventListener("click", () => setActive(active - 1, false));
-  nextBtn.addEventListener("click", () => setActive(active + 1, false));
+  prevBtn.addEventListener("click", () => {
+    registerUserDirection(-1);
+    setActive(active - 1, false);
+  });
+  nextBtn.addEventListener("click", () => {
+    registerUserDirection(1);
+    setActive(active + 1, false);
+  });
 
   // Keyboard with wrapping
   viewport.addEventListener("keydown", (e) => {
-    if (e.key === "ArrowLeft") setActive(active - 1, false);
-    if (e.key === "ArrowRight") setActive(active + 1, false);
-    if (e.key === "Home") setActive(0, false);
-    if (e.key === "End") setActive(IMAGE_COUNT - 1, false);
+    if (e.key === "ArrowLeft") {
+      registerUserDirection(-1);
+      setActive(active - 1, false);
+    }
+    if (e.key === "ArrowRight") {
+      registerUserDirection(1);
+      setActive(active + 1, false);
+    }
+    if (e.key === "Home") {
+      registerUserDirection(-1);
+      setActive(0, false);
+    }
+    if (e.key === "End") {
+      registerUserDirection(1);
+      setActive(IMAGE_COUNT - 1, false);
+    }
   });
 
   // Wheel/trackpad
@@ -1232,7 +1287,9 @@ function setTheme(theme) {
       const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
       if (Math.abs(delta) < 6) return;
       e.preventDefault();
-      setActive(active + (delta > 0 ? 1 : -1), false);
+      const direction = delta > 0 ? 1 : -1;
+      registerUserDirection(direction);
+      setActive(active + direction, false);
     },
     { passive: false }
   );
@@ -1248,6 +1305,7 @@ function setTheme(theme) {
     startActive = active;
     viewport.setPointerCapture(e.pointerId);
     viewport.classList.add("is-dragging");
+    pauseAutoScroll();
   });
 
   viewport.addEventListener("pointermove", (e) => {
@@ -1256,7 +1314,10 @@ function setTheme(theme) {
     const step = window.matchMedia("(max-width: 720px)").matches ? 60 : 78;
 
     const next = startActive - Math.round(dx / step);
-    if (next !== active) setActive(next, false);
+    if (next !== active) {
+      registerUserDirection(next > active ? 1 : -1);
+      setActive(next, false);
+    }
   });
 
   function endDrag() {
@@ -1269,6 +1330,7 @@ function setTheme(theme) {
   viewport.addEventListener("pointerleave", endDrag);
 
   render();
+  scheduleAutoScroll();
   window.addEventListener("resize", render, { passive: true });
 })();
   
