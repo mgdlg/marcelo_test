@@ -2264,9 +2264,9 @@ body:has(.fullscreen-modal.is-open) {
 }
 
 .filter-btn {
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  background: rgba(255, 255, 255, 0.12);
-  color: #fff;
+  border: 1px solid rgba(15, 23, 42, 0.25);
+  background: rgba(255, 255, 255, 0.9);
+  color: #0f172a;
   padding: 0.5rem 1rem;
   border-radius: 999px;
   font-size: 0.9rem;
@@ -2276,7 +2276,8 @@ body:has(.fullscreen-modal.is-open) {
 }
 
 .filter-btn:hover {
-  background: rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 1);
+  border-color: rgba(15, 23, 42, 0.35);
   transform: translateY(-1px);
 }
 
@@ -2285,6 +2286,17 @@ body:has(.fullscreen-modal.is-open) {
   color: #0b1120;
   border-color: rgba(56, 189, 248, 0.92);
   box-shadow: 0 10px 25px rgba(56, 189, 248, 0.35);
+}
+
+html[data-theme="dark"] .filter-btn {
+  border-color: rgba(255, 255, 255, 0.35);
+  background: rgba(15, 23, 42, 0.55);
+  color: #f8fafc;
+}
+
+html[data-theme="dark"] .filter-btn:hover {
+  background: rgba(15, 23, 42, 0.75);
+  border-color: rgba(255, 255, 255, 0.6);
 }
 
 .portfolio-card.is-hidden {
