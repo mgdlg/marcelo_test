@@ -22,7 +22,7 @@
   --accent-soft: rgba(17, 24, 39, 0.06);
 
   /* Effects */
-  --shadow-soft: 0 18px 45px rgba(17, 24, 39, 0.08);
+  --shadow-soft: none;
 
   /* Layout */
   --radius-lg: 18px;
@@ -30,9 +30,9 @@
   --max-width: 980px;
 
   /* Backgrounds */
-  --page-bg: linear-gradient(to bottom, #ffffff, #f6f7f9);
-  --section-alt-bg: linear-gradient(to bottom, #fafafa, #f3f4f6);
-  --nav-bg: rgba(255, 255, 255, 0.75);
+  --page-bg: #ffffff;
+  --section-alt-bg: #f3f4f6;
+  --nav-bg: #ffffff;
   --footer-bg: #ffffff;
 
   /* Media */
@@ -53,11 +53,11 @@ html[data-theme="dark"] {
   --muted: #cbd5f5;
   --border-subtle: rgba(148, 163, 184, 0.45);
 
-  --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.75);
+  --shadow-soft: none;
 
-  --page-bg: radial-gradient(circle at top, #0c1228 0, #010209 45%, #010209 100%);
-  --section-alt-bg: radial-gradient(circle at top left, #040611 0, #010209 45%, #010209 100%);
-  --nav-bg: linear-gradient(to right, rgba(1, 2, 9, 0.9), rgba(6, 10, 22, 0.95));
+  --page-bg: #010209;
+  --section-alt-bg: #050815;
+  --nav-bg: #010209;
   --footer-bg: #010209;
 
   --media-bg: #000000;
@@ -225,12 +225,8 @@ html[data-theme="dark"] .btn.primary:hover {
   z-index: 999;
   border-radius: 999px;
 
-  /* glass */
-  background: color-mix(in oklch, var(--nav-bg), transparent 25%);
-  backdrop-filter: blur(14px) saturate(1.35);
-  -webkit-backdrop-filter: blur(14px) saturate(1.35);
-
-  border: 1px solid color-mix(in oklch, var(--border-subtle), transparent 15%);
+  background: var(--nav-bg);
+  border: 1px solid var(--border-subtle);
   box-shadow: var(--shadow-soft);
 }
 
@@ -1948,6 +1944,78 @@ svg.filter {
   height: 0;
   overflow: hidden;
   pointer-events: none;
+}
+
+/* =========================
+   FLATTEN DECORATIVE EFFECTS
+   ========================= */
+
+*,
+*::before,
+*::after {
+  box-shadow: none !important;
+  text-shadow: none !important;
+  filter: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+* {
+  background-image: none !important;
+}
+
+.site-header::before {
+  background: none !important;
+}
+
+.site-header {
+  background-image: url("images/spectrum7.png") !important;
+}
+
+html[data-theme="dark"] .site-header {
+  background-image: url("images/spectrum8.png") !important;
+}
+
+#video {
+  background-image: url("images/spectrum2.png") !important;
+}
+
+#about {
+  background-image: url("images/spectrum11.png") !important;
+}
+
+#skills {
+  background-image: url("images/spectrum12.png") !important;
+}
+
+#featured {
+  background-image: url("images/spectrum6.png") !important;
+}
+
+#projects {
+  background-image: url("images/spectrum1.png") !important;
+}
+
+#experience {
+  background-image: url("images/spectrum3.png") !important;
+}
+
+html[data-theme="dark"] #about {
+  background-image: url("images/spectrum9.png") !important;
+}
+
+html[data-theme="dark"] #skills {
+  background-image: url("images/spectrum10.png") !important;
+}
+
+.btn.primary,
+html[data-theme="dark"] .btn.primary {
+  background: var(--accent) !important;
+  color: var(--text-on-accent) !important;
+}
+
+.theme-toggle {
+  background: var(--nav-bg) !important;
 }
 
 /* =========================
