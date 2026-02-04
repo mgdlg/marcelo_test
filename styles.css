@@ -1909,13 +1909,6 @@ html[data-theme="dark"] .site-header::before {
   background-repeat: no-repeat;
 }
 
-/* NEW: Full Portfolio Grid Background */
-#full-portfolio {
-  background-image: url("images/spectrum4.png"); /* Using unused spectrum image */
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
 
 
 /* =========================
