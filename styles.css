@@ -16,6 +16,9 @@
   --surface: #ffffff;     /* cards */
   --surface-2: #f3f4f6;   /* subtle fills */
   --border-subtle: rgba(17, 24, 39, 0.14);
+  --glass-edge: rgba(255, 255, 255, 0.65);
+  --glass-edge-highlight: rgba(255, 255, 255, 0.9);
+  --glass-edge-shadow: rgba(15, 23, 42, 0.08);
 
   /* Accent (kept achromatic in light mode) */
   --accent: #111827;      /* near-black */
@@ -52,6 +55,9 @@ html[data-theme="dark"] {
   --text: #e5e7eb;
   --muted: #9ca3af;
   --border-subtle: rgba(148, 163, 184, 0.30);
+  --glass-edge: rgba(15, 23, 42, 0.45);
+  --glass-edge-highlight: rgba(148, 163, 184, 0.6);
+  --glass-edge-shadow: rgba(2, 6, 23, 0.7);
 
   --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.75);
 
@@ -100,7 +106,33 @@ body {
   padding: 0 1.25rem;
 }
 
-.section { padding: 4rem 0; }
+.section {
+  padding: 4rem 0;
+  position: relative;
+}
+
+.section + .section::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 28px;
+  transform: translateY(-50%);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0) 0%,
+    var(--glass-edge) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  border-top: 1px solid var(--glass-edge-highlight);
+  border-bottom: 1px solid var(--glass-edge-shadow);
+  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.08);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  pointer-events: none;
+  z-index: 1;
+}
 
 .section-alt { background: var(--section-alt-bg); }
 
