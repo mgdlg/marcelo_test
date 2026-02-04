@@ -1071,7 +1071,7 @@
 
 
     // ----------------------------
-    // Theme toggle (default: light)
+    // Theme toggle (default: dark)
     // ----------------------------
     const htmlEl = document.documentElement;
     const toggleBtn = document.getElementById("themeToggle");
@@ -1101,10 +1101,9 @@ function setTheme(theme) {
 }
 
 
-    // Load saved preference; if none, stay in light mode
+    // Load saved preference; if none, stay in dark mode
     const savedTheme = localStorage.getItem("theme");
-    if (savedTheme === "dark") setTheme("dark");
-    else setTheme("light");
+    setTheme(savedTheme === "light" ? "light" : "dark");
 
     toggleBtn.addEventListener("click", () => {
       const isDark = htmlEl.getAttribute("data-theme") === "dark";
