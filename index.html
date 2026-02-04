@@ -900,11 +900,19 @@
         <p class="section-intro">
           Explore the complete catalog of my geospatial and environmental projects.
         </p>
+        <div class="portfolio-filters" role="tablist" aria-label="Filter portfolio projects">
+          <button class="filter-btn is-active" type="button" data-filter="all" aria-pressed="true">Show All</button>
+          <button class="filter-btn" type="button" data-filter="gis" aria-pressed="false">GIS</button>
+          <button class="filter-btn" type="button" data-filter="imagery" aria-pressed="false">Imagery &amp; Remote Sensing</button>
+          <button class="filter-btn" type="button" data-filter="ecology" aria-pressed="false">Ecology &amp; Conservation Research</button>
+          <button class="filter-btn" type="button" data-filter="coding" aria-pressed="false">Coding</button>
+          <button class="filter-btn" type="button" data-filter="environmental" aria-pressed="false">Environmental Science</button>
+        </div>
 
         <div class="portfolio-grid">
           <!-- Card 1 -->
-          <a href="project-rio-santa-catarina.html" class="portfolio-card animate-on-scroll">
-            <div class="portfolio-card-bg" style="background-image: url('images/rsc-ndvi.png');"></div>
+          <a href="project-rio-santa-catarina.html" class="portfolio-card animate-on-scroll" data-categories="gis imagery ecology">
+            <div class="portfolio-card-bg" style="background-image: url('images/rsc-ndvi-pages.png');"></div>
             <div class="portfolio-card-overlay"></div>
             <div class="portfolio-card-content">
               <h3>Río Santa Catarina: Historical NDVI & Community Cartography</h3>
@@ -913,7 +921,7 @@
           </a>
 
           <!-- Card 2 -->
-          <a href="project-university-debrecen.html" class="portfolio-card animate-on-scroll">
+          <a href="project-university-debrecen.html" class="portfolio-card animate-on-scroll" data-categories="gis imagery">
             <div class="portfolio-card-bg" style="background-image: url('images/unideb-collage.jpeg');"></div>
             <div class="portfolio-card-overlay"></div>
             <div class="portfolio-card-content">
@@ -923,7 +931,7 @@
           </a>
 
           <!-- Card 3 -->
-          <a href="project-urbanization-index.html" class="portfolio-card animate-on-scroll">
+          <a href="project-urbanization-index.html" class="portfolio-card animate-on-scroll" data-categories="gis imagery ecology coding">
             <div class="portfolio-card-bg" style="background-image: url('images/urbanization-index-map.jpg');"></div>
             <div class="portfolio-card-overlay"></div>
             <div class="portfolio-card-content">
@@ -933,7 +941,7 @@
           </a>
 
           <!-- Card 4 -->
-          <a href="project-models-in-gis.html" class="portfolio-card animate-on-scroll">
+          <a href="project-models-in-gis.html" class="portfolio-card animate-on-scroll" data-categories="gis coding">
             <div class="portfolio-card-bg" style="background-image: url('images/models-in-gis.png');"></div>
             <div class="portfolio-card-overlay"></div>
             <div class="portfolio-card-content">
@@ -943,7 +951,7 @@
           </a>
 
           <!-- Card 5 -->
-          <a href="project-uav-accuracy.html" class="portfolio-card animate-on-scroll">
+          <a href="project-uav-accuracy.html" class="portfolio-card animate-on-scroll" data-categories="gis imagery">
             <div class="portfolio-card-bg" style="background-image: url('images/udeb-uav-botanical.png');"></div>
             <div class="portfolio-card-overlay"></div>
             <div class="portfolio-card-content">
@@ -953,7 +961,7 @@
           </a>
 
           <!-- Card 6 -->
-          <a href="project-drone-photogrammetry.html" class="portfolio-card animate-on-scroll">
+          <a href="project-drone-photogrammetry.html" class="portfolio-card animate-on-scroll" data-categories="gis imagery environmental">
             <div class="portfolio-card-bg" style="background-image: url('images/frisa-vg.jpg');"></div>
             <div class="portfolio-card-overlay"></div>
             <div class="portfolio-card-content">
@@ -963,7 +971,7 @@
           </a>
 
           <!-- Card 7 -->
-          <a href="project-riparian-forests.html" class="portfolio-card animate-on-scroll">
+          <a href="project-riparian-forests.html" class="portfolio-card animate-on-scroll" data-categories="gis ecology coding">
             <div class="portfolio-card-bg" style="background-image: url('images/bird-diversity-light.png');"></div>
             <div class="portfolio-card-overlay"></div>
             <div class="portfolio-card-content">
@@ -973,7 +981,7 @@
           </a>
 
           <!-- Card 8 -->
-          <a href="project-historical-vegetation.html" class="portfolio-card animate-on-scroll">
+          <a href="project-historical-vegetation.html" class="portfolio-card animate-on-scroll" data-categories="gis imagery">
             <div class="portfolio-card-bg" style="background-image: url('images/nwi.jpeg');"></div>
             <div class="portfolio-card-overlay"></div>
             <div class="portfolio-card-content">
@@ -983,7 +991,7 @@
           </a>
 
           <!-- Card 9 -->
-          <a href="project-reforestation-monitoring.html" class="portfolio-card animate-on-scroll">
+          <a href="project-reforestation-monitoring.html" class="portfolio-card animate-on-scroll" data-categories="gis imagery ecology coding environmental">
             <div class="portfolio-card-bg" style="background-image: url('images/wind-portrait.png');"></div>
             <div class="portfolio-card-overlay"></div>
             <div class="portfolio-card-content">
@@ -993,7 +1001,7 @@
           </a>
 
           <!-- Card 10 -->
-          <a href="project-urban-park-biodiversity.html" class="portfolio-card animate-on-scroll">
+          <a href="project-urban-park-biodiversity.html" class="portfolio-card animate-on-scroll" data-categories="ecology coding">
             <div class="portfolio-card-bg" style="background-image: url('images/urban-parks-biodiversity.png');"></div>
             <div class="portfolio-card-overlay"></div>
             <div class="portfolio-card-content">
@@ -1021,7 +1029,44 @@
     // Footer year
     document.getElementById("year").textContent = new Date().getFullYear();
 
+    // ----------------------------
+    // Portfolio filters
+    // ----------------------------
+    (function initPortfolioFilters() {
+      const section = document.getElementById("full-portfolio");
+      if (!section) return;
 
+      const buttons = Array.from(section.querySelectorAll(".filter-btn"));
+      const cards = Array.from(section.querySelectorAll(".portfolio-card"));
+
+      if (!buttons.length || !cards.length) return;
+
+      function setActiveButton(activeBtn) {
+        buttons.forEach((btn) => {
+          const isActive = btn === activeBtn;
+          btn.classList.toggle("is-active", isActive);
+          btn.setAttribute("aria-pressed", isActive ? "true" : "false");
+        });
+      }
+
+      function filterCards(filter) {
+        cards.forEach((card) => {
+          const categories = (card.getAttribute("data-categories") || "").split(" ").filter(Boolean);
+          const matches = filter === "all" || categories.includes(filter);
+          card.classList.toggle("is-hidden", !matches);
+        });
+      }
+
+      buttons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const filter = btn.getAttribute("data-filter") || "all";
+          setActiveButton(btn);
+          filterCards(filter);
+        });
+      });
+
+      filterCards("all");
+    })();
 
 
 

@@ -1909,13 +1909,6 @@ html[data-theme="dark"] .site-header::before {
   background-repeat: no-repeat;
 }
 
-/* NEW: Full Portfolio Grid Background */
-#full-portfolio {
-  background-image: url("images/spectrum4.png"); /* Using unused spectrum image */
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
 
 
 /* =========================
@@ -2254,6 +2247,65 @@ body:has(.fullscreen-modal.is-open) {
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 1.5rem;
   margin-top: 2rem;
+}
+
+.portfolio-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.filter-btn {
+  border: 1px solid rgba(15, 23, 42, 0.25);
+  background: rgba(255, 255, 255, 0.9);
+  color: #0f172a;
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.filter-btn:hover {
+  background: rgba(255, 255, 255, 1);
+  border-color: rgba(15, 23, 42, 0.35);
+  transform: translateY(-1px);
+}
+
+.filter-btn.is-active {
+  background: rgba(56, 189, 248, 0.92);
+  color: #0b1120;
+  border-color: rgba(56, 189, 248, 0.92);
+  box-shadow: 0 10px 25px rgba(56, 189, 248, 0.35);
+}
+
+html[data-theme="dark"] .filter-btn {
+  border-color: rgba(255, 255, 255, 0.35);
+  background: rgba(15, 23, 42, 0.55);
+  color: #f8fafc;
+}
+
+html[data-theme="dark"] .filter-btn:hover {
+  background: rgba(15, 23, 42, 0.75);
+  border-color: rgba(255, 255, 255, 0.6);
+}
+
+.portfolio-card.is-hidden {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  .portfolio-filters {
+    gap: 0.6rem;
+  }
+
+  .filter-btn {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
 }
 
 .portfolio-card {
