@@ -30,8 +30,8 @@
   --max-width: 980px;
 
   /* Backgrounds */
-  --page-bg: linear-gradient(to bottom, #ffffff, #f6f7f9);
-  --section-alt-bg: linear-gradient(to bottom, #fafafa, #f3f4f6);
+  --page-bg: #ffffff;
+  --section-alt-bg: #f7f7f8;
   --nav-bg: rgba(255, 255, 255, 0.75);
   --footer-bg: #ffffff;
 
@@ -55,8 +55,8 @@ html[data-theme="dark"] {
 
   --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.75);
 
-  --page-bg: radial-gradient(circle at top, #1f2937 0, #020617 45%, #020617 100%);
-  --section-alt-bg: radial-gradient(circle at top left, #020617 0, #020617 40%, #020617 100%);
+  --page-bg: #030712;
+  --section-alt-bg: #030712;
   --nav-bg: linear-gradient(to right, rgba(2, 6, 23, 0.86), rgba(15, 23, 42, 0.92));
   --footer-bg: #020617;
 
@@ -1820,6 +1820,14 @@ html[data-theme="dark"] #projects .projects-lab{
 /* =========================
    SECTION BACKGROUNDS
    ========================= */
+
+/* Flatten section backgrounds so spectrum images are the only layer. */
+.section::before,
+.section::after,
+.site-header::before,
+.site-header::after {
+  display: none;
+}
 
 /* Introduction */
 .site-header {
