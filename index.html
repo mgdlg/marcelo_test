@@ -41,36 +41,17 @@
         </div>
 <svg class="filter" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
   <defs>
-    <filter id="filter" color-interpolation-filters="sRGB">
-      <feImage x="0" y="0" width="100%" height="100%" result="map"></feImage>
-
-      <feDisplacementMap in="SourceGraphic" in2="map"
-        xChannelSelector="R" yChannelSelector="G" result="dispRed" />
-      <feColorMatrix in="dispRed" type="matrix"
-        values="1 0 0 0 0
-                0 0 0 0 0
-                0 0 0 0 0
-                0 0 0 1 0" result="red" />
-
-      <feDisplacementMap in="SourceGraphic" in2="map"
-        xChannelSelector="R" yChannelSelector="G" result="dispGreen" />
-      <feColorMatrix in="dispGreen" type="matrix"
-        values="0 0 0 0 0
-                0 1 0 0 0
-                0 0 0 0 0
-                0 0 0 1 0" result="green" />
-
-      <feDisplacementMap in="SourceGraphic" in2="map"
-        xChannelSelector="R" yChannelSelector="G" result="dispBlue" />
-      <feColorMatrix in="dispBlue" type="matrix"
-        values="0 0 0 0 0
-                0 0 0 0 0
-                0 0 1 0 0
-                0 0 0 1 0" result="blue" />
-
-      <feBlend in="red" in2="green" mode="screen" result="rg" />
-      <feBlend in="rg" in2="blue" mode="screen" result="output" />
-      <feGaussianBlur in="output" stdDeviation="0.7" />
+    <filter id="liquidGlass" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.012 0.02" numOctaves="2" seed="2" result="noise">
+        <animate
+          attributeName="baseFrequency"
+          dur="12s"
+          values="0.012 0.02; 0.018 0.016; 0.012 0.02"
+          repeatCount="indefinite"
+        />
+      </feTurbulence>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="18" xChannelSelector="R" yChannelSelector="G" result="disp" />
+      <feGaussianBlur in="disp" stdDeviation="0.35" />
     </filter>
   </defs>
 </svg>
@@ -920,107 +901,168 @@
           Explore the complete catalog of my geospatial and environmental projects.
         </p>
 
-        <div class="portfolio-grid">
-          <!-- Card 1 -->
-          <a href="project-rio-santa-catarina.html" class="portfolio-card animate-on-scroll">
-            <div class="portfolio-card-bg" style="background-image: url('images/rsc-ndvi.png');"></div>
-            <div class="portfolio-card-overlay"></div>
-            <div class="portfolio-card-content">
-              <h3>Río Santa Catarina: Historical NDVI & Community Cartography</h3>
-              <span class="view-project-link">View Project &rarr;</span>
-            </div>
-          </a>
+        <div class="portfolio-deck" aria-label="Portfolio card deck">
+          <div class="deck-track" role="list">
+            <a href="project-rio-santa-catarina.html" class="deck-card animate-on-scroll" role="listitem">
+              <div class="deck-card-bg" style="background-image: url('images/rsc-ndvi.png');"></div>
+              <div class="deck-card-overlay"></div>
+              <div class="deck-card-content">
+                <div class="deck-card-top">
+                  <span class="deck-chip">01</span>
+                  <span class="deck-chip">Field Atlas</span>
+                </div>
+                <h3>Río Santa Catarina: Historical NDVI & Community Cartography</h3>
+                <div class="deck-card-footer">
+                  <span class="deck-meta">Independent · 2025</span>
+                  <span class="deck-cta">View Project →</span>
+                </div>
+              </div>
+            </a>
 
-          <!-- Card 2 -->
-          <a href="project-university-debrecen.html" class="portfolio-card animate-on-scroll">
-            <div class="portfolio-card-bg" style="background-image: url('images/unideb-collage.jpeg');"></div>
-            <div class="portfolio-card-overlay"></div>
-            <div class="portfolio-card-content">
-              <h3>University of Debrecen: Advanced GIS & Research Internship</h3>
-              <span class="view-project-link">View Project &rarr;</span>
-            </div>
-          </a>
+            <a href="project-university-debrecen.html" class="deck-card animate-on-scroll" role="listitem">
+              <div class="deck-card-bg" style="background-image: url('images/unideb-collage.jpeg');"></div>
+              <div class="deck-card-overlay"></div>
+              <div class="deck-card-content">
+                <div class="deck-card-top">
+                  <span class="deck-chip">02</span>
+                  <span class="deck-chip">Research Exchange</span>
+                </div>
+                <h3>University of Debrecen: Advanced GIS & Research Internship</h3>
+                <div class="deck-card-footer">
+                  <span class="deck-meta">Debrecen · 2025</span>
+                  <span class="deck-cta">View Project →</span>
+                </div>
+              </div>
+            </a>
 
-          <!-- Card 3 -->
-          <a href="project-urbanization-index.html" class="portfolio-card animate-on-scroll">
-            <div class="portfolio-card-bg" style="background-image: url('images/urbanization-index-map.jpg');"></div>
-            <div class="portfolio-card-overlay"></div>
-            <div class="portfolio-card-content">
-              <h3>Urbanization Index & Blackbird Phenotypes</h3>
-              <span class="view-project-link">View Project &rarr;</span>
-            </div>
-          </a>
+            <a href="project-urbanization-index.html" class="deck-card animate-on-scroll" role="listitem">
+              <div class="deck-card-bg" style="background-image: url('images/urbanization-index-map.jpg');"></div>
+              <div class="deck-card-overlay"></div>
+              <div class="deck-card-content">
+                <div class="deck-card-top">
+                  <span class="deck-chip">03</span>
+                  <span class="deck-chip">Urban Signal</span>
+                </div>
+                <h3>Urbanization Index & Blackbird Phenotypes</h3>
+                <div class="deck-card-footer">
+                  <span class="deck-meta">GIS Lab</span>
+                  <span class="deck-cta">View Project →</span>
+                </div>
+              </div>
+            </a>
 
-          <!-- Card 4 -->
-          <a href="project-models-in-gis.html" class="portfolio-card animate-on-scroll">
-            <div class="portfolio-card-bg" style="background-image: url('images/models-in-gis.png');"></div>
-            <div class="portfolio-card-overlay"></div>
-            <div class="portfolio-card-content">
-              <h3>Models in GIS: ModelBuilder Workflow</h3>
-              <span class="view-project-link">View Project &rarr;</span>
-            </div>
-          </a>
+            <a href="project-models-in-gis.html" class="deck-card animate-on-scroll" role="listitem">
+              <div class="deck-card-bg" style="background-image: url('images/models-in-gis.png');"></div>
+              <div class="deck-card-overlay"></div>
+              <div class="deck-card-content">
+                <div class="deck-card-top">
+                  <span class="deck-chip">04</span>
+                  <span class="deck-chip">ModelBuilder</span>
+                </div>
+                <h3>Models in GIS: ModelBuilder Workflow</h3>
+                <div class="deck-card-footer">
+                  <span class="deck-meta">Tutorial Series</span>
+                  <span class="deck-cta">View Project →</span>
+                </div>
+              </div>
+            </a>
 
-          <!-- Card 5 -->
-          <a href="project-uav-accuracy.html" class="portfolio-card animate-on-scroll">
-            <div class="portfolio-card-bg" style="background-image: url('images/udeb-uav-botanical.png');"></div>
-            <div class="portfolio-card-overlay"></div>
-            <div class="portfolio-card-content">
-              <h3>UAV Remote Sensing Accuracy Assessment</h3>
-              <span class="view-project-link">View Project &rarr;</span>
-            </div>
-          </a>
+            <a href="project-uav-accuracy.html" class="deck-card animate-on-scroll" role="listitem">
+              <div class="deck-card-bg" style="background-image: url('images/udeb-uav-botanical.png');"></div>
+              <div class="deck-card-overlay"></div>
+              <div class="deck-card-content">
+                <div class="deck-card-top">
+                  <span class="deck-chip">05</span>
+                  <span class="deck-chip">UAV Accuracy</span>
+                </div>
+                <h3>UAV Remote Sensing Accuracy Assessment</h3>
+                <div class="deck-card-footer">
+                  <span class="deck-meta">Debrecen Garden</span>
+                  <span class="deck-cta">View Project →</span>
+                </div>
+              </div>
+            </a>
 
-          <!-- Card 6 -->
-          <a href="project-drone-photogrammetry.html" class="portfolio-card animate-on-scroll">
-            <div class="portfolio-card-bg" style="background-image: url('images/frisa-vg.jpg');"></div>
-            <div class="portfolio-card-overlay"></div>
-            <div class="portfolio-card-content">
-              <h3>Drone Photogrammetry for Environmental Compensation</h3>
-              <span class="view-project-link">View Project &rarr;</span>
-            </div>
-          </a>
+            <a href="project-drone-photogrammetry.html" class="deck-card animate-on-scroll" role="listitem">
+              <div class="deck-card-bg" style="background-image: url('images/frisa-vg.jpg');"></div>
+              <div class="deck-card-overlay"></div>
+              <div class="deck-card-content">
+                <div class="deck-card-top">
+                  <span class="deck-chip">06</span>
+                  <span class="deck-chip">Compensation</span>
+                </div>
+                <h3>Drone Photogrammetry for Environmental Compensation</h3>
+                <div class="deck-card-footer">
+                  <span class="deck-meta">IRCA · 2025</span>
+                  <span class="deck-cta">View Project →</span>
+                </div>
+              </div>
+            </a>
 
-          <!-- Card 7 -->
-          <a href="project-riparian-forests.html" class="portfolio-card animate-on-scroll">
-            <div class="portfolio-card-bg" style="background-image: url('images/bird-diversity-light.png');"></div>
-            <div class="portfolio-card-overlay"></div>
-            <div class="portfolio-card-content">
-              <h3>Riparian Forests & Urban Bird Diversity</h3>
-              <span class="view-project-link">View Project &rarr;</span>
-            </div>
-          </a>
+            <a href="project-riparian-forests.html" class="deck-card animate-on-scroll" role="listitem">
+              <div class="deck-card-bg" style="background-image: url('images/bird-diversity-light.png');"></div>
+              <div class="deck-card-overlay"></div>
+              <div class="deck-card-content">
+                <div class="deck-card-top">
+                  <span class="deck-chip">07</span>
+                  <span class="deck-chip">Riparian</span>
+                </div>
+                <h3>Riparian Forests & Urban Bird Diversity</h3>
+                <div class="deck-card-footer">
+                  <span class="deck-meta">UANL · 2024</span>
+                  <span class="deck-cta">View Project →</span>
+                </div>
+              </div>
+            </a>
 
-          <!-- Card 8 -->
-          <a href="project-historical-vegetation.html" class="portfolio-card animate-on-scroll">
-            <div class="portfolio-card-bg" style="background-image: url('images/nwi.jpeg');"></div>
-            <div class="portfolio-card-overlay"></div>
-            <div class="portfolio-card-content">
-              <h3>Historical Vegetation & Water Surface Analysis</h3>
-              <span class="view-project-link">View Project &rarr;</span>
-            </div>
-          </a>
+            <a href="project-historical-vegetation.html" class="deck-card animate-on-scroll" role="listitem">
+              <div class="deck-card-bg" style="background-image: url('images/nwi.jpeg');"></div>
+              <div class="deck-card-overlay"></div>
+              <div class="deck-card-content">
+                <div class="deck-card-top">
+                  <span class="deck-chip">08</span>
+                  <span class="deck-chip">Historic Index</span>
+                </div>
+                <h3>Historical Vegetation & Water Surface Analysis</h3>
+                <div class="deck-card-footer">
+                  <span class="deck-meta">Javer · 2024</span>
+                  <span class="deck-cta">View Project →</span>
+                </div>
+              </div>
+            </a>
 
-          <!-- Card 9 -->
-          <a href="project-reforestation-monitoring.html" class="portfolio-card animate-on-scroll">
-            <div class="portfolio-card-bg" style="background-image: url('images/wind-portrait.png');"></div>
-            <div class="portfolio-card-overlay"></div>
-            <div class="portfolio-card-content">
-              <h3>Remote Sensing for Reforestation Monitoring</h3>
-              <span class="view-project-link">View Project &rarr;</span>
-            </div>
-          </a>
+            <a href="project-reforestation-monitoring.html" class="deck-card animate-on-scroll" role="listitem">
+              <div class="deck-card-bg" style="background-image: url('images/wind-portrait.png');"></div>
+              <div class="deck-card-overlay"></div>
+              <div class="deck-card-content">
+                <div class="deck-card-top">
+                  <span class="deck-chip">09</span>
+                  <span class="deck-chip">Reforestation</span>
+                </div>
+                <h3>Remote Sensing for Reforestation Monitoring</h3>
+                <div class="deck-card-footer">
+                  <span class="deck-meta">Enel · 2024</span>
+                  <span class="deck-cta">View Project →</span>
+                </div>
+              </div>
+            </a>
 
-          <!-- Card 10 -->
-          <a href="project-urban-park-biodiversity.html" class="portfolio-card animate-on-scroll">
-            <div class="portfolio-card-bg" style="background-image: url('images/urban-parks-biodiversity.png');"></div>
-            <div class="portfolio-card-overlay"></div>
-            <div class="portfolio-card-content">
-              <h3>Urban Park Biodiversity Monitoring Framework</h3>
-              <span class="view-project-link">View Project &rarr;</span>
-            </div>
-          </a>
-
+            <a href="project-urban-park-biodiversity.html" class="deck-card animate-on-scroll" role="listitem">
+              <div class="deck-card-bg" style="background-image: url('images/urban-parks-biodiversity.png');"></div>
+              <div class="deck-card-overlay"></div>
+              <div class="deck-card-content">
+                <div class="deck-card-top">
+                  <span class="deck-chip">10</span>
+                  <span class="deck-chip">Urban Parks</span>
+                </div>
+                <h3>Urban Park Biodiversity Monitoring Framework</h3>
+                <div class="deck-card-footer">
+                  <span class="deck-meta">San Pedro · 2024</span>
+                  <span class="deck-cta">View Project →</span>
+                </div>
+              </div>
+            </a>
+          </div>
         </div>
       </div>
     </section>
