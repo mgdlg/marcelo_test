@@ -955,7 +955,7 @@ html[data-theme="dark"] .belt-viewport {
 
   /* Center anchor; JS adds translateX/rotate/scale */
   transform: translate(-50%, -50%);
-  transition: transform 240ms ease, opacity 240ms ease;
+  transition: transform 720ms ease, opacity 720ms ease;
   will-change: transform, opacity;
 }
 
