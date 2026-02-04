@@ -105,7 +105,7 @@
     }
 
     const storedTheme = localStorage.getItem("theme");
-    if (storedTheme) setTheme(storedTheme);
+    setTheme(storedTheme || "dark");
 
     toggleBtn?.addEventListener("click", () => {
       const isDark = htmlEl.getAttribute("data-theme") === "dark";
