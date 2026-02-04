@@ -41,24 +41,24 @@
 
 /* Dark theme (original midnight blue + light blue accent) */
 html[data-theme="dark"] {
-  --bg: #050816;
-  --bg-alt: #0b1020;
-  --surface: #020617;
-  --surface-2: rgba(15, 23, 42, 0.95);
+  --bg: #02030b;
+  --bg-alt: #050714;
+  --surface: #040712;
+  --surface-2: rgba(8, 12, 24, 0.98);
 
-  --accent: #38bdf8;
-  --accent-soft: rgba(56, 189, 248, 0.12);
+  --accent: #55c7ff;
+  --accent-soft: rgba(85, 199, 255, 0.16);
 
-  --text: #e5e7eb;
-  --muted: #9ca3af;
-  --border-subtle: rgba(148, 163, 184, 0.30);
+  --text: #f1f5f9;
+  --muted: #c7d2fe;
+  --border-subtle: rgba(148, 163, 184, 0.42);
 
-  --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.75);
+  --shadow-soft: 0 18px 45px rgba(3, 6, 16, 0.85);
 
-  --page-bg: radial-gradient(circle at top, #1f2937 0, #020617 45%, #020617 100%);
-  --section-alt-bg: radial-gradient(circle at top left, #020617 0, #020617 40%, #020617 100%);
-  --nav-bg: linear-gradient(to right, rgba(2, 6, 23, 0.86), rgba(15, 23, 42, 0.92));
-  --footer-bg: #020617;
+  --page-bg: radial-gradient(circle at top, #12182b 0, #03050f 45%, #02030b 100%);
+  --section-alt-bg: radial-gradient(circle at top left, #050714 0, #03050f 40%, #02030b 100%);
+  --nav-bg: linear-gradient(to right, rgba(2, 4, 12, 0.92), rgba(7, 12, 24, 0.96));
+  --footer-bg: #02030b;
 
   --media-bg: #000000;
 }
