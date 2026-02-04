@@ -1146,6 +1146,12 @@ function setTheme(theme) {
   const IMAGE_COUNT = 45;
 
   let active = Math.floor((IMAGE_COUNT - 1) / 2);
+  let lastDirection = 1;
+  let autoScrollIntervalId = null;
+  let autoScrollTimeoutId = null;
+
+  const AUTO_SCROLL_INTERVAL_MS = 3600;
+  const AUTO_SCROLL_RESUME_DELAY_MS = 5000;
 
   // Create DOM once
   const items = [];
@@ -1182,6 +1188,34 @@ function setTheme(theme) {
     }
   }
 
+  function stopAutoScroll() {
+    if (autoScrollIntervalId) {
+      clearInterval(autoScrollIntervalId);
+      autoScrollIntervalId = null;
+    }
+  }
+
+  function scheduleAutoScroll() {
+    if (autoScrollTimeoutId) {
+      clearTimeout(autoScrollTimeoutId);
+    }
+
+    autoScrollTimeoutId = setTimeout(() => {
+      if (!autoScrollIntervalId) {
+        autoScrollIntervalId = setInterval(() => {
+          setActive(active + lastDirection, false);
+        }, AUTO_SCROLL_INTERVAL_MS);
+      }
+    }, AUTO_SCROLL_RESUME_DELAY_MS);
+  }
+
+  function handleUserAdvance(direction, nextIndex) {
+    lastDirection = direction;
+    stopAutoScroll();
+    scheduleAutoScroll();
+    setActive(nextIndex, false);
+  }
+
   function render() {
     const maxVisible = 10;
     const spacing = window.matchMedia("(max-width: 720px)").matches ? 70 : 92;
@@ -1214,15 +1248,25 @@ function setTheme(theme) {
   }
 
   // Button navigation with wrapping
-  prevBtn.addEventListener("click", () => setActive(active - 1, false));
-  nextBtn.addEventListener("click", () => setActive(active + 1, false));
+  prevBtn.addEventListener("click", () => handleUserAdvance(-1, active - 1));
+  nextBtn.addEventListener("click", () => handleUserAdvance(1, active + 1));
 
   // Keyboard with wrapping
   viewport.addEventListener("keydown", (e) => {
-    if (e.key === "ArrowLeft") setActive(active - 1, false);
-    if (e.key === "ArrowRight") setActive(active + 1, false);
-    if (e.key === "Home") setActive(0, false);
-    if (e.key === "End") setActive(IMAGE_COUNT - 1, false);
+    if (e.key === "ArrowLeft") handleUserAdvance(-1, active - 1);
+    if (e.key === "ArrowRight") handleUserAdvance(1, active + 1);
+    if (e.key === "Home") {
+      lastDirection = -1;
+      stopAutoScroll();
+      scheduleAutoScroll();
+      setActive(0, false);
+    }
+    if (e.key === "End") {
+      lastDirection = 1;
+      stopAutoScroll();
+      scheduleAutoScroll();
+      setActive(IMAGE_COUNT - 1, false);
+    }
   });
 
   // Wheel/trackpad
@@ -1232,7 +1276,8 @@ function setTheme(theme) {
       const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
       if (Math.abs(delta) < 6) return;
       e.preventDefault();
-      setActive(active + (delta > 0 ? 1 : -1), false);
+      const direction = delta > 0 ? 1 : -1;
+      handleUserAdvance(direction, active + direction);
     },
     { passive: false }
   );
@@ -1248,6 +1293,8 @@ function setTheme(theme) {
     startActive = active;
     viewport.setPointerCapture(e.pointerId);
     viewport.classList.add("is-dragging");
+    stopAutoScroll();
+    scheduleAutoScroll();
   });
 
   viewport.addEventListener("pointermove", (e) => {
@@ -1256,7 +1303,10 @@ function setTheme(theme) {
     const step = window.matchMedia("(max-width: 720px)").matches ? 60 : 78;
 
     const next = startActive - Math.round(dx / step);
-    if (next !== active) setActive(next, false);
+    if (next !== active) {
+      lastDirection = next > active ? 1 : -1;
+      setActive(next, false);
+    }
   });
 
   function endDrag() {
@@ -1269,6 +1319,7 @@ function setTheme(theme) {
   viewport.addEventListener("pointerleave", endDrag);
 
   render();
+  scheduleAutoScroll();
   window.addEventListener("resize", render, { passive: true });
 })();
   
