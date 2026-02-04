@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Remote Sensing for Reforestation Monitoring</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta
+    name="description"
+    content="Remote sensing program to evaluate reforestation efforts in renewable energy sites."
+  />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+</head>
+<body class="project-page">
+  <header class="project-hero">
+    <div class="container project-hero-grid">
+      <div>
+        <div class="project-hero-actions">
+          <a class="project-back-link" href="index.html#full-portfolio">← Back to Portfolio</a>
+          <button id="themeToggle" class="theme-toggle" type="button" aria-pressed="false">
+            <span class="toggle-dot" aria-hidden="true"></span>
+            <span id="themeToggleLabel">Dark mode</span>
+          </button>
+        </div>
+        <h1>Remote Sensing for Reforestation Monitoring</h1>
+        <p class="project-lead">
+          Monitoring vegetation recovery and biodiversity outcomes for renewable energy sites.
+        </p>
+        <ul class="project-meta-list">
+          <li><strong>Organization:</strong> Enel Green Power</li>
+          <li><strong>Role:</strong> Ecological data analyst & surveyor</li>
+          <li><strong>Years:</strong> 2024–2025</li>
+        </ul>
+      </div>
+      <div class="project-hero-media">
+        <img src="images/wind-portrait.png" alt="Portrait at a wind farm site" />
+      </div>
+    </div>
+  </header>
+
+  <main class="project-main">
+    <section class="project-section">
+      <div class="container">
+        <h2>Project Overview</h2>
+        <p>
+          I supported a remote sensing program evaluating reforestation efforts in renewable energy sites, ensuring
+          ecological commitments were met. The work paired satellite imagery with field observations to track vegetation
+          recovery and species presence.
+        </p>
+      </div>
+    </section>
+
+    <section class="project-section section-alt">
+      <div class="container">
+        <h2>Key Contributions</h2>
+        <ul class="project-highlights">
+          <li>Tracked changes in vegetation cover through time using geospatial tools and satellite imagery.</li>
+          <li>Automated environmental metadata processing in R, cutting turnaround time from five days to one.</li>
+          <li>Combined spatial data with large mammal and endangered species observations.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="project-section">
+      <div class="container">
+        <h2>Reference Contact Information</h2>
+        <ul class="project-reference-list">
+          <li><strong>Primary Contact:</strong> Marcelo Guzmán · <a href="mailto:marcelo.guzmandlg@gmail.com">marcelo.guzmandlg@gmail.com</a></li>
+          <li><strong>Affiliation:</strong> Enel Green Power</li>
+        </ul>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>© <span id="year"></span> Marcelo Guzmán. Built with HTML & CSS, hosted on GitHub Pages.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    const htmlEl = document.documentElement;
+    const toggleBtn = document.getElementById("themeToggle");
+    const toggleLabel = document.getElementById("themeToggleLabel");
+
+    function setTheme(theme) {
+      if (theme === "dark") {
+        htmlEl.setAttribute("data-theme", "dark");
+        toggleBtn?.setAttribute("aria-pressed", "true");
+        if (toggleLabel) toggleLabel.textContent = "Light mode";
+      } else {
+        htmlEl.removeAttribute("data-theme");
+        toggleBtn?.setAttribute("aria-pressed", "false");
+        if (toggleLabel) toggleLabel.textContent = "Dark mode";
+      }
+    }
+
+    const storedTheme = localStorage.getItem("theme");
+    setTheme(storedTheme || "dark");
+
+    toggleBtn?.addEventListener("click", () => {
+      const isDark = htmlEl.getAttribute("data-theme") === "dark";
+      const nextTheme = isDark ? "light" : "dark";
+      setTheme(nextTheme);
+      localStorage.setItem("theme", nextTheme);
+    });
+  </script>
+</body>
+</html>

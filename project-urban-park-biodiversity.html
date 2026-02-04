@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Urban Park Biodiversity Monitoring Framework</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta
+    name="description"
+    content="Biodiversity monitoring framework for urban parks in San Pedro."
+  />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+</head>
+<body class="project-page">
+  <header class="project-hero">
+    <div class="container project-hero-grid">
+      <div>
+        <div class="project-hero-actions">
+          <a class="project-back-link" href="index.html#full-portfolio">← Back to Portfolio</a>
+          <button id="themeToggle" class="theme-toggle" type="button" aria-pressed="false">
+            <span class="toggle-dot" aria-hidden="true"></span>
+            <span id="themeToggleLabel">Dark mode</span>
+          </button>
+        </div>
+        <h1>Urban Park Biodiversity Monitoring Framework</h1>
+        <p class="project-lead">
+          Standardized biodiversity surveys and indicators across nine urban parks.
+        </p>
+        <ul class="project-meta-list">
+          <li><strong>Organization:</strong> San Pedro + Parques</li>
+          <li><strong>Role:</strong> Biodiversity monitoring intern</li>
+          <li><strong>Year:</strong> 2024</li>
+        </ul>
+      </div>
+      <div class="project-hero-media">
+        <img src="images/urban-parks-biodiversity.png" alt="Biodiversity monitoring across urban parks" />
+      </div>
+    </div>
+  </header>
+
+  <main class="project-main">
+    <section class="project-section">
+      <div class="container">
+        <h2>Project Overview</h2>
+        <p>
+          I standardized biodiversity surveys across nine urban parks and proposed new statistical indicators to track
+          ecological health in urban green spaces. The framework supports SDG 11 metrics and consistent cross-park
+          comparisons.
+        </p>
+      </div>
+    </section>
+
+    <section class="project-section section-alt">
+      <div class="container">
+        <h2>Key Contributions</h2>
+        <ul class="project-highlights">
+          <li>Harmonized survey protocols to enable cross-park biodiversity comparisons.</li>
+          <li>Analyzed spatial data on park layout and habitat structure to interpret biodiversity patterns.</li>
+          <li>Supported indicator design aligned with urban sustainability goals.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="project-section">
+      <div class="container">
+        <h2>Reference Contact Information</h2>
+        <ul class="project-reference-list">
+          <li><strong>Primary Contact:</strong> Marcelo Guzmán · <a href="mailto:marcelo.guzmandlg@gmail.com">marcelo.guzmandlg@gmail.com</a></li>
+          <li><strong>Affiliation:</strong> San Pedro + Parques</li>
+        </ul>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>© <span id="year"></span> Marcelo Guzmán. Built with HTML & CSS, hosted on GitHub Pages.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    const htmlEl = document.documentElement;
+    const toggleBtn = document.getElementById("themeToggle");
+    const toggleLabel = document.getElementById("themeToggleLabel");
+
+    function setTheme(theme) {
+      if (theme === "dark") {
+        htmlEl.setAttribute("data-theme", "dark");
+        toggleBtn?.setAttribute("aria-pressed", "true");
+        if (toggleLabel) toggleLabel.textContent = "Light mode";
+      } else {
+        htmlEl.removeAttribute("data-theme");
+        toggleBtn?.setAttribute("aria-pressed", "false");
+        if (toggleLabel) toggleLabel.textContent = "Dark mode";
+      }
+    }
+
+    const storedTheme = localStorage.getItem("theme");
+    setTheme(storedTheme || "dark");
+
+    toggleBtn?.addEventListener("click", () => {
+      const isDark = htmlEl.getAttribute("data-theme") === "dark";
+      const nextTheme = isDark ? "light" : "dark";
+      setTheme(nextTheme);
+      localStorage.setItem("theme", nextTheme);
+    });
+  </script>
+</body>
+</html>
