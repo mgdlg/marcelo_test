@@ -2596,7 +2596,6 @@ html[data-theme="dark"] .site-header::before {
   opacity: 0.55;
 }
 
-.section::after,
 .site-header::after {
   content: "";
   position: absolute;
@@ -2605,6 +2604,32 @@ html[data-theme="dark"] .site-header::before {
   opacity: 0.15;
   mix-blend-mode: soft-light;
   pointer-events: none;
+}
+
+.section::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0)),
+    linear-gradient(to top, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0)),
+    var(--grain);
+  background-size: 100% 34px, 100% 34px, auto;
+  background-position: top, bottom, center;
+  opacity: 0.35;
+  mix-blend-mode: screen;
+  backdrop-filter: blur(18px) saturate(1.2);
+  -webkit-backdrop-filter: blur(18px) saturate(1.2);
+  pointer-events: none;
+}
+
+html[data-theme="dark"] .section::after {
+  background-image:
+    linear-gradient(to bottom, rgba(56, 189, 248, 0.35), rgba(2, 6, 23, 0)),
+    linear-gradient(to top, rgba(56, 189, 248, 0.28), rgba(2, 6, 23, 0)),
+    var(--grain);
+  opacity: 0.4;
+  mix-blend-mode: lighten;
 }
 
 .section > .container,
