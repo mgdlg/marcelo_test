@@ -1145,7 +1145,13 @@ function setTheme(theme) {
   const BELT_PATH = "images/belt/";
   const IMAGE_COUNT = 45;
 
-  let active = Math.floor((IMAGE_COUNT - 1) / 2);
+  let activeIndex = Math.floor((IMAGE_COUNT - 1) / 2);
+  let activePosition = activeIndex;
+  let lastDirection = 1;
+  let lastInteractionTime = 0;
+  let lastAutoTime = performance.now();
+  const AUTO_SCROLL_IMAGES_PER_SECOND = 0.06;
+  const AUTO_SCROLL_PAUSE_MS = 5000;
 
   // Create DOM once
   const items = [];
@@ -1174,21 +1180,24 @@ function setTheme(theme) {
   }
 
   function setActive(next, focus) {
-    active = wrapIndex(next);
+    activeIndex = wrapIndex(next);
+    activePosition = activeIndex;
     render();
 
     if (focus) {
-      items[active]?.querySelector("img")?.focus?.();
+      items[activeIndex]?.querySelector("img")?.focus?.();
     }
   }
 
   function render() {
     const maxVisible = 10;
     const spacing = window.matchMedia("(max-width: 720px)").matches ? 70 : 92;
+    const active = wrapIndex(Math.round(activePosition));
+    activeIndex = active;
 
     items.forEach((el, i) => {
       // Calculate offset with wrapping
-      let offset = i - active;
+      let offset = i - activePosition;
       
       // Handle wrap-around for shortest visual distance
       if (offset > IMAGE_COUNT / 2) offset -= IMAGE_COUNT;
@@ -1213,16 +1222,66 @@ function setTheme(theme) {
     track.setAttribute("aria-label", `Active image ${active + 1} of ${IMAGE_COUNT}`);
   }
 
+  function recordUserInput(direction) {
+    if (direction !== 0) {
+      lastDirection = direction;
+    }
+    lastInteractionTime = performance.now();
+  }
+
+  function wrapFloat(n) {
+    return ((n % IMAGE_COUNT) + IMAGE_COUNT) % IMAGE_COUNT;
+  }
+
+  function autoScroll(now) {
+    if (isDown) {
+      lastAutoTime = now;
+      requestAnimationFrame(autoScroll);
+      return;
+    }
+
+    const elapsedSinceInteraction = now - lastInteractionTime;
+    const deltaTime = Math.max(0, now - lastAutoTime) / 1000;
+
+    if (elapsedSinceInteraction >= AUTO_SCROLL_PAUSE_MS) {
+      activePosition = wrapFloat(
+        activePosition + lastDirection * AUTO_SCROLL_IMAGES_PER_SECOND * deltaTime
+      );
+      render();
+    }
+
+    lastAutoTime = now;
+    requestAnimationFrame(autoScroll);
+  }
+
   // Button navigation with wrapping
-  prevBtn.addEventListener("click", () => setActive(active - 1, false));
-  nextBtn.addEventListener("click", () => setActive(active + 1, false));
+  prevBtn.addEventListener("click", () => {
+    recordUserInput(-1);
+    setActive(activeIndex - 1, false);
+  });
+  nextBtn.addEventListener("click", () => {
+    recordUserInput(1);
+    setActive(activeIndex + 1, false);
+  });
 
   // Keyboard with wrapping
   viewport.addEventListener("keydown", (e) => {
-    if (e.key === "ArrowLeft") setActive(active - 1, false);
-    if (e.key === "ArrowRight") setActive(active + 1, false);
-    if (e.key === "Home") setActive(0, false);
-    if (e.key === "End") setActive(IMAGE_COUNT - 1, false);
+    if (e.key === "ArrowLeft") {
+      recordUserInput(-1);
+      setActive(activeIndex - 1, false);
+    }
+    if (e.key === "ArrowRight") {
+      recordUserInput(1);
+      setActive(activeIndex + 1, false);
+    }
+    if (e.key === "Home") {
+      recordUserInput(-1);
+      setActive(0, false);
+    }
+    if (e.key === "End") {
+      recordUserInput(1);
+      setActive(IMAGE_COUNT - 1, false);
+    }
   });
 
   // Wheel/trackpad
@@ -1232,7 +1291,8 @@ function setTheme(theme) {
       const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
       if (Math.abs(delta) < 6) return;
       e.preventDefault();
-      setActive(active + (delta > 0 ? 1 : -1), false);
+      recordUserInput(delta > 0 ? 1 : -1);
+      setActive(activeIndex + (delta > 0 ? 1 : -1), false);
     },
     { passive: false }
   );
@@ -1245,9 +1305,10 @@ function setTheme(theme) {
   viewport.addEventListener("pointerdown", (e) => {
     isDown = true;
     startX = e.clientX;
-    startActive = active;
+    startActive = activeIndex;
     viewport.setPointerCapture(e.pointerId);
     viewport.classList.add("is-dragging");
+    recordUserInput(0);
   });
 
   viewport.addEventListener("pointermove", (e) => {
@@ -1256,7 +1317,10 @@ function setTheme(theme) {
     const step = window.matchMedia("(max-width: 720px)").matches ? 60 : 78;
 
     const next = startActive - Math.round(dx / step);
-    if (next !== active) setActive(next, false);
+    if (next !== activeIndex) {
+      recordUserInput(dx > 0 ? -1 : 1);
+      setActive(next, false);
+    }
   });
 
   function endDrag() {
@@ -1269,6 +1333,7 @@ function setTheme(theme) {
   viewport.addEventListener("pointerleave", endDrag);
 
   render();
+  requestAnimationFrame(autoScroll);
   window.addEventListener("resize", render, { passive: true });
 })();
   
