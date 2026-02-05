@@ -251,9 +251,20 @@ html[data-theme="dark"] .btn.primary:hover {
 }
 
 @media (min-width: 721px) {
+  .top-nav-wrap{
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+  }
+
   .top-nav{
     flex: 0 0 auto;
+    justify-self: center;
     width: fit-content;
+  }
+
+  .theme-toggle{
+    justify-self: end;
   }
 }
 
