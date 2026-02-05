@@ -363,6 +363,27 @@ h3 {
   margin-bottom: 0.4rem;
 }
 
+.award-card {
+  background: linear-gradient(135deg, rgba(56, 189, 248, 0.12), rgba(14, 165, 233, 0.04));
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  position: relative;
+  overflow: hidden;
+}
+
+.award-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top right, rgba(56, 189, 248, 0.2), transparent 55%);
+  opacity: 0.8;
+  pointer-events: none;
+}
+
+html[data-theme="dark"] .award-card {
+  background: linear-gradient(135deg, rgba(56, 189, 248, 0.18), rgba(14, 165, 233, 0.08));
+  border-color: rgba(56, 189, 248, 0.55);
+}
+
 .award-card h3 {
   margin-bottom: 0.5rem;
 }
@@ -377,6 +398,65 @@ h3 {
 
 .doc-card h4 {
   margin-bottom: 0.4rem;
+}
+
+.doc-list {
+  list-style: none;
+  padding: 0;
+  margin: 1.2rem 0 0;
+  display: grid;
+  gap: 0.9rem;
+}
+
+.doc-list li {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.9rem 1rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-subtle);
+  background: var(--surface);
+  box-shadow: var(--shadow-soft);
+}
+
+.doc-list h4 {
+  margin-bottom: 0.35rem;
+}
+
+.doc-list .doc-meta {
+  margin-bottom: 0;
+}
+
+.doc-actions {
+  flex-shrink: 0;
+}
+
+.doc-actions .btn {
+  white-space: nowrap;
+}
+
+.doc-list .doc-actions {
+  margin-top: 0;
+}
+
+.doc-list .btn {
+  padding: 0.35rem 0.9rem;
+}
+
+.doc-list .btn.primary {
+  box-shadow: none;
+}
+
+@media (max-width: 720px) {
+  .doc-list li {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .doc-actions {
+    justify-content: flex-start;
+  }
 }
 
 .doc-actions {
