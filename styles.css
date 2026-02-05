@@ -332,6 +332,36 @@ h3 {
 
 .projects-grid { display: grid; gap: 1.5rem; justify-items: center; }
 
+.awards-grid { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+
+.award-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.award-header h3 { margin: 0; }
+
+.award-year {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.awards-docs { margin-top: 2rem; }
+
+.doc-grid { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+
+.doc-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-top: 0.6rem;
+  font-size: 0.85rem;
+}
+
 .card {
   background: var(--surface);
   border-radius: var(--radius-xl);
