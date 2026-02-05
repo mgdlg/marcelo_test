@@ -250,6 +250,25 @@ html[data-theme="dark"] .btn.primary:hover {
   box-shadow: var(--shadow-soft);
 }
 
+@media (min-width: 721px) {
+  .top-nav-wrap{
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+  }
+
+  .top-nav{
+    flex: 0 0 auto;
+    justify-self: center;
+    max-width: 100%;
+    width: fit-content;
+  }
+
+  .theme-toggle{
+    justify-self: end;
+  }
+}
+
 /* tighten inner padding so pill looks intentional */
 .nav-inner{
   display: flex;
@@ -264,7 +283,7 @@ html[data-theme="dark"] .btn.primary:hover {
 
 @media (min-width: 721px) {
   .nav-inner {
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
   }
 }
 
