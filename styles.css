@@ -104,6 +104,14 @@ body {
 
 .section-alt { background: var(--section-alt-bg); }
 
+#references {
+  background: var(--section-alt-bg) url("images/spectrum13.png") center/cover no-repeat;
+}
+
+html[data-theme="dark"] #references {
+  background: var(--section-alt-bg) url("images/spectrum12.png") center/cover no-repeat;
+}
+
 /* =========================
    HEADER
    ========================= */
