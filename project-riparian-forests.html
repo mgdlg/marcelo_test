@@ -49,21 +49,680 @@
       <div class="container">
         <h2>Project Overview</h2>
         <p>
-          I combined multispectral remote sensing, land cover data, and point-count bird surveys to quantify how riparian
-          forests along an urban river influence bird diversity and community structure. The work supported post-storm
-          environmental planning after tropical storm Alberto and informed public-facing storytelling.
+          This page summarizes and translates the complete research report titled “Diversity of Resident Terrestrial
+          Avifauna in the Urban Successional Environment of the Santa Catarina River for Different Land Use and
+          Vegetation Types.” The study integrates multispectral remote sensing, land cover mapping, and point-count bird
+          surveys to understand how riparian forests shape urban bird diversity in Monterrey, Nuevo León.
         </p>
       </div>
     </section>
 
     <section class="project-section section-alt">
       <div class="container">
-        <h2>Key Contributions</h2>
+        <h2>Introduction & Context</h2>
+        <p>
+          The Santa Catarina River (SCR) is a meandering, lotic river in the Río Bravo–San Juan basin in northeastern
+          Mexico. It originates in the La Purísima canyon in the Sierra de San José and runs roughly 160 kilometers to
+          the San Juan River. Within the Monterrey Metropolitan Area (MMA), it passes through Santiago, Santa Catarina,
+          San Pedro, Monterrey, Guadalupe, Juárez, and Cadereyta.
+        </p>
+        <p>
+          The river corridor has long been targeted for urban development, and the expansion of the MMA during the
+          twentieth century led to intensive infrastructure projects that threaten both regional water security and
+          biodiversity. Major hurricanes such as Gilberto (1988), Emily (2005), and Alex (2010) demonstrated the risks of
+          modifying the riverbed, especially for floodplain neighborhoods in central Monterrey and Guadalupe. These
+          histories have fueled civic opposition to privatization and linear-park proposals that would reduce green
+          space per capita and further constrain the river’s hydraulic capacity.
+        </p>
+        <p>
+          The study is framed by the “One Health” paradigm, which recognizes that human health and environmental health
+          are inseparable. Urbanization drives biodiversity loss in semi-arid cities, yet riparian corridors can still
+          sustain native species and become biodiversity hotspots when restoration and conservation efforts align. Birds
+          are particularly useful indicators for urban ecology, given their well-documented habitat selection and
+          functional diversity.
+        </p>
+      </div>
+    </section>
+
+    <section class="project-section">
+      <div class="container">
+        <h2>Research Objectives & Hypothesis</h2>
         <ul class="project-highlights">
-          <li>Mapped vegetation structure and coverage along riparian corridors using satellite imagery.</li>
-          <li>Integrated bird survey observations with spatial layers to model biodiversity responses.</li>
-          <li>Presented findings at the DATATON panel and shared insights in a local news segment.</li>
+          <li>Estimate bird richness and diversity for different vegetation types and structures.</li>
+          <li>
+            Evaluate the magnitude of differences between communities using Hill numbers and the Chao–Sorensen
+            similarity index.
+          </li>
         </ul>
+        <p>
+          <strong>Hypothesis:</strong> Native riparian forest patches in the Santa Catarina River increase bird diversity
+          because they provide ecologically important habitats. Lower richness is expected in exotic vegetation and
+          treeless sites, with lower similarity between communities and a higher percentage of exclusive species in
+          tree-dominated riparian forest.
+        </p>
+      </div>
+    </section>
+
+    <section class="project-section section-alt">
+      <div class="container">
+        <h2>Methods</h2>
+        <h3>Study Area and Sampling</h3>
+        <p>
+          The study polygon is centered at 25°40′8.9436″N, 100°17′39.0984″W and covers 1.27 km² across roughly 8.02 km of
+          the river in central Monterrey. Sampling occurred during the first four days of April 2024, near the end of the
+          winter migration season. Forty randomized point counts with a 40 m radius were planned, and 39 were completed
+          (point 35 was inaccessible). Each count lasted five minutes with a three-minute settling period. Four to six
+          observers recorded birds visually and by call.
+        </p>
+        <figure class="project-figure">
+          <img
+            src="images/santa-catarina/34.png"
+            alt="Map of the Santa Catarina River study area with the 40 point count locations."
+            loading="lazy"
+          />
+          <figcaption>
+            <strong>Figure 1.</strong> Study area and point-count locations along the Santa Catarina River. Legend
+            translation: “Points” (sampling points) and “Study area.” Map notes: Ellipsoid WGS 1984, datum WGS 1984,
+            coordinate system UTM Zone 14N, and elevation reference in mean sea level.
+          </figcaption>
+        </figure>
+
+        <h3>Vegetation Classification</h3>
+        <p>
+          Spatial data and land-cover classifications were provided by Sociedad Sostenible, A.C. (Adrián Lozano, M.C., and
+          Roberto Alviso). Eighteen land-use and vegetation classes derived from a drone orthomosaic were grouped into
+          three categories: riparian forest (RF), exotic vegetation (EV), and no apparent vegetation (NAV). Riparian
+          forest includes Salix, Populus, and Platanus along with native riparian shrubs (mesquite, gavia, palo verde, and
+          others). Exotic vegetation includes African grasses, reed beds, and extensive stands of castor, palms, and
+          leucaena. No apparent vegetation includes exposed clay/gravel riverbed and remaining paved patches from
+          channelization. Of 39 point counts, 22 were classified as exotic vegetation, 9 as no apparent vegetation, and 8
+          as riparian forest.
+        </p>
+        <figure class="project-figure">
+          <img
+            src="images/santa-catarina/35.png"
+            alt="Map and pie chart showing land cover composition for the study area."
+            loading="lazy"
+          />
+          <figcaption>
+            <strong>Figure 2.</strong> Vegetation composition across the study area. Legend translation for the pie
+            chart: Water bodies, Riparian forest, Exotic vegetation, and No apparent vegetation. The pie chart indicates
+            46% exotic vegetation, 26% no apparent vegetation, 25% riparian forest, and 3% water bodies.
+          </figcaption>
+        </figure>
+
+        <h3>Diversity Analysis</h3>
+        <p>
+          Diversity was estimated with Hill numbers: observed richness (q0), Shannon exponential (q1), and Simpson
+          inverse (q2). Richness was also estimated with Chao1 to emphasize rare species (singletons and doubletons).
+          EstimateS 9.10 produced bootstrapped 95% confidence intervals (1,000 randomizations), while PAST 4.0 provided
+          analytical intervals where bootstrapping was unsuitable. The Chao–Sorensen estimator was used to quantify
+          shared species between communities. Aquatic species were excluded to reduce detectability bias.
+        </p>
+      </div>
+    </section>
+
+    <section class="project-section">
+      <div class="container">
+        <h2>Results: Global Diversity and Vegetation Types</h2>
+        <p>
+          Global observed richness was 32 species (95% CI: 24.57–37.43). When standardized to the same sampling effort
+          (N = 22), observed richness was 24.87 species (11.13–38.60) in riparian forest and 22.00 species (14.82–29.18)
+          in exotic vegetation.
+        </p>
+        <figure class="project-figure">
+          <img
+            src="images/santa-catarina/36.png"
+            alt="Species accumulation curve for global observed richness with 95% confidence interval."
+            loading="lazy"
+          />
+          <figcaption>
+            <strong>Figure 3.</strong> Global species accumulation curve (observed richness). Axes: sampling effort (x)
+            and observed species richness (y). Shaded band = 95% confidence interval.
+          </figcaption>
+        </figure>
+        <figure class="project-figure">
+          <img
+            src="images/santa-catarina/37.png"
+            alt="Species accumulation curves for riparian forest and exotic vegetation standardized to the same effort."
+            loading="lazy"
+          />
+          <figcaption>
+            <strong>Figure 4.</strong> Species accumulation curves standardized to N = 22. Legend translation: RF
+            (riparian forest) and EV (exotic vegetation); dotted lines are 95% confidence bounds for each curve. Axes:
+            sampling effort (x) and observed species richness (y).
+          </figcaption>
+        </figure>
+        <p>
+          Chao1 estimated global richness at 40.96 species (33.39–72.55) for 39 points. By vegetation type, Chao1
+          estimated 17.94 species (14.55–42.31) for riparian forest and 62.20 species (28.24–281.14) for exotic
+          vegetation.
+        </p>
+        <figure class="project-figure">
+          <img
+            src="images/santa-catarina/38.png"
+            alt="Chao1 rarefaction curve for global estimated richness with 95% confidence interval."
+            loading="lazy"
+          />
+          <figcaption>
+            <strong>Figure 5.</strong> Chao1 rarefaction curve for global estimated richness. Axes: sampling effort (x)
+            and estimated species richness (y). Shaded band = 95% confidence interval.
+          </figcaption>
+        </figure>
+        <figure class="project-figure">
+          <img
+            src="images/santa-catarina/39.png"
+            alt="Chao1 rarefaction curves comparing riparian forest and exotic vegetation."
+            loading="lazy"
+          />
+          <figcaption>
+            <strong>Figure 6.</strong> Chao1 estimated richness by vegetation type. Legend translation: RF (riparian
+            forest) and EV (exotic vegetation); dotted lines represent 95% confidence bounds. Axes: sampling effort (x)
+            and estimated species richness (y).
+          </figcaption>
+        </figure>
+        <p>
+          Sampling completeness (observed richness as a fraction of estimated richness) was 75.7% globally (95% CI:
+          42.7–92.8%), 78.0% for riparian forest (33.1–96.2%), and 35.4% for exotic vegetation (7.8–77.9%).
+        </p>
+        <figure class="project-figure">
+          <img
+            src="images/santa-catarina/40.png"
+            alt="Sampling completeness percentage for global, riparian forest, and exotic vegetation."
+            loading="lazy"
+          />
+          <figcaption>
+            <strong>Figure 7.</strong> Sampling completeness percentages (observed/estimated richness). Axis: sampling
+            completeness in percent (y). Each marker shows the mean with 95% confidence bounds.
+          </figcaption>
+        </figure>
+
+        <h3>Hill Numbers</h3>
+        <table class="project-table">
+          <caption>
+            <strong>Table 1.</strong> Hill numbers for global diversity (q0, q1, q2) with 95% confidence intervals.
+          </caption>
+          <thead>
+            <tr>
+              <th>Hill order</th>
+              <th>Value</th>
+              <th>95% CI (Lower)</th>
+              <th>95% CI (Upper)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>q0 (Richness)</td>
+              <td>31.00</td>
+              <td>24.57</td>
+              <td>37.43</td>
+            </tr>
+            <tr>
+              <td>q1 (Shannon exp.)</td>
+              <td>13.42</td>
+              <td>12.85</td>
+              <td>15.09</td>
+            </tr>
+            <tr>
+              <td>q2 (Simpson inv.)</td>
+              <td>8.34</td>
+              <td>7.99</td>
+              <td>8.69</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <table class="project-table">
+          <caption>
+            <strong>Table 2.</strong> Hill numbers by vegetation type standardized to N = 8 with 95% confidence intervals.
+          </caption>
+          <thead>
+            <tr>
+              <th>Vegetation type</th>
+              <th>q0</th>
+              <th>q0 95% CI</th>
+              <th>q1</th>
+              <th>q1 95% CI</th>
+              <th>q2</th>
+              <th>q2 95% CI</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Riparian forest</td>
+              <td>14.00</td>
+              <td>8.01–19.99</td>
+              <td>8.05</td>
+              <td>6.31–9.79</td>
+              <td>5.43</td>
+              <td>3.84–7.02</td>
+            </tr>
+            <tr>
+              <td>Exotic vegetation</td>
+              <td>11.80</td>
+              <td>7.25–16.34</td>
+              <td>7.26</td>
+              <td>3.81–10.71</td>
+              <td>5.11</td>
+              <td>2.11–8.11</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <figure class="project-figure">
+          <img
+            src="images/santa-catarina/41.png"
+            alt="Hill number comparison for riparian forest and exotic vegetation with confidence intervals."
+            loading="lazy"
+          />
+          <figcaption>
+            <strong>Figure 8.</strong> Hill numbers (q0, q1, q2) for riparian forest (RF) and exotic vegetation (EV).
+            Axis: diversity (effective number of species). Dots show mean values, and horizontal bars indicate 95%
+            confidence intervals.
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="project-section section-alt">
+      <div class="container">
+        <h2>Results: Tree Presence vs. Treeless Sites</h2>
+        <p>
+          To evaluate the effect of trees, the dataset was regrouped into sites with at least one tree (n = 26) and sites
+          without trees (n = 13). Observed richness standardized to N = 26 was 26 species (18.86–33.14) for tree-present
+          sites and 24.55 species (15.72–33.38) for treeless sites.
+        </p>
+        <figure class="project-figure">
+          <img
+            src="images/santa-catarina/42.png"
+            alt="Species accumulation curves for sites with trees and without trees standardized to the same effort."
+            loading="lazy"
+          />
+          <figcaption>
+            <strong>Figure 9.</strong> Species accumulation curves standardized to N = 26. Axes: sampling effort (x) and
+            observed species richness (y). Lines represent tree-present sites and treeless sites.
+          </figcaption>
+        </figure>
+        <p>
+          Chao1 richness estimates standardized to N = 13 were 29.81 species (20.5–82.21) for tree-present sites and
+          23.93 species (19.06–51.29) for treeless sites. Sampling completeness was 66.0% (29.4–90.0%) and 75.2%
+          (35.1–94.4%), respectively.
+        </p>
+        <figure class="project-figure">
+          <img
+            src="images/santa-catarina/43.png"
+            alt="Chao1 rarefaction curves comparing sites with trees and sites without trees."
+            loading="lazy"
+          />
+          <figcaption>
+            <strong>Figure 10.</strong> Chao1 estimated richness for tree-present and treeless sites. Axes: sampling
+            effort (x) and estimated species richness (y). Dotted lines show 95% confidence bounds.
+          </figcaption>
+        </figure>
+        <figure class="project-figure">
+          <img
+            src="images/santa-catarina/44.png"
+            alt="Sampling completeness for sites with trees and sites without trees."
+            loading="lazy"
+          />
+          <figcaption>
+            <strong>Figure 11.</strong> Sampling completeness for tree-present and treeless sites. Axis: completeness
+            (%) with 95% confidence bounds.
+          </figcaption>
+        </figure>
+
+        <table class="project-table">
+          <caption>
+            <strong>Table 3.</strong> Hill numbers for tree-present vs. treeless sites (N = 26) with 95% confidence
+            intervals.
+          </caption>
+          <thead>
+            <tr>
+              <th>Category</th>
+              <th>q0</th>
+              <th>q0 95% CI</th>
+              <th>q1</th>
+              <th>q1 95% CI</th>
+              <th>q2</th>
+              <th>q2 95% CI</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Tree-present</td>
+              <td>26.00</td>
+              <td>18.86–33.14</td>
+              <td>11.04</td>
+              <td>7.61–14.47</td>
+              <td>8.35</td>
+              <td>5.59–11.11</td>
+            </tr>
+            <tr>
+              <td>Treeless</td>
+              <td>24.55</td>
+              <td>15.72–33.38</td>
+              <td>8.54</td>
+              <td>7.05–10.03</td>
+              <td>4.94</td>
+              <td>4.10–5.78</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <figure class="project-figure">
+          <img
+            src="images/santa-catarina/45.png"
+            alt="Hill numbers for tree-present and treeless sites with confidence intervals."
+            loading="lazy"
+          />
+          <figcaption>
+            <strong>Figure 12.</strong> Hill numbers (q0, q1, q2) for tree-present and treeless sites. Axis: diversity
+            (effective number of species) with 95% confidence intervals.
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="project-section">
+      <div class="container">
+        <h2>PAST4 Diversity Profiles</h2>
+        <p>
+          Diversity profiles generated in PAST4 show significant differences between tree-present and treeless sites for
+          q0, q1, and q2. The Shannon (H’) and Simpson (D) indices also differed significantly (p = 0.006 and p = 0.012,
+          respectively).
+        </p>
+        <figure class="project-figure">
+          <img
+            src="images/santa-catarina/46.png"
+            alt="PAST4 diversity profiles showing global, vegetation-type, and tree presence comparisons."
+            loading="lazy"
+          />
+          <figcaption>
+            <strong>Figure 13.</strong> PAST4 diversity profiles. Left: global profile. Middle: riparian forest vs. exotic
+            vegetation. Right: tree-present vs. treeless sites. Axes: alpha (x) and diversity (y).
+          </figcaption>
+        </figure>
+
+        <table class="project-table">
+          <caption>
+            <strong>Table 4.</strong> Hill numbers from PAST4 (tree-present vs. treeless sites) with 95% confidence
+            intervals.
+          </caption>
+          <thead>
+            <tr>
+              <th>Category</th>
+              <th>q0</th>
+              <th>q0 95% CI</th>
+              <th>q1</th>
+              <th>q1 95% CI</th>
+              <th>q2</th>
+              <th>q2 95% CI</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Tree-present</td>
+              <td>26.0</td>
+              <td>26.0–26.0</td>
+              <td>14.4</td>
+              <td>12.3–16.8</td>
+              <td>9.9</td>
+              <td>8.2–12.3</td>
+            </tr>
+            <tr>
+              <td>Treeless</td>
+              <td>18.0</td>
+              <td>18.0–18.0</td>
+              <td>9.6</td>
+              <td>7.4–12.4</td>
+              <td>5.2</td>
+              <td>3.8–8.2</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="project-section section-alt">
+      <div class="container">
+        <h2>Community Similarity & Exclusive Species</h2>
+        <table class="project-table">
+          <caption>
+            <strong>Table 5A.</strong> Chao–Sorensen similarity between communities.
+          </caption>
+          <thead>
+            <tr>
+              <th>Comparison</th>
+              <th>Chao–Sorensen estimate</th>
+              <th>Standard deviation</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Riparian forest vs. Exotic vegetation</td>
+              <td>90.2%</td>
+              <td>6.9%</td>
+            </tr>
+            <tr>
+              <td>Tree-present vs. Treeless</td>
+              <td>88.1%</td>
+              <td>8.5%</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <table class="project-table">
+          <caption>
+            <strong>Table 5B.</strong> Exclusive species by community.
+          </caption>
+          <thead>
+            <tr>
+              <th>Riparian forest</th>
+              <th>Exotic vegetation</th>
+              <th>Tree-present</th>
+              <th>Treeless</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                Buteo plagiatus<br />
+                Cynanthus latirostris<br />
+                Dryobates scalaris<br />
+                Haemorhous mexicanus<br />
+                Mimus polyglottos<br />
+                Polioptila caerulea<br />
+                Pyrocephalus rubinus<br />
+                Spizella passerina<br />
+                Troglodytes aedon<br />
+                Tyrannus melancholicus
+              </td>
+              <td>Callipepla squamata</td>
+              <td>
+                Geothlypis trichas<br />
+                Leiothlypis celata<br />
+                Mimus polyglottos<br />
+                Passer domesticus<br />
+                Pyrocephalus rubinus<br />
+                Sayornis nigricans<br />
+                Setophaga coronata<br />
+                Sialia spp.<br />
+                Troglodytes aedon<br />
+                Tyrannus couchii<br />
+                Vireo spp.
+              </td>
+              <td>
+                Arremonops rufivirgatus<br />
+                Callipepla squamata<br />
+                Haemorhous mexicanus<br />
+                Myiopsitta monachus<br />
+                Spizella passerina
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="project-section">
+      <div class="container">
+        <h2>Discussion Highlights</h2>
+        <p>
+          Sampling completeness was lower for exotic vegetation than for riparian forest, likely because exotic
+          vegetation dominated large stretches of the riverbed, while riparian patches were small and isolated. This
+          spatial structure inflates the completeness index for riparian forest and depresses it for exotic vegetation.
+          The global sample was also limited, underscoring the need for greater effort to fully characterize the
+          terrestrial bird assemblage in the Santa Catarina River.
+        </p>
+        <p>
+          Differences between riparian forest and exotic vegetation may be better explained by vegetation structure than
+          by vegetation type alone. Studies show that considering both composition and structure yields stronger
+          insights. In this study, bird diversity and richness were generally higher in sites with trees, reinforcing the
+          ecological role of riparian woodland structure in urban river corridors.
+        </p>
+        <p>
+          A total of 31 terrestrial bird species and 9 aquatic species (families Anatidae, Ardeidae, Charadriidae,
+          Scolopacidae, and Phalacrocoracidae) were recorded, representing about 20% of resident birds in Nuevo León.
+          Columbidae, Icteridae, and Tyrannidae were the most abundant families, and Tyrannidae had the highest species
+          richness (five species). Species of conservation concern included the Mexican parakeet (Psittacara
+          holochlorus), listed as “Threatened” in NOM-059-SEMARNAT-2010, and the Olive Sparrow (Arremonops rufivirgatus)
+          and Broad-billed Hummingbird (Cynanthus latirostris), both regional near-endemics.
+        </p>
+        <figure class="project-figure">
+          <img
+            src="images/santa-catarina/47.png"
+            alt="Mexican finch and Lesser Goldfinch perched in vegetation patches along the river."
+            loading="lazy"
+          />
+          <figcaption>
+            <strong>Figure 14.</strong> Field photos: Mexican finch (left) perched on a fallen tree in a castor-bean patch
+            and Lesser Goldfinch (right) perched in an Asteraceae patch. These images contextualize species using
+            treeless and exotic-vegetation habitats.
+          </figcaption>
+        </figure>
+        <p>
+          Observations showed that tree-present sites were heavily used by species such as the Great Kiskadee (Pitangus
+          sulfuratus), Golden-fronted Woodpecker (Melanerpes aurifrons), and Lesser Goldfinch (Spinus psaltria). The
+          house sparrow (Passer domesticus), an introduced species, was recorded mostly in tree-present sites, especially
+          within riparian forest patches. Conversely, treeless sites supported native terrestrial species such as the
+          Mexican finch (Haemorhous mexicanus), which used extensive Asteraceae patches for perching and foraging.
+        </p>
+      </div>
+    </section>
+
+    <section class="project-section section-alt">
+      <div class="container">
+        <h2>Conclusions</h2>
+        <p>
+          The study emphasizes the ecological importance of native riparian trees for sustaining bird diversity in the
+          Santa Catarina River corridor. However, the sampling effort was insufficient to fully capture terrestrial bird
+          richness. Future work should expand temporal coverage and incorporate vegetation structure with improved
+          detectability models. The results also suggest caution in indiscriminately removing exotic vegetation, since
+          the evidence for lower diversity in exotic patches remains inconclusive without more robust sampling.
+        </p>
+      </div>
+    </section>
+
+    <section class="project-section">
+      <div class="container">
+        <h2>Appendix A: Species List by Family</h2>
+        <div class="project-columns">
+          <div>
+            <h3>Accipitridae</h3>
+            <p>Buteo plagiatus</p>
+            <h3>Anatidae</h3>
+            <p>Cairina moschata, Spatula discors</p>
+            <h3>Ardeidae</h3>
+            <p>Ardea alba, Egretta thula</p>
+            <h3>Cerylidae</h3>
+            <p>Megaceryle torquata</p>
+            <h3>Charadriidae</h3>
+            <p>Charadrius vociferus</p>
+            <h3>Columbidae</h3>
+            <p>Zenaida asiatica</p>
+            <h3>Fringillidae</h3>
+            <p>Haemorhous mexicanus, Spinus psaltria</p>
+            <h3>Hirundinidae</h3>
+            <p>Stelgidopteryx serripennis</p>
+            <h3>Icteridae</h3>
+            <p>Agelaius phoeniceus, Quiscalus mexicanus</p>
+            <h3>Mimidae</h3>
+            <p>Mimus polyglottos</p>
+            <h3>Parulidae</h3>
+            <p>Geothlypis trichas, Leiothlypis celata, Setophaga coronata</p>
+          </div>
+          <div>
+            <h3>Passeridae</h3>
+            <p>Passer domesticus</p>
+            <h3>Passerellidae</h3>
+            <p>Arremonops rufivirgatus, Spizella passerina</p>
+            <h3>Phalacrocoracidae</h3>
+            <p>Nannopterum brasilianus</p>
+            <h3>Picidae</h3>
+            <p>Dryobates scalaris, Melanerpes aurifrons</p>
+            <h3>Polioptilidae</h3>
+            <p>Polioptila caerulea</p>
+            <h3>Psittacidae</h3>
+            <p>Myiopsitta monachus (introduced), Psittacara holochlorus (threatened)</p>
+            <h3>Odontophoridae</h3>
+            <p>Callipepla squamata</p>
+            <h3>Scolopacidae</h3>
+            <p>Actitis macularius</p>
+            <h3>Threskiornithidae</h3>
+            <p>Plegadis chihi</p>
+            <h3>Trochilidae</h3>
+            <p>Cynanthus latirostris</p>
+            <h3>Troglodytidae</h3>
+            <p>Troglodytes aedon</p>
+            <h3>Turdidae</h3>
+            <p>Sialia spp.</p>
+            <h3>Tyrannidae</h3>
+            <p>
+              Pitangus sulfuratus, Pyrocephalus rubinus, Sayornis nigricans, Tyrannus couchii, Tyrannus melancholicus
+            </p>
+            <h3>Vireonidae</h3>
+            <p>Vireo spp.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="project-section section-alt">
+      <div class="container">
+        <h2>References</h2>
+        <ol class="project-bibliography">
+          <li>
+            Aronson, M. et al. (2014). A global analysis of the impacts of urbanization on bird and plant diversity
+            reveals key anthropogenic drivers. <em>Proceedings of the Royal Society B: Biological Sciences, 281.</em>
+          </li>
+          <li>Castillo-Muñoz, M., &amp; Guzmán-Hernández, J. L. (2021). <em>Huitzil, 22(2).</em></li>
+          <li>Chao, A. (1984). <em>Scandinavian Journal of Statistics, 11(4), 265–270.</em></li>
+          <li>Chao, A. et al. (2005). <em>Ecology Letters, 8(2), 148–159.</em></li>
+          <li>Chao, A. et al. (2020). <em>Ecological Research, 35(2), 292–314.</em></li>
+          <li>Chin, A. (2006). <em>Geomorphology, 79(3–4), 460–487.</em></li>
+          <li>Colwell, R. K. (2013). <em>EstimateS User's Guide and Application, v9.1.0.</em></li>
+          <li>Contreras-Balderas, A. J. et al. (2008). <em>Avifaunas Estatales de México.</em></li>
+          <li>Donnelly, R., &amp; Marzluff, J. M. (2004). <em>Conservation Biology, 18(3), 733–745.</em></li>
+          <li>Estrada, F. et al. (2020). <em>Frontiers in Environmental Science, 8, 25.</em></li>
+          <li>Guo, S. et al. (2019). <em>Forests, 10(8), 683.</em></li>
+          <li>Hammer, Ø. et al. (2001). <em>Palaeontologia Electronica, 4(1), 9.</em></li>
+          <li>Hill, M. O. (1973). <em>Ecology, 54(2), 427–432.</em></li>
+          <li>INEGI (1986). <em>Síntesis geográfica del estado de Nuevo León.</em></li>
+          <li>Lindenmayer, D. B. et al. (2009). <em>Emu-Austral Ornithology, 109(2), 100–106.</em></li>
+          <li>Lu, W. et al. (2019). <em>Ecological Indicators, 96, 146–152.</em></li>
+          <li>Marzluff, J. M. (2008). <em>Urban Ecology.</em></li>
+          <li>Mata-Balderas, J. M. et al. (2020). <em>CienciaUAT, 14(2), 6–20.</em></li>
+          <li>Medellín Mendoza, L. N. (2006). <em>Región y sociedad, 18(36), 71–105.</em></li>
+          <li>Pennington, D. N. et al. (2008). <em>Biological Conservation, 141(5), 1235–1248.</em></li>
+          <li>Pennington, D. N., &amp; Blair, R. B. (2011). <em>Diversity and Distributions, 17, 506–518.</em></li>
+          <li>Sandström, U. G. et al. (2006). <em>Landscape and Urban Planning, 77(1–2), 39–53.</em></li>
+          <li>Seymour, C. L., &amp; Simmons, R. E. (2008). <em>Journal of Arid Environments, 72(12), 2275–2281.</em></li>
+          <li>Suri, J. et al. (2017). <em>Landscape and Urban Planning, 157, 331–342.</em></li>
+          <li>Vega, V. N. (2023). <em>Academia XXII, 14(28), 58–86.</em></li>
+          <li>White, J. G. et al. (2005). <em>Landscape and Urban Planning, 71(2–4), 123–135.</em></li>
+          <li>WWF (2022). <em>Living Planet Report.</em></li>
+          <li>Zinsstag, J. et al. (2011). <em>Preventive Veterinary Medicine, 101(3–4), 148–156.</em></li>
+        </ol>
       </div>
     </section>
 
@@ -71,12 +730,14 @@
       <div class="container">
         <h2>Reference Contact Information</h2>
         <ul class="project-reference-list">
-          <li><strong>Primary Contact:</strong> Marcelo Guzmán · <a href="mailto:marcelo.guzmandlg@gmail.com">marcelo.guzmandlg@gmail.com</a></li>
-          <li><strong>Affiliation:</strong> Lab of Conservation Biology & Sustainable Development — UANL</li>
+          <li>
+            <strong>Primary Contact:</strong> Marcelo Guzmán ·
+            <a href="mailto:marcelo.guzmandlg@gmail.com">marcelo.guzmandlg@gmail.com</a>
+          </li>
+          <li><strong>Affiliation:</strong> Lab of Conservation Biology &amp; Sustainable Development — UANL</li>
         </ul>
       </div>
     </section>
-
   </main>
 
   <footer class="site-footer">
