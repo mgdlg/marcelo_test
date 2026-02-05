@@ -250,6 +250,22 @@ html[data-theme="dark"] .btn.primary:hover {
   box-shadow: var(--shadow-soft);
 }
 
+@media (min-width: 721px) {
+  .top-nav-wrap{
+    justify-content: center;
+  }
+
+  .top-nav{
+    flex: 0 0 auto;
+    width: fit-content;
+  }
+
+  .theme-toggle{
+    position: absolute;
+    right: 0;
+  }
+}
+
 /* tighten inner padding so pill looks intentional */
 .nav-inner{
   display: flex;
