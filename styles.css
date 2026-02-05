@@ -260,6 +260,7 @@ html[data-theme="dark"] .btn.primary:hover {
   .top-nav{
     flex: 0 0 auto;
     justify-self: center;
+    max-width: 100%;
     width: fit-content;
   }
 
@@ -282,7 +283,8 @@ html[data-theme="dark"] .btn.primary:hover {
 
 @media (min-width: 721px) {
   .nav-inner {
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
+    justify-content: center;
   }
 }
 
