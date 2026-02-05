@@ -245,7 +245,7 @@ html[data-theme="dark"] .btn.primary:hover {
 /* tighten inner padding so pill looks intentional */
 .nav-inner{
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   align-items: center;
   gap: 1.1rem;
   font-size: 0.9rem;
