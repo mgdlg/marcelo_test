@@ -2494,6 +2494,63 @@ html[data-theme="dark"] .view-project-link {
   gap: 0.75rem;
 }
 
+.project-figure {
+  margin: 2rem 0;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.project-figure img {
+  width: 100%;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.18);
+}
+
+.project-figure figcaption {
+  font-size: 0.95rem;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.project-table {
+  margin: 2rem 0;
+  overflow-x: auto;
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  background: rgba(15, 23, 42, 0.04);
+}
+
+.project-table table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+  min-width: 560px;
+}
+
+.project-table caption {
+  text-align: left;
+  font-weight: 600;
+  padding: 1rem 1.5rem 0;
+}
+
+.project-table th,
+.project-table td {
+  padding: 0.85rem 1.5rem;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+  vertical-align: top;
+}
+
+.project-table th {
+  text-align: left;
+  font-weight: 600;
+  color: var(--text);
+  background: rgba(148, 163, 184, 0.12);
+}
+
+.project-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
 .project-reference-list {
   list-style: none;
   padding: 0;
