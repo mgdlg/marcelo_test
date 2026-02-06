@@ -1816,10 +1816,30 @@ function setTheme(theme) {
     ];
 
     const map = L.map("portfolioMap", { worldCopyJump: true, minZoom: 2 }).setView([26, 3], 2);
-    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-      maxZoom: 19,
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-    }).addTo(map);
+
+    const mapThemes = {
+      light: "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+      dark: "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",
+    };
+
+    const tileConfig = {
+      subdomains: "abcd",
+      maxZoom: 20,
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+    };
+
+    function getTheme() {
+      return document.documentElement.getAttribute("data-theme") === "dark" ? "dark" : "light";
+    }
+
+    let activeBaseLayer = L.tileLayer(mapThemes[getTheme()], tileConfig).addTo(map);
+
+    function updateBasemapForTheme() {
+      const nextUrl = mapThemes[getTheme()];
+      if (!nextUrl) return;
+      map.removeLayer(activeBaseLayer);
+      activeBaseLayer = L.tileLayer(nextUrl, tileConfig).addTo(map);
+    }
 
     function createIcon(featured) {
       return L.divIcon({
@@ -1843,6 +1863,11 @@ function setTheme(theme) {
           </div>
         </article>
       `, { maxWidth: 290, className: "portfolio-map-popup" });
+    });
+
+    const themeToggle = document.getElementById("themeToggle");
+    themeToggle?.addEventListener("click", () => {
+      setTimeout(updateBasemapForTheme, 60);
     });
   })();
   (function initFullscreenModal() {
