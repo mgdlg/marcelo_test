@@ -34,6 +34,8 @@
     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
     crossorigin=""
   ></script>
+  <script src="https://unpkg.com/esri-leaflet@3.0.14/dist/esri-leaflet.js"></script>
+  <script src="https://unpkg.com/esri-leaflet-vector@4.3.2/dist/esri-leaflet-vector.js"></script>
 </head>
 <body>
   <header class="site-header">
@@ -1842,20 +1844,6 @@ function setTheme(theme) {
       return document.documentElement.getAttribute("data-theme") === "dark" ? "dark" : "light";
     }
 
-    function getBasemapConfig(theme) {
-      if (theme === "dark") {
-        return {
-          url: "https://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}",
-          attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ'
-        };
-      }
-
-      return {
-        url: "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>'
-      };
-    }
-
     let baseLayer;
 
     function renderBasemap() {
@@ -1863,10 +1851,22 @@ function setTheme(theme) {
         map.removeLayer(baseLayer);
       }
 
-      const config = getBasemapConfig(getTheme());
-      baseLayer = L.tileLayer(config.url, {
+      if (getTheme() === "dark") {
+        if (L.esri?.Vector?.vectorBasemapLayer) {
+          baseLayer = L.esri.Vector.vectorBasemapLayer("arcgis/nova").addTo(map);
+          return;
+        }
+
+        baseLayer = L.tileLayer("https://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}", {
+          maxZoom: 19,
+          attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ',
+        }).addTo(map);
+        return;
+      }
+
+      baseLayer = L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", {
         maxZoom: 19,
-        attribution: config.attribution,
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
       }).addTo(map);
     }
 
