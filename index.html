@@ -1808,7 +1808,7 @@ function setTheme(theme) {
         featured: true,
         projects: [
           { title: "Río Santa Catarina: Historical NDVI & Community Cartography", description: "Long-term NDVI analysis and participatory cartography for a key riparian corridor.", link: "project-rio-santa-catarina.html", thumbnail: "images/rsc-cartography.png", featured: true },
-          { title: "Drone Photogrammetry for Environmental Compensation", description: "Photogrammetry workflows supporting environmental impact and compensation plans.", link: "project-drone-photogrammetry.html", thumbnail: "images/droneagro.jpeg" },
+          { title: "Drone Photogrammetry for Environmental Compensation", description: "Photogrammetry workflows supporting environmental impact and compensation plans.", link: "project-drone-photogrammetry.html", thumbnail: "images/pix4denterprise-screenshot.png" },
           { title: "Riparian Forests & Urban Bird Diversity", description: "Spatial ecology analysis linking riparian vegetation and bird diversity in Monterrey.", link: "project-riparian-forests.html", thumbnail: "images/bird-diversity-light.png" },
           { title: "Historical Vegetation & Water Surface Analysis", description: "Historical remote sensing assessment for vegetation and water surface changes.", link: "project-historical-vegetation.html", thumbnail: "images/ndvi.jpg" },
           { title: "Remote Sensing for Reforestation Monitoring", description: "Monitoring vegetation recovery and reforestation outcomes with multi-temporal imagery.", link: "project-reforestation-monitoring.html", thumbnail: "images/rsc-ndvi-pages.png" },
@@ -1845,8 +1845,8 @@ function setTheme(theme) {
     function getBasemapConfig(theme) {
       if (theme === "dark") {
         return {
-          url: "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",
-          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>'
+          url: "https://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}",
+          attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ'
         };
       }
 

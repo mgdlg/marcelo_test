@@ -3430,4 +3430,66 @@ html[data-theme="dark"] .map-project-card-body p {
   .portfolio-map {
     height: 360px;
   }
+
+  .portfolio-map-popup .leaflet-popup-content-wrapper {
+    max-width: min(88vw, 290px);
+  }
+
+  .portfolio-map-popup .leaflet-popup-content {
+    margin: 0.55rem;
+    width: min(78vw, 248px) !important;
+  }
+
+  .map-project-card {
+    gap: 0.45rem;
+  }
+
+  .map-project-card img {
+    aspect-ratio: 16/8;
+    max-height: 94px;
+  }
+
+  .map-project-card-body h4 {
+    font-size: 0.83rem;
+    line-height: 1.25;
+  }
+
+  .map-project-card-body p {
+    font-size: 0.74rem;
+    line-height: 1.35;
+    margin: 0.3rem 0 0.45rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .map-featured-pill {
+    margin-bottom: 0.25rem;
+    font-size: 0.62rem;
+  }
+
+  .portfolio-map-popup .btn.primary {
+    font-size: 0.73rem;
+    padding: 0.4rem 0.6rem;
+  }
+
+  .map-popup-header {
+    margin-bottom: 0.35rem;
+  }
+
+  .map-popup-header p,
+  .map-popup-header span {
+    font-size: 0.68rem;
+  }
+
+  .map-popup-carousel-nav {
+    margin-top: 0.4rem;
+    gap: 0.35rem;
+  }
+
+  .map-nav-btn {
+    font-size: 0.7rem;
+    padding: 0.34rem 0.5rem;
+  }
 }
