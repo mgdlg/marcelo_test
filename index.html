@@ -23,6 +23,24 @@
     href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
     rel="stylesheet"
   />
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""
+  />
+  <script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""
+  ></script>
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css"
+  />
+  <script src="https://unpkg.com/esri-leaflet@3.0.12/dist/esri-leaflet.js"></script>
+  <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+  <script src="https://unpkg.com/esri-leaflet-vector@4.3.2/dist/esri-leaflet-vector.js"></script>
 </head>
 <body>
   <header class="site-header">
@@ -149,6 +167,18 @@
             <button class="belt-btn" id="beltNext" type="button" aria-label="Next image">Next</button>
           </div>
         </div>
+
+        <section class="about-map-subsection" aria-labelledby="portfolio-map-title">
+          <div class="about-map-header">
+            <h3 id="portfolio-map-title">Global Portfolio Explorer</h3>
+            <p>Explore every project geographically. Featured projects use a highlighted pin.</p>
+          </div>
+          <div class="map-legend" aria-label="Map legend">
+            <span><i class="legend-pin legend-featured" aria-hidden="true"></i> Featured project</span>
+            <span><i class="legend-pin legend-standard" aria-hidden="true"></i> Project</span>
+          </div>
+          <div id="portfolioMap" class="portfolio-map" role="application" aria-label="Interactive portfolio world map"></div>
+        </section>
 
       </div>
     </section>
@@ -1774,6 +1804,185 @@ function setTheme(theme) {
   // ----------------------------
   // Fullscreen modal for images and media
   // ----------------------------
+  (function initPortfolioMap() {
+    const mapContainer = document.getElementById("portfolioMap");
+    if (!mapContainer || typeof L === "undefined") return;
+
+    const groupedProjects = [
+      {
+        group: "Monterrey, Mexico",
+        location: [25.6866, -100.3161],
+        featured: true,
+        projects: [
+          { title: "Río Santa Catarina: Historical NDVI & Community Cartography", description: "Long-term NDVI analysis and participatory cartography for a key riparian corridor.", link: "project-rio-santa-catarina.html", thumbnail: "images/rsc-cartography.png", featured: true },
+          { title: "Drone Photogrammetry for Environmental Compensation", description: "Photogrammetry workflows supporting environmental impact and compensation plans.", link: "project-drone-photogrammetry.html", thumbnail: "images/pix4denterprise-screenshot.png" },
+          { title: "Riparian Forests & Urban Bird Diversity", description: "Spatial ecology analysis linking riparian vegetation and bird diversity in Monterrey.", link: "project-riparian-forests.html", thumbnail: "images/bird-diversity-light.png" },
+          { title: "Historical Vegetation & Water Surface Analysis", description: "Historical remote sensing assessment for vegetation and water surface changes.", link: "project-historical-vegetation.html", thumbnail: "images/ndvi.jpg" },
+          { title: "Remote Sensing for Reforestation Monitoring", description: "Monitoring vegetation recovery and reforestation outcomes with multi-temporal imagery.", link: "project-reforestation-monitoring.html", thumbnail: "images/rsc-ndvi-pages.png" },
+          { title: "Urban Park Biodiversity Monitoring Framework", description: "Urban biodiversity framework integrating field records with geospatial analysis.", link: "project-urban-park-biodiversity.html", thumbnail: "images/urban-parks-biodiversity.png" }
+        ]
+      },
+      {
+        group: "Debrecen, Hungary",
+        location: [47.5316, 21.6273],
+        featured: true,
+        projects: [
+          { title: "University of Debrecen: Advanced GIS & Research Internship", description: "Graduate GIS/UAV coursework and research internship in avian urban ecology.", link: "project-university-debrecen.html", thumbnail: "images/unideb-collage.jpeg", featured: true },
+          { title: "Urbanization Index & Blackbird Phenotypes", description: "Supervisor: PhD Ivan Gonzalez — ivangonzalezandazola@gmail.com", link: "project-urbanization-index.html", thumbnail: "images/urbanization-index-map.jpg", featured: true },
+          { title: "Models in GIS — ModelBuilder Workflow", description: "Professor: PhD Boglárka Bertalan-Balázs — balazs.boglarka@science.unideb.hu", link: "project-models-in-gis.html", thumbnail: "images/models-in-gis.png", featured: true },
+          { title: "UAV Remote Sensing Accuracy Assessment", description: "Professor: László Bertalan — bertalan@science.unideb.hu", link: "project-uav-accuracy.html", thumbnail: "images/uav-gcps.png", featured: true }
+        ]
+      },
+      {
+        group: "Wichita, KS, US",
+        location: [37.6872, -97.3301],
+        featured: false,
+        projects: [
+          { title: "Animal Biology and Zoology Training", description: "BridgeUSA training experience in zoology and wildlife management (Wichita, KS).", link: "https://www.linkedin.com/posts/marcelo-guzman-063063128_today-i-received-my-bridgeusa-program-certificate-activity-7239423395442962432-esev?utm_source=share&utm_medium=member_desktop&rcm=ACoAAB9U-osBBsL4tmO-PWPNvD-0cyf0O0JsOiU", thumbnail: "https://media.licdn.com/dms/image/v2/D4E22AQHclaR_2ZHIrw/feedshare-shrink_800/feedshare-shrink_800/0/1726013039164?e=1772064000&v=beta&t=Go4yJmYGPnCjDYs3pbVj_XTMXE24etCpHS8prUcwZFI" }
+        ]
+      }
+    ];
+
+    const map = L.map("portfolioMap", { worldCopyJump: true, minZoom: 2 }).setView([30, -20], 2);
+
+    function getTheme() {
+      return document.documentElement.getAttribute("data-theme") === "dark" ? "dark" : "light";
+    }
+
+    function getBasemapConfig(theme) {
+      if (theme === "dark") {
+        return {
+          type: "esri-nova"
+        };
+      }
+
+      return {
+        type: "raster",
+        url: "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>'
+      };
+    }
+
+    let baseLayer;
+
+    function renderBasemap() {
+      if (baseLayer) {
+        map.removeLayer(baseLayer);
+      }
+
+      const config = getBasemapConfig(getTheme());
+      if (config.type === "esri-nova" && L.esri?.Vector?.vectorTileLayer) {
+        const simplifyNovaStyle = (style) => {
+          if (!style || !Array.isArray(style.layers)) return style;
+
+          const noisyLayerKeywords = ["grid", "graticule", "stipple", "stripe", "square", "mesh"];
+
+          style.layers = style.layers.filter((layer) => {
+            const id = String(layer?.id || "").toLowerCase();
+            const hasNoisyId = noisyLayerKeywords.some((keyword) => id.includes(keyword));
+
+            const paint = layer?.paint || {};
+            const hasPattern = Boolean(paint["fill-pattern"] || paint["line-pattern"]);
+
+            return !hasNoisyId && !hasPattern;
+          });
+
+          return style;
+        };
+
+        baseLayer = L.esri.Vector.vectorTileLayer("75f4dfdff19e445395653121a95a85db", {
+          opacity: 1,
+          style: simplifyNovaStyle,
+        }).addTo(map);
+      } else {
+        baseLayer = L.tileLayer(config.url, {
+          maxZoom: 19,
+          attribution: config.attribution,
+        }).addTo(map);
+      }
+    }
+
+    renderBasemap();
+
+    function createIcon(featured) {
+      return L.divIcon({
+        className: "portfolio-map-pin",
+        html: `<span class="map-pin-dot ${featured ? "is-featured" : ""}"></span>`,
+        iconSize: [22, 22],
+        iconAnchor: [11, 11],
+      });
+    }
+
+    function getPopupMarkup(groupData) {
+      const cards = groupData.projects.map((project, index) => `
+        <article class="map-project-card ${project.featured ? "is-featured" : ""} ${index === 0 ? "is-active" : ""}" data-map-card>
+          <img src="${project.thumbnail}" alt="${project.title} thumbnail" loading="lazy" />
+          <div class="map-project-card-body">
+            ${project.featured ? '<span class="map-featured-pill">Featured</span>' : ""}
+            <h4>${project.title}</h4>
+            <p>${project.description}</p>
+            <a href="${project.link}" target="_blank" rel="noopener" class="btn primary">View project</a>
+          </div>
+        </article>
+      `).join("");
+
+      const showControls = groupData.projects.length > 1;
+
+      return `
+        <section class="map-popup-carousel" data-map-carousel>
+          <div class="map-popup-header">
+            <p>${groupData.group}</p>
+            <span data-map-counter>1 / ${groupData.projects.length}</span>
+          </div>
+          <div class="map-popup-cards">${cards}</div>
+          ${showControls ? `
+            <div class="map-popup-carousel-nav">
+              <button type="button" class="map-nav-btn" data-map-prev>Previous</button>
+              <button type="button" class="map-nav-btn" data-map-next>Next</button>
+            </div>
+          ` : ""}
+        </section>
+      `;
+    }
+
+    function initCarousel(popupEl) {
+      const carousel = popupEl.querySelector("[data-map-carousel]");
+      if (!carousel) return;
+
+      const cards = Array.from(carousel.querySelectorAll("[data-map-card]"));
+      const prevBtn = carousel.querySelector("[data-map-prev]");
+      const nextBtn = carousel.querySelector("[data-map-next]");
+      const counter = carousel.querySelector("[data-map-counter]");
+      let active = 0;
+
+      function render(index) {
+        active = (index + cards.length) % cards.length;
+        cards.forEach((card, idx) => card.classList.toggle("is-active", idx === active));
+        if (counter) {
+          counter.textContent = `${active + 1} / ${cards.length}`;
+        }
+      }
+
+      prevBtn?.addEventListener("click", () => render(active - 1));
+      nextBtn?.addEventListener("click", () => render(active + 1));
+      render(0);
+    }
+
+    groupedProjects.forEach((groupData) => {
+      const marker = L.marker(groupData.location, { icon: createIcon(Boolean(groupData.featured)) }).addTo(map);
+      marker.bindPopup(getPopupMarkup(groupData), { maxWidth: 300, className: "portfolio-map-popup" });
+      marker.on("popupopen", (event) => {
+        initCarousel(event.popup.getElement());
+      });
+    });
+
+    const themeToggle = document.getElementById("themeToggle");
+    if (themeToggle) {
+      themeToggle.addEventListener("click", () => {
+        setTimeout(renderBasemap, 0);
+      });
+    }
+  })();
   (function initFullscreenModal() {
     // Create modal elements
     const modal = document.createElement('div');
