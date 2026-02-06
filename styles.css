@@ -557,75 +557,31 @@ html[data-theme="dark"] .award-card {
   margin-bottom: 0.4rem;
 }
 
-.doc-list {
-  list-style: none;
-  padding: 0;
-  margin: 1.2rem 0 0;
+.doc-list-columns {
   display: grid;
-  gap: 0.9rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.9rem 2rem;
+  margin-top: 1rem;
+}
+
+.doc-list {
+  margin: 0;
+  padding-left: 1.1rem;
 }
 
 .doc-list li {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 1rem;
-  padding: 0.9rem 1rem;
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--border-subtle);
-  background: var(--surface);
-  box-shadow: var(--shadow-soft);
+  margin-bottom: 0.45rem;
 }
 
-.doc-list h4 {
-  margin-bottom: 0.35rem;
-}
-
-.doc-list .doc-meta {
-  margin-bottom: 0;
-}
-
-.doc-actions {
-  flex-shrink: 0;
-}
-
-.doc-actions .btn {
-  white-space: nowrap;
-}
-
-.doc-list .doc-actions {
-  margin-top: 0;
-}
-
-.doc-list .btn {
-  padding: 0.35rem 0.9rem;
-}
-
-.doc-list .btn.primary {
-  box-shadow: none;
+.compact-list strong {
+  font-weight: 600;
 }
 
 @media (max-width: 720px) {
-  .doc-list li {
-    flex-direction: column;
-    align-items: stretch;
+  .doc-list-columns {
+    grid-template-columns: 1fr;
+    gap: 0.3rem;
   }
-
-  .doc-actions {
-    justify-content: flex-start;
-  }
-}
-
-.doc-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.6rem;
-  margin-top: 0.8rem;
-}
-
-.doc-actions .btn {
-  padding: 0.4rem 1rem;
-  font-size: 0.85rem;
 }
 
 /* =========================
