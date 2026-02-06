@@ -553,6 +553,21 @@ html[data-theme="dark"] .award-card {
   margin-bottom: 0.5rem;
 }
 
+
+.compact-doc-list {
+  margin: 0.85rem 0 0;
+  padding-left: 1.1rem;
+}
+
+.compact-doc-list li {
+  margin: 0.35rem 0;
+  line-height: 1.45;
+}
+
+.compact-doc-list a {
+  white-space: nowrap;
+}
+
 .doc-card h4 {
   margin-bottom: 0.4rem;
 }
@@ -3198,17 +3213,15 @@ html[data-theme="dark"] .portfolio-card {
 }
 
 .header-meta span {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  padding: 0.35rem 0.7rem;
-  border-radius: 999px;
-  background: color-mix(in oklch, var(--glass-bg), transparent 20%);
-  border: 1px solid color-mix(in oklch, var(--glass-border), transparent 20%);
+  display: inline;
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
+  border: 0;
 }
 
 .header-meta span + span {
-  margin-left: 0.2rem;
+  margin-left: 0;
 }
 
 .section-intro,
