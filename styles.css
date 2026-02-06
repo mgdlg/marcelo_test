@@ -2085,6 +2085,12 @@ html[data-theme="dark"] #projects .projects-lab{
   box-shadow: 0 10px 30px rgba(0,0,0,0.18);
 }
 
+@media (min-width: 900px) {
+  .video-wrapper {
+    aspect-ratio: 9 / 13;
+  }
+}
+
 .video-wrapper iframe {
   width: 100%;
   height: 100%;
@@ -2810,6 +2816,24 @@ html[data-theme="dark"] .view-project-link {
   font-size: 0.95rem;
   line-height: 1.5;
   color: var(--muted);
+}
+
+.project-media-embed {
+  width: 100%;
+  max-width: 100%;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--border-subtle);
+  background: var(--surface-2);
+  aspect-ratio: 16 / 9;
+}
+
+.project-media-embed iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  border: 0;
 }
 
 .table-wrapper {
