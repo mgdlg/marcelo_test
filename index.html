@@ -150,6 +150,22 @@
           </div>
         </div>
 
+        <div class="portfolio-map-block" aria-labelledby="map-title">
+          <div class="portfolio-map-header">
+            <h3 id="map-title">Explore My Portfolio Around the World</h3>
+            <p>Click any location pin to open a project card with a thumbnail, short description, and direct link.</p>
+          </div>
+
+          <div class="map-legend" aria-label="Map legend">
+            <span><span class="legend-dot legend-dot-featured"></span> Featured projects</span>
+            <span><span class="legend-dot"></span> Additional projects</span>
+          </div>
+
+          <div class="portfolio-map" id="portfolioMap" role="application" aria-label="Interactive world map with project locations">
+            <div class="portfolio-map-popup" id="mapPopup" hidden></div>
+          </div>
+        </div>
+
       </div>
     </section>
 <!-- SKILLS -->
@@ -1581,6 +1597,231 @@ function setTheme(theme) {
   render();
   requestAnimationFrame(autoScroll);
   window.addEventListener("resize", render, { passive: true });
+})();
+
+    // ----------------------------
+    // Interactive world portfolio map
+    // ----------------------------
+(function initPortfolioMap() {
+  const map = document.getElementById("portfolioMap");
+  const popup = document.getElementById("mapPopup");
+  if (!map || !popup) return;
+
+  const projects = [
+    {
+      title: "Río Santa Catarina: Historical NDVI & Community Cartography",
+      city: "Monterrey, Mexico",
+      lat: 25.6866,
+      lon: -100.3161,
+      description: "Analyzed historical NDVI trends and coordinated community-led cartography for riparian monitoring.",
+      thumbnail: "images/rsc-ndvi-pages.png",
+      link: "project-rio-santa-catarina.html",
+      featured: true,
+      offsetX: -34,
+      offsetY: -12
+    },
+    {
+      title: "University of Debrecen: Advanced GIS & Research Internship",
+      city: "Debrecen, Hungary",
+      lat: 47.5316,
+      lon: 21.6273,
+      description: "Graduate coursework and applied GIS/UAV research focused on avian adaptation to urbanization.",
+      thumbnail: "images/unideb-collage.jpeg",
+      link: "project-university-debrecen.html",
+      featured: true
+    },
+    {
+      title: "Urbanization Index & Blackbird Phenotypes",
+      city: "Debrecen, Hungary",
+      lat: 47.5316,
+      lon: 21.6273,
+      description: "Spatial metrics and modeling for urban gradient effects on blackbird phenotypic variation.",
+      thumbnail: "images/urbanization-index-map.jpg",
+      link: "project-urbanization-index.html",
+      featured: true,
+      offsetX: 30,
+      offsetY: -24
+    },
+    {
+      title: "Models in GIS — ModelBuilder Workflow",
+      city: "Debrecen, Hungary",
+      lat: 47.5316,
+      lon: 21.6273,
+      description: "Designed reproducible ArcGIS ModelBuilder pipelines for land-cover summaries and outputs.",
+      thumbnail: "images/models-in-gis.png",
+      link: "project-models-in-gis.html",
+      featured: true,
+      offsetX: 30,
+      offsetY: 8
+    },
+    {
+      title: "UAV Remote Sensing Accuracy Assessment",
+      city: "Debrecen, Hungary",
+      lat: 47.5316,
+      lon: 21.6273,
+      description: "Evaluated UAV photogrammetry precision using GCPs and validation workflows.",
+      thumbnail: "images/uav-gcps.png",
+      link: "project-uav-accuracy.html",
+      featured: true,
+      offsetX: -30,
+      offsetY: 20
+    },
+    {
+      title: "Drone Photogrammetry for Environmental Compensation",
+      city: "Monterrey, Mexico",
+      lat: 25.6866,
+      lon: -100.3161,
+      description: "Applied drone-based terrain and vegetation mapping for environmental impact compensation planning.",
+      thumbnail: "images/droneagro.jpeg",
+      link: "project-drone-photogrammetry.html",
+      offsetX: -2,
+      offsetY: 24
+    },
+    {
+      title: "Riparian Forests & Urban Bird Diversity",
+      city: "Monterrey, Mexico",
+      lat: 25.6866,
+      lon: -100.3161,
+      description: "Connected bird survey data with riparian habitat metrics to evaluate urban biodiversity response.",
+      thumbnail: "images/bird-diversity-light.png",
+      link: "project-riparian-forests.html",
+      offsetX: 28,
+      offsetY: -20
+    },
+    {
+      title: "Historical Vegetation & Water Surface Analysis",
+      city: "Monterrey, Mexico",
+      lat: 25.6866,
+      lon: -100.3161,
+      description: "Tracked historical vegetation cover and water-surface dynamics with multi-temporal imagery.",
+      thumbnail: "images/ndvi.jpg",
+      link: "project-historical-vegetation.html",
+      offsetX: 34,
+      offsetY: 8
+    },
+    {
+      title: "Remote Sensing for Reforestation Monitoring",
+      city: "Monterrey, Mexico",
+      lat: 25.6866,
+      lon: -100.3161,
+      description: "Monitored restoration progress using remote sensing indicators and periodic reporting.",
+      thumbnail: "images/r-gbif.jpeg",
+      link: "project-reforestation-monitoring.html",
+      offsetX: -30,
+      offsetY: 24
+    },
+    {
+      title: "Urban Park Biodiversity Monitoring Framework",
+      city: "Monterrey, Mexico",
+      lat: 25.6866,
+      lon: -100.3161,
+      description: "Framework combining GIS, buffers, and biological records to monitor urban park biodiversity.",
+      thumbnail: "images/urban-parks-biodiversity.png",
+      link: "project-urban-park-biodiversity.html",
+      offsetX: 6,
+      offsetY: -30
+    },
+    {
+      title: "Animal Biology and Zoology Training",
+      city: "Wichita, KS, US",
+      lat: 37.6872,
+      lon: -97.3301,
+      description: "BridgeUSA certificate training in animal biology and zoology practice.",
+      thumbnail: "https://media.licdn.com/dms/image/v2/D4E22AQHclaR_2ZHIrw/feedshare-shrink_800/feedshare-shrink_800/0/1726013039164?e=1772064000&v=beta&t=Go4yJmYGPnCjDYs3pbVj_XTMXE24etCpHS8prUcwZFI",
+      link: "https://www.linkedin.com/posts/marcelo-guzman-063063128_today-i-received-my-bridgeusa-program-certificate-activity-7239423395442962432-esev?utm_source=share&utm_medium=member_desktop&rcm=ACoAAB9U-osBBsL4tmO-PWPNvD-0cyf0O0JsOiU",
+      offsetX: 24,
+      offsetY: -18
+    }
+  ];
+
+  const buttons = [];
+
+  function projectToPercent(lat, lon) {
+    const x = ((lon + 180) / 360) * 100;
+    const y = ((90 - lat) / 180) * 100;
+    return { x, y };
+  }
+
+  function closePopup() {
+    popup.hidden = true;
+    popup.innerHTML = "";
+    buttons.forEach((btn) => btn.classList.remove("is-active"));
+  }
+
+  function placePopup(btn, project) {
+    const mapRect = map.getBoundingClientRect();
+    const pinRect = btn.getBoundingClientRect();
+
+    popup.innerHTML = `
+      <img src="${project.thumbnail}" alt="${project.title} thumbnail" loading="lazy">
+      <h4>${project.title}</h4>
+      <p>${project.city}</p>
+      <p>${project.description}</p>
+      <div class="map-popup-actions">
+        <a class="btn primary" href="${project.link}" ${project.link.startsWith("http") ? 'target="_blank" rel="noopener"' : ""}>View project</a>
+      </div>
+    `;
+
+    popup.hidden = false;
+
+    const popupRect = popup.getBoundingClientRect();
+    let left = pinRect.left - mapRect.left + 18;
+    let top = pinRect.top - mapRect.top - popupRect.height - 8;
+
+    if (left + popupRect.width > mapRect.width - 8) {
+      left = mapRect.width - popupRect.width - 8;
+    }
+    if (left < 8) left = 8;
+    if (top < 8) {
+      top = pinRect.bottom - mapRect.top + 8;
+    }
+
+    popup.style.left = `${left}px`;
+    popup.style.top = `${top}px`;
+  }
+
+  projects.forEach((project, index) => {
+    const pin = document.createElement("button");
+    pin.type = "button";
+    pin.className = "map-pin";
+    pin.setAttribute("aria-label", `${project.title} — ${project.city}`);
+    pin.dataset.projectIndex = String(index);
+    if (project.featured) pin.classList.add("is-featured");
+
+    const { x, y } = projectToPercent(project.lat, project.lon);
+    const offsetX = project.offsetX || 0;
+    const offsetY = project.offsetY || 0;
+    pin.style.left = `calc(${x}% + ${offsetX}px)`;
+    pin.style.top = `calc(${y}% + ${offsetY}px)`;
+
+    pin.addEventListener("click", () => {
+      const alreadyOpen = !popup.hidden && pin.classList.contains("is-active");
+      if (alreadyOpen) {
+        closePopup();
+        return;
+      }
+
+      buttons.forEach((btn) => btn.classList.remove("is-active"));
+      pin.classList.add("is-active");
+      placePopup(pin, project);
+    });
+
+    map.appendChild(pin);
+    buttons.push(pin);
+  });
+
+  document.addEventListener("click", (event) => {
+    if (!map.contains(event.target)) {
+      closePopup();
+    }
+  });
+
+  window.addEventListener("resize", () => {
+    const active = buttons.find((btn) => btn.classList.contains("is-active"));
+    if (!active) return;
+    const index = Number(active.dataset.projectIndex || "0");
+    placePopup(active, projects[index]);
+  });
 })();
   
     // ----------------------------
