@@ -23,6 +23,17 @@
     href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
     rel="stylesheet"
   />
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""
+  />
+  <script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""
+  ></script>
 </head>
 <body>
   <header class="site-header">
@@ -149,6 +160,18 @@
             <button class="belt-btn" id="beltNext" type="button" aria-label="Next image">Next</button>
           </div>
         </div>
+
+        <section class="about-map-subsection" aria-labelledby="portfolio-map-title">
+          <div class="about-map-header">
+            <h3 id="portfolio-map-title">Global Portfolio Explorer</h3>
+            <p>Explore every project geographically. Featured projects use a highlighted pin.</p>
+          </div>
+          <div class="map-legend" aria-label="Map legend">
+            <span><i class="legend-pin legend-featured" aria-hidden="true"></i> Featured project</span>
+            <span><i class="legend-pin legend-standard" aria-hidden="true"></i> Project</span>
+          </div>
+          <div id="portfolioMap" class="portfolio-map" role="application" aria-label="Interactive portfolio world map"></div>
+        </section>
 
       </div>
     </section>
@@ -1774,6 +1797,91 @@ function setTheme(theme) {
   // ----------------------------
   // Fullscreen modal for images and media
   // ----------------------------
+  (function initPortfolioMap() {
+    const mapContainer = document.getElementById("portfolioMap");
+    if (!mapContainer || typeof L === "undefined") return;
+
+    const projects = [
+      { title: "Río Santa Catarina: Historical NDVI & Community Cartography", description: "Long-term NDVI analysis and participatory cartography for a key riparian corridor.", link: "project-rio-santa-catarina.html", thumbnail: "images/rsc-cartography.png", location: [25.6866, -100.3161], featured: true },
+      { title: "University of Debrecen: Advanced GIS & Research Internship", description: "Graduate GIS/UAV coursework and research internship in avian urban ecology.", link: "project-university-debrecen.html", thumbnail: "images/unideb-collage.jpeg", location: [47.5316, 21.6273], featured: true },
+      { title: "Urbanization Index & Blackbird Phenotypes", description: "Supervisor: PhD Ivan Gonzalez — ivangonzalezandazola@gmail.com", link: "project-urbanization-index.html", thumbnail: "images/urbanization-index-map.jpg", location: [47.537, 21.622], featured: true },
+      { title: "Models in GIS — ModelBuilder Workflow", description: "Professor: PhD Boglárka Bertalan-Balázs — balazs.boglarka@science.unideb.hu", link: "project-models-in-gis.html", thumbnail: "images/models-in-gis.png", location: [47.528, 21.634], featured: true },
+      { title: "UAV Remote Sensing Accuracy Assessment", description: "Professor: László Bertalan — bertalan@science.unideb.hu", link: "project-uav-accuracy.html", thumbnail: "images/uav-gcps.png", location: [47.534, 21.639], featured: true },
+      { title: "Drone Photogrammetry for Environmental Compensation", description: "Photogrammetry workflows supporting environmental impact and compensation plans.", link: "project-drone-photogrammetry.html", thumbnail: "images/droneagro.jpeg", location: [25.68, -100.29] },
+      { title: "Riparian Forests & Urban Bird Diversity", description: "Spatial ecology analysis linking riparian vegetation and bird diversity in Monterrey.", link: "project-riparian-forests.html", thumbnail: "images/bird-diversity-light.png", location: [25.671, -100.347] },
+      { title: "Historical Vegetation & Water Surface Analysis", description: "Historical remote sensing assessment for vegetation and water surface changes.", link: "project-historical-vegetation.html", thumbnail: "images/ndvi.jpg", location: [25.695, -100.331] },
+      { title: "Remote Sensing for Reforestation Monitoring", description: "Monitoring vegetation recovery and reforestation outcomes with multi-temporal imagery.", link: "project-reforestation-monitoring.html", thumbnail: "images/rsc-ndvi-pages.png", location: [25.708, -100.304] },
+      { title: "Urban Park Biodiversity Monitoring Framework", description: "Urban biodiversity framework integrating field records with geospatial analysis.", link: "project-urban-park-biodiversity.html", thumbnail: "images/urban-parks-biodiversity.png", location: [25.664, -100.318] },
+      { title: "Animal Biology and Zoology Training", description: "BridgeUSA training experience in zoology and wildlife management (Wichita, KS).", link: "https://www.linkedin.com/posts/marcelo-guzman-063063128_today-i-received-my-bridgeusa-program-certificate-activity-7239423395442962432-esev?utm_source=share&utm_medium=member_desktop&rcm=ACoAAB9U-osBBsL4tmO-PWPNvD-0cyf0O0JsOiU", thumbnail: "https://media.licdn.com/dms/image/v2/D4E22AQHclaR_2ZHIrw/feedshare-shrink_800/feedshare-shrink_800/0/1726013039164?e=1772064000&v=beta&t=Go4yJmYGPnCjDYs3pbVj_XTMXE24etCpHS8prUcwZFI", location: [37.6872, -97.3301] }
+    ];
+
+    const map = L.map("portfolioMap", { worldCopyJump: true, minZoom: 2 }).setView([26, 3], 2);
+
+    function getTheme() {
+      return document.documentElement.getAttribute("data-theme") === "dark" ? "dark" : "light";
+    }
+
+    function getBasemapConfig(theme) {
+      if (theme === "dark") {
+        return {
+          url: "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",
+          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>'
+        };
+      }
+
+      return {
+        url: "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>'
+      };
+    }
+
+    let baseLayer;
+
+    function renderBasemap() {
+      if (baseLayer) {
+        map.removeLayer(baseLayer);
+      }
+
+      const config = getBasemapConfig(getTheme());
+      baseLayer = L.tileLayer(config.url, {
+        maxZoom: 19,
+        attribution: config.attribution,
+      }).addTo(map);
+    }
+
+    renderBasemap();
+
+    function createIcon(featured) {
+      return L.divIcon({
+        className: "portfolio-map-pin",
+        html: `<span class="map-pin-dot ${featured ? "is-featured" : ""}"></span>`,
+        iconSize: [22, 22],
+        iconAnchor: [11, 11],
+      });
+    }
+
+    projects.forEach((project) => {
+      const marker = L.marker(project.location, { icon: createIcon(Boolean(project.featured)) }).addTo(map);
+      marker.bindPopup(`
+        <article class="map-project-card ${project.featured ? "is-featured" : ""}">
+          <img src="${project.thumbnail}" alt="${project.title} thumbnail" loading="lazy" />
+          <div class="map-project-card-body">
+            ${project.featured ? '<span class="map-featured-pill">Featured</span>' : ""}
+            <h4>${project.title}</h4>
+            <p>${project.description}</p>
+            <a href="${project.link}" target="_blank" rel="noopener" class="btn primary">View project</a>
+          </div>
+        </article>
+      `, { maxWidth: 290, className: "portfolio-map-popup" });
+    });
+
+    const themeToggle = document.getElementById("themeToggle");
+    if (themeToggle) {
+      themeToggle.addEventListener("click", () => {
+        setTimeout(renderBasemap, 0);
+      });
+    }
+  })();
   (function initFullscreenModal() {
     // Create modal elements
     const modal = document.createElement('div');

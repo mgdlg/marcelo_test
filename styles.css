@@ -3244,3 +3244,140 @@ html[data-theme="dark"] .portfolio-card {
   opacity: 1;
   transform: translateY(0) scale(1);
 }
+
+/* =========================
+   ABOUT · PORTFOLIO MAP
+   ========================= */
+.about-map-subsection {
+  margin-top: 2.25rem;
+  padding: 1rem;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  background: color-mix(in oklch, var(--surface), transparent 3%);
+}
+
+.about-map-header h3 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.about-map-header p {
+  margin: 0.4rem 0 0;
+  color: var(--muted);
+}
+
+.map-legend {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin: 0.85rem 0;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.legend-pin {
+  display: inline-block;
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 999px;
+  margin-right: 0.35rem;
+  background: #2563eb;
+}
+
+.legend-featured {
+  background: #ef4444;
+}
+
+.portfolio-map {
+  width: 100%;
+  height: 430px;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid var(--border-subtle);
+}
+
+.map-pin-dot {
+  display: block;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #2563eb;
+  border: 2px solid #ffffff;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.25);
+}
+
+.map-pin-dot.is-featured {
+  background: #ef4444;
+  box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.3);
+}
+
+.map-project-card {
+  display: grid;
+  gap: 0.65rem;
+  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: var(--text);
+}
+
+.map-project-card img {
+  width: 100%;
+  aspect-ratio: 16/9;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.map-project-card-body h4 {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: 0.01em;
+}
+
+.map-project-card-body p {
+  margin: 0.45rem 0 0.7rem;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: var(--muted);
+  font-weight: 400;
+}
+
+.portfolio-map-popup .leaflet-popup-content-wrapper,
+.portfolio-map-popup .leaflet-popup-tip {
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-soft);
+}
+
+.portfolio-map-popup .leaflet-popup-content {
+  margin: 0.75rem;
+}
+
+.portfolio-map-popup .btn.primary {
+  width: 100%;
+  font-size: 0.82rem;
+  padding: 0.5rem 0.75rem;
+}
+
+.map-featured-pill {
+  display: inline-flex;
+  margin-bottom: 0.35rem;
+  padding: 0.14rem 0.48rem;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: #fff;
+  background: #ef4444;
+}
+
+html[data-theme="dark"] .map-project-card-body p {
+  color: #cbd5e1;
+}
+
+@media (max-width: 720px) {
+  .portfolio-map {
+    height: 360px;
+  }
+}
