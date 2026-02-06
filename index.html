@@ -150,6 +150,29 @@
           </div>
         </div>
 
+        <section class="about-subsection" aria-labelledby="portfolio-map-title">
+          <div class="about-subsection-header">
+            <h3 id="portfolio-map-title">Global Portfolio Explorer</h3>
+            <p>
+              Explore the full portfolio geographically. Click any pin to open a project card with a preview,
+              a short description, and a direct link. Featured projects are highlighted with larger star pins.
+            </p>
+          </div>
+
+          <div class="portfolio-map" id="portfolioMap" role="region" aria-label="Interactive world map with project pins">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/8/80/World_map_-_low_resolution.svg" alt="World map" loading="lazy">
+            <div class="map-pins" id="mapPins" aria-live="polite"></div>
+            <article class="map-project-card" id="mapProjectCard" aria-hidden="true">
+              <button class="map-card-close" id="mapCardClose" type="button" aria-label="Close map project card">✕</button>
+              <div class="map-card-badge" id="mapCardBadge">Featured</div>
+              <img class="map-card-thumb" id="mapCardThumb" src="" alt="">
+              <h4 id="mapCardTitle"></h4>
+              <p id="mapCardDescription"></p>
+              <a class="btn primary map-card-link" id="mapCardLink" href="#">View project</a>
+            </article>
+          </div>
+        </section>
+
       </div>
     </section>
 <!-- SKILLS -->
@@ -1315,6 +1338,146 @@
     })();
 
 
+
+    // ----------------------------
+    // About map: portfolio explorer
+    // ----------------------------
+    (function initPortfolioMap() {
+      const map = document.getElementById("portfolioMap");
+      const pinsLayer = document.getElementById("mapPins");
+      const card = document.getElementById("mapProjectCard");
+      const closeBtn = document.getElementById("mapCardClose");
+      const badge = document.getElementById("mapCardBadge");
+      const thumb = document.getElementById("mapCardThumb");
+      const title = document.getElementById("mapCardTitle");
+      const description = document.getElementById("mapCardDescription");
+      const link = document.getElementById("mapCardLink");
+
+      if (!map || !pinsLayer || !card || !closeBtn) return;
+
+      const projects = [
+        {
+          title: "Río Santa Catarina: Historical NDVI & Community Cartography",
+          description: "Multitemporal vegetation and water-surface analysis + social cartography workflows for river restoration in Monterrey.",
+          href: "project-rio-santa-catarina.html",
+          thumb: "images/rsc-ndvi-pages.png",
+          x: 25.0, y: 37.6, featured: true
+        },
+        {
+          title: "University of Debrecen: Advanced GIS & Research Internship",
+          description: "Graduate training in UAV remote sensing, GIS modeling, and ecology-focused research internship.",
+          href: "project-university-debrecen.html",
+          thumb: "images/unideb-collage.jpeg",
+          x: 54.0, y: 30.8, featured: true
+        },
+        {
+          title: "Urbanization Index & Blackbird Phenotypes",
+          description: "Research integrating urbanization metrics and avian phenotypes. Supervisor: PhD Ivan Gonzalez.",
+          href: "project-urbanization-index.html",
+          thumb: "images/urbanization-index-map.jpg",
+          x: 25.8, y: 38.2, featured: true
+        },
+        {
+          title: "Models in GIS — ModelBuilder Workflow",
+          description: "ModelBuilder-based GIS automation. Professor/Lecturer: PhD Boglárka Bertalan-Balázs.",
+          href: "project-models-in-gis.html",
+          thumb: "images/models-in-gis.png",
+          x: 54.8, y: 31.2, featured: true
+        },
+        {
+          title: "UAV Remote Sensing Accuracy Assessment",
+          description: "UAV-based geospatial accuracy assessment for ecological workflows. Professor/Lecturer: László Bertalan.",
+          href: "project-uav-accuracy.html",
+          thumb: "images/udeb-uav-botanical.png",
+          x: 53.4, y: 29.8, featured: true
+        },
+        {
+          title: "Drone Photogrammetry for Environmental Compensation",
+          description: "Drone-derived orthomosaic and terrain products for environmental compensation and monitoring in Monterrey.",
+          href: "project-drone-photogrammetry.html",
+          thumb: "images/lidar-drone.jpeg",
+          x: 24.2, y: 39.0, featured: false
+        },
+        {
+          title: "Riparian Forests & Urban Bird Diversity",
+          description: "Spatial ecology assessment connecting riparian habitat condition with urban bird community structure.",
+          href: "project-riparian-forests.html",
+          thumb: "images/bird-diversity.png",
+          x: 24.6, y: 38.4, featured: false
+        },
+        {
+          title: "Historical Vegetation & Water Surface Analysis",
+          description: "Long-term remote sensing comparison of vegetation and water dynamics in Monterrey.",
+          href: "project-historical-vegetation.html",
+          thumb: "images/ndvi.jpg",
+          x: 23.8, y: 37.0, featured: false
+        },
+        {
+          title: "Remote Sensing for Reforestation Monitoring",
+          description: "Geospatial monitoring framework for restoration and reforestation progress over time.",
+          href: "project-reforestation-monitoring.html",
+          thumb: "images/wind-portrait.png",
+          x: 26.2, y: 38.8, featured: false
+        },
+        {
+          title: "Urban Park Biodiversity Monitoring Framework",
+          description: "Sampling and GIS framework for biodiversity tracking across urban parks in Monterrey.",
+          href: "project-urban-park-biodiversity.html",
+          thumb: "images/urban-parks-biodiversity.png",
+          x: 25.2, y: 39.6, featured: false
+        },
+        {
+          title: "Animal Biology and Zoology Training",
+          description: "BridgeUSA training experience in animal biology and zoology in Wichita, Kansas, USA.",
+          href: "https://www.linkedin.com/posts/marcelo-guzman-063063128_today-i-received-my-bridgeusa-program-certificate-activity-7239423395442962432-esev?utm_source=share&utm_medium=member_desktop&rcm=ACoAAB9U-osBBsL4tmO-PWPNvD-0cyf0O0JsOiU",
+          thumb: "https://media.licdn.com/dms/image/v2/D4E22AQHclaR_2ZHIrw/feedshare-shrink_800/feedshare-shrink_800/0/1726013039164?e=1772064000&v=beta&t=Go4yJmYGPnCjDYs3pbVj_XTMXE24etCpHS8prUcwZFI",
+          x: 19.6, y: 33.2, featured: false
+        }
+      ];
+
+      function openCard(project, pinEl) {
+        title.textContent = project.title;
+        description.textContent = project.description;
+        thumb.src = project.thumb;
+        thumb.alt = project.title + " thumbnail";
+        link.href = project.href;
+        link.target = project.href.startsWith("http") ? "_blank" : "_self";
+        link.rel = project.href.startsWith("http") ? "noopener" : "";
+
+        badge.classList.toggle("is-hidden", !project.featured);
+
+        const mapRect = map.getBoundingClientRect();
+        const pinRect = pinEl.getBoundingClientRect();
+        const desiredLeft = pinRect.left - mapRect.left + 18;
+        const maxLeft = mapRect.width - card.offsetWidth - 8;
+        const left = Math.max(8, Math.min(desiredLeft, maxLeft));
+
+        let top = pinRect.top - mapRect.top - card.offsetHeight - 16;
+        if (top < 8) top = pinRect.top - mapRect.top + 16;
+
+        card.style.left = `${left}px`;
+        card.style.top = `${top}px`;
+        card.classList.add("is-open");
+        card.setAttribute("aria-hidden", "false");
+      }
+
+      projects.forEach((project) => {
+        const pin = document.createElement("button");
+        pin.type = "button";
+        pin.className = `map-pin${project.featured ? " is-featured" : ""}`;
+        pin.style.left = `${project.x}%`;
+        pin.style.top = `${project.y}%`;
+        pin.setAttribute("aria-label", project.title);
+        pin.title = project.title;
+        pin.addEventListener("click", () => openCard(project, pin));
+        pinsLayer.appendChild(pin);
+      });
+
+      closeBtn.addEventListener("click", () => {
+        card.classList.remove("is-open");
+        card.setAttribute("aria-hidden", "true");
+      });
+    })();
 
     // ----------------------------
     // Theme toggle (default: dark)
