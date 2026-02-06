@@ -2793,6 +2793,21 @@ html[data-theme="dark"] .view-project-link {
   line-height: 1.6;
 }
 
+.project-media-embed {
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.project-media-embed iframe {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  aspect-ratio: 16 / 9;
+  height: auto;
+  border: 0;
+}
+
 .project-figure {
   margin: 2rem 0;
   display: grid;
