@@ -553,6 +553,21 @@ html[data-theme="dark"] .award-card {
   margin-bottom: 0.5rem;
 }
 
+
+.compact-doc-list {
+  margin: 0.85rem 0 0;
+  padding-left: 1.1rem;
+}
+
+.compact-doc-list li {
+  margin: 0.35rem 0;
+  line-height: 1.45;
+}
+
+.compact-doc-list a {
+  white-space: nowrap;
+}
+
 .doc-card h4 {
   margin-bottom: 0.4rem;
 }
