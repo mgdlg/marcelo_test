@@ -1,0 +1,49 @@
+# Río Santa Catarina: Historical NDVI & Community Cartography
+
+The Santa Catarina River is a meandering intermittent river in the Bravo–San Juan basin in northeast Mexico. In the Monterrey Metro Area it crosses the municipalities of Santiago, Santa Catarina, San Pedro, Monterrey, Guadalupe, Juárez, and Cadereyta.
+
+Historically, the river has been subject to exercises that have exacerbated environmental injustice in the city to the extent that it has been targeted by ambitious state and municipal projects that lack democratic representation and scientific input. 
+
+Urban planning in Mexican cities has been demonstrated to be reactive; cities grow first and plan second. Monterrey is not the exception. Urbanization has reduced per-capita green space and complicated planning efforts. Planning often reacts after rapid urban growth has already created deficits. The Santa Catarina River corridor now sits at the intersection of public pressure, ecological rights, and the need for environmental security. 
+
+Now the river faces a major challenge: indiscriminate modification of the riverbed through infrastructure works threatens water security and biodiversity.
+
+Currently, the main interest of the new administrations is to develop the space as a linear urban park. However, there are valid arguments from the public against this approach. First, the privatization of public spaces in the city of Monterrey is an increasingly pressing problem; an example is Fundidora Park, whose privatization further reduces the amount of green space per capita for citizens. Second, and even more importantly, the morphological changes induced by urban development projects have diminished the capacity of the riverbed and, therefore, have made any modifications to the built environment impossible.
+
+However, the meteorological events that bring heavy rains to the state in spring and summer have always been significant threats to the adoption of the river system into the agenda of state and municipal public projects. Within the historical record of the city of Monterrey: Hurricanes Gilberto, Emily, and Alex (in 1988, 2005, and 2010, respectively).
+
+These periodic events make infrastructure projects in the river basin fiscally unfeasible for the local governments. When the government stopped manipulating the river channel a fantastic side effect emerged: a living river mosaic. 
+
+Now, the social momentum of the alternative scientific paradigm “One Health” is palpable in the city: mass mobilizations argue that human and environmental health are inseparable. 
+
+I started this project as an initiative to keep propelling the political and scientific momentum of citizen-leading movements around the river. My question: what if we could measure and visualize precisely how much this river mosaic has blossomed in a monochromatic landscape of asphalt and concrete?
+
+The objective is to replicate the methodology by Bryan E. Morgan and colleagues in his publication "Spatiotemporal analysis of vegetation cover change in a large ephemeral river: Multi-sensor fusion of unmanned aerial vehicle (UAV) and Landsat imagery”. The idea is to use community-based UAV cartography to resample Landsat imagery and measure exactly how much greener the river basin is since the last hurricane in 2010.
+
+ 
+# University of Debrecen: Advanced GIS & Research Internship
+
+In Spring 2023, I was awarded the Stipendium Hungaricum Scholarship to pursue academic mobility for up to one year at the University of Debrecen, alongside an International Mobility Scholarship from my home university. This dual funding secured one of the official graduation pathways recognized by my degree program (the others being thesis project and internship).
+
+As part of the mobility requirements, candidates must submit a proposed syllabus at the host institution analogous to their home curriculum. At the time, I had already completed my full undergraduate coursework. To continue my academic development, I formally negotiated with both my home and host universities to enroll in graduate-level (MSc) courses, a request that was approved under the condition of explicit lecturer consent and with full academic responsibility in mind.
+
+I independently contacted and presented a prior academic portfolio to Dr. Loránd Szabó, Dr. Péter Török, Dr. László Bertalan, Dr. Gergely Szabó, and Dr. Boglárka Balázs-Bertalanné. Following their kind and enthusiastic approval, I was admitted into MSc-level classes across two programs:
+
+Geoinformatics (MSc):
+
+Remote Sensing with Uncrewed Aerial Vehicles
+
+Models in GIS
+
+Hyperspectral Remote Sensing
+
+Environmental Science (MSc):
+
+Environmental Policy and Communication
+
+I completed all courses with a cGPA of 4.0, earning “Excellent” (5) evaluations across the board. This training allowed me to formally bridge GIS, remote sensing, informatics, and biodiversity monitoring, strengthening both my technical and analytical skill sets.
+
+Seeking to fully leverage this opportunity, I further negotiated with my home institution to participate in a research internship at the Institute of Ecology, University of Debrecen. There I met the lead researcher of my internship project, PhD candidate Ivan Gonzalez, who was by coincidence also my Stipendium Hungaricum Mentor.
+
+During my internship with Ivan and his lab, I participated in his research project focusing on the phenotypic changes of the common blackbird in response to urbanization. From nestlings to reproductive adults, I engaged in various research activities like mist netting, bird banding, radio-tagging, and biometric data collection. Hopefully, these efforts will contribute to understanding avian adaptation to urban environments and its comparison to old growth forest populations, alongside long-term nesting and capture-recapture data analysis
+
