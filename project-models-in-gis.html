@@ -108,9 +108,12 @@
       <div class="container">
         <h2>Project Overview</h2>
         <p>
-          This workflow produces a CSV table with areas and relative areas (%) of land types for each division within a
-          feature polygon. The model requires only two inputs: land cover classification and political boundaries for the
-          region of interest.
+          This workflow automates a city-by-city forest cover assessment in ArcGIS ModelBuilder. It filters land-cover
+          classes corresponding to forest (e.g., 311, 312, 313), iterates through each administrative boundary, selects
+          only forest polygons fully within each city, dissolves them into a single forest area, and joins city area
+          attributes to compute forest percentage ((forest area / city area) × 100). A companion Python script then
+          consolidates all generated attribute tables from the geodatabase into one Excel report for fast comparison and
+          reporting.
         </p>
       </div>
     </section>
