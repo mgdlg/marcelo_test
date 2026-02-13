@@ -152,9 +152,12 @@
       <div class="container">
         <h2>Project Overview</h2>
         <p>
-          I integrated geospatial analyses into the project’s Urbanization Index to quantify urban gradients affecting
-          Turdus merula populations. The resulting spatial layers improved the project’s analytical accuracy and enabled
-          statistically robust comparisons between urban and non-urban sites.
+          To refine the Urbanization Index around blackbird nests, I replaced coarse 100 m CORINE land-cover inputs with
+          10 m Tree Cover Density rasters from Copernicus. For each nest, I generated a standardized 120 m × 120 m
+          analysis window, clipped raster values, and extracted summary statistics (minimum, maximum, mean, and standard
+          deviation) that describe local habitat heterogeneity. The workflow was automated with ArcGIS ModelBuilder for
+          batch processing across all nests, and an R script harvested raster metadata/statistics into a single Excel
+          table for downstream ecological analysis and sharing with collaborators.
         </p>
       </div>
     </section>
