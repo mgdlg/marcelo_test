@@ -260,7 +260,7 @@ html[data-theme="dark"] .btn.primary:hover {
     width: fit-content;
   }
 
-  .theme-toggle{
+  .top-nav-wrap > .theme-toggle{
     position: absolute;
     right: 0;
   }
