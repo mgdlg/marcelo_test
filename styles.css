@@ -2861,6 +2861,12 @@ html[data-theme="dark"] .view-project-link {
   border: 0;
 }
 
+.project-media-description {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
 .project-media-download {
   margin: 0;
   font-weight: 500;
