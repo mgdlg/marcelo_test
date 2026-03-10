@@ -1187,6 +1187,109 @@ html[data-theme="dark"] .next:hover {
 }
 
 
+
+
+/* =========================
+   ABOUT · WORLD MAP
+   ========================= */
+.about-subsection {
+  margin-top: 2rem;
+}
+
+.portfolio-world-map {
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  background: var(--surface);
+  box-shadow: var(--shadow-soft);
+  overflow: hidden;
+}
+
+.world-map-header {
+  padding: 1.1rem 1.1rem 0.2rem;
+}
+
+.world-map-header h3 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.world-map-header p {
+  margin: 0.55rem 0 0;
+  color: var(--muted);
+}
+
+.world-map-canvas {
+  width: 100%;
+  height: 460px;
+}
+
+.portfolio-map-pin {
+  display: grid;
+  place-items: center;
+}
+
+.portfolio-map-pin .pin-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid #ffffff;
+  background: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.24);
+}
+
+.portfolio-map-pin.is-featured .pin-dot {
+  width: 16px;
+  height: 16px;
+  background: #f59e0b;
+  box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.32);
+}
+
+.portfolio-map-popup .leaflet-popup-content {
+  margin: 0.7rem;
+}
+
+.map-project-card img {
+  width: 100%;
+  max-height: 132px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 1px solid var(--border-subtle);
+}
+
+.map-project-body {
+  margin-top: 0.55rem;
+}
+
+.map-project-badge {
+  margin: 0 0 0.2rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.map-project-body h4 {
+  margin: 0;
+  font-size: 0.97rem;
+}
+
+.map-project-body p {
+  margin: 0.35rem 0 0.65rem;
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+.map-project-body .btn {
+  width: 100%;
+  text-align: center;
+}
+
+@media (max-width: 720px) {
+  .world-map-canvas {
+    height: 390px;
+  }
+}
+
 /* =========================
    IMAGE BELT (ABOUT)
    ========================= */

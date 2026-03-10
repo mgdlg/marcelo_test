@@ -17,6 +17,12 @@
     }
   </script>
   <link rel="stylesheet" href="styles.css" />
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""
+  />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
@@ -146,6 +152,17 @@
           I transform raw spatial and ecological data into environmental insights for sustainable
           development. Whether that's modeling, monitoring, or designing. My geospatial workflows keep decisions updated in real time.
         </p>
+
+        <section class="about-subsection portfolio-world-map" aria-labelledby="world-map-title">
+          <div class="world-map-header">
+            <h3 id="world-map-title">Explore My Portfolio Around the World</h3>
+            <p>
+              Click a location pin to open a project card with a preview, summary, and direct link to the project page.
+              Featured projects are marked with a highlighted pin.
+            </p>
+          </div>
+          <div id="portfolioWorldMap" class="world-map-canvas" role="region" aria-label="Interactive world map of projects"></div>
+        </section>
       
         <!-- IMAGE BELT (45 images) -->
         <div class="image-belt" aria-label="Image belt">
@@ -1274,6 +1291,7 @@ In my work as an Environmental Data Analyst and Surveyor for wind farms at ENEL,
     </div>
   </footer>
 
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     // Footer year
     document.getElementById("year").textContent = new Date().getFullYear();
@@ -1315,6 +1333,150 @@ In my work as an Environmental Data Analyst and Surveyor for wind farms at ENEL,
       });
 
       filterCards("all");
+    })();
+
+    // ----------------------------
+    // About · Interactive world map
+    // ----------------------------
+    (function initPortfolioWorldMap() {
+      const mapEl = document.getElementById("portfolioWorldMap");
+      if (!mapEl || typeof L === "undefined") return;
+
+      const projectLocations = [
+        {
+          name: "Río Santa Catarina: Historical NDVI & Community Cartography",
+          coordinates: [25.66, -100.35],
+          description: "Urban river ecological assessment and participatory cartography in Monterrey.",
+          href: "project-rio-santa-catarina.html",
+          thumbnail: "images/rsc-cartography.png",
+          featured: true,
+        },
+        {
+          name: "University of Debrecen: Advanced GIS & Research Internship",
+          coordinates: [47.5316, 21.6273],
+          description: "Graduate GIS coursework and applied avian urbanization research internship.",
+          href: "project-university-debrecen.html",
+          thumbnail: "images/unideb-collage.jpeg",
+          featured: true,
+        },
+        {
+          name: "Urbanization Index & Blackbird Phenotypes",
+          coordinates: [47.5316, 21.6273],
+          description: "Urban gradient mapping and ecological modeling for blackbird phenotype research.",
+          href: "project-urbanization-index.html",
+          thumbnail: "images/urbanization-index-map.jpg",
+          featured: true,
+        },
+        {
+          name: "Models in GIS — ModelBuilder Workflow",
+          coordinates: [47.5316, 21.6273],
+          description: "ArcGIS ModelBuilder workflow for geospatial automation and reproducible outputs.",
+          href: "project-models-in-gis.html",
+          thumbnail: "images/models-in-gis.png",
+          featured: true,
+        },
+        {
+          name: "UAV Remote Sensing Accuracy Assessment",
+          coordinates: [47.5316, 21.6273],
+          description: "Ground-control-point validation and UAV workflow accuracy benchmarking.",
+          href: "project-uav-accuracy.html",
+          thumbnail: "images/udeb-uav-botanical.png",
+          featured: true,
+        },
+        {
+          name: "Drone Photogrammetry for Environmental Compensation",
+          coordinates: [25.6866, -100.3161],
+          description: "Photogrammetry and multispectral analyses for environmental compensation planning.",
+          href: "project-drone-photogrammetry.html",
+          thumbnail: "images/frisa-vg.jpg",
+          featured: false,
+        },
+        {
+          name: "Riparian Forests & Urban Bird Diversity",
+          coordinates: [25.6765, -100.285],
+          description: "Landscape ecology project linking riparian habitat quality and urban bird diversity.",
+          href: "project-riparian-forests.html",
+          thumbnail: "images/bird-diversity-light.png",
+          featured: false,
+        },
+        {
+          name: "Historical Vegetation & Water Surface Analysis",
+          coordinates: [25.6751, -100.3185],
+          description: "Historical NDVI and NWI analysis for urban-development environmental baselines.",
+          href: "project-historical-vegetation.html",
+          thumbnail: "images/nwi.jpeg",
+          featured: false,
+        },
+        {
+          name: "Remote Sensing for Reforestation Monitoring",
+          coordinates: [25.74, -100.36],
+          description: "Remote sensing indicators to monitor reforestation and vegetation recovery.",
+          href: "project-reforestation-monitoring.html",
+          thumbnail: "images/wind-portrait.png",
+          featured: false,
+        },
+        {
+          name: "Urban Park Biodiversity Monitoring Framework",
+          coordinates: [25.6586, -100.4028],
+          description: "A biodiversity monitoring framework for urban parks and decision-support metrics.",
+          href: "project-urban-park-biodiversity.html",
+          thumbnail: "images/urban-parks-biodiversity.png",
+          featured: false,
+        },
+        {
+          name: "Animal Biology and Zoology Training",
+          coordinates: [37.6872, -97.3301],
+          description: "BridgeUSA training in animal biology and zoology in Wichita, Kansas.",
+          href: "https://www.linkedin.com/posts/marcelo-guzman-063063128_today-i-received-my-bridgeusa-program-certificate-activity-7239423395442962432-esev?utm_source=share&utm_medium=member_desktop&rcm=ACoAAB9U-osBBsL4tmO-PWPNvD-0cyf0O0JsOiU",
+          thumbnail: "https://media.licdn.com/dms/image/v2/D4E22AQHclaR_2ZHIrw/feedshare-shrink_800/feedshare-shrink_800/0/1726013039164?e=1772064000&v=beta&t=Go4yJmYGPnCjDYs3pbVj_XTMXE24etCpHS8prUcwZFI",
+          featured: false,
+        },
+      ];
+
+      const map = L.map(mapEl, {
+        worldCopyJump: true,
+        minZoom: 2,
+        zoomSnap: 0.5,
+        maxBoundsViscosity: 0.8,
+      }).setView([24, 0], 2);
+
+      map.setMaxBounds([[-85, -180], [85, 180]]);
+
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      }).addTo(map);
+
+      function markerIcon(isFeatured) {
+        return L.divIcon({
+          className: `portfolio-map-pin${isFeatured ? " is-featured" : ""}`,
+          iconSize: [20, 20],
+          iconAnchor: [10, 10],
+          popupAnchor: [0, -12],
+          html: '<span class="pin-dot" aria-hidden="true"></span>',
+        });
+      }
+
+      projectLocations.forEach((project) => {
+        const popup = `
+          <article class="map-project-card">
+            <img src="${project.thumbnail}" alt="Thumbnail for ${project.name}" loading="lazy" />
+            <div class="map-project-body">
+              <p class="map-project-badge">${project.featured ? "Featured project" : "Portfolio project"}</p>
+              <h4>${project.name}</h4>
+              <p>${project.description}</p>
+              <a href="${project.href}" class="btn primary" target="_blank" rel="noopener">View project</a>
+            </div>
+          </article>
+        `;
+
+        L.marker(project.coordinates, { icon: markerIcon(project.featured) })
+          .addTo(map)
+          .bindPopup(popup, {
+            maxWidth: 320,
+            minWidth: 260,
+            className: "portfolio-map-popup",
+          });
+      });
     })();
 
 
