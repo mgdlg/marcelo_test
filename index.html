@@ -20,7 +20,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Barlow:wght@300;400;500;600&display=swap"
     rel="stylesheet"
   />
   <link
@@ -61,7 +61,7 @@
           <span>✉️ <a href="mailto:marcelo.guzmandlg@gmail.com">marcelo.guzmandlg@gmail.com</a></span>
         </div>
         <div class="header-actions">
-          <a class="btn primary" href="#featured">View Featured Projects</a>
+          <a class="btn primary liquid-glass-strong" href="#featured">View Featured Projects</a>
           <a class="btn ghost" href="https://www.linkedin.com/in/marcelo-guzman-063063128/" target="_blank" rel="noopener">LinkedIn</a>
           <a class="btn ghost" href="#contact">Contact</a>
         </div>
@@ -86,7 +86,7 @@
   </header>
 
   <div class="top-nav-wrap">
-    <nav class="top-nav">
+    <nav class="top-nav liquid-glass">
       <div class="nav-inner">
         <a href="#video">Video Resume</a>
         <a href="#about">About</a>
@@ -102,7 +102,7 @@
       </div>
     </nav>
 
-    <button id="themeToggle" class="theme-toggle" type="button" aria-pressed="false">
+    <button id="themeToggle" class="theme-toggle liquid-glass" type="button" aria-pressed="false">
       <span class="toggle-dot" aria-hidden="true"></span>
       <span id="themeToggleLabel">Dark mode</span>
     </button>
@@ -1894,7 +1894,7 @@ function setTheme(theme) {
             ${project.featured ? '<span class="map-featured-pill">Featured</span>' : ""}
             <h4>${project.title}</h4>
             <p>${project.description}</p>
-            <a href="${project.link}" target="_blank" rel="noopener" class="btn primary">View project</a>
+            <a href="${project.link}" target="_blank" rel="noopener" class="btn primary liquid-glass-strong">View project</a>
           </div>
         </article>
       `).join("");
