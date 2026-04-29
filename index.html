@@ -1,2198 +1,897 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Marcelo Guzman | GIS & Environmental Portfolio</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta
-    name="description"
-    content="Portfolio of Marcelo Guzmán, biologist and GIS specialist focused on environmental assessments, remote sensing, and conservation."
-  />
-  <script>
-    const storedTheme = localStorage.getItem("theme");
-    if (storedTheme === "light") {
-      document.documentElement.removeAttribute("data-theme");
-    } else {
-      document.documentElement.setAttribute("data-theme", "dark");
-    }
-  </script>
-  <link rel="stylesheet" href="styles.css" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
-    rel="stylesheet"
-  />
-  <link
-    rel="stylesheet"
-    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-    crossorigin=""
-  />
-  <script
-    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-    crossorigin=""
-  ></script>
-  <link
-    rel="stylesheet"
-    href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css"
-  />
-  <script src="https://unpkg.com/esri-leaflet@3.0.12/dist/esri-leaflet.js"></script>
-  <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
-  <script src="https://unpkg.com/esri-leaflet-vector@4.3.2/dist/esri-leaflet-vector.js"></script>
+  <meta charset="UTF-8">
+  <title>Marcelo Guzmán · Environmental Intelligence</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Portfolio of Marcelo Guzmán, biologist and GIS specialist focused on environmental assessments, remote sensing, and conservation.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin></script>
+  <link rel="stylesheet" href="portfolio.css">
 </head>
 <body>
-  <header class="site-header">
-    <div class="container header-content">
-      <div>
-        <p class="eyebrow">GIS • Remote Sensing • Conservation</p>
-        <h1 class="title">Marcelo Guzman</h1>
-        <p class="subtitle">
-          Biologist & GIS specialist using remote sensing, spatial modeling, and field ecology
-          to support environmental compliance, restoration, and urban biodiversity.
-        </p>
-        <p class="subtitle">
-          Welcome to my portfolio I set up using GitHub Pages!
-        </p>
 
-        <div class="header-meta">
-          <span>🌎 Monterrey, Mexico</span>
-          <span>✉️ <a href="mailto:marcelo.guzmandlg@gmail.com">marcelo.guzmandlg@gmail.com</a></span>
-        </div>
-        <div class="header-actions">
-          <a class="btn primary" href="#featured">View Featured Projects</a>
-          <a class="btn ghost" href="https://www.linkedin.com/in/marcelo-guzman-063063128/" target="_blank" rel="noopener">LinkedIn</a>
-          <a class="btn ghost" href="#contact">Contact</a>
-        </div>
-<svg class="filter" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+<!-- SVG: liquid glass wobble filter -->
+<svg class="sr-only" aria-hidden="true">
   <defs>
-    <filter id="liquidGlass" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB">
-      <feTurbulence type="fractalNoise" baseFrequency="0.012 0.02" numOctaves="2" seed="2" result="noise">
-        <animate
-          attributeName="baseFrequency"
-          dur="12s"
-          values="0.012 0.02; 0.018 0.016; 0.012 0.02"
+    <filter id="lg-wobble" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.013 0.021" numOctaves="2" seed="7" result="noise">
+        <animate attributeName="baseFrequency"
+          dur="10s"
+          values="0.013 0.021;0.019 0.015;0.010 0.025;0.016 0.012;0.013 0.021"
           repeatCount="indefinite"
-        />
+          calcMode="spline"
+          keySplines="0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1"/>
       </feTurbulence>
-      <feDisplacementMap in="SourceGraphic" in2="noise" scale="18" xChannelSelector="R" yChannelSelector="G" result="disp" />
-      <feGaussianBlur in="disp" stdDeviation="0.35" />
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="6" xChannelSelector="R" yChannelSelector="G"/>
     </filter>
   </defs>
 </svg>
-      </div>
-    </div>
-  </header>
 
-  <div class="top-nav-wrap">
-    <nav class="top-nav">
-      <div class="nav-inner">
-        <a href="#video">Video Resume</a>
-        <a href="#about">About</a>
-        <a href="#skills">Skills</a>
-        <a href="#featured">Featured</a>
-        <a href="#projects">Projects</a>
-        <a href="#references">References</a>
-        <a href="#experience">Experience</a>
-        <a href="#education">Education</a>
-        <a href="#awards">Awards</a>
-        <a href="#contact">Contact</a>
-        <a href="#full-portfolio">Portfolio</a>
-      </div>
-    </nav>
-
-    <button id="themeToggle" class="theme-toggle" type="button" aria-pressed="false">
-      <span class="toggle-dot" aria-hidden="true"></span>
-      <span id="themeToggleLabel">Dark mode</span>
-    </button>
+<!-- ── NAV ───────────────────────────────────────────────── -->
+<nav class="site-nav" id="siteNav" role="navigation" aria-label="Main navigation">
+  <div class="nav-pill">
+    <a href="#video">Video</a>
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#featured">Featured</a>
+    <a href="#projects">Projects</a>
+    <a href="#references">References</a>
+    <a href="#experience">Experience</a>
+    <a href="#education">Education</a>
+    <a href="#contact">Contact</a>
   </div>
+  <div class="nav-end" style="display:flex;align-items:center;gap:0.5rem;">
+    <button id="themeToggle" type="button" class="btn btn-ghost" style="padding:0.38rem 0.85rem;font-size:0.8rem;display:flex;align-items:center;gap:0.45rem;" aria-label="Toggle light/dark mode">
+      <span class="theme-dot"></span>
+      <span id="themeLabel">Light</span>
+    </button>
+    <a href="https://www.linkedin.com/in/marcelo-guzman-063063128/" target="_blank" rel="noopener" class="btn btn-ghost" style="padding:0.38rem 0.85rem;font-size:0.8rem;">LinkedIn ↗</a>
+  </div>
+</nav>
 
-  <main>
-
-<!-- VIDEO -->
-<section id="video" class="section section-alt">
+<!-- ── HERO ──────────────────────────────────────────────── -->
+<section id="hero" class="section" data-bg="7" data-screen-label="01 Hero">
   <div class="container">
-    <h2>Start Here · Video Resume</h2>
-
-    <div class="video-wrapper">
-      <iframe
-        src="https://youtube.com/embed/e_F_pV3x2A4"
-        title="Video Resume"
-        loading="lazy"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        referrerpolicy="strict-origin-when-cross-origin"
-        allowfullscreen>
-      </iframe>
+    <div class="hero-inner">
+      <span class="eyebrow hero-eyebrow reveal">GIS · Remote Sensing · Conservation</span>
+      <h1 class="hero-title reveal reveal-d1">Marcelo<br>Guzmán</h1>
+      <p class="hero-sub reveal reveal-d2">Biologist &amp; GIS specialist using remote sensing, spatial modeling, and field ecology to support environmental compliance, restoration, and urban biodiversity.</p>
+      <div class="hero-meta reveal reveal-d2">
+        <span>🌎 Monterrey, Mexico</span>
+        <span>✉️ <a href="mailto:marcelo.guzmandlg@gmail.com">marcelo.guzmandlg@gmail.com</a></span>
+      </div>
+      <div class="hero-actions reveal reveal-d3">
+        <a href="#featured" class="btn btn-primary">View Featured Projects</a>
+        <a href="https://www.linkedin.com/in/marcelo-guzman-063063128/" target="_blank" rel="noopener" class="btn btn-ghost">LinkedIn</a>
+        <a href="#contact" class="btn btn-ghost">Contact</a>
+      </div>
     </div>
   </div>
 </section>
 
-
-
-
-
-<!-- ABOUT -->
-    <section id="about" class="section">
-      <div class="container">
-        <h2>About</h2>
-        <p>
-          I am a biologist with extensive experience in <strong>GIS, remote sensing, and environmental investigation</strong>.
-          My work sits at the intersection of <strong>geospatial analysis, ecology, and environmental policy</strong>, and
-          spans environmental impact assessments, urban biodiversity research, renewable energy projects, and restoration
-          monitoring.
-        </p>
-        <p>
-          I transform raw spatial and ecological data into environmental insights for sustainable
-          development. Whether that's modeling, monitoring, or designing. My geospatial workflows keep decisions updated in real time.
-        </p>
-      
-        <!-- IMAGE BELT (45 images) -->
-        <div class="image-belt" aria-label="Image belt">
-          <div
-            class="belt-viewport"
-            id="beltViewport"
-            tabindex="0"
-            role="region"
-            aria-roledescription="carousel"
-            aria-label="Image belt carousel"
-          >
-            <ul class="belt-track" id="beltTrack" aria-live="polite"></ul>
-          </div>
-
-          <div class="belt-controls" aria-label="Image belt controls">
-            <button class="belt-btn" id="beltPrev" type="button" aria-label="Previous image">Prev</button>
-            <span class="belt-hint">Drag, scroll, or use ← / →</span>
-            <button class="belt-btn" id="beltNext" type="button" aria-label="Next image">Next</button>
-          </div>
-        </div>
-
-        <section class="about-map-subsection" aria-labelledby="portfolio-map-title">
-          <div class="about-map-header">
-            <h3 id="portfolio-map-title">Global Portfolio Explorer</h3>
-            <p>Explore every project geographically. Featured projects use a highlighted pin.</p>
-          </div>
-          <div class="map-legend" aria-label="Map legend">
-            <span><i class="legend-pin legend-featured" aria-hidden="true"></i> Featured project</span>
-            <span><i class="legend-pin legend-standard" aria-hidden="true"></i> Project</span>
-          </div>
-          <div id="portfolioMap" class="portfolio-map" role="application" aria-label="Interactive portfolio world map"></div>
-        </section>
-
-      </div>
-    </section>
-
-
-
-<!-- SKILLS -->
-    <section id="skills" class="section section-alt">
-      <div class="container">
-        <h2>Technical Skills</h2>
-        <div class="grid skills-grid">
-          <div class="card">
-            <h3>GIS & Remote Sensing</h3>
-            <ul class="tag-list">
-              <li>ArcGIS Pro</li>
-              <li>ArcGIS ModelBuilder</li>
-              <li>QGIS</li>
-              <li>ENVI</li>
-              <li>Pix4Denterprise</li>
-              <li>ArcGIS Storymaps</li>
-              <li>Multispectral analysis</li>
-              <li>DEM/DSM</li>
-              <li>NDVI / NWI</li>
-              <li>Drone photogrammetry</li>
-              <li>Digital Elevation Models</li>
-
-            </ul>
-          </div>
-          <div class="card">
-            <h3>Data Science & Statistics</h3>
-            <ul class="tag-list">
-              <li>R</li>
-              <li>Python</li>
-              <li>SQL</li>
-              <li>CSS</li>
-              <li>HTML</li>
-              <li>Excel</li>
-              <li>Geospatial modeling</li>
-              <li>Statistical analysis</li>
-              <li>Reproducible workflows</li>
-            </ul>
-          </div>
-          <div class="card">
-            <h3>Field & Environmental Work</h3>
-            <ul class="tag-list">
-              <li>Impact assessments</li>
-              <li>Quantitative Ecology</li>
-              <li>Land cover and vegetation analyses</li>
-              <li>Large mammal surveys</li>
-              <li>Ornithology</li>
-              <li>Community engagement</li>
-              <li>Project management</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-
-
-
-
-<!-- FEATURED PROJECTS -->
-    <section id="featured" class="section section-alt">
-      <div class="container">
-        <h2>Featured Projects</h2>
-
-<!-- FEATURED EXCHANGE & ADVANCED GIS WORK - CAROUSEL VERSION -->
-<div class="featured-carousel-wrapper">
-  
-  <div class="slideshow-container">
-    <!-- Slide 1: University of Debrecen · Advanced GIS & Research Internship -->
-    <div class="mySlides fade">
-      <div class="featured-slide-container">
-        <div class="numbertext">2 / 5</div>
-
-        <div class="featured-slide-left">
-          <div class="featured-slide-text">
-            <h2 class="featured-slide-title">University of Debrecen · Advanced GIS & Research Internship</h2>
-            <h3 class="featured-slide-subtitle"><i>Stipendium Hungaricum Scholar · Feb–Jul 2025 · GPA 4.0/4.0</i></h3>
-
-            <p class="featured-slide-maintext">
-              During my academic exchange at the <strong>University of Debrecen</strong>, I completed graduate-level coursework in
-              <em>Remote Sensing with UAVs</em>, <em>Hyperspectral Remote Sensing</em>, <em>Models in GIS</em>, and
-              <em>Environmental Policy & Communication</em>.
-            </p>
-
-            <p class="featured-slide-maintext">
-              I also joined a research internship focused on bird's ecological and physoilogical <strong> adaptation to urbanization</strong>, integrating
-              <strong>GIS analysis</strong>, <strong>UAV processing</strong>, and <strong>field ecology</strong>
-              into the project's Principal Component Analysis framework.
-            </p>
-
-            <ul class="featured-list">
-              <li>Advanced geospatial modeling with ArcGIS Pro and ModelBuilder</li>
-              <li>Drone photogrammetry workflows and accuracy assessment</li>
-              <li>Applied GIS for ecological research and monitoring</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="featured-slide-right">
-          <div class="feature-media" data-media>
-            <img class="featured-slide-image" src="images/tpf-letter.jpeg" alt="Tempus Public Foundation Letter of Award">
-            <img class="featured-slide-image is-active" src="images/unideb-collage.jpeg" alt="Collage of UniDeb experience">
-            <img class="featured-slide-image" src="images/droneagro.jpeg" alt="Drone Agro">
-            <img class="featured-slide-image" src="images/lidar-drone.jpeg" alt="Mavic Pro LIDAR Drone setup">
-
-            <div class="feature-media-nav" aria-label="Project media navigation">
-              <button type="button" class="media-btn" data-prev aria-label="Previous image">‹</button>
-              <div class="media-dots">
-                <button type="button" class="media-dot is-active" data-dot="0"></button>
-                <button type="button" class="media-dot" data-dot="1"></button>
-                <button type="button" class="media-dot" data-dot="2"></button>
-                <button type="button" class="media-dot" data-dot="3"></button>
-              </div>
-              <button type="button" class="media-btn" data-next aria-label="Next image">›</button>
-            </div>
-          </div>
-        </div>
-      </div>
+<!-- ── VIDEO RESUME ───────────────────────────────────────── -->
+<section id="video" class="section" data-bg="2" data-screen-label="02 Video">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Start Here</span>
+      <h2>Video Resume</h2>
     </div>
-
-  
-
-    
-    
-
-    
-    <!-- Slide 2: Urbanization Index & Blackbird Phenotypes -->
-    <div class="mySlides fade">
-      <div class="featured-slide-container">
-        <div class="numbertext">3 / 5</div>
-
-        <div class="featured-slide-left">
-          <div class="featured-slide-text">
-            <h2 class="featured-slide-title">Urbanization Index & Blackbird Phenotypes</h2>
-            <h3 class="featured-slide-subtitle"><i>Research Internship · GIS Analysis for <em>Turdus merula</em></i></h3>
-
-            <p class="featured-slide-maintext">
-              Integrated <strong>geospatial analyses</strong> into the project’s Urbanization Index (PCA) to quantify urban gradients
-              affecting <em>Turdus merula</em> populations. Strengthened the analytical framework’s accuracy
-              and enabled statistically robust comparisons between urban and non-urban sites.
-            </p>
-
-            <ul class="featured-list">
-              <li>Developed spatial layers describing land cover, built-up density, and green space distribution.</li>
-              <li>Linked geospatial metrics to phenotypic measurements (body mass, tarsus length, wing morphology, etc.).</li>
-              <li>Contributed with turtorials and guides to replicated this process for other projects.</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="featured-slide-right">
-          <div class="feature-media" data-media>
-            <img class="featured-slide-image is-active" src="images/urbanization-index-map.jpg" alt="Urbanization index map for blackbird sampling sites">
-            <img class="featured-slide-image" src="images/blackbird-model.png" alt="ArcGIS Pro ModelBuilder model used in blackbird urbanization analysis">
-            <img class="featured-slide-image" src="images/nest-graphs.png" alt="Tree Cover Density for each Blackbird nest">
-            <img class="featured-slide-image" src="images/rscript-blackbird-screenshot.jpeg" alt="R Script injection into ArcGIS Pro Model Builder">
-
-
-            <div class="feature-media-nav" aria-label="Project media navigation">
-              <button type="button" class="media-btn" data-prev aria-label="Previous image">‹</button>
-              <div class="media-dots">
-                <button type="button" class="media-dot is-active" data-dot="0"></button>
-                <button type="button" class="media-dot" data-dot="1"></button>
-                <button type="button" class="media-dot" data-dot="2"></button>
-                <button type="button" class="media-dot" data-dot="3"></button>
-              </div>
-              <button type="button" class="media-btn" data-next aria-label="Next image">›</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Slide 3: Models in GIS -->
-    <div class="mySlides fade">
-      <div class="featured-slide-container">
-        <div class="numbertext">4 / 5</div>
-        <div class="featured-slide-left">
-          <div class="featured-slide-text">
-            <h2 class="featured-slide-title">Models in GIS — ModelBuilder Workflow</h2>
-            <h3 class="featured-slide-subtitle"><i>University of Debrecen · Feb–Jul 2025 · GPA 4.0/4.0</i></h3>
-            <p class="featured-slide-maintext">
-              Developed reproducible GIS models for calculating tree-cover metrics and landscape indices. 
-              My final project included a model that produces a CSV table with the areas and relative areas (%) 
-              of land types for each division within a feature polygon. The required materials are only two 
-              shapefile data points: (a) Land Cover Classification and (b) Political Boundaries of your region 
-              of interest. In this example I am using forest types according to the CORINE Land Cover 
-              (Copernicus Land Monitoring Service) and the district political boundaries within the Hajdú-Bihar 
-              county in Hungary.
-            </p>
-            <p class="featured-slide-maintext">
-              ▶️ Tutorial video: 
-              <a href="https://youtu.be/Iv3EsjJKXX0?si=Qs954e2EDz-um58q" target="_blank">Watch on YouTube</a>
-            </p>
-          </div>
-        </div>
-        
-<div class="featured-slide-right">
-  <div class="feature-media" data-media>
-    <img class="featured-slide-image is-active" src="images/corine-hungary-counties.png" alt="Hungary counties Corine Land Cover">
-    <img class="featured-slide-image" src="images/models-in-gis.png" alt="ModelBuilder workflow">
-    <img class="featured-slide-image" src="images/county-graphs.png" alt="Model output graphs">
-
-    <div class="feature-media-nav" aria-label="Project media navigation">
-      <button type="button" class="media-btn" data-prev aria-label="Previous image">‹</button>
-      <div class="media-dots">
-        <button type="button" class="media-dot is-active" data-dot="0"></button>
-        <button type="button" class="media-dot" data-dot="1"></button>
-        <button type="button" class="media-dot" data-dot="2"></button>
-      </div>
-      <button type="button" class="media-btn" data-next aria-label="Next image">›</button>
+    <div class="vid-frame reveal reveal-d1">
+      <iframe src="https://youtube.com/embed/e_F_pV3x2A4" title="Video Resume" loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen></iframe>
     </div>
   </div>
-</div>
+</section>
 
+<!-- ── ABOUT ──────────────────────────────────────────────── -->
+<section id="about" class="section" data-bg="11" data-screen-label="03 About">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Background</span>
+      <h2>About</h2>
+    </div>
+    <div style="max-width:52rem;">
+      <p class="reveal">I am a biologist with extensive experience in <strong>GIS, remote sensing, and environmental investigation</strong>. My work sits at the intersection of <strong>geospatial analysis, ecology, and environmental policy</strong>, spanning environmental impact assessments, urban biodiversity research, renewable energy projects, and restoration monitoring.</p>
+      <p class="reveal reveal-d1">I transform raw spatial and ecological data into environmental insights for sustainable development—whether that's modeling, monitoring, or designing, my geospatial workflows keep decisions updated in real time.</p>
+    </div>
+
+    <!-- Image belt -->
+    <div class="reveal" style="margin-top:2.5rem;">
+      <div class="belt-vp" id="beltVp" tabindex="0" role="region" aria-label="Photo gallery — drag or use arrow keys">
+        <ul class="belt-track" id="beltTrack"></ul>
+      </div>
+      <div class="belt-controls">
+        <button class="belt-btn" id="beltPrev" type="button">← Prev</button>
+        <span class="belt-hint">Drag, scroll, or use ← →</span>
+        <button class="belt-btn" id="beltNext" type="button">Next →</button>
       </div>
     </div>
 
-
-
-
-    <!-- Slide 4: UAV Remote Sensing -->
-    <div class="mySlides fade">
-      <div class="featured-slide-container">
-        <div class="numbertext">5 / 5</div>
-        <div class="featured-slide-left">
-          <div class="featured-slide-text">
-            <h2 class="featured-slide-title">UAV Remote Sensing Accuracy Assessment</h2>
-            <h3 class="featured-slide-subtitle"><i>Advanced Drone Photogrammetry Analysis</i></h3>
-            <p class="featured-slide-maintext">
-              Produced DSM and orthomosaic accuracy reports for five product pipelines: Ground Control, 
-              RTK with Emlid base, and RTK via network correction. Area of study: <em>Debrecen Botanical Garden</em>, 
-              Hajdú-Bihar, Hungary.
-            </p>
-          </div>
-        </div>
-<div class="featured-slide-right">
-  <div class="feature-media" data-media>
-    
-    <img
-      class="featured-slide-image is-active"
-      src="images/udeb-uav-botanical.png"
-      alt="UAV accuracy assessment map — Debrecen Botanical Garden"
-    >
-
-    <img
-      class="featured-slide-image"
-      src="images/uav-gcps.png"
-      alt="GCP comparison between RTK-enabled and non-RTK UAV workflows"
-    >
-
-    <div class="feature-media-nav" aria-label="Project media navigation">
-      <button type="button" class="media-btn" data-prev aria-label="Previous image">‹</button>
-
-      <div class="media-dots">
-        <button type="button" class="media-dot is-active" data-dot="0"></button>
-        <button type="button" class="media-dot" data-dot="1"></button>
-      </div>
-
-      <button type="button" class="media-btn" data-next aria-label="Next image">›</button>
+    <!-- Map -->
+    <div class="reveal" style="margin-top:3rem;">
+      <h3 style="font-size:1.1rem;margin-bottom:0.35rem;">Global Portfolio Explorer</h3>
+      <p style="font-size:0.88rem;color:var(--muted);margin-bottom:0;">Explore every project geographically. Highlighted pins are featured projects.</p>
+      <div class="map-box" id="portfolioMap" role="application" aria-label="Interactive portfolio map"></div>
     </div>
-
   </div>
-</div>
+</section>
 
-      </div>
+<!-- ── SKILLS ─────────────────────────────────────────────── -->
+<section id="skills" class="section" data-bg="12" data-screen-label="04 Skills">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Expertise</span>
+      <h2>Technical Skills</h2>
     </div>
-
-
-  <!-- Slide 5: Río Santa Catarina — NDVI & Community Cartography -->
-  <div class="mySlides fade">
-    <div class="featured-slide-container">
-      <div class="numbertext">1 / 5</div>
-
-      <div class="featured-slide-left">
-        <div class="featured-slide-text">
-          <h2 class="featured-slide-title">Río Santa Catarina · Historical NDVI & Community Cartography</h2>
-          <h3 class="featured-slide-subtitle">
-            <i> ATTENTION: WIP · Independent project · Urban river ecology & participatory mapping</i>
-          </h3>
-
-          <p class="featured-slide-maintext">
-            This is an independent initiative of a long-term continued spatial analysis of the <strong>Río Santa Catarina</strong> combining
-            <strong>historical NDVI time series</strong> with <strong>community-driven cartography</strong>.
-            I am actively gathering collaborators: environmental experts, academic researchers, and local NGOs. Currently on pause.
-          </p>
-
-          <ul class="featured-list">
-            <li>Processed multi-temporal satellite imagery to quantify vegetation change.</li>
-            <li>Integrated expert knowledge and community inputs into spatial narratives.</li>
-            <li>Facilitated collaboration between academia, NGOs, and practitioners.</li>
-          </ul>
-
-          <p class="featured-slide-maintext">
-            🔗 <a href="YOUR_PROJECT_LINK_HERE" target="_blank" rel="noopener">Future Project Page</a><br>
-            📸 <a href="YOUR_INSTAGRAM_POST_LINK_HERE" target="_blank" rel="noopener">Future Post</a>
-          </p>
-        </div>
+    <div class="skills-grid">
+      <div class="card reveal">
+        <h3>GIS &amp; Remote Sensing</h3>
+        <ul class="tag-list">
+          <li>ArcGIS Pro</li><li>ArcGIS ModelBuilder</li><li>QGIS</li><li>ENVI</li>
+          <li>Pix4Denterprise</li><li>ArcGIS Storymaps</li><li>Multispectral analysis</li>
+          <li>DEM/DSM</li><li>NDVI / NWI</li><li>Drone photogrammetry</li>
+        </ul>
       </div>
-
-      <div class="featured-slide-right">
-        <div class="feature-media" data-media>
-
-          <img
-            class="featured-slide-image"
-            src="images/rsc-cartography.png"
-            alt="Community cartography for Río Santa Catarina"
-          >
-
-          <img
-            class="featured-slide-image is-active"
-            src="images/rsc-ndvi.png"
-            alt="Historical NDVI analysis for Río Santa Catarina"
-          >
-
-
-          <div class="feature-media-nav" aria-label="Project media navigation">
-            <button type="button" class="media-btn" data-prev aria-label="Previous image">‹</button>
-
-            <div class="media-dots">
-              <button type="button" class="media-dot is-active" data-dot="0"></button>
-              <button type="button" class="media-dot" data-dot="1"></button>
-            </div>
-
-            <button type="button" class="media-btn" data-next aria-label="Next image">›</button>
-          </div>
-
-        </div>
+      <div class="card reveal reveal-d1">
+        <h3>Data Science &amp; Statistics</h3>
+        <ul class="tag-list">
+          <li>R</li><li>Python</li><li>SQL</li><li>HTML/CSS</li>
+          <li>Geospatial modeling</li><li>Statistical analysis</li>
+          <li>Reproducible workflows</li><li>Excel</li>
+        </ul>
+      </div>
+      <div class="card reveal reveal-d2">
+        <h3>Field &amp; Environmental</h3>
+        <ul class="tag-list">
+          <li>Impact assessments</li><li>Quantitative Ecology</li>
+          <li>Vegetation analyses</li><li>Large mammal surveys</li>
+          <li>Ornithology</li><li>Community engagement</li><li>Project management</li>
+        </ul>
       </div>
     </div>
   </div>
+</section>
 
-
-
-
+<!-- ── FEATURED PROJECTS ──────────────────────────────────── -->
+<section id="featured" class="section" data-bg="6" data-screen-label="05 Featured Projects">
+  <div class="feat-wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Highlights</span>
+      <h2>Featured Projects</h2>
     </div>
 
-  <!-- Featured carousel bottom navigation -->
-  <div class="featured-carousel-nav" aria-label="Featured projects navigation">
-    <button class="featured-nav-btn" type="button" onclick="plusSlides(-1)" aria-label="Previous featured project">
-      <span aria-hidden="true">‹</span>
-    </button>
+    <div class="feat-card reveal">
 
-    <div class="featured-dots" role="tablist" aria-label="Featured projects pages">
-            <button class="dot" type="button" role="tab" aria-label="Go to slide 1" onclick="currentSlide(1)"></button>
-      <button class="dot" type="button" role="tab" aria-label="Go to slide 2" onclick="currentSlide(2)"></button>
-      <button class="dot" type="button" role="tab" aria-label="Go to slide 3" onclick="currentSlide(3)"></button>
-      <button class="dot" type="button" role="tab" aria-label="Go to slide 4" onclick="currentSlide(4)"></button>
-      <button class="dot" type="button" role="tab" aria-label="Go to slide 5" onclick="currentSlide(5)"></button>
-
-</div>
-
-    <button class="featured-nav-btn" type="button" onclick="plusSlides(1)" aria-label="Next featured project">
-      <span aria-hidden="true">›</span>
-    </button>
-  </div>
-</div>
-
-      </div>
-    </section>
-
-    <!-- PROJECTS -->
-    <section id="projects" class="section">
-      <div class="container">
-        <h2>Selected GIS & Environmental Projects</h2>
-        <p class="section-intro">
-          A selection of projects where I combined <strong>geospatial analysis</strong>, <strong>ecology</strong>, and
-          <strong>fieldwork</strong> to support conservation, urban planning, and environmental compliance.
-        </p>
-
-                <div class="projects-lab" aria-label="Interactive projects gallery">
-          <input class="projects-lab-radio" type="radio" name="projectsDeck" id="proj1" checked />
-          <input class="projects-lab-radio" type="radio" name="projectsDeck" id="proj2" />
-          <input class="projects-lab-radio" type="radio" name="projectsDeck" id="proj3" />
-          <input class="projects-lab-radio" type="radio" name="projectsDeck" id="proj4" />
-          <input class="projects-lab-radio" type="radio" name="projectsDeck" id="proj5" />
-
-          <div class="projects-lab-ui" aria-label="Project navigation">
-            <div class="projects-lab-heading">
-              <p class="projects-lab-kicker">Explore</p>
-              <p class="projects-lab-subkicker">Select a project to reveal a full case card with media.</p>
-            </div>
-
-            <div class="projects-lab-tabs" role="tablist" aria-label="Projects">
-            <label class="projects-lab-tab" for="proj1" role="tab" aria-controls="projPanel1"><span class="tab-index">01</span><span class="tab-title">Drone Photogrammetry for Environmental Compensation</span></label>
-            <label class="projects-lab-tab" for="proj2" role="tab" aria-controls="projPanel2"><span class="tab-index">02</span><span class="tab-title">Riparian Forests & Urban Bird Diversity</span></label>
-            <label class="projects-lab-tab" for="proj3" role="tab" aria-controls="projPanel3"><span class="tab-index">03</span><span class="tab-title">Historical Vegetation & Water Surface Analysis for Urban Development</span></label>
-            <label class="projects-lab-tab" for="proj4" role="tab" aria-controls="projPanel4"><span class="tab-index">04</span><span class="tab-title">Remote Sensing for Reforestation Monitoring</span></label>
-            <label class="projects-lab-tab" for="proj5" role="tab" aria-controls="projPanel5"><span class="tab-index">05</span><span class="tab-title">Urban Park Biodiversity Monitoring Framework</span></label>
-            </div>
+      <!-- Slide 1 -->
+      <div class="slide" data-screen-label="05 Featured – Slide 1">
+        <div>
+          <p class="slide-num">01 / 05</p>
+          <h2 class="slide-title">Río Santa Catarina · Historical NDVI &amp; Community Cartography</h2>
+          <p class="slide-sub">WIP · Independent Project · Urban river ecology &amp; participatory mapping</p>
+          <div class="slide-body">
+            <p>An independent long-term spatial analysis of the <strong>Río Santa Catarina</strong> combining historical NDVI time series with community-driven cartography. I am actively gathering collaborators: environmental experts, academic researchers, and local NGOs.</p>
+            <ul class="slide-list">
+              <li>Processed multi-temporal satellite imagery to quantify vegetation change.</li>
+              <li>Integrated expert knowledge and community inputs into spatial narratives.</li>
+              <li>Facilitated collaboration between academia, NGOs, and practitioners.</li>
+            </ul>
           </div>
+        </div>
+        <div class="slide-img" data-imgs='["images/rsc-ndvi-pages.png","images/nest-graphs.png"]'>
+          <img src="images/rsc-ndvi-pages.png" alt="Historical NDVI for Río Santa Catarina">
+          <div class="img-nav">
+            <button class="img-btn" data-prev>‹</button>
+            <button class="img-dot on" data-dot="0"></button>
+            <button class="img-dot" data-dot="1"></button>
+            <button class="img-btn" data-next>›</button>
+          </div>
+        </div>
+      </div>
 
-          <div class="projects-lab-panels" aria-live="polite">
-            <div class="projects-lab-panel" id="projPanel1" role="tabpanel" tabindex="0" aria-label="Drone Photogrammetry for Environmental Compensation">
-<div class="project-row">
-            <article class="card project-card animate-on-scroll">
+      <!-- Slide 2 -->
+      <div class="slide" data-screen-label="05 Featured – Slide 2">
+        <div>
+          <p class="slide-num">02 / 05</p>
+          <h2 class="slide-title">University of Debrecen · Advanced GIS &amp; Research Internship</h2>
+          <p class="slide-sub">Stipendium Hungaricum Scholar · Feb–Jul 2025 · GPA 4.0/4.0</p>
+          <div class="slide-body">
+            <p>At the <strong>University of Debrecen</strong>, I completed graduate-level coursework in Remote Sensing with UAVs, Hyperspectral Remote Sensing, Models in GIS, and Environmental Policy &amp; Communication.</p>
+            <ul class="slide-list">
+              <li>Advanced geospatial modeling with ArcGIS Pro and ModelBuilder.</li>
+              <li>Drone photogrammetry workflows and accuracy assessment.</li>
+              <li>Research internship on avian adaptation to urbanization.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="slide-img" data-imgs='["images/droneagro.jpeg","images/lidar-drone.jpeg"]'>
+          <img src="images/droneagro.jpeg" alt="Drone Agro at University of Debrecen">
+          <div class="img-nav">
+            <button class="img-btn" data-prev>‹</button>
+            <button class="img-dot on" data-dot="0"></button>
+            <button class="img-dot" data-dot="1"></button>
+            <button class="img-btn" data-next>›</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 3 -->
+      <div class="slide" data-screen-label="05 Featured – Slide 3">
+        <div>
+          <p class="slide-num">03 / 05</p>
+          <h2 class="slide-title">Urbanization Index &amp; Blackbird Phenotypes</h2>
+          <p class="slide-sub">Research Internship · GIS Analysis for <em>Turdus merula</em></p>
+          <div class="slide-body">
+            <p>Integrated <strong>geospatial analyses</strong> into the Urbanization Index (PCA) to quantify urban gradients affecting <em>Turdus merula</em> populations, enabling statistically robust urban vs. non-urban site comparisons.</p>
+            <ul class="slide-list">
+              <li>Developed spatial layers describing land cover and green space distribution.</li>
+              <li>Linked geospatial metrics to phenotypic measurements (body mass, wing morphology).</li>
+              <li>Contributed tutorials and guides for replication in other projects.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="slide-img" data-imgs='["images/blackbird-model.png","images/nest-graphs.png"]'>
+          <img src="images/blackbird-model.png" alt="ModelBuilder model for blackbird urbanization analysis">
+          <div class="img-nav">
+            <button class="img-btn" data-prev>‹</button>
+            <button class="img-dot on" data-dot="0"></button>
+            <button class="img-dot" data-dot="1"></button>
+            <button class="img-btn" data-next>›</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 4 -->
+      <div class="slide" data-screen-label="05 Featured – Slide 4">
+        <div>
+          <p class="slide-num">04 / 05</p>
+          <h2 class="slide-title">Models in GIS — ModelBuilder Workflow</h2>
+          <p class="slide-sub">University of Debrecen · Feb–Jul 2025</p>
+          <div class="slide-body">
+            <p>Developed reproducible GIS models for calculating tree-cover metrics and landscape indices. Final project: a model producing a CSV with land-type areas for each division within a feature polygon, using CORINE Land Cover and Hungarian district boundaries.</p>
+            <p style="margin-top:0.75rem;">▶ <a href="https://youtu.be/Iv3EsjJKXX0" target="_blank" rel="noopener">Tutorial video on YouTube</a></p>
+          </div>
+        </div>
+        <div class="slide-img" data-imgs='["images/corine-hungary-counties.png","images/models-in-gis.png","images/county-graphs.png"]'>
+          <img src="images/corine-hungary-counties.png" alt="Hungary counties CORINE Land Cover">
+          <div class="img-nav">
+            <button class="img-btn" data-prev>‹</button>
+            <button class="img-dot on" data-dot="0"></button>
+            <button class="img-dot" data-dot="1"></button>
+            <button class="img-dot" data-dot="2"></button>
+            <button class="img-btn" data-next>›</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 5 -->
+      <div class="slide" data-screen-label="05 Featured – Slide 5">
+        <div>
+          <p class="slide-num">05 / 05</p>
+          <h2 class="slide-title">UAV Remote Sensing Accuracy Assessment</h2>
+          <p class="slide-sub">Advanced Drone Photogrammetry · Debrecen Botanical Garden</p>
+          <div class="slide-body">
+            <p>Produced DSM and orthomosaic accuracy reports for five product pipelines: Ground Control, RTK with Emlid base, and RTK via network correction. Area of study: <em>Debrecen Botanical Garden</em>, Hajdú-Bihar, Hungary.</p>
+          </div>
+        </div>
+        <div class="slide-img" data-imgs='["images/lidar-drone.jpeg","images/droneagro.jpeg"]'>
+          <img src="images/lidar-drone.jpeg" alt="LIDAR drone setup for UAV accuracy assessment">
+          <div class="img-nav">
+            <button class="img-btn" data-prev>‹</button>
+            <button class="img-dot on" data-dot="0"></button>
+            <button class="img-dot" data-dot="1"></button>
+            <button class="img-btn" data-next>›</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Carousel nav -->
+      <div class="feat-nav">
+        <button class="feat-btn" id="featPrev" type="button" aria-label="Previous slide">‹</button>
+        <div class="feat-dots" id="featDots" role="tablist" aria-label="Slide navigation"></div>
+        <button class="feat-btn" id="featNext" type="button" aria-label="Next slide">›</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SELECTED PROJECTS ──────────────────────────────────── -->
+<section id="projects" class="section" data-bg="1" data-screen-label="06 Projects">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Portfolio</span>
+      <h2>Selected Projects</h2>
+      <p class="section-intro">A selection combining geospatial analysis, ecology, and fieldwork to support conservation, urban planning, and environmental compliance.</p>
+    </div>
+
+    <div class="lab reveal" role="tabpanel">
+      <div class="lab-tabs" role="tablist">
+        <button class="lab-tab" role="tab" type="button"><span class="tab-num">01</span> Drone Photogrammetry</button>
+        <button class="lab-tab" role="tab" type="button"><span class="tab-num">02</span> Riparian Forests &amp; Birds</button>
+        <button class="lab-tab" role="tab" type="button"><span class="tab-num">03</span> Historical Vegetation</button>
+        <button class="lab-tab" role="tab" type="button"><span class="tab-num">04</span> Reforestation Monitoring</button>
+        <button class="lab-tab" role="tab" type="button"><span class="tab-num">05</span> Urban Park Biodiversity</button>
+      </div>
+      <div class="lab-panels">
+
+        <!-- Panel 1: Drone Photogrammetry -->
+        <div class="lab-panel">
+          <div class="proj-info">
             <h3>Drone Photogrammetry for Environmental Compensation</h3>
-            <p class="project-meta">
-              IRCA Consultants · 2025–Present · Project Manager
-            </p>
-            <p>
-              Designed and managed the first <strong>drone-based photogrammetry</strong> analyses of the consulting firm to monitor forest cover, soil
-              recovery, and ecological restoration in environmental compensation projects repurposing drone equipment.
-            </p>
-            <ul>
+            <p class="proj-meta">IRCA Consultants · 2025–Present · Project Manager</p>
+            <p class="proj-body">Designed and managed the first drone-based photogrammetry analyses of the consulting firm to monitor forest cover, soil recovery, and ecological restoration in environmental compensation projects. The work pairs UAV data capture with GIS automation to deliver fast, repeatable insights for compliance reporting.</p>
+            <p style="font-size:0.8rem;font-weight:600;color:var(--accent);margin:0.85rem 0 0.35rem;letter-spacing:0.06em;">KEY CONTRIBUTIONS</p>
+            <ul class="proj-body" style="padding-left:1.1em;">
               <li>Captured and processed UAV imagery to generate DSMs and orthomosaics for site assessments.</li>
               <li>Implemented ArcGIS Pro ModelBuilder workflows with Python and R integrations for real-time updates.</li>
               <li>Ensured QA/QC of spatial datasets and alignment with regulatory standards.</li>
             </ul>
-            <div class="project-media">
-              <img src="images/pix4denterprise-screenshot.png" alt="Pix4Denterprise processing workflow interface" />
+            <div class="proj-foot">
+              <span>📌 IRCA Consultants</span>
+              <span>Contact: <a href="mailto:marcelo.guzmandlg@gmail.com">marcelo.guzmandlg@gmail.com</a></span>
+              <span>📎 Orthomosaic previews &amp; compliance reports available upon request</span>
             </div>
-
-<div class="project-media">
-              <img src="images/frisa-vg.jpg" alt="Outreach Layout for VG Site" />
-            </div>
-            <div class="project-media">
-              <img src="images/frisa-sc.jpg" alt="Outreach Layout for SC Site" />
-            </div>
-          </article>
-            <aside class="project-showcase" data-project-showcase>
-              <div class="showcase-main">
-                <img class="showcase-main-img" alt="" />
-              </div>
-              <div class="showcase-thumbs" role="tablist" aria-label="Project media thumbnails"></div>
-            </aside>
           </div>
-            </div>
-            <div class="projects-lab-panel" id="projPanel2" role="tabpanel" tabindex="0" aria-label="Riparian Forests & Urban Bird Diversity">
-<div class="project-row">
-            <article class="card project-card animate-on-scroll">
-            <h3>Riparian Forests & Urban Bird Diversity</h3>
-            <p class="project-meta">
-              Lab of Conservation Biology & Sustainable Development — UANL · 2024 · Researcher & GIS Analyst
-            </p>
-            <p>
-              Used <strong>multispectral remote sensing</strong> and land cover data to quantify how riparian forests
-              along an urban river influence bird diversity and community structure.
-            </p>
+          <div class="proj-imgs">
+            <img src="images/pix4denterprise-screenshot.png" alt="Pix4Denterprise processing">
+            <img src="images/frisa-vg.jpg" alt="VG Site outreach layout">
+            <img src="images/frisa-sc.jpg" alt="SC Site outreach layout">
+          </div>
+        </div>
 
-            <p>
-              I was invited by <strong>Info7 News</strong> to participate in a segment as an <strong>expert on the Río Santa Catarina</strong>,
-              sharing context on the river corridor and its environmental challenges. I was also invited to present the results of my research on the panel "DATATON" held by the government and other institutions to gather GIS expert opinions on the holistic management of the urban part of the river's basin.
-            </p>
-            <div class="external-embed">
-              <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/reel/DC2KlInyqFR/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"> <a href="https://www.instagram.com/reel/DC2KlInyqFR/?utm_source=ig_embed&amp;utm_campaign=loading" style=" background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"> <div style=" display: flex; flex-direction: row; align-items: center;"> <div style="background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 40px; margin-right: 14px; width: 40px;"></div> <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center;"> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 100px;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 60px;"></div></div></div><div style="padding: 19% 0;"></div> <div style="display:block; height:50px; margin:0 auto 12px; width:50px;"><svg width="50px" height="50px" viewBox="0 0 60 60" version="1.1" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g transform="translate(-511.000000, -20.000000)" fill="#000000"><g><path d="M556.869,30.41 C554.814,30.41 553.148,32.076 553.148,34.131 C553.148,36.186 554.814,37.852 556.869,37.852 C558.924,37.852 560.59,36.186 560.59,34.131 C560.59,32.076 558.924,30.41 556.869,30.41 M541,60.657 C535.114,60.657 530.342,55.887 530.342,50 C530.342,44.114 535.114,39.342 541,39.342 C546.887,39.342 551.658,44.114 551.658,50 C551.658,55.887 546.887,60.657 541,60.657 M541,33.886 C532.1,33.886 524.886,41.1 524.886,50 C524.886,58.899 532.1,66.113 541,66.113 C549.9,66.113 557.115,58.899 557.115,50 C557.115,41.1 549.9,33.886 541,33.886 M565.378,62.101 C565.244,65.022 564.756,66.606 564.346,67.663 C563.803,69.06 563.154,70.057 562.106,71.106 C561.058,72.155 560.06,72.803 558.662,73.347 C557.607,73.757 556.021,74.244 553.102,74.378 C549.944,74.521 548.997,74.552 541,74.552 C533.003,74.552 532.056,74.521 528.898,74.378 C525.979,74.244 524.393,73.757 523.338,73.347 C521.94,72.803 520.942,72.155 519.894,71.106 C518.846,70.057 518.197,69.06 517.654,67.663 C517.244,66.606 516.755,65.022 516.623,62.101 C516.479,58.943 516.448,57.996 516.448,50 C516.448,42.003 516.479,41.056 516.623,37.899 C516.755,34.978 517.244,33.391 517.654,32.338 C518.197,30.938 518.846,29.942 519.894,28.894 C520.942,27.846 521.94,27.196 523.338,26.654 C524.393,26.244 525.979,25.756 528.898,25.623 C532.057,25.479 533.004,25.448 541,25.448 C548.997,25.448 549.943,25.479 553.102,25.623 C556.021,25.756 557.607,26.244 558.662,26.654 C560.06,27.196 561.058,27.846 562.106,28.894 C563.154,29.942 563.803,30.938 564.346,32.338 C564.756,33.391 565.244,34.978 565.378,37.899 C565.522,41.056 565.552,42.003 565.552,50 C565.552,57.996 565.522,58.943 565.378,62.101 M570.82,37.631 C570.674,34.438 570.167,32.258 569.425,30.349 C568.659,28.377 567.633,26.702 565.965,25.035 C564.297,23.368 562.623,22.342 560.652,21.575 C558.743,20.834 556.562,20.326 553.369,20.18 C550.169,20.033 549.148,20 541,20 C532.853,20 531.831,20.033 528.631,20.18 C525.438,20.326 523.257,20.834 521.349,21.575 C519.376,22.342 517.703,23.368 516.035,25.035 C514.368,26.702 513.342,28.377 512.574,30.349 C511.834,32.258 511.326,34.438 511.181,37.631 C511.035,40.831 511,41.851 511,50 C511,58.147 511.035,59.17 511.181,62.369 C511.326,65.562 511.834,67.743 512.574,69.651 C513.342,71.625 514.368,73.296 516.035,74.965 C517.703,76.634 519.376,77.658 521.349,78.425 C523.257,79.167 525.438,79.673 528.631,79.82 C531.831,79.965 532.853,80.001 541,80.001 C549.148,80.001 550.169,79.965 553.369,79.82 C556.562,79.673 558.743,79.167 560.652,78.425 C562.623,77.658 564.297,76.634 565.965,74.965 C567.633,73.296 568.659,71.625 569.425,69.651 C570.167,67.743 570.674,65.562 570.82,62.369 C570.966,59.17 571,58.147 571,50 C571,41.851 570.966,40.831 570.82,37.631"></path></g></g></g></svg></div><div style="padding-top: 8px;"> <div style=" color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:550; line-height:18px;">View this post on Instagram</div></div><div style="padding: 12.5% 0;"></div> <div style="display: flex; flex-direction: row; margin-bottom: 14px; align-items: center;"><div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(0px) translateY(7px);"></div> <div style="background-color: #F4F4F4; height: 12.5px; transform: rotate(-45deg) translateX(3px) translateY(1px); width: 12.5px; flex-grow: 0; margin-right: 14px; margin-left: 2px;"></div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(9px) translateY(-18px);"></div></div><div style="margin-left: 8px;"> <div style=" background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 20px; width: 20px;"></div> <div style=" width: 0; height: 0; border-top: 2px solid transparent; border-left: 6px solid #f4f4f4; border-bottom: 2px solid transparent; transform: translateX(16px) translateY(-4px) rotate(30deg)"></div></div><div style="margin-left: auto;"> <div style=" width: 0px; border-top: 8px solid #F4F4F4; border-right: 8px solid transparent; transform: translateY(16px);"></div> <div style=" background-color: #F4F4F4; flex-grow: 0; height: 12px; width: 16px; transform: translateY(-4px);"></div> <div style=" width: 0; height: 0; border-top: 8px solid #F4F4F4; border-left: 8px solid transparent; transform: translateY(-4px) translateX(8px);"></div></div></div> <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center; margin-bottom: 24px;"> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 224px;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 144px;"></div></div></a><p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/reel/DC2KlInyqFR/?utm_source=ig_embed&amp;utm_campaign=loading" style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none;" target="_blank">A post shared by Un Río En El Río (@unrioenelrio)</a></p></div></blockquote> <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script async src="//www.instagram.com/embed.js"></script>
-            </div>
-<p class="small-note">
-  If the embed doesn’t load,
-  <a href="https://www.instagram.com/reel/DC2KlInyqFR/" target="_blank" rel="noopener">
-    watch the clip on @unrioenelrio's Instagram
-  </a>.
-</p>
-            <ul>
-              <li>Processed satellite imagery to map vegetation structure and coverage along riparian corridors.</li>
-              <li>Integrated point-count bird surveys with spatial layers to model biodiversity responses.</li>
-              <li>Presented findings to support post-storm environmental planning after tropical storm Alberto.</li>
+        <!-- Panel 2: Riparian Forests -->
+        <div class="lab-panel">
+          <div class="proj-info">
+            <h3>Riparian Forests &amp; Urban Bird Diversity</h3>
+            <p class="proj-meta">Lab of Conservation Biology &amp; Sustainable Development — UANL · 2024 · Researcher &amp; GIS Analyst</p>
+            <p class="proj-body"><strong>Research title:</strong> <em>Terrestrial Resident Bird Diversity in the Urban Successional Environment of the Santa Catarina River for Different Land-Use and Vegetation Types.</em> The study polygon (1.27 km²) centered at N 25° 40' 8.94 / W 100° 17' 39.10 in a highly disturbed section of the SCR. Forty randomized point counts (40 m radius) were conducted during April 2024 by 4–6 observers over 5 min periods, after a 3-min settling interval.</p>
+            <p style="font-size:0.8rem;font-weight:600;color:var(--accent);margin:0.85rem 0 0.35rem;letter-spacing:0.06em;">KEY CONTRIBUTIONS</p>
+            <ul class="proj-body" style="padding-left:1.1em;">
+              <li>Integrated multispectral remote sensing with field bird surveys along the Santa Catarina River corridor.</li>
+              <li>Coordinated vegetation classification and land-use inputs provided by Sociedad Sostenible, A.C. (SOSAC).</li>
+              <li>Computed diversity metrics (Hill numbers q0/q1/q2, Chao 1, Chao–Sorensen) to compare riparian and exotic vegetation.</li>
+              <li>Global observed richness: 32 species (95% CI: 24.57–37.43). Riparian forest supported significantly higher richness and diversity at all q levels vs. treeless sites (p = 0.006 Shannon, p = 0.012 Simpson).</li>
+              <li>Chao–Sorensen community similarity: RF vs. EV = 90.2%; tree-covered vs. treeless = 88.1%.</li>
             </ul>
-<div class="project-media">
-  <img
-    class="theme-swap"
-    src="images/bird-diversity-light.png"
-    data-light-src="images/bird-diversity-light.png"
-    data-dark-src="images/bird-diversity-dark.png"
-    alt="Riparian Forests & Urban Bird Diversity — diversity profiles figure"
-  />
+            <p style="font-size:0.8rem;font-weight:600;color:var(--accent);margin:0.85rem 0 0.35rem;letter-spacing:0.06em;">MEDIA &amp; OUTREACH</p>
+            <p class="proj-body">Invited by <strong>Info7 News</strong> as expert on the Río Santa Catarina. Invited to present at <strong>DATATON</strong> — a government GIS expert panel on holistic management of the river basin.</p>
+            <div class="proj-foot">
+              <span>📌 Lab of Conservation Biology — UANL</span>
+              <span>Collaborators: SOSAC, Quantitative Ecology course team</span>
+              <span>Contact: Juan A. Garcia · <a href="mailto:jgarcia@conl.mx">jgarcia@conl.mx</a></span>
+              <span>📎 Research summary, figures &amp; biodiversity tables available upon request</span>
             </div>
-            <div class="project-media">
-              <img src="images/composition.png" alt="Plant composition per point" />
-            </div>
-            <div class="project-media">
-              <img src="images/dataton.jpg" alt="DATATON Participants" />
-            </div>
-            <div class="project-media">
-              <img src="images/dataton-certificate.png" alt="DATATON Certificate of participation" />
-            </div>
-          </article>
-            <aside class="project-showcase" data-project-showcase>
-              <div class="showcase-main">
-                <img class="showcase-main-img" alt="" />
-              </div>
-              <div class="showcase-thumbs" role="tablist" aria-label="Project media thumbnails"></div>
-            </aside>
-          </div>            </div>
-            <div class="projects-lab-panel" id="projPanel3" role="tabpanel" tabindex="0" aria-label="Historical Vegetation & Water Surface Analysis for Urban Development">
-<div class="project-row">
-            <article class="card project-card animate-on-scroll">
-            <h3>Historical Vegetation & Water Surface Analysis for Urban Development</h3>
-            <p class="project-meta">
-              Javer Housing Developer · 2024 · GIS Technician & Surveyor
-            </p>
-            <p>
-              Conducted a <strong>multispectral remote sensing</strong> project using NDVI and NWI to analyze historical
-              vegetation and water bodies for a housing development area.
-            </p>
-            <ul>
+          </div>
+          <div class="proj-imgs">
+            <img src="images/bird-diversity-dark.png" alt="Bird diversity profiles">
+            <img src="images/dataton.jpg" alt="DATATON Participants">
+            <img src="images/dataton-certificate.png" alt="DATATON Certificate">
+            <img src="images/rarefaction-extrapolation.png" alt="Rarefaction curves">
+          </div>
+        </div>
+
+        <!-- Panel 3: Historical Vegetation -->
+        <div class="lab-panel">
+          <div class="proj-info">
+            <h3>Historical Vegetation &amp; Water Surface Analysis for Urban Development</h3>
+            <p class="proj-meta">Javer Housing Developer · 2024 · GIS Technician &amp; Surveyor</p>
+            <p class="proj-body">Conducted a multispectral remote sensing project using NDVI and NWI to analyze historical vegetation and water bodies for a housing development area. The work combined land surveys, species observations, and water quality data with GIS outputs to guide sustainable planning decisions.</p>
+            <p style="font-size:0.8rem;font-weight:600;color:var(--accent);margin:0.85rem 0 0.35rem;letter-spacing:0.06em;">KEY CONTRIBUTIONS</p>
+            <ul class="proj-body" style="padding-left:1.1em;">
               <li>Built temporal NDVI and NWI maps to identify sensitive ecological areas.</li>
-              <li>Combined land surveys, species observations, and water quality data with GIS outputs.</li>
+              <li>Integrated field surveys with remote sensing outputs for validation.</li>
               <li>Delivered actionable recommendations to minimize ecological impact and guide sustainable planning.</li>
             </ul>
-            <div class="project-media">
-              <img src="images/nwi.jpeg" alt="NWI analysis for housing development site" />
+            <div class="proj-foot">
+              <span>📌 Javer Housing Developer</span>
+              <span>Contact: MSc Adrian Lozano · <a href="mailto:adrian.lozano@sosac.org">adrian.lozano@sosac.org</a></span>
+              <span>📎 NDVI/NWI map outputs &amp; planning recommendations available upon request</span>
             </div>
-            <div class="project-media">
-              <img src="images/ndvi.jpg" alt="NDVI analysis for housing development site" />
-            </div>
-          </article>
-            <aside class="project-showcase" data-project-showcase>
-              <div class="showcase-main">
-                <img class="showcase-main-img" alt="" />
-              </div>
-              <div class="showcase-thumbs" role="tablist" aria-label="Project media thumbnails"></div>
-            </aside>
           </div>
-            </div>
-            <div class="projects-lab-panel" id="projPanel4" role="tabpanel" tabindex="0" aria-label="Remote Sensing for Reforestation Monitoring">
-<div class="project-row">
-            <article class="card project-card animate-on-scroll">
+          <div class="proj-imgs">
+            <img src="images/ndvi.jpg" alt="NDVI analysis">
+            <img src="images/nwi.jpeg" alt="NWI analysis">
+          </div>
+        </div>
+
+        <!-- Panel 4: Reforestation Monitoring -->
+        <div class="lab-panel">
+          <div class="proj-info">
             <h3>Remote Sensing for Reforestation Monitoring</h3>
-            <p class="project-meta">
-              Enel Green Power · 2024–2025 · Ecological Data Analyst & Surveyor
-            </p>
-            <p>
-In my work as an Environmental Data Analyst and Surveyor for wind farms at ENEL, I worked gathering and analyzing pre- and post-construction data for delivering environmental assessments. I automated for the first time in this lab the transformation of raw field metadata (mostly from camera trapping) into structured databases (i.e. species composition tables) using R-based tools. Alongside this data-driven work, I supported field research monitoring population metrics for two sensitive species (lynx and Texas tortoise) and large mammals, particularly the Nilgai–an Asian antelope introduced for hunting in Northeast Mexico and Texas. I also assissted the evaluation of reforestation efforst using GIS tools.
-            </p>
-            <ul>
-              <li>Applied geospatial tools and satellite imagery to track changes in vegetation cover through time.</li>
-              <li>Automated the transformation of raw environmental metadata into analysis-ready databases using R,
-                  reducing processing time from five days to one.</li>
-              <li>Combined spatial data with field observations of large mammals and endangered species distributions.</li>
+            <p class="proj-meta">Enel Green Power · 2024–2025 · Ecological Data Analyst &amp; Surveyor</p>
+            <p class="proj-body">Supported a remote sensing program evaluating reforestation efforts at renewable energy (wind farm) sites in northeast Mexico, ensuring ecological commitments were met. I automated for the first time in the lab the transformation of raw camera trap field metadata into structured databases using R-based tools, reducing processing time from five days to one. Alongside this data-driven work, I supported field research monitoring population metrics for sensitive species (lynx and Texas tortoise) and large mammals, particularly the Nilgai — an Asian antelope introduced for hunting in northeast Mexico and Texas.</p>
+            <p style="font-size:0.8rem;font-weight:600;color:var(--accent);margin:0.85rem 0 0.35rem;letter-spacing:0.06em;">KEY CONTRIBUTIONS</p>
+            <ul class="proj-body" style="padding-left:1.1em;">
+              <li>Applied geospatial tools and satellite imagery to track vegetation cover change through time.</li>
+              <li>Automated environmental metadata → analysis-ready databases in R; 5-day → 1-day turnaround.</li>
+              <li>Combined spatial data with field observations of large mammal and endangered species distributions.</li>
             </ul>
-            <div class="project-media">
-              <img src="images/wind-portrait.png" alt="Portrait at one of the wind farms" />
+            <div class="proj-foot">
+              <span>📌 Enel Green Power</span>
+              <span>Contact: Dr. Antonio Guzmán Velasco · <a href="mailto:antonio.guzmanvl@uanl.edu.mx">antonio.guzmanvl@uanl.edu.mx</a></span>
+              <span>📎 Vegetation change summaries &amp; R automation outputs available upon request</span>
             </div>
-            <div class="project-media">
-              <img
-                src="images/rscript-biodiversity-workflow.png"
-                alt="R script biodiversity analysis workflow for camera trap data"
-              />
-            </div>
-
-            <div class="project-media">
-              <img
-                src="images/rarefaction-extrapolation.png"
-                alt="Rarefaction and extrapolation curves for mammal diversity monitoring"
-              />
-            </div>
-
-            <div class="project-media">
-              <img
-                src="images/hill-numbers.png"
-                alt="Hill numbers diversity profiles across camera trap sites"
-              />
-            </div>
-
-          </article>
-            <aside class="project-showcase" data-project-showcase>
-              <div class="showcase-main">
-                <img class="showcase-main-img" alt="" />
-              </div>
-              <div class="showcase-thumbs" role="tablist" aria-label="Project media thumbnails"></div>
-            </aside>
           </div>
-            </div>
-            <div class="projects-lab-panel" id="projPanel5" role="tabpanel" tabindex="0" aria-label="Urban Park Biodiversity Monitoring Framework">
-<div class="project-row">
-            <article class="card project-card animate-on-scroll">
+          <div class="proj-imgs">
+            <img src="images/rscript-biodiversity-workflow.png" alt="R script biodiversity workflow">
+            <img src="images/rarefaction-extrapolation.png" alt="Rarefaction curves">
+            <img src="images/hill-numbers.png" alt="Hill numbers diversity profiles">
+          </div>
+        </div>
+
+        <!-- Panel 5: Urban Park Biodiversity -->
+        <div class="lab-panel">
+          <div class="proj-info">
             <h3>Urban Park Biodiversity Monitoring Framework</h3>
-            <p class="project-meta">
-              San Pedro + Parques · 2024 · Biodiversity Monitoring Intern
-            </p>
-            <p>
-              Standardized biodiversity surveys across nine urban parks and proposed new statistical indicators to better
-              track ecological health in urban green spaces.
-            </p>
-            <ul>
-              <li>Harmonized survey protocols to make cross-park comparisons possible.</li>
-              <li>Worked with spatial data on park layout and habitat structure to interpret biodiversity patterns.</li>
-              <li>Supported the design of indicators aligned with SDG 11 and urban sustainability goals.</li>
+            <p class="proj-meta">San Pedro + Parques · 2024 · Biodiversity Monitoring Intern</p>
+            <p class="proj-body">Standardized biodiversity surveys across nine urban parks in San Pedro, Nuevo León, and proposed new statistical indicators to better track ecological health in urban green spaces. The framework supports SDG 11 metrics and enables consistent cross-park comparisons over time.</p>
+            <p style="font-size:0.8rem;font-weight:600;color:var(--accent);margin:0.85rem 0 0.35rem;letter-spacing:0.06em;">KEY CONTRIBUTIONS</p>
+            <ul class="proj-body" style="padding-left:1.1em;">
+              <li>Harmonized survey protocols to enable cross-park biodiversity comparisons.</li>
+              <li>Analyzed spatial data on park layout and habitat structure to interpret biodiversity patterns.</li>
+              <li>Supported design of indicators aligned with SDG 11 and urban sustainability goals.</li>
             </ul>
-            <div class="project-media">
-              <img src="images/urban-parks-biodiversity.png" alt="Biodiversity monitoring across urban parks" />
+            <div class="proj-foot">
+              <span>📌 San Pedro + Parques</span>
+              <span>Contact: <a href="mailto:marcelo.guzmandlg@gmail.com">marcelo.guzmandlg@gmail.com</a></span>
+              <span>📎 Survey protocol templates, indicator framework &amp; summary tables available upon request</span>
             </div>
-            <div class="project-media">
-              <img src="images/inaturalist-project.jpeg" alt="iNaturalist project thumbnail." />
-            </div>
-            <div class="project-media">
-              <img src="images/r-gbif.jpeg" alt="RBGIF project screenshot." />
-            </div>
-            <div class="project-media">
-              <img src="images/parks-buffer-observations.jpeg" alt="Observations close to the parks." />
-            </div>
-          </article>
-            <aside class="project-showcase" data-project-showcase>
-              <div class="showcase-main">
-                <img class="showcase-main-img" alt="" />
-              </div>
-              <div class="showcase-thumbs" role="tablist" aria-label="Project media thumbnails"></div>
-            </aside>
           </div>
-            </div>
+          <div class="proj-imgs">
+            <img src="images/inaturalist-project.jpeg" alt="iNaturalist project">
+            <img src="images/r-gbif.jpeg" alt="R GBIF project">
+            <img src="images/parks-buffer-observations.jpeg" alt="Park buffer observations">
           </div>
         </div>
 
       </div>
-    </section>
-
-    <!-- REFERENCES -->
-    <section id="references" class="section section-alt">
-      <div class="container">
-        <h2>References</h2>
-        <p class="section-intro">
-          Rerence Contact Information
-        </p>
-        <div class="grid references-grid">
-          <article class="card reference-card">
-            <h3>M.Sc. Ivan González</h3>
-            <p class="reference-role">Ph.D. Candidate &amp; Researcher</p>
-            <p>Mentor and supervisor for my avian research volunteering at University of Debrecen.</p>
-            <ul class="reference-list">
-              <li>📞 +36 70 675 1099</li>
-              <li>✉️ <a href="mailto:ivangonzalezandazola@gmail.com">ivangonzalezandazola@gmail.com</a></li>
-              <li>🔗 <a href="https://www.linkedin.com/in/ivan-gonzalez-688b0615b/" target="_blank" rel="noopener">LinkedIn profile</a></li>
-            </ul>
-          </article>
-          <article class="card reference-card">
-            <h3>M.Sc. Adrian Lozano</h3>
-            <p class="reference-role">Socioecosystems &amp; Sustainability Strategist</p>
-            <p>Supervisor for the position “Environmental Surveyor &amp; Researcher.”</p>
-            <ul class="reference-list">
-              <li>📞 +52 1 81 1328 3169</li>
-              <li>✉️ <a href="mailto:adrian.lozano@sosac.org">adrian.lozano@sosac.org</a></li>
-            </ul>
-          </article>
-          <article class="card reference-card">
-            <h3>Dr. Antonio Guzmán Velasco</h3>
-            <p class="reference-role">
-              Professor &amp; Researcher · Head of the Department of Conservation Biology &amp; Sustainable Development
-            </p>
-            <p>
-              President of the Climate Change Technical Council of Nuevo León, member of the Intersecretarial Commission
-              on Climate Change of Nuevo León, and advisor to the Geological and Hydrometeorological Technical Council of
-              Nuevo León.
-            </p>
-            <p>Manager for the position “Environmental Data Analyst, Database Curator, and Surveyor.”</p>
-            <ul class="reference-list">
-              <li>✉️ <a href="mailto:antonio.guzmanvl@uanl.edu.mx">antonio.guzmanvl@uanl.edu.mx</a></li>
-              <li>🔗 <a href="https://www.linkedin.com/in/antonio-guzm%C3%A1n-velasco-875528105/" target="_blank" rel="noopener">LinkedIn profile</a></li>
-            </ul>
-          </article>
-        </div>
-
-        <div class="reference-quotes">
-          <div class="reference-quotes-header">
-            <h3>Recommendation Letter Excerpts</h3>
-            <p class="section-intro">
-              A curated deck of excerpts from recommendation letters over the years. Scroll horizontally to shuffle
-              through the cards.
-            </p>
-          </div>
-          <div class="reference-deck" role="region" aria-label="Recommendation letter excerpts">
-            <div class="deck-track">
-              <article class="deck-card">
-                <p class="deck-quote">
-                  “Marcelo is a young leader with initiative, a strong set of technical skills, and a deep commitment to
-                  climate action. Considering his academic track record and personal conduct, I can confidently state
-                  that Marcelo Guzmán de la Garza is an excellent candidate. I strongly recommend him.”
-                </p>
-                <p class="deck-source">
-                  Dr. Antonio Guzmán Velasco · Professor &amp; Researcher
-                </p>
-              </article>
-              <article class="deck-card">
-                <p class="deck-quote">
-                  “For the course’s final project, Marcelo led the development of a proposal for ecological restoration
-                  and agroforestry management. His leadership in conducting an extensive analysis of the restoration
-                  site, including physiographic, climatic, soil, and ecological aspects, was distinguishable. Moreover,
-                  Marcelo’s adept use of GIS tools to create maps and process satellite imagery surpassed the standard
-                  set by his peers.”
-                </p>
-                <p class="deck-source">
-                  Dr. María Magdalena Salinas Rodríguez · Herbarium Curator, National System of Researchers Level I,
-                  Universidad Autónoma de Nuevo León
-                </p>
-              </article>
-              <article class="deck-card">
-                <p class="deck-quote">
-                  “Marcelo’s academic excellence is matched by his practical contributions. He has consistently exceeded
-                  expectations in laboratory and fieldwork.”
-                </p>
-                <p class="deck-source">
-                  Dr. Edgar Cruz Acevedo · Professor &amp; Researcher, National System of Researchers Level I,
-                  Universidad Autónoma de Nuevo León
-                </p>
-              </article>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-
-    <!-- EXPERIENCE TIMELINE -->
-    <section id="experience" class="section section-alt">
-      <div class="container">
-        <h2>Professional Experience</h2>
-        <div class="timeline">
-          <div class="timeline-item">
-            <div class="timeline-date">  -  Sep 2025 — Present</div>
-            <div class="timeline-content">
-              <h3>Project Manager · IRCA Consultants</h3>
-              <p>
-                Leading environmental compliance and geospatial workflows for impact assessments and compensation projects.
-              </p>
-              <ul>
-                <li>Scoped and managed environmental compliance projects and permitting consultations.</li>
-                <li>Implemented drone-based photogrammetry and GIS workflows for forest and soil recovery monitoring.</li>
-                <li>Maintained GIS databases with QA/QC aligned to regulatory and client standards.</li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="timeline-item animate-on-scroll" >
-            <div class="timeline-date">  -  Feb 2025 — Sep 2025</div>
-            <div class="timeline-content">
-              <h3>Research Intern & GIS Analyst · Institute of Biology and Ecology, University of Debrecen</h3>
-              <p>Integrated geospatial analysis into avian urbanization research in Europe.</p>
-              <ul>
-                <li>Enhanced Urbanization Index analytics for blackbird populations with GIS metrics.</li>
-                <li>Applied standardized bird sampling protocols including mist netting, banding, and biometric analyses.</li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="timeline-item animate-on-scroll">
-            <div class="timeline-date">  -  Jun 2024 — Feb 2025</div>
-            <div class="timeline-content">
-              <h3>Ecological Data Analyst & Surveyor · Enel Green Power</h3>
-              <p>Supported renewable energy projects with ecological surveys and geospatial data pipelines.</p>
-              <ul>
-                <li>Automated environmental data processing in R (500% efficiency gain).</li>
-                <li>Contributed geospatial analyses for reforestation and biodiversity monitoring.</li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="timeline-item animate-on-scroll">
-            <div class="timeline-date">  -  Nov 2024 — Dec 2024</div>
-            <div class="timeline-content">
-              <h3>GIS Technician & Surveyor · Javer Housing Developer</h3>
-              <p>Provided GIS-based insights for sustainable housing development.</p>
-              <ul>
-                <li>Developed NDVI and NWI maps for historical vegetation and water surface analysis.</li>
-                <li>Integrated resident interviews and field data with spatial analysis to inform planning.</li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="timeline-item animate-on-scroll">
-            <div class="timeline-date">  -  Jan 2024 — Nov 2024</div>
-            <div class="timeline-content">
-              <h3>Researcher & GIS Analyst · Lab of Conservation Biology and Sustainable Development — UANL</h3>
-              <p>Quantified the role of riparian forests in maintaining urban bird diversity.</p>
-              <ul>
-                <li>Processed multispectral imagery and land cover data for riparian forest mapping.</li>
-                <li>Engaged local communities around conservation initiatives and urban habitat preservation.</li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="timeline-item animate-on-scroll">
-            <div class="timeline-date">  -  Jun 2024 — Dec 2024</div>
-            <div class="timeline-content">
-              <h3>Biodiversity Monitoring Intern · San Pedro + Parques</h3>
-              <p>Supported biodiversity monitoring and metric design across nine urban parks.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- EDUCATION -->
-    <section id="education" class="section">
-      <div class="container">
-        <h2>Education & Training</h2>
-        <div class="grid edu-grid">
-          <div class="card">
-            <h3>University of Debrecen</h3>
-            <p class="edu-meta">
-              Geoinformatics M.S. & Environmental Science M.S. · GPA: 4.0/4.0 · European Accreditation Board
-            </p>
-            <p>Stipendium Hungaricum Scholar  for studying a semester abroad in Europe with a focus on geoinformatics, remote sensing, and environmental policy.</p>
-            <ul>
-              <li>Hyperspectral Remote Sensing</li>
-              <li>Remote Sensing with Unmanned Aerial Vehicles</li>
-              <li>Models in GIS</li>
-              <li>Environmental Policy and Communication</li>
-            </ul>
-          </div>
-          <div class="card">
-            <h3>Universidad Autónoma de Nuevo León</h3>
-            <p class="edu-meta">
-              B.S. Biology · GPA: 3.8/4.0 · European Diploma Supplement
-            </p>
-            <p>
-              Honors Program student with strong training in ecology, conservation biology, and quantitative analysis.
-            </p>
-            <ul>
-              <li>Excellence and social service awards recognizing contributions to SDG-aligned sustainability projects (among other 450 projects).</li>
-              <li>Certificate of Outstanding Performance at the National Bachelor's Examination emitted by the National Center for the Evaluation of Higher Education.</li>
-              <li>Awarded with the Academic Excellence Scholarship (Full Tuition) for high-achieving students demonstrating exceptional academic performance across consecutive terms.</li>
-              <li>Honors Program for High Performing Undergraduate Students.</li>
-              <li>International Academic Mobility Scholarship for Studying Abroad in Europe, received based on academic merit, covering my travel expenses and offering a monthly stipend for my studies abroad.</li>
-            </ul>
-          </div>
-          <div class="card">
-            <h3>Additional Qualifications</h3>
-            <p class="edu-meta">
-              A.A. Teaching English as a Second Language · International Baccalaureate
-            </p>
-            <ul>
-              <li>R for Data Science (Cognitive Class)</li>
-              <li>J-1 Exchange Visitor Program (BridgeUSA)</li>
-              <li>French DELF B2 & immersion program in Canada</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- AWARDS -->
-    <section id="awards" class="section">
-      <div class="container">
-        <h2>Awards &amp; Honors</h2>
-        <p class="section-intro">
-          Highlights from the AWARDS &amp; HONORS tab of my resume, covering academic performance, scholarships, and
-          recognition for service and study abroad.
-        </p>
-        <div class="grid awards-grid">
-          <article class="card award-card">
-            <p class="award-year">2025</p>
-            <h3>Certificate of Outstanding Performance at the National Bachelor's Examination</h3>
-            <p>Achieved the highest performance level; emitted by the National Center for the Evaluation of Higher Education.</p>
-          </article>
-          <article class="card award-card">
-            <p class="award-year">2023 – 2025</p>
-            <h3>Academic Excellence Scholarship (Full Tuition)</h3>
-            <p>Awarded to high-achieving students demonstrating exceptional academic performance across consecutive terms.</p>
-          </article>
-          <article class="card award-card">
-            <p class="award-year">2023 – 2025</p>
-            <h3>Honors Program for High Performing Undergraduate Students</h3>
-            <p>Achieved second and third highest academic ranking out of the entire cohort of biology undergraduates.</p>
-          </article>
-          <article class="card award-card">
-            <p class="award-year">2024 – 2025</p>
-            <h3>Stipendium Hungaricum Scholarship for Studying Abroad in Europe - Hungarian Government Awarded</h3>
-            <p>Enrolled in selected Geoinformatics and Environmental Science master’s programs, fully covered and monthly stipend.</p>
-          </article>
-          <article class="card award-card">
-            <p class="award-year">2025</p>
-            <h3>International Academic Mobility Scholarship for Studying Abroad in Europe - Home University Awarded</h3>
-            <p>Received based on academic merit, covering my travel expenses and offering a monthly stipend for my studies abroad.</p>
-          </article>
-          <article class="card award-card">
-            <p class="award-year">2024</p>
-            <h3>Excellence in Social Service Award</h3>
-            <p>Awarded among 450 other projects in the Sustainability category for my project’s contribution to the advancement of SDG 11.</p>
-          </article>
-        </div>
-
-        <div class="awards-docs">
-          <h3>Supporting documents</h3>
-          <p>Preview or download documentation that certifies select awards and academic recognitions.</p>
-          <ul class="compact-doc-list">
-            <li>
-              <strong>Certificate of Outstanding Performance (CENEVAL):</strong>
-              National examination certificate recognizing top performance in the CENEVAL evaluation.
-              <a href="media/letters/2025%20-%20CENEVAL%20Certificado.pdf" target="_blank" rel="noopener">Preview</a>
-              ·
-              <a href="media/letters/2025%20-%20CENEVAL%20Certificado.pdf" download>Download</a>
-            </li>
-            <li>
-              <strong>Academic Excellence Scholarship Letter of Award:</strong>
-              Scholarship award letter confirming full-tuition academic excellence recognition.
-              <a href="media/letters/2024%20TPF_Letter%20of%20Award_BACHELOR%20(Marcelo%20Guzm%C3%A1n%20De%20la%20Garza)%20(1)%20(1).pdf" target="_blank" rel="noopener">Preview</a>
-              ·
-              <a href="media/letters/2024%20TPF_Letter%20of%20Award_BACHELOR%20(Marcelo%20Guzm%C3%A1n%20De%20la%20Garza)%20(1)%20(1).pdf" download>Download</a>
-            </li>
-            <li>
-              <strong>Excellence in Social Service Award:</strong>
-              Recognition letter honoring social service contributions within sustainability initiatives.
-              <a href="media/letters/2024%20-%20Reconocimiento%20Servicio%20Social.pdf" target="_blank" rel="noopener">Preview</a>
-              ·
-              <a href="media/letters/2024%20-%20Reconocimiento%20Servicio%20Social.pdf" download>Download</a>
-            </li>
-            <li>
-              <strong>Academic Transfer Apostille:</strong>
-              Apostilled academic transfer document validating international credential portability.
-              <a href="media/letters/2025%20-%20ACADEMIC%20TRANSFER%20-%20APOSTILLE.pdf" target="_blank" rel="noopener">Preview</a>
-              ·
-              <a href="media/letters/2025%20-%20ACADEMIC%20TRANSFER%20-%20APOSTILLE.pdf" download>Download</a>
-            </li>
-          </ul>
-        </div>
-
-        <div class="awards-docs">
-          <h3>Additional Certificates</h3>
-          <p>Supplementary certificates and acceptance letters supporting ongoing training and international programs.</p>
-          <ul class="compact-doc-list">
-            <li>
-              <strong>BridgeUSA TWP Certificate:</strong>
-              For participating in 2 months of practical training in Zoology/Animal Biology from 06/10/2024 to 08/10/2024 with Tanganyika Wildlife Park in Goddard, KS, USA.
-              <a href="media/letters/certificates/2024%20-%20BridgeUSA%20TWP%20Certificate.pdf" target="_blank" rel="noopener">Preview</a>
-              ·
-              <a href="media/letters/certificates/2024%20-%20BridgeUSA%20TWP%20Certificate.pdf" download>Download</a>
-            </li>
-            <li>
-              <strong>DELF B2 Diploma:</strong>
-              French language proficiency diploma confirming B2-level reading, writing, listening, and speaking skills.
-              <a href="media/letters/certificates/2024%20-%20Diplo%CC%82me%20DELF%20B2.pdf" target="_blank" rel="noopener">Preview</a>
-              ·
-              <a href="media/letters/certificates/2024%20-%20Diplo%CC%82me%20DELF%20B2.pdf" download>Download</a>
-            </li>
-            <li>
-              <strong>University of Debrecen - Internship Completion Letter:</strong>
-              Confirmation of research volunteering completion in Debrecen, supporting a European blackbird urbanization project with data collection and fieldwork (netting, banding, nest searches, biometric data).
-              <a href="media/letters/certificates/2025%20-%20UNIDEB%20COMPLETION%20LETTER%20RESEARCH%20ENG.pdf" target="_blank" rel="noopener">Preview</a>
-              ·
-              <a href="media/letters/certificates/2025%20-%20UNIDEB%20COMPLETION%20LETTER%20RESEARCH%20ENG.pdf" download>Download</a>
-            </li>
-            <li>
-              <strong>Partial Letter of Acceptance (Non-med):</strong>
-              Acceptance letter for a non-medical program in Debrecen, documenting admission status and next steps.
-              <a href="media/letters/certificates/DE%20non-med%20Partial%20letter%20of%20acceptance%20(Marcelo%20Guzm%C3%A1n%20De%20la%20Garza)%20(1).pdf" target="_blank" rel="noopener">Preview</a>
-              ·
-              <a href="media/letters/certificates/DE%20non-med%20Partial%20letter%20of%20acceptance%20(Marcelo%20Guzm%C3%A1n%20De%20la%20Garza)%20(1).pdf" download>Download</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <!-- CONTACT -->
-    <section id="contact" class="section section-alt">
-      <div class="container">
-        <h2>Contact</h2>
-        <p>
-          I am open to collaborations on <strong>environmental assessments, GIS analysis, remote sensing projects, and
-          conservation research</strong>.
-        </p>
-        <div class="contact-card">
-          <p><strong>Email:</strong> <a href="mailto:marcelo.guzmandlg@gmail.com">marcelo.guzmandlg@gmail.com</a></p>
-          <p><strong>Location:</strong> Monterrey, Mexico</p>
-          <p>
-            <strong>LinkedIn:</strong>
-            <a href="https://www.linkedin.com/in/marcelo-guzman-063063128/" target="_blank" rel="noopener">View my profile</a>
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- NEW: FULL PORTFOLIO GRID -->
-    <section id="full-portfolio" class="section">
-      <div class="container">
-        <h2>Full Portfolio</h2>
-        <p class="section-intro">
-          Explore the complete catalog of my geospatial and environmental projects.
-        </p>
-        <div class="portfolio-filters" role="tablist" aria-label="Filter portfolio projects">
-          <button class="filter-btn is-active" type="button" data-filter="all" aria-pressed="true">Show All</button>
-          <button class="filter-btn" type="button" data-filter="gis" aria-pressed="false">GIS</button>
-          <button class="filter-btn" type="button" data-filter="imagery" aria-pressed="false">Imagery &amp; Remote Sensing</button>
-          <button class="filter-btn" type="button" data-filter="ecology" aria-pressed="false">Ecology &amp; Conservation Research</button>
-          <button class="filter-btn" type="button" data-filter="coding" aria-pressed="false">Coding</button>
-          <button class="filter-btn" type="button" data-filter="environmental" aria-pressed="false">Environmental Science</button>
-        </div>
-
-        <div class="portfolio-grid">
-          <!-- Card 1 -->
-          <a href="project-rio-santa-catarina.html" class="portfolio-card animate-on-scroll" data-categories="gis imagery ecology">
-            <div class="portfolio-card-bg" style="background-image: url('images/rsc-ndvi-pages.png');"></div>
-            <div class="portfolio-card-overlay"></div>
-            <div class="portfolio-card-content">
-              <h3>Río Santa Catarina: Historical NDVI & Community Cartography</h3>
-              <span class="view-project-link">View Project &rarr;</span>
-            </div>
-          </a>
-
-          <!-- Card 2 -->
-          <a href="project-university-debrecen.html" class="portfolio-card animate-on-scroll" data-categories="gis imagery">
-            <div class="portfolio-card-bg" style="background-image: url('images/unideb-collage.jpeg');"></div>
-            <div class="portfolio-card-overlay"></div>
-            <div class="portfolio-card-content">
-              <h3>University of Debrecen: Advanced GIS & Research Internship</h3>
-              <span class="view-project-link">View Project &rarr;</span>
-            </div>
-          </a>
-
-          <!-- Card 3 -->
-          <a href="project-urbanization-index.html" class="portfolio-card animate-on-scroll" data-categories="gis imagery ecology coding">
-            <div class="portfolio-card-bg" style="background-image: url('images/urbanization-index-map.jpg');"></div>
-            <div class="portfolio-card-overlay"></div>
-            <div class="portfolio-card-content">
-              <h3>Urbanization Index & Blackbird Phenotypes</h3>
-              <span class="view-project-link">View Project &rarr;</span>
-            </div>
-          </a>
-
-          <!-- Card 4 -->
-          <a href="project-models-in-gis.html" class="portfolio-card animate-on-scroll" data-categories="gis coding">
-            <div class="portfolio-card-bg" style="background-image: url('images/models-in-gis.png');"></div>
-            <div class="portfolio-card-overlay"></div>
-            <div class="portfolio-card-content">
-              <h3>Models in GIS: ModelBuilder Workflow</h3>
-              <span class="view-project-link">View Project &rarr;</span>
-            </div>
-          </a>
-
-          <!-- Card 5 -->
-          <a href="project-uav-accuracy.html" class="portfolio-card animate-on-scroll" data-categories="gis imagery">
-            <div class="portfolio-card-bg" style="background-image: url('images/udeb-uav-botanical.png');"></div>
-            <div class="portfolio-card-overlay"></div>
-            <div class="portfolio-card-content">
-              <h3>UAV Remote Sensing Accuracy Assessment</h3>
-              <span class="view-project-link">View Project &rarr;</span>
-            </div>
-          </a>
-
-          <!-- Card 6 -->
-          <a href="project-drone-photogrammetry.html" class="portfolio-card animate-on-scroll" data-categories="gis imagery environmental">
-            <div class="portfolio-card-bg" style="background-image: url('images/frisa-vg.jpg');"></div>
-            <div class="portfolio-card-overlay"></div>
-            <div class="portfolio-card-content">
-              <h3>Drone Photogrammetry for Environmental Compensation</h3>
-              <span class="view-project-link">View Project &rarr;</span>
-            </div>
-          </a>
-
-          <!-- Card 7 -->
-          <a href="project-riparian-forests.html" class="portfolio-card animate-on-scroll" data-categories="gis ecology coding">
-            <div class="portfolio-card-bg" style="background-image: url('images/bird-diversity-light.png');"></div>
-            <div class="portfolio-card-overlay"></div>
-            <div class="portfolio-card-content">
-              <h3>Riparian Forests & Urban Bird Diversity</h3>
-              <span class="view-project-link">View Project &rarr;</span>
-            </div>
-          </a>
-
-          <!-- Card 8 -->
-          <a href="project-historical-vegetation.html" class="portfolio-card animate-on-scroll" data-categories="gis imagery">
-            <div class="portfolio-card-bg" style="background-image: url('images/nwi.jpeg');"></div>
-            <div class="portfolio-card-overlay"></div>
-            <div class="portfolio-card-content">
-              <h3>Historical Vegetation & Water Surface Analysis</h3>
-              <span class="view-project-link">View Project &rarr;</span>
-            </div>
-          </a>
-
-          <!-- Card 9 -->
-          <a href="project-reforestation-monitoring.html" class="portfolio-card animate-on-scroll" data-categories="gis imagery ecology coding environmental">
-            <div class="portfolio-card-bg" style="background-image: url('images/wind-portrait.png');"></div>
-            <div class="portfolio-card-overlay"></div>
-            <div class="portfolio-card-content">
-              <h3>Remote Sensing for Reforestation Monitoring</h3>
-              <span class="view-project-link">View Project &rarr;</span>
-            </div>
-          </a>
-
-          <!-- Card 10 -->
-          <a href="project-urban-park-biodiversity.html" class="portfolio-card animate-on-scroll" data-categories="ecology coding">
-            <div class="portfolio-card-bg" style="background-image: url('images/urban-parks-biodiversity.png');"></div>
-            <div class="portfolio-card-overlay"></div>
-            <div class="portfolio-card-content">
-              <h3>Urban Park Biodiversity Monitoring Framework</h3>
-              <span class="view-project-link">View Project &rarr;</span>
-            </div>
-          </a>
-
-        </div>
-      </div>
-    </section>
-
-
-
-
-  </main>
-
-  <footer class="site-footer">
-    <div class="container footer-inner">
-      <p>© <span id="year"></span> Marcelo Guzmán. Built with HTML & CSS, hosted on GitHub Pages.</p>
     </div>
-  </footer>
-
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-    // Footer year
-    document.getElementById("year").textContent = new Date().getFullYear();
-
-    // ----------------------------
-    // Portfolio filters
-    // ----------------------------
-    (function initPortfolioFilters() {
-      const section = document.getElementById("full-portfolio");
-      if (!section) return;
-
-      const buttons = Array.from(section.querySelectorAll(".filter-btn"));
-      const cards = Array.from(section.querySelectorAll(".portfolio-card"));
-
-      if (!buttons.length || !cards.length) return;
-
-      function setActiveButton(activeBtn) {
-        buttons.forEach((btn) => {
-          const isActive = btn === activeBtn;
-          btn.classList.toggle("is-active", isActive);
-          btn.setAttribute("aria-pressed", isActive ? "true" : "false");
-        });
-      }
-
-      function filterCards(filter) {
-        cards.forEach((card) => {
-          const categories = (card.getAttribute("data-categories") || "").split(" ").filter(Boolean);
-          const matches = filter === "all" || categories.includes(filter);
-          card.classList.toggle("is-hidden", !matches);
-        });
-      }
-
-      buttons.forEach((btn) => {
-        btn.addEventListener("click", () => {
-          const filter = btn.getAttribute("data-filter") || "all";
-          setActiveButton(btn);
-          filterCards(filter);
-        });
-      });
-
-      filterCards("all");
-    })();
-
-
-
-    // ----------------------------
-    // Theme toggle (default: dark)
-    // ----------------------------
-    const htmlEl = document.documentElement;
-    const toggleBtn = document.getElementById("themeToggle");
-    const toggleLabel = document.getElementById("themeToggleLabel");
-
-function setTheme(theme) {
-  if (theme === "dark") {
-    htmlEl.setAttribute("data-theme", "dark");
-    toggleBtn.setAttribute("aria-pressed", "true");
-    toggleLabel.textContent = "Light mode";
-  } else {
-    htmlEl.removeAttribute("data-theme");
-    toggleBtn.setAttribute("aria-pressed", "false");
-    toggleLabel.textContent = "Dark mode";
-  }
-
-  // ✅ Swap images that have light/dark sources
-  document.querySelectorAll("img.theme-swap").forEach((img) => {
-    const lightSrc = img.getAttribute("data-light-src");
-    const darkSrc = img.getAttribute("data-dark-src");
-    if (!lightSrc || !darkSrc) return;
-
-    img.src = (theme === "dark") ? darkSrc : lightSrc;
-  });
-  // Keep right-side project showcases in sync
-  if (typeof window.refreshProjectShowcases === "function") window.refreshProjectShowcases();
-}
-
-
-    // Load saved preference; if none, stay in dark mode
-    const savedTheme = localStorage.getItem("theme");
-    setTheme(savedTheme === "light" ? "light" : "dark");
-
-    toggleBtn.addEventListener("click", () => {
-      const isDark = htmlEl.getAttribute("data-theme") === "dark";
-      const nextTheme = isDark ? "light" : "dark";
-      setTheme(nextTheme);
-      localStorage.setItem("theme", nextTheme);
-    });
-
-    // ----------------------------
-    // Scroll animations
-    // ----------------------------
-    const animatedEls = document.querySelectorAll(".animate-on-scroll");
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("in-view");
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.15 }
-    );
-
-    animatedEls.forEach((el) => observer.observe(el));
-  
-    // ----------------------------
-    // Image belt (infinite loop)
-    // ----------------------------
-(function initImageBelt() {
-  const track = document.getElementById("beltTrack");
-  const viewport = document.getElementById("beltViewport");
-  const prevBtn = document.getElementById("beltPrev");
-  const nextBtn = document.getElementById("beltNext");
-
-  if (!track || !viewport || !prevBtn || !nextBtn) return;
-
-  const BELT_PATH = "images/belt/";
-  const IMAGE_COUNT = 45;
-
-  let activeIndex = Math.floor((IMAGE_COUNT - 1) / 2);
-  let activePosition = activeIndex;
-  let lastDirection = 1;
-  let lastInteractionTime = 0;
-  let lastAutoTime = performance.now();
-  const AUTO_SCROLL_IMAGES_PER_SECOND = 0.24;
-  const AUTO_SCROLL_PAUSE_MS = 5000;
-
-  // Create DOM once
-  const items = [];
-  for (let i = 0; i < IMAGE_COUNT; i++) {
-    const li = document.createElement("li");
-    li.className = "belt-item";
-    li.setAttribute("role", "group");
-    li.setAttribute("aria-label", `Image ${i + 1} of ${IMAGE_COUNT}`);
-
-    const img = document.createElement("img");
-    img.loading = "lazy";
-    img.decoding = "async";
-    img.src = `${BELT_PATH}${i + 1}.jpg`;
-    img.alt = `Belt image ${i + 1}`;
-
-    li.appendChild(img);
-    li.addEventListener("click", () => setActive(i, true));
-
-    track.appendChild(li);
-    items.push(li);
-  }
-
-  // Wrap index for infinite loop
-  function wrapIndex(n) {
-    return ((n % IMAGE_COUNT) + IMAGE_COUNT) % IMAGE_COUNT;
-  }
-
-  function setActive(next, focus) {
-    activeIndex = wrapIndex(next);
-    activePosition = activeIndex;
-    render();
-
-    if (focus) {
-      items[activeIndex]?.querySelector("img")?.focus?.();
-    }
-  }
-
-  function render() {
-    const maxVisible = 10;
-    const spacing = window.matchMedia("(max-width: 720px)").matches ? 70 : 92;
-    const active = wrapIndex(Math.round(activePosition));
-    activeIndex = active;
-
-    items.forEach((el, i) => {
-      // Calculate offset with wrapping
-      let offset = i - activePosition;
-      
-      // Handle wrap-around for shortest visual distance
-      if (offset > IMAGE_COUNT / 2) offset -= IMAGE_COUNT;
-      if (offset < -IMAGE_COUNT / 2) offset += IMAGE_COUNT;
-
-      const abs = Math.abs(offset);
-      const isHidden = abs > maxVisible;
-
-      el.style.pointerEvents = isHidden ? "none" : "auto";
-      el.style.opacity = isHidden ? "0" : String(Math.max(0, Math.min(1, 1 - abs * 0.12)));
-
-      const scale = Math.max(0.38, Math.min(1, 1 - abs * 0.085));
-      const translateX = offset * spacing;
-      const rotateY = Math.max(-65, Math.min(65, offset * -14));
-      const translateZ = -abs * 18;
-
-      el.style.transform = `translate(-50%, -50%) translateX(${translateX}px) translateZ(${translateZ}px) rotateY(${rotateY}deg) scale(${scale})`;
-      el.style.zIndex = String(100 - abs);
-      el.classList.toggle("is-active", i === active);
-    });
-
-    track.setAttribute("aria-label", `Active image ${active + 1} of ${IMAGE_COUNT}`);
-  }
-
-  function recordUserInput(direction) {
-    if (direction !== 0) {
-      lastDirection = direction;
-    }
-    lastInteractionTime = performance.now();
-  }
-
-  function wrapFloat(n) {
-    return ((n % IMAGE_COUNT) + IMAGE_COUNT) % IMAGE_COUNT;
-  }
-
-  function autoScroll(now) {
-    if (isDown) {
-      lastAutoTime = now;
-      requestAnimationFrame(autoScroll);
-      return;
-    }
-
-    const elapsedSinceInteraction = now - lastInteractionTime;
-    const deltaTime = Math.max(0, now - lastAutoTime) / 1000;
-
-    if (elapsedSinceInteraction >= AUTO_SCROLL_PAUSE_MS) {
-      activePosition = wrapFloat(
-        activePosition + lastDirection * AUTO_SCROLL_IMAGES_PER_SECOND * deltaTime
-      );
-      render();
-    }
-
-    lastAutoTime = now;
-    requestAnimationFrame(autoScroll);
-  }
-
-  // Button navigation with wrapping
-  prevBtn.addEventListener("click", () => {
-    recordUserInput(-1);
-    setActive(activeIndex - 1, false);
-  });
-  nextBtn.addEventListener("click", () => {
-    recordUserInput(1);
-    setActive(activeIndex + 1, false);
-  });
-
-  // Keyboard with wrapping
-  viewport.addEventListener("keydown", (e) => {
-    if (e.key === "ArrowLeft") {
-      recordUserInput(-1);
-      setActive(activeIndex - 1, false);
-    }
-    if (e.key === "ArrowRight") {
-      recordUserInput(1);
-      setActive(activeIndex + 1, false);
-    }
-    if (e.key === "Home") {
-      recordUserInput(-1);
-      setActive(0, false);
-    }
-    if (e.key === "End") {
-      recordUserInput(1);
-      setActive(IMAGE_COUNT - 1, false);
-    }
-  });
-
-  // Wheel/trackpad
-  viewport.addEventListener(
-    "wheel",
-    (e) => {
-      const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
-      if (Math.abs(delta) < 6) return;
-      e.preventDefault();
-      recordUserInput(delta > 0 ? 1 : -1);
-      setActive(activeIndex + (delta > 0 ? 1 : -1), false);
-    },
-    { passive: false }
-  );
-
-  // Drag / swipe
-  let isDown = false;
-  let startX = 0;
-  let startActive = 0;
-
-  viewport.addEventListener("pointerdown", (e) => {
-    isDown = true;
-    startX = e.clientX;
-    startActive = activeIndex;
-    viewport.setPointerCapture(e.pointerId);
-    viewport.classList.add("is-dragging");
-    recordUserInput(0);
-  });
-
-  viewport.addEventListener("pointermove", (e) => {
-    if (!isDown) return;
-    const dx = e.clientX - startX;
-    const step = window.matchMedia("(max-width: 720px)").matches ? 60 : 78;
-
-    const next = startActive - Math.round(dx / step);
-    if (next !== activeIndex) {
-      recordUserInput(dx > 0 ? -1 : 1);
-      setActive(next, false);
-    }
-  });
-
-  function endDrag() {
-    isDown = false;
-    viewport.classList.remove("is-dragging");
-  }
-
-  viewport.addEventListener("pointerup", endDrag);
-  viewport.addEventListener("pointercancel", endDrag);
-  viewport.addEventListener("pointerleave", endDrag);
-
-  render();
-  requestAnimationFrame(autoScroll);
-  window.addEventListener("resize", render, { passive: true });
-})();
-  
-    // ----------------------------
-    // Slideshow for featured carousel
-    // ----------------------------
-    let slideIndex = 1;
-    showSlides(slideIndex);
-
-    function plusSlides(n) {
-      showSlides(slideIndex += n);
-    }
-
-    function currentSlide(n) {
-      showSlides(slideIndex = n);
-    }
-
-    function showSlides(n) {
-      let i;
-      const slides = document.getElementsByClassName("mySlides");
-      const dots = document.getElementsByClassName("dot");
-      
-      if (n > slides.length) {slideIndex = 1}    
-      if (n < 1) {slideIndex = slides.length}
-      
-      for (i = 0; i < slides.length; i++) {
-        slides[i].style.display = "none";  
-      }
-      
-      for (i = 0; i < dots.length; i++) {
-        dots[i].className = dots[i].className.replace(" active", "");
-        dots[i].setAttribute("aria-selected", "false");
-      }
-      
-      if (slides[slideIndex-1]) {
-        slides[slideIndex-1].style.display = "block";  
-      }
-      if (dots[slideIndex-1]) {
-        dots[slideIndex-1].className += " active";
-        dots[slideIndex-1].setAttribute("aria-selected", "true");
-      }
-    }
-
-    // ----------------------------
-    // Project media showcases (desktop only)
-    // ----------------------------
-    (function initProjectShowcases() {
-      const rows = document.querySelectorAll(".project-row");
-      if (!rows.length) return;
-
-      const getTheme = () => (document.documentElement.getAttribute("data-theme") === "dark" ? "dark" : "light");
-
-      rows.forEach((row) => {
-        const card = row.querySelector("article.project-card");
-        const showcase = row.querySelector("[data-project-showcase]");
-        if (!card || !showcase) return;
-
-        const imgEls = Array.from(card.querySelectorAll(".project-media img")).filter(Boolean);
-        const imgs = imgEls
-          .map((img) => ({
-            el: img,
-            alt: img.getAttribute("alt") || "Project image",
-            light: img.getAttribute("data-light-src"),
-            dark: img.getAttribute("data-dark-src"),
-          }))
-          .filter((x) => x.el && (x.el.getAttribute("src") || x.light || x.dark));
-
-        if (!imgs.length) {
-          showcase.remove();
-          return;
-        }
-
-        const mainImg = showcase.querySelector(".showcase-main-img");
-        const thumbs = showcase.querySelector(".showcase-thumbs");
-
-        let active = 0;
-
-        function resolveSrc(item) {
-          const theme = getTheme();
-          if (item.el && item.el.classList.contains("theme-swap") && item.light && item.dark) {
-            return theme === "dark" ? item.dark : item.light;
-          }
-          return item.el ? item.el.getAttribute("src") : "";
-        }
-
-        function setActive(next) {
-          active = Math.max(0, Math.min(imgs.length - 1, next));
-          const item = imgs[active];
-          const src = resolveSrc(item);
-          mainImg.src = src;
-          mainImg.alt = item.alt;
-
-          thumbs.querySelectorAll("button[data-idx]").forEach((btn) => {
-            const isActive = Number(btn.getAttribute("data-idx")) === active;
-            btn.setAttribute("aria-selected", isActive ? "true" : "false");
-            btn.tabIndex = isActive ? 0 : -1;
-            btn.classList.toggle("is-active", isActive);
-          });
-        }
-
-        thumbs.innerHTML = "";
-        imgs.forEach((item, i) => {
-          const btn = document.createElement("button");
-          btn.type = "button";
-          btn.className = "thumb";
-          btn.setAttribute("data-idx", String(i));
-          btn.setAttribute("role", "tab");
-          btn.setAttribute("aria-selected", "false");
-          btn.tabIndex = -1;
-
-          const timg = document.createElement("img");
-          timg.loading = "lazy";
-          timg.decoding = "async";
-          timg.alt = item.alt;
-          timg.src = resolveSrc(item);
-
-          if (item.light) timg.setAttribute("data-light-src", item.light);
-          if (item.dark) timg.setAttribute("data-dark-src", item.dark);
-          if (item.el && item.el.classList.contains("theme-swap")) timg.classList.add("theme-swap");
-
-          btn.appendChild(timg);
-
-          btn.addEventListener("click", () => setActive(i));
-          btn.addEventListener("keydown", (e) => {
-            if (e.key === "ArrowLeft") { e.preventDefault(); setActive(active - 1); }
-            if (e.key === "ArrowRight") { e.preventDefault(); setActive(active + 1); }
-            if (e.key === "Home") { e.preventDefault(); setActive(0); }
-            if (e.key === "End") { e.preventDefault(); setActive(imgs.length - 1); }
-          });
-
-          thumbs.appendChild(btn);
-        });
-
-        row._projectShowcase = {
-          imgs,
-          setActive,
-          mainImg,
-          thumbs,
-          resolveSrc,
-          get active() { return active; },
-          set active(v) { active = v; },
-        };
-
-        setActive(0);
-      });
-
-      window.refreshProjectShowcases = function refreshProjectShowcases() {
-        document.querySelectorAll(".project-row").forEach((row) => {
-          const api = row._projectShowcase;
-          if (!api) return;
-
-          api.thumbs.querySelectorAll("img").forEach((imgEl, idx) => {
-            const item = api.imgs[idx];
-            if (!item) return;
-            imgEl.src = api.resolveSrc(item);
-          });
-
-          api.mainImg.src = api.resolveSrc(api.imgs[api.active]);
-        });
-      };
-    })();
-
-  
-  // ----------------------------
-  // Mini carousel inside featured slides
-  // ----------------------------
-  (function initFeaturedMediaCarousels(){
-    document.querySelectorAll("[data-media]").forEach((wrap) => {
-      const imgs = Array.from(wrap.querySelectorAll(".featured-slide-image"));
-      const prev = wrap.querySelector("[data-prev]");
-      const next = wrap.querySelector("[data-next]");
-      const dots = Array.from(wrap.querySelectorAll(".media-dot"));
-
-      let i = 0;
-
-      function render(nextIndex){
-        i = (nextIndex + imgs.length) % imgs.length;
-        imgs.forEach((img, idx) => img.classList.toggle("is-active", idx === i));
-        dots.forEach((d, idx) => d.classList.toggle("is-active", idx === i));
-      }
-
-      prev?.addEventListener("click", () => render(i - 1));
-      next?.addEventListener("click", () => render(i + 1));
-      dots.forEach((d) =>
-        d.addEventListener("click", () => render(Number(d.dataset.dot)))
-      );
-
-      render(0);
-    });
-  })();
-
-  // ----------------------------
-  // Fullscreen modal for images and media
-  // ----------------------------
-  (function initPortfolioMap() {
-    const mapContainer = document.getElementById("portfolioMap");
-    if (!mapContainer || typeof L === "undefined") return;
-
-    const groupedProjects = [
-      {
-        group: "Monterrey, Mexico",
-        location: [25.6866, -100.3161],
-        featured: true,
-        projects: [
-          { title: "Río Santa Catarina: Historical NDVI & Community Cartography", description: "Long-term NDVI analysis and participatory cartography for a key riparian corridor.", link: "project-rio-santa-catarina.html", thumbnail: "images/rsc-cartography.png", featured: true },
-          { title: "Drone Photogrammetry for Environmental Compensation", description: "Photogrammetry workflows supporting environmental impact and compensation plans.", link: "project-drone-photogrammetry.html", thumbnail: "images/pix4denterprise-screenshot.png" },
-          { title: "Riparian Forests & Urban Bird Diversity", description: "Spatial ecology analysis linking riparian vegetation and bird diversity in Monterrey.", link: "project-riparian-forests.html", thumbnail: "images/bird-diversity-light.png" },
-          { title: "Historical Vegetation & Water Surface Analysis", description: "Historical remote sensing assessment for vegetation and water surface changes.", link: "project-historical-vegetation.html", thumbnail: "images/ndvi.jpg" },
-          { title: "Remote Sensing for Reforestation Monitoring", description: "Monitoring vegetation recovery and reforestation outcomes with multi-temporal imagery.", link: "project-reforestation-monitoring.html", thumbnail: "images/rsc-ndvi-pages.png" },
-          { title: "Urban Park Biodiversity Monitoring Framework", description: "Urban biodiversity framework integrating field records with geospatial analysis.", link: "project-urban-park-biodiversity.html", thumbnail: "images/urban-parks-biodiversity.png" }
-        ]
-      },
-      {
-        group: "Debrecen, Hungary",
-        location: [47.5316, 21.6273],
-        featured: true,
-        projects: [
-          { title: "University of Debrecen: Advanced GIS & Research Internship", description: "Graduate GIS/UAV coursework and research internship in avian urban ecology.", link: "project-university-debrecen.html", thumbnail: "images/unideb-collage.jpeg", featured: true },
-          { title: "Urbanization Index & Blackbird Phenotypes", description: "Supervisor: PhD Ivan Gonzalez — ivangonzalezandazola@gmail.com", link: "project-urbanization-index.html", thumbnail: "images/urbanization-index-map.jpg", featured: true },
-          { title: "Models in GIS — ModelBuilder Workflow", description: "Professor: PhD Boglárka Bertalan-Balázs — balazs.boglarka@science.unideb.hu", link: "project-models-in-gis.html", thumbnail: "images/models-in-gis.png", featured: true },
-          { title: "UAV Remote Sensing Accuracy Assessment", description: "Professor: László Bertalan — bertalan@science.unideb.hu", link: "project-uav-accuracy.html", thumbnail: "images/uav-gcps.png", featured: true }
-        ]
-      },
-      {
-        group: "Wichita, KS, US",
-        location: [37.6872, -97.3301],
-        featured: false,
-        projects: [
-          { title: "Animal Biology and Zoology Training", description: "BridgeUSA training experience in zoology and wildlife management (Wichita, KS).", link: "https://www.linkedin.com/posts/marcelo-guzman-063063128_today-i-received-my-bridgeusa-program-certificate-activity-7239423395442962432-esev?utm_source=share&utm_medium=member_desktop&rcm=ACoAAB9U-osBBsL4tmO-PWPNvD-0cyf0O0JsOiU", thumbnail: "https://media.licdn.com/dms/image/v2/D4E22AQHclaR_2ZHIrw/feedshare-shrink_800/feedshare-shrink_800/0/1726013039164?e=1772064000&v=beta&t=Go4yJmYGPnCjDYs3pbVj_XTMXE24etCpHS8prUcwZFI" }
-        ]
-      }
-    ];
-
-    const map = L.map("portfolioMap", { worldCopyJump: true, minZoom: 2 }).setView([30, -20], 2);
-
-    function getTheme() {
-      return document.documentElement.getAttribute("data-theme") === "dark" ? "dark" : "light";
-    }
-
-    function getBasemapConfig(theme) {
-      if (theme === "dark") {
-        return {
-          type: "esri-nova"
-        };
-      }
-
-      return {
-        type: "raster",
-        url: "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>'
-      };
-    }
-
-    let baseLayer;
-
-    function renderBasemap() {
-      if (baseLayer) {
-        map.removeLayer(baseLayer);
-      }
-
-      const config = getBasemapConfig(getTheme());
-      if (config.type === "esri-nova" && L.esri?.Vector?.vectorTileLayer) {
-        const simplifyNovaStyle = (style) => {
-          if (!style || !Array.isArray(style.layers)) return style;
-
-          const noisyLayerKeywords = ["grid", "graticule", "stipple", "stripe", "square", "mesh"];
-
-          style.layers = style.layers.filter((layer) => {
-            const id = String(layer?.id || "").toLowerCase();
-            const hasNoisyId = noisyLayerKeywords.some((keyword) => id.includes(keyword));
-
-            const paint = layer?.paint || {};
-            const hasPattern = Boolean(paint["fill-pattern"] || paint["line-pattern"]);
-
-            return !hasNoisyId && !hasPattern;
-          });
-
-          return style;
-        };
-
-        baseLayer = L.esri.Vector.vectorTileLayer("75f4dfdff19e445395653121a95a85db", {
-          opacity: 1,
-          style: simplifyNovaStyle,
-        }).addTo(map);
-      } else {
-        baseLayer = L.tileLayer(config.url, {
-          maxZoom: 19,
-          attribution: config.attribution,
-        }).addTo(map);
-      }
-    }
-
-    renderBasemap();
-
-    function createIcon(featured) {
-      return L.divIcon({
-        className: "portfolio-map-pin",
-        html: `<span class="map-pin-dot ${featured ? "is-featured" : ""}"></span>`,
-        iconSize: [22, 22],
-        iconAnchor: [11, 11],
-      });
-    }
-
-    function getPopupMarkup(groupData) {
-      const cards = groupData.projects.map((project, index) => `
-        <article class="map-project-card ${project.featured ? "is-featured" : ""} ${index === 0 ? "is-active" : ""}" data-map-card>
-          <img src="${project.thumbnail}" alt="${project.title} thumbnail" loading="lazy" />
-          <div class="map-project-card-body">
-            ${project.featured ? '<span class="map-featured-pill">Featured</span>' : ""}
-            <h4>${project.title}</h4>
-            <p>${project.description}</p>
-            <a href="${project.link}" target="_blank" rel="noopener" class="btn primary">View project</a>
-          </div>
-        </article>
-      `).join("");
-
-      const showControls = groupData.projects.length > 1;
-
-      return `
-        <section class="map-popup-carousel" data-map-carousel>
-          <div class="map-popup-header">
-            <p>${groupData.group}</p>
-            <span data-map-counter>1 / ${groupData.projects.length}</span>
-          </div>
-          <div class="map-popup-cards">${cards}</div>
-          ${showControls ? `
-            <div class="map-popup-carousel-nav">
-              <button type="button" class="map-nav-btn" data-map-prev>Previous</button>
-              <button type="button" class="map-nav-btn" data-map-next>Next</button>
-            </div>
-          ` : ""}
-        </section>
-      `;
-    }
-
-    function initCarousel(popupEl) {
-      const carousel = popupEl.querySelector("[data-map-carousel]");
-      if (!carousel) return;
-
-      const cards = Array.from(carousel.querySelectorAll("[data-map-card]"));
-      const prevBtn = carousel.querySelector("[data-map-prev]");
-      const nextBtn = carousel.querySelector("[data-map-next]");
-      const counter = carousel.querySelector("[data-map-counter]");
-      let active = 0;
-
-      function render(index) {
-        active = (index + cards.length) % cards.length;
-        cards.forEach((card, idx) => card.classList.toggle("is-active", idx === active));
-        if (counter) {
-          counter.textContent = `${active + 1} / ${cards.length}`;
-        }
-      }
-
-      prevBtn?.addEventListener("click", () => render(active - 1));
-      nextBtn?.addEventListener("click", () => render(active + 1));
-      render(0);
-    }
-
-    groupedProjects.forEach((groupData) => {
-      const marker = L.marker(groupData.location, { icon: createIcon(Boolean(groupData.featured)) }).addTo(map);
-      marker.bindPopup(getPopupMarkup(groupData), { maxWidth: 255, className: "portfolio-map-popup" });
-      marker.on("popupopen", (event) => {
-        initCarousel(event.popup.getElement());
-      });
-    });
-
-    const themeToggle = document.getElementById("themeToggle");
-    if (themeToggle) {
-      themeToggle.addEventListener("click", () => {
-        setTimeout(renderBasemap, 0);
-      });
-    }
-  })();
-  (function initFullscreenModal() {
-    // Create modal elements
-    const modal = document.createElement('div');
-    modal.className = 'fullscreen-modal';
-    modal.innerHTML = `
-      <div class="fullscreen-overlay"></div>
-      <div class="fullscreen-content">
-        <button class="fullscreen-close" type="button" aria-label="Close fullscreen">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="18" y1="6" x2="6" y2="18"></line>
-            <line x1="6" y1="6" x2="18" y2="18"></line>
-          </svg>
-        </button>
-        <button class="fullscreen-nav fullscreen-prev" type="button" aria-label="Previous image">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="15 18 9 12 15 6"></polyline>
-          </svg>
-        </button>
-        <button class="fullscreen-nav fullscreen-next" type="button" aria-label="Next image">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="9 18 15 12 9 6"></polyline>
-          </svg>
-        </button>
-        <div class="fullscreen-media-wrapper">
-          <img class="fullscreen-image" alt="" />
-        </div>
-        <div class="fullscreen-counter"></div>
+  </div>
+</section>
+
+<!-- ── REFERENCES ─────────────────────────────────────────── -->
+<section id="references" class="section" data-bg="13" data-screen-label="07 References">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Testimonials</span>
+      <h2>References</h2>
+    </div>
+    <div class="refs-grid">
+      <div class="card reveal">
+        <h3>M.Sc. Ivan González</h3>
+        <p class="ref-role">Ph.D. Candidate &amp; Researcher · University of Debrecen</p>
+        <p style="font-size:0.88rem;">Mentor and supervisor for avian research volunteering at University of Debrecen.</p>
+        <ul class="ref-contact">
+          <li>📞 +36 70 675 1099</li>
+          <li>✉️ <a href="mailto:ivangonzalezandazola@gmail.com">ivangonzalezandazola@gmail.com</a></li>
+          <li>🔗 <a href="https://www.linkedin.com/in/ivan-gonzalez-688b0615b/" target="_blank" rel="noopener">LinkedIn</a></li>
+        </ul>
       </div>
-    `;
-    document.body.appendChild(modal);
+      <div class="card reveal reveal-d1">
+        <h3>M.Sc. Adrian Lozano</h3>
+        <p class="ref-role">Socioecosystems &amp; Sustainability Strategist</p>
+        <p style="font-size:0.88rem;">Supervisor for the position "Environmental Surveyor &amp; Researcher."</p>
+        <ul class="ref-contact">
+          <li>📞 +52 1 81 1328 3169</li>
+          <li>✉️ <a href="mailto:adrian.lozano@sosac.org">adrian.lozano@sosac.org</a></li>
+        </ul>
+      </div>
+      <div class="card reveal reveal-d2">
+        <h3>Dr. Antonio Guzmán Velasco</h3>
+        <p class="ref-role">Professor &amp; Researcher · Head of Conservation Biology, UANL</p>
+        <p style="font-size:0.88rem;">President of the Climate Change Technical Council of Nuevo León. Manager for Environmental Data Analyst position.</p>
+        <ul class="ref-contact">
+          <li>✉️ <a href="mailto:antonio.guzmanvl@uanl.edu.mx">antonio.guzmanvl@uanl.edu.mx</a></li>
+          <li>🔗 <a href="https://www.linkedin.com/in/antonio-guzm%C3%A1n-velasco-875528105/" target="_blank" rel="noopener">LinkedIn</a></li>
+        </ul>
+      </div>
+    </div>
 
-    const overlay = modal.querySelector('.fullscreen-overlay');
-    const closeBtn = modal.querySelector('.fullscreen-close');
-    const prevBtn = modal.querySelector('.fullscreen-prev');
-    const nextBtn = modal.querySelector('.fullscreen-next');
-    const img = modal.querySelector('.fullscreen-image');
-    const counter = modal.querySelector('.fullscreen-counter');
+    <!-- Recommendation quote deck -->
+    <div class="quote-outer reveal">
+      <h3 style="font-size:1.05rem;margin-bottom:0.35rem;">Recommendation Excerpts</h3>
+      <p style="font-size:0.87rem;color:var(--muted);margin-bottom:0.85rem;">Scroll to read excerpts from letters of recommendation.</p>
+      <div class="quote-track">
+        <div class="quote-card">
+          <p class="q-text">"Marcelo is a young leader with initiative, a strong set of technical skills, and a deep commitment to climate action. I can confidently state that Marcelo Guzmán de la Garza is an excellent candidate. I strongly recommend him."</p>
+          <p class="q-src">Dr. Antonio Guzmán Velasco · Professor &amp; Researcher, UANL</p>
+        </div>
+        <div class="quote-card">
+          <p class="q-text">"For the course's final project, Marcelo led the development of a proposal for ecological restoration and agroforestry management. His adept use of GIS tools to create maps and process satellite imagery surpassed the standard set by his peers."</p>
+          <p class="q-src">Dr. María Magdalena Salinas Rodríguez · Herbarium Curator, SNI Level I, UANL</p>
+        </div>
+        <div class="quote-card">
+          <p class="q-text">"Marcelo's academic excellence is matched by his practical contributions. He has consistently exceeded expectations in laboratory and fieldwork."</p>
+          <p class="q-src">Dr. Edgar Cruz Acevedo · Professor &amp; Researcher, SNI Level I, UANL</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    let currentImages = [];
-    let currentIndex = 0;
+<!-- ── EXPERIENCE ─────────────────────────────────────────── -->
+<section id="experience" class="section" data-bg="3" data-screen-label="08 Experience">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Career</span>
+      <h2>Professional Experience</h2>
+    </div>
+    <div class="timeline reveal">
+      <div class="tl-item">
+        <p class="tl-date">Sep 2025 — Present</p>
+        <p class="tl-role">Project Manager · IRCA Consultants</p>
+        <div class="tl-body">
+          <p>Leading environmental compliance and geospatial workflows for impact assessments and compensation projects.</p>
+          <ul><li>Scoped and managed compliance projects and permitting consultations.</li><li>Implemented drone-based photogrammetry and GIS workflows for forest and soil recovery monitoring.</li></ul>
+        </div>
+      </div>
+      <div class="tl-item">
+        <p class="tl-date">Feb 2025 — Jul 2025</p>
+        <p class="tl-role">Graduate Exchange &amp; Research Intern · University of Debrecen</p>
+        <div class="tl-body">
+          <p>Stipendium Hungaricum Scholar. Enrolled in MSc-level GIS and Environmental Science courses, cGPA 4.0. Research internship on blackbird phenotypic adaptation to urbanization.</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <p class="tl-date">2024 — 2025</p>
+        <p class="tl-role">Ecological Data Analyst &amp; Surveyor · Enel Green Power</p>
+        <div class="tl-body">
+          <p>Automated camera trap metadata processing, reducing time from five days to one. Field monitoring of sensitive species at wind farm sites in northeast Mexico.</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <p class="tl-date">2024</p>
+        <p class="tl-role">GIS Technician &amp; Surveyor · Javer Housing Developer</p>
+        <div class="tl-body"><p>Conducted NDVI and NWI multispectral analysis for housing development environmental assessments.</p></div>
+      </div>
+      <div class="tl-item">
+        <p class="tl-date">2024</p>
+        <p class="tl-role">Researcher &amp; GIS Analyst · Lab of Conservation Biology, UANL</p>
+        <div class="tl-body"><p>Quantified how riparian forests influence urban bird diversity using multispectral remote sensing of Río Santa Catarina corridor.</p></div>
+      </div>
+      <div class="tl-item">
+        <p class="tl-date">2024</p>
+        <p class="tl-role">Biodiversity Monitoring Intern · San Pedro + Parques</p>
+        <div class="tl-body"><p>Standardized biodiversity surveys across nine urban parks; proposed SDG-11 aligned statistical indicators.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    function getTheme() {
-      return document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
-    }
+<!-- ── EDUCATION & AWARDS ─────────────────────────────────── -->
+<section id="education" class="section" data-bg="5" data-screen-label="09 Education">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Academic Background</span>
+      <h2>Education &amp; Awards</h2>
+    </div>
+    <div class="edu-grid">
 
-    function resolveImageSrc(imgElement) {
-      if (!imgElement) return '';
-      
-      const lightSrc = imgElement.getAttribute('data-light-src');
-      const darkSrc = imgElement.getAttribute('data-dark-src');
-      
-      if (lightSrc && darkSrc && imgElement.classList.contains('theme-swap')) {
-        return getTheme() === 'dark' ? darkSrc : lightSrc;
-      }
-      
-      return imgElement.getAttribute('src') || imgElement.currentSrc || '';
-    }
+      <!-- Degree -->
+      <div class="card reveal" style="grid-column: span 2;">
+        <span class="eyebrow" style="font-size:0.65rem;margin-bottom:0.6rem;">2020 — 2025</span>
+        <h3>BSc in Biology — GPA 95.8 / 100</h3>
+        <p style="font-size:0.82rem;color:var(--muted);margin-bottom:0.75rem;">Universidad Autónoma de Nuevo León · Faculty of Biological Sciences · Monterrey, Mexico</p>
+        <p style="font-size:0.88rem;margin-bottom:0.75rem;">Four-year degree with emphasis in <strong>ecology, conservation biology, and geospatial analysis</strong>. Graduated with honors. Official graduation pathways included thesis project, professional internship, or academic mobility — I completed the latter at the University of Debrecen.</p>
+        <p style="font-size:0.85rem;color:var(--muted);margin-bottom:0.5rem;font-weight:500;">Selected coursework relevant to GIS &amp; ecology:</p>
+        <ul style="font-size:0.85rem;color:var(--muted);padding-left:1.1em;margin:0;column-count:2;column-gap:1.5rem;">
+          <li>Geographic Information Systems</li>
+          <li>Remote Sensing &amp; Photointerpretation</li>
+          <li>Quantitative Ecology</li>
+          <li>Conservation Biology</li>
+          <li>Environmental Impact Assessment</li>
+          <li>Landscape Ecology</li>
+          <li>Biostatistics &amp; R</li>
+          <li>Ornithology</li>
+        </ul>
+      </div>
 
-    function showImage(index) {
-      if (!currentImages.length) return;
-      
-      currentIndex = Math.max(0, Math.min(currentImages.length - 1, index));
-      const currentImg = currentImages[currentIndex];
-      
-      const src = resolveImageSrc(currentImg);
-      img.src = src;
-      img.alt = currentImg.alt || 'Fullscreen image';
-      
-      // Update counter
-      if (currentImages.length > 1) {
-        counter.textContent = `${currentIndex + 1} / ${currentImages.length}`;
-        counter.style.display = 'block';
-        prevBtn.style.display = 'flex';
-        nextBtn.style.display = 'flex';
-      } else {
-        counter.style.display = 'none';
-        prevBtn.style.display = 'none';
-        nextBtn.style.display = 'none';
-      }
-    }
+      <!-- Debrecen Exchange -->
+      <div class="card reveal" style="grid-column: span 2;">
+        <span class="eyebrow" style="font-size:0.65rem;margin-bottom:0.6rem;">Feb — Jul 2025 · University of Debrecen, Hungary</span>
+        <h3>Academic Mobility — MSc-Level Coursework &amp; Research Internship</h3>
+        <p style="font-size:0.82rem;color:var(--muted);margin-bottom:0.75rem;">Stipendium Hungaricum Scholar · International Mobility Scholar · cGPA 4.0 / 4.0 · "Excellent" across all courses</p>
+        <p style="font-size:0.88rem;margin-bottom:0.85rem;">After completing my full undergraduate curriculum, I formally negotiated with both home and host universities to enroll in MSc-level classes — approved under the condition of explicit lecturer consent and with full academic responsibility. I contacted and presented my academic portfolio directly to each professor.</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem 1.5rem;">
+          <div>
+            <p style="font-size:0.8rem;font-weight:600;color:var(--accent);margin-bottom:0.35rem;letter-spacing:0.05em;">GEOINFORMATICS (MSc)</p>
+            <ul style="font-size:0.85rem;color:var(--muted);padding-left:1.1em;margin:0;">
+              <li>Remote Sensing with Uncrewed Aerial Vehicles</li>
+              <li>Models in GIS</li>
+              <li>Hyperspectral Remote Sensing</li>
+            </ul>
+          </div>
+          <div>
+            <p style="font-size:0.8rem;font-weight:600;color:var(--accent);margin-bottom:0.35rem;letter-spacing:0.05em;">ENVIRONMENTAL SCIENCE (MSc)</p>
+            <ul style="font-size:0.85rem;color:var(--muted);padding-left:1.1em;margin:0;">
+              <li>Environmental Policy &amp; Communication</li>
+            </ul>
+            <p style="font-size:0.8rem;font-weight:600;color:var(--accent);margin-bottom:0.35rem;margin-top:0.75rem;letter-spacing:0.05em;">RESEARCH INTERNSHIP</p>
+            <ul style="font-size:0.85rem;color:var(--muted);padding-left:1.1em;margin:0;">
+              <li>Institute of Ecology — Avian urbanization study (<em>Turdus merula</em>)</li>
+              <li>Mist netting, bird banding, radio-tagging, biometric data collection</li>
+            </ul>
+          </div>
+        </div>
+      </div>
 
-    function openModal(imgElement, imageGroup = []) {
-      if (!imgElement) return;
-      
-      currentImages = imageGroup.length > 0 ? imageGroup : [imgElement];
-      currentIndex = currentImages.indexOf(imgElement);
-      if (currentIndex === -1) currentIndex = 0;
-      
-      showImage(currentIndex);
-      modal.classList.add('is-open');
-      document.body.style.overflow = 'hidden';
-    }
+      <!-- Stipendium -->
+      <div class="card reveal">
+        <span class="eyebrow" style="font-size:0.65rem;margin-bottom:0.5rem;">Award · 2025</span>
+        <h3>Stipendium Hungaricum Scholarship</h3>
+        <p style="font-size:0.82rem;color:var(--muted);margin-bottom:0.5rem;">Hungarian Government · Tempus Public Foundation</p>
+        <p style="font-size:0.85rem;">Full government scholarship awarded for academic mobility to the University of Debrecen, Hungary. Competitive grant covering tuition, housing, and a monthly stipend for the duration of the exchange.</p>
+      </div>
 
-    function closeModal() {
-      modal.classList.remove('is-open');
-      document.body.style.overflow = '';
-      currentImages = [];
-      currentIndex = 0;
-    }
+      <!-- UANL Mobility -->
+      <div class="card reveal reveal-d1">
+        <span class="eyebrow" style="font-size:0.65rem;margin-bottom:0.5rem;">Award · 2025</span>
+        <h3>International Mobility Scholarship</h3>
+        <p style="font-size:0.82rem;color:var(--muted);margin-bottom:0.5rem;">Universidad Autónoma de Nuevo León</p>
+        <p style="font-size:0.85rem;">Institutional scholarship awarded in parallel with the Stipendium Hungaricum, securing one of three official graduation pathways recognized by my degree program at UANL.</p>
+      </div>
 
-    // Event listeners
-    overlay.addEventListener('click', closeModal);
-    closeBtn.addEventListener('click', closeModal);
-    prevBtn.addEventListener('click', () => showImage(currentIndex - 1));
-    nextBtn.addEventListener('click', () => showImage(currentIndex + 1));
+      <!-- DATATON -->
+      <div class="card reveal reveal-d2">
+        <span class="eyebrow" style="font-size:0.65rem;margin-bottom:0.5rem;">Award · 2024</span>
+        <h3>DATATON — GIS Expert Panel</h3>
+        <p style="font-size:0.82rem;color:var(--muted);margin-bottom:0.5rem;">Government &amp; Institutional Panel · Monterrey, Mexico</p>
+        <p style="font-size:0.85rem;">Invited as a GIS expert to present research findings and recommendations on the holistic management of the Río Santa Catarina urban basin. Panel convened by government agencies and academic institutions.</p>
+        <img src="images/dataton-certificate.png" alt="DATATON Certificate of Participation" style="width:100%;border-radius:10px;margin-top:0.85rem;border:1px solid var(--border);">
+      </div>
 
-    // Keyboard navigation
-    document.addEventListener('keydown', (e) => {
-      if (!modal.classList.contains('is-open')) return;
-      
-      if (e.key === 'Escape') {
-        closeModal();
-      } else if (e.key === 'ArrowLeft') {
-        showImage(currentIndex - 1);
-      } else if (e.key === 'ArrowRight') {
-        showImage(currentIndex + 1);
-      }
-    });
+    </div>
+  </div>
+</section>
 
-    // Make all portfolio images clickable for fullscreen
-    function makeImagesClickable() {
-      // Image belt images
-      const beltImages = Array.from(document.querySelectorAll('.belt-track img'));
-      beltImages.forEach((img) => {
-        img.style.cursor = 'pointer';
-        img.addEventListener('click', (e) => {
-          e.stopPropagation();
-          openModal(img, beltImages);
-        });
-      });
+<!-- ── CONTACT ────────────────────────────────────────────── -->
+<section id="contact" class="section" data-bg="4" data-screen-label="10 Contact">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Get in Touch</span>
+      <h2>Contact</h2>
+    </div>
+    <p class="reveal" style="max-width:36rem;color:var(--muted);">I'm open to opportunities in environmental consulting, GIS analysis, remote sensing research, and conservation projects. Let's connect.</p>
+    <div class="contact-row reveal reveal-d1">
+      <a href="mailto:marcelo.guzmandlg@gmail.com" class="btn btn-primary">✉️ marcelo.guzmandlg@gmail.com</a>
+      <a href="https://www.linkedin.com/in/marcelo-guzman-063063128/" target="_blank" rel="noopener" class="btn btn-ghost">LinkedIn ↗</a>
+    </div>
+    <p class="reveal reveal-d2" style="margin-top:1.5rem;font-size:0.85rem;color:var(--muted);">📞 Available upon request · 🌎 Monterrey, Mexico</p>
+  </div>
+</section>
 
-      // Project showcase images (main and thumbnails)
-      document.querySelectorAll('.project-showcase').forEach((showcase) => {
-        const mainImg = showcase.querySelector('.showcase-main-img');
-        const thumbImages = Array.from(showcase.querySelectorAll('.thumb img'));
-        
-        if (mainImg) {
-          mainImg.style.cursor = 'pointer';
-          mainImg.addEventListener('click', (e) => {
-            e.stopPropagation();
-            openModal(mainImg, thumbImages.length > 0 ? thumbImages : [mainImg]);
-          });
-        }
-        
-        thumbImages.forEach((thumbImg) => {
-          thumbImg.parentElement.addEventListener('click', (e) => {
-            e.stopPropagation();
-            openModal(thumbImg, thumbImages);
-          });
-        });
-      });
-
-      // Featured carousel images
-      document.querySelectorAll('.featured-slide-image').forEach((img) => {
-        img.style.cursor = 'pointer';
-        img.addEventListener('click', (e) => {
-          e.stopPropagation();
-          const wrapper = img.closest('[data-media]');
-          const groupImages = wrapper ? Array.from(wrapper.querySelectorAll('.featured-slide-image')) : [img];
-          openModal(img, groupImages);
-        });
-      });
-
-      // Project media images
-      document.querySelectorAll('.project-media img').forEach((img) => {
-        img.style.cursor = 'pointer';
-        img.addEventListener('click', (e) => {
-          e.stopPropagation();
-          const projectCard = img.closest('.project-card');
-          const groupImages = projectCard ? Array.from(projectCard.querySelectorAll('.project-media img')) : [img];
-          openModal(img, groupImages);
-        });
-      });
-
-      // Any other standalone images in sections
-      document.querySelectorAll('section img').forEach((img) => {
-        // Skip if already handled or if it's in nav/header/footer
-        if (img.closest('.belt-track, .project-showcase, .featured-slide-image, .project-media, .top-nav, .top-nav-wrap, .site-header')) {
-          return;
-        }
-        img.style.cursor = 'pointer';
-        img.addEventListener('click', (e) => {
-          e.stopPropagation();
-          openModal(img);
-        });
-      });
-    }
-
-    // Initialize on load and after dynamic content updates
-    makeImagesClickable();
-    
-    // Re-initialize when theme changes to update image sources
-    const themeToggle = document.getElementById('themeToggle');
-    if (themeToggle) {
-      themeToggle.addEventListener('click', () => {
-        setTimeout(() => {
-          if (modal.classList.contains('is-open')) {
-            showImage(currentIndex);
-          }
-        }, 50);
-      });
-    }
-  })();
-</script>
+<!-- ── FOOTER ──────────────────────────────────────────────── -->
+<footer class="site-footer">
+  <div class="container">
+    <p>© 2025 Marcelo Guzmán · GIS &amp; Environmental Intelligence · Monterrey, Mexico</p>
+  </div>
+</footer>
 
 <script>
-  (function () {
-    const nav = document.querySelector('.top-nav-wrap');
-    if (!nav) return;
+/* ── NAV SCROLL HIDE ──────────────────────────────────────── */
+const siteNav = document.getElementById('siteNav');
+let lastY = 0, ticking = false;
+window.addEventListener('scroll', () => {
+  if (ticking) return;
+  requestAnimationFrame(() => {
+    const y = window.scrollY;
+    siteNav.classList.toggle('hidden', y > lastY && y > 120);
+    lastY = y;
+    ticking = false;
+  });
+  ticking = true;
+}, { passive: true });
 
-    let lastScrollY = window.scrollY;
-    let ticking = false;
+/* ── SCROLL REVEALS ───────────────────────────────────────── */
+const revObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('in'); revObs.unobserve(e.target); }
+  });
+}, { threshold: 0.10, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => revObs.observe(el));
 
-    function onScroll() {
-      const currentScrollY = window.scrollY;
+/* ── PARALLAX on spectrum sections ───────────────────────── */
+const specSections = [...document.querySelectorAll('.section[data-bg]')];
+window.addEventListener('scroll', () => {
+  const sy = window.scrollY;
+  const vh = window.innerHeight;
+  specSections.forEach(sec => {
+    const rect = sec.getBoundingClientRect();
+    if (rect.bottom < 0 || rect.top > vh) return;
+    const progress = (vh - rect.top) / (vh + sec.offsetHeight);
+    sec.style.backgroundPositionY = `calc(center + ${(progress - 0.5) * (window._parallaxStrength ?? 38)}px)`;
+  });
+}, { passive: true });
 
-      if (window.innerWidth <= 768) {
-        if (currentScrollY > lastScrollY && currentScrollY > 80) {
-          nav.classList.add('is-hidden');
-        } else {
-          nav.classList.remove('is-hidden');
-        }
-      } else {
-        nav.classList.remove('is-hidden');
-      }
+/* ── FEATURED CAROUSEL ────────────────────────────────────── */
+const slides     = [...document.querySelectorAll('.slide')];
+const featDotsCt = document.getElementById('featDots');
+let cur = 0, autoTimer;
 
-      lastScrollY = currentScrollY;
-      ticking = false;
-    }
+slides.forEach((_, i) => {
+  const d = document.createElement('button');
+  d.className = 'feat-dot';
+  d.setAttribute('role', 'tab');
+  d.setAttribute('aria-label', `Slide ${i + 1}`);
+  d.addEventListener('click', () => goTo(i));
+  featDotsCt.appendChild(d);
+});
 
-    window.addEventListener('scroll', () => {
-      if (!ticking) {
-        window.requestAnimationFrame(onScroll);
-        ticking = true;
-      }
+function goTo(n) {
+  slides[cur].classList.remove('active');
+  featDotsCt.children[cur].classList.remove('on');
+  cur = ((n % slides.length) + slides.length) % slides.length;
+  slides[cur].classList.add('active');
+  featDotsCt.children[cur].classList.add('on');
+}
+goTo(0);
+
+function startAuto() { autoTimer = setInterval(() => goTo(cur + 1), 6000); }
+function stopAuto()  { clearInterval(autoTimer); }
+startAuto();
+
+document.getElementById('featPrev').addEventListener('click', () => { stopAuto(); goTo(cur - 1); startAuto(); });
+document.getElementById('featNext').addEventListener('click', () => { stopAuto(); goTo(cur + 1); startAuto(); });
+
+document.querySelector('.feat-card').addEventListener('mouseenter', stopAuto);
+document.querySelector('.feat-card').addEventListener('mouseleave', startAuto);
+
+/* ── INNER IMAGE NAV (per slide) ─────────────────────────── */
+document.querySelectorAll('.slide-img').forEach(wrapper => {
+  const imgs = JSON.parse(wrapper.dataset.imgs || '[]');
+  const imgEl = wrapper.querySelector('img');
+  const dots  = [...wrapper.querySelectorAll('.img-dot')];
+  let imgIdx  = 0;
+
+  function setImg(n) {
+    imgIdx = ((n % imgs.length) + imgs.length) % imgs.length;
+    imgEl.src = imgs[imgIdx];
+    dots.forEach((d, i) => d.classList.toggle('on', i === imgIdx));
+  }
+
+  wrapper.querySelector('[data-prev]').addEventListener('click', () => setImg(imgIdx - 1));
+  wrapper.querySelector('[data-next]').addEventListener('click', () => setImg(imgIdx + 1));
+  dots.forEach((d, i) => d.addEventListener('click', () => setImg(i)));
+});
+
+/* ── PROJECTS LAB TABS ────────────────────────────────────── */
+const labTabs   = [...document.querySelectorAll('.lab-tab')];
+const labPanels = [...document.querySelectorAll('.lab-panel')];
+
+function setTab(i) {
+  labTabs.forEach((t, j)   => t.classList.toggle('on', j === i));
+  labPanels.forEach((p, j) => p.classList.toggle('on', j === i));
+}
+labTabs.forEach((t, i) => t.addEventListener('click', () => setTab(i)));
+setTab(0);
+
+/* ── IMAGE BELT ───────────────────────────────────────────── */
+const beltImages = [
+  'images/belt-1.jpg','images/belt-2.jpg','images/belt-3.jpg','images/belt-4.jpg',
+  'images/belt-5.jpg','images/belt-6.jpg','images/belt-7.jpg','images/belt-8.jpg',
+  'images/belt-9.jpg','images/belt-10.jpg','images/belt-11.jpg','images/belt-12.jpg',
+  'images/belt-13.jpg','images/belt-14.jpg','images/belt-15.jpg','images/belt-16.jpg',
+  'images/belt-17.jpg','images/belt-18.jpg','images/belt-19.jpg','images/belt-20.jpg',
+  'images/belt-21.jpg','images/belt-22.jpg','images/belt-23.jpg','images/belt-24.jpg',
+  'images/belt-25.jpg','images/belt-26.jpg','images/belt-27.jpg','images/belt-28.jpg',
+  'images/belt-29.jpg','images/belt-30.jpg','images/belt-31.jpg','images/belt-32.jpg',
+  'images/belt-33.jpg','images/belt-34.jpg','images/belt-35.jpg','images/belt-36.jpg',
+  'images/belt-37.jpg','images/belt-38.jpg','images/belt-39.jpg','images/belt-40.jpg',
+  'images/belt-41.jpg','images/belt-42.jpg','images/belt-43.jpg','images/belt-44.jpg',
+  'images/belt-45.jpg',
+];
+
+const beltTrack = document.getElementById('beltTrack');
+const beltVp    = document.getElementById('beltVp');
+const BELT_W    = 195;
+let beltAngle   = 0;
+const BN        = beltImages.length;
+
+beltImages.forEach(src => {
+  const li  = document.createElement('li');
+  li.className = 'belt-item';
+  const img = document.createElement('img');
+  img.src = src; img.alt = ''; img.loading = 'lazy';
+  li.appendChild(img);
+  beltTrack.appendChild(li);
+});
+
+function layoutBelt() {
+  const items = [...beltTrack.querySelectorAll('.belt-item')];
+  const adj   = ((Math.round(beltAngle) % BN) + BN) % BN;
+  items.forEach((item, i) => {
+    const offset  = ((i - adj + BN) % BN) - Math.floor(BN / 2);
+    const x       = offset * (BELT_W + 16);
+    const depth   = Math.max(0.65, 1 - Math.abs(offset) * 0.12);
+    const z       = -Math.abs(offset) * 36;
+    const opacity = Math.max(0.22, 1 - Math.abs(offset) * 0.20);
+    item.style.transform = `translate(calc(-50% + ${x}px), -50%) translateZ(${z}px) scale(${depth})`;
+    item.style.opacity   = opacity;
+    item.style.zIndex    = 20 - Math.abs(offset);
+  });
+}
+layoutBelt();
+
+document.getElementById('beltPrev').addEventListener('click', () => { beltAngle--; layoutBelt(); });
+document.getElementById('beltNext').addEventListener('click', () => { beltAngle++; layoutBelt(); });
+
+let isDragging = false, dragStartX = 0, dragAngle0 = 0;
+beltVp.addEventListener('mousedown', e => { isDragging = true; dragStartX = e.clientX; dragAngle0 = beltAngle; beltVp.style.cursor = 'grabbing'; });
+window.addEventListener('mousemove', e => { if (!isDragging) return; beltAngle = dragAngle0 - (e.clientX - dragStartX) / (BELT_W + 16); layoutBelt(); });
+window.addEventListener('mouseup',   () => { isDragging = false; beltVp.style.cursor = ''; });
+
+beltVp.addEventListener('touchstart', e => { dragStartX = e.touches[0].clientX; dragAngle0 = beltAngle; }, { passive: true });
+beltVp.addEventListener('touchmove',  e => { beltAngle = dragAngle0 - (e.touches[0].clientX - dragStartX) / (BELT_W + 16); layoutBelt(); }, { passive: true });
+
+beltVp.addEventListener('keydown', e => {
+  if (e.key === 'ArrowLeft')  { beltAngle--; layoutBelt(); }
+  if (e.key === 'ArrowRight') { beltAngle++; layoutBelt(); }
+});
+
+/* ── THEME TOGGLE ────────────────────────────────────────────── */
+const themeToggle = document.getElementById('themeToggle');
+const themeLabel  = document.getElementById('themeLabel');
+const html        = document.documentElement;
+
+// Restore saved preference
+const savedTheme = localStorage.getItem('mgPortfolioTheme');
+if (savedTheme === 'light') {
+  html.setAttribute('data-theme', 'light');
+  themeLabel.textContent = 'Dark';
+}
+
+themeToggle.addEventListener('click', () => {
+  const isLight = html.getAttribute('data-theme') === 'light';
+  if (isLight) {
+    html.removeAttribute('data-theme');
+    themeLabel.textContent = 'Light';
+    localStorage.setItem('mgPortfolioTheme', 'dark');
+  } else {
+    html.setAttribute('data-theme', 'light');
+    themeLabel.textContent = 'Dark';
+    localStorage.setItem('mgPortfolioTheme', 'light');
+  }
+});
+
+/* ── LEAFLET MAP ──────────────────────────────────────────── */
+const mapEl = document.getElementById('portfolioMap');
+if (mapEl && typeof L !== 'undefined') {
+  const map = L.map('portfolioMap', { zoomControl: true }).setView([27, -40], 2);
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy; OpenStreetMap &copy; CartoDB',
+    subdomains: 'abcd', maxZoom: 19
+  }).addTo(map);
+
+  function pinIcon(featured) {
+    const size = featured ? 14 : 10;
+    const bg   = featured ? '#5ac8f5' : 'rgba(90,200,245,0.55)';
+    const glow = featured ? '0 0 10px rgba(90,200,245,0.6)' : 'none';
+    return L.divIcon({
+      html: `<div style="width:${size}px;height:${size}px;border-radius:50%;background:${bg};border:2px solid rgba(255,255,255,0.6);box-shadow:${glow};"></div>`,
+      iconSize: [size, size], iconAnchor: [size/2, size/2], className: ''
     });
-  })();
+  }
+
+  const pts = [
+    { lat: 25.65,  lng: -100.37, title: 'Río Santa Catarina · NDVI & Cartography', feat: true },
+    { lat: 47.53,  lng:   21.63, title: 'University of Debrecen · Advanced GIS & Research Internship', feat: true },
+    { lat: 25.65,  lng: -100.37, title: 'UANL · Riparian Forests & Bird Diversity', feat: false },
+    { lat: 25.50,  lng: -100.88, title: 'Javer · Historical Vegetation Analysis', feat: false },
+    { lat: 25.67,  lng: -100.32, title: 'San Pedro + Parques · Urban Biodiversity', feat: false },
+    { lat: 26.10,  lng:  -99.20, title: 'Enel Green Power · Reforestation Monitoring', feat: false },
+    { lat: 25.65,  lng: -100.37, title: 'IRCA Consultants · Drone Photogrammetry', feat: false },
+  ];
+
+  pts.forEach(p => {
+    L.marker([p.lat, p.lng], { icon: pinIcon(p.feat) })
+      .bindPopup(`<span style="font-family:'Barlow',sans-serif;font-size:0.82rem;color:#111;">${p.title}</span>`)
+      .addTo(map);
+  });
+}
 </script>
 </body>
 </html>
