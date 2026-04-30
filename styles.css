@@ -3560,3 +3560,134 @@ html[data-theme="dark"] .map-project-card-body p {
     padding: 0.28rem 0.44rem;
   }
 }
+
+/* =========================
+   CLAUDE STYLE LAYER (VISUAL EFFECTS ONLY)
+   Liquid glass, lighting, borders, animations, and backgrounds.
+   Typography/sizing/content intentionally untouched.
+   ========================= */
+
+/* subtle cinematic grain */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.026;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.88' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+  background-size: 180px;
+}
+
+.container, .section, .site-header, footer { position: relative; z-index: 1; }
+
+/* glass nav polish + animated light sweep */
+.top-nav {
+  background: color-mix(in oklab, var(--nav-bg), transparent 35%);
+  border-color: color-mix(in oklab, var(--border-subtle), white 26%);
+  box-shadow: 0 8px 36px rgba(0, 0, 0, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.22);
+  overflow: hidden;
+}
+
+.top-nav::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(160deg, rgba(255,255,255,0.45) 0%, rgba(255,255,255,0.10) 38%, rgba(255,255,255,0.00) 58%, rgba(255,255,255,0.20) 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.top-nav::after {
+  content: "";
+  position: absolute;
+  top: -40%;
+  left: -12%;
+  width: 50%;
+  height: 180%;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, rgba(56, 189, 248, 0.12) 0%, transparent 72%);
+  animation: navGlow 8s ease-in-out infinite;
+}
+
+@keyframes navGlow {
+  0%, 100% { transform: translateX(-12%); opacity: 0.38; }
+  50% { transform: translateX(140%); opacity: 0.72; }
+}
+
+/* sections: claude spectrum-style atmospheric backgrounds */
+#about { background: var(--bg-alt) url("images/spectrum1.png") center/cover no-repeat; }
+#projects { background: var(--bg-alt) url("images/spectrum4.png") center/cover no-repeat; }
+#awards { background: var(--bg-alt) url("images/spectrum8.png") center/cover no-repeat; }
+#experience { background: var(--bg-alt) url("images/spectrum10.png") center/cover no-repeat; }
+#contact { background: var(--bg-alt) url("images/spectrum11.png") center/cover no-repeat; }
+
+#about::before,
+#projects::before,
+#awards::before,
+#experience::before,
+#contact::before,
+#references::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(to bottom, rgba(3, 7, 18, 0.18) 0%, rgba(3, 7, 18, 0.32) 68%, rgba(3, 7, 18, 0.60) 100%);
+}
+
+/* shared liquid glass surface treatment */
+.card,
+.project-card,
+.award-card,
+.reference-card,
+.deck-card,
+.doc-card,
+.contact-card,
+.timeline-content,
+.chip {
+  background: color-mix(in oklab, var(--surface), transparent 12%);
+  backdrop-filter: blur(18px) saturate(1.28);
+  -webkit-backdrop-filter: blur(18px) saturate(1.28);
+  border-color: color-mix(in oklab, var(--border-subtle), white 22%);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.22);
+}
+
+.card::after,
+.project-card::after,
+.award-card::after,
+.reference-card::after,
+.deck-card::after,
+.doc-card::after,
+.contact-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  padding: 1px;
+  background: linear-gradient(155deg, rgba(255,255,255,0.42) 0%, rgba(255,255,255,0.10) 35%, rgba(255,255,255,0.00) 55%, rgba(255,255,255,0.12) 80%, rgba(255,255,255,0.30) 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+.card,
+.project-card,
+.award-card,
+.reference-card,
+.deck-card,
+.doc-card,
+.contact-card { overflow: hidden; }
+
+/* button lighting upgrade only */
+.btn.primary {
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.24);
+}
+
+.btn.primary:hover {
+  box-shadow: 0 10px 34px rgba(56, 189, 248, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.26);
+}
