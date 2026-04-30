@@ -3560,3 +3560,115 @@ html[data-theme="dark"] .map-project-card-body p {
     padding: 0.28rem 0.44rem;
   }
 }
+
+/* =============================================================
+   Claude visual layer import (style-only):
+   liquid glass, borders, lighting, animation, and backgrounds.
+   Content/typography/sizing intentionally unchanged.
+   ============================================================= */
+
+:root {
+  --claude-glass-bg: rgba(255, 255, 255, 0.50);
+  --claude-glass-border: rgba(255, 255, 255, 0.56);
+  --claude-glass-glow: rgba(37, 99, 235, 0.22);
+}
+
+html[data-theme="dark"] {
+  --claude-glass-bg: rgba(4, 10, 20, 0.58);
+  --claude-glass-border: rgba(148, 163, 184, 0.38);
+  --claude-glass-glow: rgba(56, 189, 248, 0.22);
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  background:
+    radial-gradient(60vw 45vw at 14% 10%, rgba(59, 130, 246, 0.11), transparent 70%),
+    radial-gradient(55vw 50vw at 85% 15%, rgba(14, 165, 233, 0.10), transparent 70%),
+    radial-gradient(80vw 60vw at 50% 85%, rgba(99, 102, 241, 0.10), transparent 75%);
+  animation: claudeAmbientDrift 20s ease-in-out infinite alternate;
+}
+
+.top-nav,
+.theme-toggle,
+.btn.ghost,
+.card,
+.contact-card,
+.featured-carousel-wrapper,
+.portfolio-card,
+.video-wrapper,
+.image-belt .belt-viewport {
+  background: color-mix(in oklch, var(--claude-glass-bg), transparent 10%);
+  border-color: color-mix(in oklch, var(--claude-glass-border), transparent 18%);
+  backdrop-filter: blur(16px) saturate(1.18);
+  -webkit-backdrop-filter: blur(16px) saturate(1.18);
+}
+
+.top-nav,
+.card,
+.contact-card,
+.featured-carousel-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+.top-nav::after,
+.card::after,
+.contact-card::after,
+.featured-carousel-wrapper::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  mask: linear-gradient(to bottom, rgba(255,255,255,0.9), rgba(255,255,255,0.25));
+}
+
+.top-nav::before,
+.card::before,
+.contact-card::before,
+.featured-carousel-wrapper::before {
+  content: "";
+  position: absolute;
+  top: -35%;
+  left: -18%;
+  width: 42%;
+  height: 180%;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, var(--claude-glass-glow), transparent 72%);
+  animation: claudeSweep 9s ease-in-out infinite;
+}
+
+.btn.primary:hover,
+.btn.ghost:hover,
+.card:hover,
+.contact-card:hover,
+.featured-carousel-wrapper:hover,
+.portfolio-card:hover {
+  box-shadow: 0 22px 52px rgba(15, 23, 42, 0.18), 0 0 28px var(--claude-glass-glow);
+}
+
+@keyframes claudeSweep {
+  0% { transform: translateX(0) translateY(0) rotate(0deg); opacity: 0.35; }
+  50% { transform: translateX(190%) translateY(3%) rotate(4deg); opacity: 0.55; }
+  100% { transform: translateX(390%) translateY(0) rotate(0deg); opacity: 0.35; }
+}
+
+@keyframes claudeAmbientDrift {
+  0% { transform: translate3d(0, 0, 0); filter: saturate(1); }
+  100% { transform: translate3d(0, -1.2%, 0); filter: saturate(1.08); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body::after,
+  .top-nav::before,
+  .card::before,
+  .contact-card::before,
+  .featured-carousel-wrapper::before {
+    animation: none !important;
+  }
+}
