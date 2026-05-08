@@ -56,8 +56,8 @@ html, body {
   overflow-x: hidden;
 }
 
-/* ensure Syne is declared for heading fallback */
-body { --font-display: 'Syne', system-ui, sans-serif; }
+/* Space Grotesk gives headings a clean scientific-editorial voice. */
+body { --font-display: 'Space Grotesk', system-ui, sans-serif; }
 
 body {
   min-height: 100vh;
@@ -77,21 +77,32 @@ body {
   pointer-events: none;
   overflow: hidden;
   background:
-    radial-gradient(ellipse 90% 60% at 20% 10%, oklch(0.16 0.03 265 / 0.40) 0%, transparent 65%),
-    radial-gradient(ellipse 70% 50% at 80% 85%, oklch(0.13 0.025 255 / 0.30) 0%, transparent 60%),
-    oklch(0.08 0.006 255);
+    linear-gradient(180deg, oklch(0.045 0.004 255) 0%, oklch(0.075 0.010 255) 38%, oklch(0.18 0.030 248) 56%, oklch(0.095 0.010 255) 100%);
 }
 
 .substrate::before {
   content: "";
   position: absolute;
-  inset: -10%;
-  background: radial-gradient(ellipse 100% 65% at 50% 0%, oklch(0.18 0.03 262 / 0.18) 0%, transparent 65%);
+  inset: -8%;
+  background:
+    linear-gradient(180deg, rgba(0,0,0,0.72) 0%, rgba(7,9,14,0.16) 43%, rgba(245,249,255,0.24) 55%, rgba(5,7,10,0.62) 100%),
+    url('images/HHadn3DbUAAptWD.jpg') center 42% / cover no-repeat;
+  filter: saturate(0.72) contrast(1.18) brightness(0.58);
+  opacity: 0.58;
+  transform: scale(1.05);
   pointer-events: none;
 }
 
 .substrate::after {
-  display: none;
+  content: "";
+  position: absolute;
+  inset: 0;
+  display: block;
+  background:
+    radial-gradient(ellipse 84% 22% at 50% 54%, oklch(0.92 0.045 245 / 0.24) 0%, oklch(0.52 0.065 255 / 0.16) 34%, transparent 68%),
+    radial-gradient(ellipse 70% 30% at 50% 92%, oklch(0.13 0.030 255 / 0.58) 0%, transparent 72%),
+    linear-gradient(180deg, rgba(0,0,0,0.48) 0%, transparent 48%, rgba(0,0,0,0.30) 100%);
+  pointer-events: none;
 }
 
 @keyframes drift {
@@ -203,6 +214,7 @@ body {
    LAYOUT
    ========================================================= */
 .container {
+  width: 100%;
   max-width: var(--maxw);
   margin: 0 auto;
   padding: 0 32px;
@@ -250,7 +262,7 @@ body {
    ========================================================= */
 .font-heading,
 h1, h2, h3, h4 {
-  font-family: 'Syne', system-ui, sans-serif;
+  font-family: 'Space Grotesk', system-ui, sans-serif;
   font-weight: 700;
   font-style: normal;
   letter-spacing: -0.02em;
@@ -403,8 +415,7 @@ em, i { font-style: italic; }
 .hero {
   position: relative;
   min-height: 100vh;
-  display: flex;
-  align-items: center;
+  display: block;
   padding: 180px 0 120px;
   overflow: hidden;
 }
@@ -417,6 +428,7 @@ em, i { font-style: italic; }
 }
 @media (max-width: 960px) {
   .hero-grid { grid-template-columns: 1fr; gap: 56px; }
+  .hero-figure { justify-self: start; width: min(100%, 420px); }
 }
 
 .hero h1 {
@@ -486,6 +498,8 @@ em, i { font-style: italic; }
 /* hero figure -- portrait card with spectral aura */
 .hero-figure {
   position: relative;
+  width: min(100%, 430px);
+  justify-self: end;
   aspect-ratio: 4 / 5;
   border-radius: var(--radius);
   overflow: hidden;
@@ -643,7 +657,7 @@ em, i { font-style: italic; }
   line-height: 1.55;
 }
 .about-prose .lead {
-  font-family: 'Syne', sans-serif;
+  font-family: 'Space Grotesk', sans-serif;
   font-weight: 600;
   font-style: normal;
   font-size: clamp(24px, 2.4vw, 34px);
@@ -1129,7 +1143,7 @@ em, i { font-style: italic; }
 }
 .projects-lab-heading { margin-bottom: 28px; }
 .projects-lab-kicker {
-  font-family: 'Syne', sans-serif;
+  font-family: 'Space Grotesk', sans-serif;
   font-weight: 700;
   font-style: normal;
   font-size: 30px;
@@ -1170,7 +1184,7 @@ em, i { font-style: italic; }
   padding-top: 3px;
 }
 .tab-title {
-  font-family: 'Syne', sans-serif;
+  font-family: 'Space Grotesk', sans-serif;
   font-weight: 500;
   font-style: normal;
   font-size: 17px;
@@ -1365,7 +1379,7 @@ em, i { font-style: italic; }
   position: absolute;
   top: 0;
   left: 24px;
-  font-family: 'Syne', sans-serif;
+  font-family: 'Space Grotesk', sans-serif;
   font-size: 120px;
   line-height: 1;
   color: var(--accent-warm);
@@ -1373,7 +1387,7 @@ em, i { font-style: italic; }
 }
 .deck-quote {
   position: relative;
-  font-family: 'Syne', sans-serif;
+  font-family: 'Space Grotesk', sans-serif;
   font-weight: 400;
   font-style: normal;
   font-size: 17px;
@@ -1544,7 +1558,7 @@ em, i { font-style: italic; }
   padding-top: 24px;
 }
 .awards-stat .num {
-  font-family: 'Syne', sans-serif;
+  font-family: 'Space Grotesk', sans-serif;
   font-weight: 700;
   font-style: normal;
   font-size: 64px;
@@ -1643,7 +1657,7 @@ em, i { font-style: italic; }
 }
 @media (max-width: 860px) { .contact-shell { grid-template-columns: 1fr; gap: 36px; } }
 .contact-headline {
-  font-family: 'Syne', sans-serif;
+  font-family: 'Space Grotesk', sans-serif;
   font-weight: 700;
   font-style: normal;
   font-size: clamp(48px, 6vw, 96px);
@@ -1905,12 +1919,19 @@ html[data-theme="light"] body {
 /* Substrate */
 html[data-theme="light"] .substrate {
   background:
-    radial-gradient(ellipse 120% 70% at 50% -5%, oklch(0.92 0.010 220 / 0.14) 0%, transparent 60%),
-    radial-gradient(ellipse 80% 50% at 8% 30%, oklch(0.94 0.006 82 / 0.12) 0%, transparent 55%),
-    oklch(0.975 0.004 82);
+    linear-gradient(180deg, oklch(0.98 0.004 82) 0%, oklch(0.93 0.014 232) 46%, oklch(0.985 0.004 82) 64%, oklch(0.97 0.004 82) 100%);
 }
-html[data-theme="light"] .substrate::before { opacity: 0; }
-html[data-theme="light"] .substrate::after  { display: none; }
+html[data-theme="light"] .substrate::before {
+  opacity: 0.30;
+  filter: saturate(0.38) contrast(0.92) brightness(1.38);
+  mix-blend-mode: multiply;
+}
+html[data-theme="light"] .substrate::after  {
+  display: block;
+  background:
+    radial-gradient(ellipse 86% 20% at 50% 52%, oklch(0.76 0.035 245 / 0.18) 0%, transparent 70%),
+    linear-gradient(180deg, rgba(255,255,255,0.82) 0%, rgba(255,255,255,0.30) 48%, rgba(255,255,255,0.90) 100%);
+}
 html[data-theme="light"] .grain {
   opacity: 0.08;
   mix-blend-mode: multiply;
@@ -1919,25 +1940,38 @@ html[data-theme="light"] .aura > span { opacity: 0; }
 
 /* Glass cards */
 html[data-theme="light"] .liquid-glass {
-  background: rgba(255, 255, 255, 0.82);
-  backdrop-filter: blur(22px) saturate(1.12);
-  -webkit-backdrop-filter: blur(22px) saturate(1.12);
-  box-shadow: 0 3px 24px rgba(0, 0, 0, 0.06), 0 1px 0 rgba(255,255,255,0.95) inset;
+  background:
+    linear-gradient(135deg, rgba(255,255,255,0.54), rgba(255,255,255,0.18)),
+    rgba(255, 255, 255, 0.30);
+  background-blend-mode: screen, luminosity;
+  backdrop-filter: blur(24px) saturate(1.45) brightness(1.04);
+  -webkit-backdrop-filter: blur(24px) saturate(1.45) brightness(1.04);
+  box-shadow:
+    0 14px 42px rgba(20, 24, 34, 0.10),
+    inset 0 1px 1px rgba(255,255,255,0.88),
+    inset 0 -1px 0 rgba(18, 24, 38, 0.05);
 }
 html[data-theme="light"] .liquid-glass::before {
   background: linear-gradient(180deg,
-    rgba(0,0,0,0.025) 0%,
-    rgba(0,0,0,0) 40%,
-    rgba(0,0,0,0) 60%,
-    rgba(0,0,0,0.015) 100%);
+    rgba(255,255,255,0.95) 0%,
+    rgba(255,255,255,0.38) 20%,
+    rgba(255,255,255,0.04) 42%,
+    rgba(18,24,38,0.02) 58%,
+    rgba(18,24,38,0.10) 82%,
+    rgba(255,255,255,0.78) 100%);
 }
 
 /* Nav */
 html[data-theme="light"] .top-nav {
-  background: rgba(255, 255, 255, 0.88);
-  box-shadow: 0 2px 20px rgba(0,0,0,0.07), inset 0 1px 0 rgba(255,255,255,1);
+  background:
+    linear-gradient(135deg, rgba(255,255,255,0.56), rgba(255,255,255,0.18)),
+    rgba(255,255,255,0.26);
+  box-shadow:
+    0 16px 44px rgba(20,24,34,0.12),
+    inset 0 1px 1px rgba(255,255,255,0.92),
+    inset 0 -1px 0 rgba(20,24,34,0.06);
 }
-html[data-theme="light"] .top-nav:hover { background: rgba(255,255,255,0.94); }
+html[data-theme="light"] .top-nav:hover { background: linear-gradient(135deg, rgba(255,255,255,0.66), rgba(255,255,255,0.24)), rgba(255,255,255,0.30); }
 html[data-theme="light"] .nav-inner a { color: var(--ink-dim); }
 html[data-theme="light"] .nav-inner a:hover {
   color: var(--ink);
@@ -1984,6 +2018,9 @@ html[data-theme="light"] .hero h1 .name-accent {
     oklch(0.16 0.02 270) 0%,
     oklch(0.30 0.05 70) 55%,
     oklch(0.22 0.04 30) 100%);
+  -webkit-background-clip: text;
+          background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 html[data-theme="light"] .hero-figure::after {
   background:
