@@ -457,14 +457,8 @@ em, i { font-style: italic; }
   overflow: hidden;
 }
 
-.hero-grid {
-  display: grid;
-  grid-template-columns: 1.4fr 1fr;
-  gap: 80px;
-  align-items: center;
-}
-@media (max-width: 960px) {
-  .hero-grid { grid-template-columns: 1fr; gap: 56px; }
+.hero-content {
+  max-width: 660px;
 }
 
 .hero h1 {
@@ -531,68 +525,61 @@ em, i { font-style: italic; }
   gap: 14px;
 }
 
-/* hero figure -- portrait card with spectral aura */
-.hero-figure {
-  position: relative;
-  aspect-ratio: 4 / 5;
-  border-radius: var(--radius);
+/* floating headshot -- circular portrait, absolutely positioned right side of hero */
+.hero-headshot {
+  position: absolute;
+  right: clamp(40px, 9vw, 200px);
+  top: 50%;
+  transform: translateY(-50%);
+  width: clamp(220px, 26vw, 380px);
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
   overflow: hidden;
-  isolation: isolate;
+  margin: 0;
+  z-index: 2;
+  pointer-events: none;
+  animation: headshothover 7s ease-in-out infinite alternate;
+  /* subtle glow ring */
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.10),
+    0 0 40px 8px oklch(0.52 0.18 240 / 0.22),
+    0 32px 80px -20px rgba(0,0,0,0.55);
 }
-.hero-figure img {
+
+.hero-headshot img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center top;
   display: block;
-  filter: contrast(1.05) saturate(0.92);
-  transition: transform 1.4s cubic-bezier(.2,.7,.2,1);
-}
-.hero-figure:hover img { transform: scale(1.05); }
-.hero-figure::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(180deg, transparent 50%, oklch(0.13 0.04 250 / 0.55) 100%),
-    linear-gradient(120deg, oklch(0.55 0.20 240 / 0.20) 0%, transparent 60%);
-  pointer-events: none;
+  /* fuse the PNG's black background with the dark substrate */
+  mix-blend-mode: screen;
+  filter: contrast(1.06) saturate(1.0) brightness(1.05);
+  transition: transform 1.6s cubic-bezier(.2,.7,.2,1);
 }
 
-/* headshot variant -- fuse subject's black background with substrate */
-.hero-figure--portrait {
-  background:
-    radial-gradient(ellipse 90% 70% at 50% 110%, oklch(0.30 0.18 250 / 0.30) 0%, transparent 60%),
-    linear-gradient(180deg, oklch(0.10 0.02 260) 0%, oklch(0.05 0.01 262) 100%);
+@keyframes headshothover {
+  0%   { transform: translateY(-52%); box-shadow: 0 0 0 1px rgba(255,255,255,0.10), 0 0 40px 8px oklch(0.52 0.18 240 / 0.22), 0 32px 80px -20px rgba(0,0,0,0.55); }
+  100% { transform: translateY(-48%); box-shadow: 0 0 0 1px rgba(255,255,255,0.14), 0 0 56px 14px oklch(0.52 0.18 240 / 0.30), 0 48px 96px -16px rgba(0,0,0,0.45); }
 }
-.hero-figure--portrait img {
-  object-fit: contain;
-  object-position: center bottom;
-  padding-top: 6%;
-  mix-blend-mode: screen;
-  filter: contrast(1.04) saturate(1.0) brightness(1.04);
+
+@media (max-width: 960px) {
+  .hero-headshot {
+    position: relative;
+    right: auto;
+    top: auto;
+    transform: none;
+    animation: none;
+    width: clamp(140px, 40vw, 200px);
+    margin: 0 auto 40px;
+    display: block;
+  }
 }
-.hero-figure--portrait::after {
-  background:
-    /* subtle warm glow from below, like a quiet observatory */
-    radial-gradient(ellipse 70% 30% at 50% 100%, oklch(0.70 0.10 65 / 0.18) 0%, transparent 65%),
-    /* cool azure rim wash from upper-left */
-    linear-gradient(135deg, oklch(0.55 0.20 240 / 0.18) 0%, transparent 55%),
-    /* base depth */
-    linear-gradient(180deg, transparent 55%, oklch(0.08 0.02 260 / 0.55) 100%);
-}
-.hero-figure .caption {
-  position: absolute;
-  bottom: 18px;
-  left: 22px;
-  right: 22px;
-  font-family: 'Barlow', monospace;
-  font-size: 11px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--ink);
-  display: flex;
-  justify-content: space-between;
-  z-index: 2;
+
+/* light mode: use normal blend (black bg won't fuse on white, so swap to lighten) */
+html[data-theme="light"] .hero-headshot img {
+  mix-blend-mode: multiply;
+  filter: contrast(1.02) saturate(0.95) brightness(1.0);
 }
 
 /* hero ticker */
