@@ -524,6 +524,11 @@ em, i { font-style: italic; }
   z-index: 2;
 }
 
+/* portrait wrapper — gives the floating headshot a positioning context outside the clipped figure */
+.hero-portrait {
+  position: relative;
+}
+
 /* floating headshot badge */
 .hero-headshot {
   position: absolute;
