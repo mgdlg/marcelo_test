@@ -488,25 +488,27 @@ em, i { font-style: italic; }
    ========================================================= */
 .hero-portrait {
   position: relative;
-  width: 100%;
-  aspect-ratio: 4 / 5;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  min-height: 520px;
 }
 
 /* spectral glow behind the headshot */
 .hero-portrait::before {
   content: "";
   position: absolute;
-  inset: 0;
+  inset: 5% 0 5% 0;
   z-index: 0;
   background:
     radial-gradient(55% 50% at 50% 55%,
-      oklch(0.62 0.18 240 / 0.55) 0%,
-      oklch(0.55 0.15 280 / 0.28) 40%,
+      rgba(110, 150, 230, 0.55) 0%,
+      rgba(150, 110, 220, 0.28) 40%,
       transparent 72%),
     radial-gradient(35% 30% at 30% 30%,
-      oklch(0.72 0.14 60 / 0.28) 0%,
+      rgba(230, 180, 110, 0.28) 0%,
       transparent 75%);
-  filter: blur(6px);
+  filter: blur(8px);
   pointer-events: none;
   animation: aura-breathe 9s ease-in-out infinite;
 }
@@ -516,12 +518,11 @@ em, i { font-style: italic; }
   z-index: 1;
   display: block;
   width: 100%;
-  height: 100%;
-  object-fit: contain;
-  object-position: center bottom;
+  max-width: 520px;
+  height: auto;
   filter:
-    drop-shadow(0 24px 40px oklch(0.10 0.04 250 / 0.55))
-    drop-shadow(0 0 28px oklch(0.55 0.20 240 / 0.22))
+    drop-shadow(0 24px 40px rgba(15, 25, 50, 0.55))
+    drop-shadow(0 0 28px rgba(110, 150, 230, 0.25))
     contrast(1.04) saturate(1.03);
   animation: portrait-float 8s ease-in-out infinite;
 }
