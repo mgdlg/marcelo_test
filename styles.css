@@ -1390,37 +1390,51 @@ html[data-theme="light"] .hero-figure .caption { color: rgba(0,0,0,0.35); }
 
 .reference-deck {
   position: relative;
-  overflow: hidden;
+  overflow-x: auto;
   margin: 0 -32px;
   padding: 12px 32px 32px;
+  scroll-behavior: smooth;
+  scrollbar-color: rgba(148, 163, 184, 0.6) transparent;
 }
 .deck-track {
   display: flex;
-  gap: 24px;
-  overflow-x: auto;
+  align-items: stretch;
+  gap: 0;
+  overflow-x: visible;
   scroll-snap-type: x mandatory;
-  padding-bottom: 12px;
+  padding: 12px 0 16px;
+  perspective: 1200px;
   scrollbar-width: thin;
 }
 .deck-track::-webkit-scrollbar { height: 6px; }
 .deck-track::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.18); border-radius: 9999px; }
 .deck-card {
-  flex: 0 0 480px;
-  scroll-snap-align: start;
+  flex: 0 0 340px;
+  scroll-snap-align: center;
   border-radius: var(--radius);
-  padding: 36px 32px;
+  padding: 28px 26px;
   position: relative;
+  margin-left: -90px;
+  transform: translateY(0) rotate(-1.6deg);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  z-index: 1;
 }
 .deck-card::before {
-  content: "“";
+  content: "";
   position: absolute;
-  top: 0;
-  left: 24px;
-  font-family: 'Syne', sans-serif;
-  font-size: 120px;
-  line-height: 1;
-  color: var(--accent-warm);
-  opacity: 0.20;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.12), transparent 60%);
+  opacity: 0.9;
+  pointer-events: none;
+}
+.deck-card:first-child { margin-left: 0; }
+.deck-card:nth-child(even) { transform: translateY(4px) rotate(1.8deg); }
+.deck-card:hover,
+.deck-card:focus-within {
+  transform: translateY(-10px) rotate(0deg) scale(1.02);
+  box-shadow: 0 24px 40px rgba(15, 23, 42, 0.2);
+  z-index: 3;
 }
 .deck-quote {
   position: relative;
@@ -1439,7 +1453,12 @@ html[data-theme="light"] .hero-figure .caption { color: rgba(0,0,0,0.35); }
   text-transform: uppercase;
   color: var(--ink-faint);
 }
-@media (max-width: 720px) { .deck-card { flex: 0 0 88vw; } }
+@media (max-width: 720px) {
+  .deck-card {
+    flex: 0 0 88vw;
+    margin-left: -70px;
+  }
+}
 
 /* =========================================================
    TIMELINE
@@ -2125,7 +2144,10 @@ html[data-theme="light"] .deck-card {
   border: 1px solid rgba(0,0,0,0.06);
   box-shadow: 0 4px 20px rgba(0,0,0,0.06);
 }
-html[data-theme="light"] .deck-card::before { color: oklch(0.48 0.16 242); opacity: 0.25; }
+html[data-theme="light"] .deck-card::before {
+  background: radial-gradient(circle at top left, rgba(37, 99, 235, 0.14), transparent 60%);
+  opacity: 0.8;
+}
 
 /* Map */
 html[data-theme="light"] .leaflet-container { background: oklch(0.970 0 0); }
