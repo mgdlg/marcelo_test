@@ -23,27 +23,9 @@
     href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
     rel="stylesheet"
   />
-  <link
-    rel="stylesheet"
-    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-    crossorigin=""
-  />
-  <script
-    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-    crossorigin=""
-  ></script>
-  <link
-    rel="stylesheet"
-    href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css"
-  />
-  <script src="https://unpkg.com/esri-leaflet@3.0.12/dist/esri-leaflet.js"></script>
-  <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
-  <script src="https://unpkg.com/esri-leaflet-vector@4.3.2/dist/esri-leaflet-vector.js"></script>
 </head>
 <body>
-  <header class="site-header">
+  <header class="site-header" data-bg="images/spectrum7.png" data-bg-dark="images/spectrum8.png">
     <div class="container header-content">
       <div>
         <p class="eyebrow">GIS • Remote Sensing • Conservation</p>
@@ -111,7 +93,7 @@
   <main>
 
 <!-- VIDEO -->
-<section id="video" class="section section-alt">
+<section id="video" class="section section-alt" data-bg="images/spectrum2.png">
   <div class="container">
     <h2>Start Here · Video Resume</h2>
 
@@ -133,7 +115,7 @@
 
 
 <!-- ABOUT -->
-    <section id="about" class="section">
+    <section id="about" class="section" data-bg="images/spectrum11.png" data-bg-dark="images/spectrum9.png">
       <div class="container">
         <h2>About</h2>
         <p>
@@ -185,7 +167,7 @@
 
 
 <!-- SKILLS -->
-    <section id="skills" class="section section-alt">
+    <section id="skills" class="section section-alt" data-bg="images/spectrum12.png" data-bg-dark="images/spectrum10.png">
       <div class="container">
         <h2>Technical Skills</h2>
         <div class="grid skills-grid">
@@ -240,7 +222,7 @@
 
 
 <!-- FEATURED PROJECTS -->
-    <section id="featured" class="section section-alt">
+    <section id="featured" class="section section-alt" data-bg="images/spectrum6.png">
       <div class="container">
         <h2>Featured Projects</h2>
 
@@ -542,7 +524,7 @@
     </section>
 
     <!-- PROJECTS -->
-    <section id="projects" class="section">
+    <section id="projects" class="section" data-bg="images/spectrum1.png">
       <div class="container">
         <h2>Selected GIS & Environmental Projects</h2>
         <p class="section-intro">
@@ -883,7 +865,7 @@ In my work as an Environmental Data Analyst and Surveyor for wind farms at ENEL,
 
 
     <!-- EXPERIENCE TIMELINE -->
-    <section id="experience" class="section section-alt">
+    <section id="experience" class="section section-alt" data-bg="images/spectrum3.png">
       <div class="container">
         <h2>Professional Experience</h2>
         <div class="timeline">
@@ -1326,6 +1308,59 @@ In my work as an Environmental Data Analyst and Surveyor for wind farms at ENEL,
     const toggleBtn = document.getElementById("themeToggle");
     const toggleLabel = document.getElementById("themeToggleLabel");
 
+    function setDynamicSectionBackgrounds() {
+      const theme = htmlEl.getAttribute("data-theme") === "dark" ? "dark" : "light";
+      document.querySelectorAll("[data-bg]").forEach((el) => {
+        const lightBg = el.getAttribute("data-bg");
+        const darkBg = el.getAttribute("data-bg-dark");
+        const nextBg = theme === "dark" && darkBg ? darkBg : lightBg;
+        if (nextBg) {
+          el.style.backgroundImage = `url("${nextBg}")`;
+        }
+      });
+    }
+
+    function lazyLoadSectionBackgrounds() {
+      const targets = Array.from(document.querySelectorAll("[data-bg]"));
+      if (!targets.length) return;
+
+      const applyBackground = (el) => {
+        if (!el || el.dataset.bgLoaded === "true") return;
+        el.dataset.bgLoaded = "true";
+        const lightBg = el.getAttribute("data-bg");
+        const darkBg = el.getAttribute("data-bg-dark");
+        const isDark = htmlEl.getAttribute("data-theme") === "dark";
+        const nextBg = isDark && darkBg ? darkBg : lightBg;
+        if (nextBg) {
+          el.style.backgroundImage = `url("${nextBg}")`;
+        }
+      };
+
+      const highPriority = document.querySelector(".site-header");
+      applyBackground(highPriority);
+
+      if (!("IntersectionObserver" in window)) {
+        targets.forEach(applyBackground);
+        return;
+      }
+
+      const observer = new IntersectionObserver(
+        (entries, obs) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            applyBackground(entry.target);
+            obs.unobserve(entry.target);
+          });
+        },
+        { rootMargin: "220px 0px" }
+      );
+
+      targets.forEach((target) => {
+        if (target.dataset.bgLoaded === "true") return;
+        observer.observe(target);
+      });
+    }
+
 function setTheme(theme) {
   if (theme === "dark") {
     htmlEl.setAttribute("data-theme", "dark");
@@ -1347,8 +1382,11 @@ function setTheme(theme) {
   });
   // Keep right-side project showcases in sync
   if (typeof window.refreshProjectShowcases === "function") window.refreshProjectShowcases();
+  setDynamicSectionBackgrounds();
 }
 
+
+    lazyLoadSectionBackgrounds();
 
     // Load saved preference; if none, stay in dark mode
     const savedTheme = localStorage.getItem("theme");
@@ -1383,7 +1421,7 @@ function setTheme(theme) {
     // ----------------------------
     // Image belt (infinite loop)
     // ----------------------------
-(function initImageBelt() {
+function initImageBelt() {
   const track = document.getElementById("beltTrack");
   const viewport = document.getElementById("beltViewport");
   const prevBtn = document.getElementById("beltPrev");
@@ -1584,7 +1622,36 @@ function setTheme(theme) {
   render();
   requestAnimationFrame(autoScroll);
   window.addEventListener("resize", render, { passive: true });
-})();
+}
+
+    function initImageBeltWhenVisible() {
+      const beltSection = document.getElementById("about") || document.querySelector(".image-belt");
+      if (!beltSection) return;
+
+      let initialized = false;
+      const run = () => {
+        if (initialized) return;
+        initialized = true;
+        initImageBelt();
+      };
+
+      if (!("IntersectionObserver" in window)) {
+        run();
+        return;
+      }
+
+      const io = new IntersectionObserver((entries, obs) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          run();
+          obs.disconnect();
+        });
+      }, { rootMargin: "240px 0px" });
+
+      io.observe(beltSection);
+    }
+
+    initImageBeltWhenVisible();
   
     // ----------------------------
     // Slideshow for featured carousel
@@ -1777,7 +1844,7 @@ function setTheme(theme) {
   // ----------------------------
   // Fullscreen modal for images and media
   // ----------------------------
-  (function initPortfolioMap() {
+  function initPortfolioMap() {
     const mapContainer = document.getElementById("portfolioMap");
     if (!mapContainer || typeof L === "undefined") return;
 
@@ -1955,7 +2022,102 @@ function setTheme(theme) {
         setTimeout(renderBasemap, 0);
       });
     }
-  })();
+  }
+
+  function initPortfolioMapWhenVisible() {
+    const mapSection = document.querySelector(".about-map-subsection") || document.getElementById("portfolioMap");
+    if (!mapSection) return;
+
+    let initialized = false;
+    const run = async () => {
+      if (initialized) return;
+      initialized = true;
+
+      await Promise.all([
+        loadScriptOnce("https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"),
+        loadStyleOnce("https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"),
+        loadScriptOnce("https://unpkg.com/esri-leaflet@3.0.12/dist/esri-leaflet.js"),
+        loadScriptOnce("https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"),
+        loadStyleOnce("https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css"),
+        loadScriptOnce("https://unpkg.com/esri-leaflet-vector@4.3.2/dist/esri-leaflet-vector.js"),
+      ]);
+
+      initPortfolioMap();
+    };
+
+    if (!("IntersectionObserver" in window)) {
+      run();
+      return;
+    }
+
+    const io = new IntersectionObserver((entries, obs) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        run();
+        obs.disconnect();
+      });
+    }, { rootMargin: "280px 0px" });
+
+    io.observe(mapSection);
+  }
+
+  const loadedAssets = new Map();
+
+  function loadScriptOnce(src) {
+    if (loadedAssets.has(src)) return loadedAssets.get(src);
+
+    const promise = new Promise((resolve, reject) => {
+      const existing = document.querySelector(`script[src="${src}"]`);
+      if (existing) {
+        if (existing.dataset.loaded === "true") {
+          resolve();
+          return;
+        }
+        existing.addEventListener("load", () => resolve(), { once: true });
+        existing.addEventListener("error", () => reject(new Error(`Failed to load script: ${src}`)), { once: true });
+        return;
+      }
+
+      const script = document.createElement("script");
+      script.src = src;
+      script.async = true;
+      script.defer = true;
+      script.addEventListener("load", () => {
+        script.dataset.loaded = "true";
+        resolve();
+      }, { once: true });
+      script.addEventListener("error", () => reject(new Error(`Failed to load script: ${src}`)), { once: true });
+      document.head.appendChild(script);
+    });
+
+    loadedAssets.set(src, promise);
+    return promise;
+  }
+
+  function loadStyleOnce(href) {
+    if (loadedAssets.has(href)) return loadedAssets.get(href);
+
+    const promise = new Promise((resolve, reject) => {
+      const existing = document.querySelector(`link[href="${href}"]`);
+      if (existing) {
+        resolve();
+        return;
+      }
+
+      const link = document.createElement("link");
+      link.rel = "stylesheet";
+      link.href = href;
+      link.addEventListener("load", () => resolve(), { once: true });
+      link.addEventListener("error", () => reject(new Error(`Failed to load stylesheet: ${href}`)), { once: true });
+      document.head.appendChild(link);
+    });
+
+    loadedAssets.set(href, promise);
+    return promise;
+  }
+
+  initPortfolioMapWhenVisible();
+
   (function initFullscreenModal() {
     // Create modal elements
     const modal = document.createElement('div');

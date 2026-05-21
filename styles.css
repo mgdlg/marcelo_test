@@ -2128,14 +2128,9 @@ html[data-theme="dark"] #projects .projects-lab{
 
 /* Introduction */
 .site-header {
-  background-image: url("images/spectrum7.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-}
-
-html[data-theme="dark"] .site-header {
-  background-image: url("images/spectrum8.png");
 }
 
 .site-header {
@@ -2162,59 +2157,36 @@ html[data-theme="dark"] .site-header::before {
 
 
 /* Video Resume */
-#video {
-  background-image: url("images/spectrum2.png");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
 
 /* About */
-#about {
-  background-image: url("images/spectrum9.png");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
 
 
 /* Skills */
-#skills {
-  background-image: url("images/spectrum10.png");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
 
 
 /* Featured */
-#featured {
-  background-image: url("images/spectrum6.png");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
 
 
 
 /* Selected GIS & Environmental Projects */
-#projects {
-  background-image: url("images/spectrum1.png");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
 
 
 /* Timeline */
+
+
+
+/* Lazy-loaded section backgrounds */
+.site-header,
+#video,
+#about,
+#skills,
+#featured,
+#projects,
 #experience {
-  background-image: url("images/spectrum3.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
 }
-
-
 
 /* =========================
    MOBILE AUTO-HIDING TOP NAV
@@ -2239,13 +2211,6 @@ html[data-theme="dark"] .site-header::before {
    ABOUT + SKILLS — SPECTRUM SWAP (LIGHT vs DARK)
    ========================= */
 
-/* Light mode (default) */
-#about{ background-image: url("images/spectrum11.png"); }
-#skills{ background-image: url("images/spectrum12.png"); }
-
-/* Dark mode override */
-html[data-theme="dark"] #about{ background-image: url("images/spectrum9.png"); }
-html[data-theme="dark"] #skills{ background-image: url("images/spectrum10.png"); }
 
 
 /* Keep the SVG filter defs in the DOM, but don't let it take layout space */
