@@ -2186,3 +2186,168 @@ html[data-theme="light"] ::selection {
   background: oklch(0.48 0.16 242 / 0.20);
   color: oklch(0.10 0 0);
 }
+
+/* =========================================================
+   PROJECT PAGE SYSTEM
+   ========================================================= */
+body.project-page {
+  background:
+    radial-gradient(120% 80% at 12% -10%, oklch(0.22 0.05 58 / 0.22) 0%, transparent 58%),
+    radial-gradient(110% 70% at 88% 0%, oklch(0.20 0.04 24 / 0.20) 0%, transparent 62%),
+    linear-gradient(180deg, oklch(0.095 0.009 46) 0%, oklch(0.082 0.008 45) 100%);
+}
+
+.project-hero {
+  padding: 84px 0 56px;
+  border-bottom: 1px solid var(--rule-soft);
+  background: linear-gradient(180deg, oklch(0.16 0.02 52 / 0.14) 0%, transparent 72%);
+}
+
+.project-hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(300px, 0.8fr);
+  gap: 44px;
+  align-items: start;
+}
+
+.project-hero-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 22px;
+}
+
+.project-back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--ink-dim);
+  text-decoration: none;
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--rule);
+  transition: color var(--t-fast), border-color var(--t-fast), background var(--t-fast);
+}
+.project-back-link:hover {
+  color: var(--ink);
+  border-color: oklch(0.72 0.08 63 / 0.42);
+  background: oklch(1 0 0 / 0.05);
+}
+
+.project-page h1 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4.2vw, 3.3rem);
+  line-height: 1.06;
+  letter-spacing: -0.025em;
+}
+
+.project-lead {
+  margin: 18px 0 0;
+  max-width: 62ch;
+  color: var(--ink-dim);
+  font-size: clamp(1.05rem, 1.8vw, 1.18rem);
+}
+
+.project-meta-list,
+.project-reference-list,
+.project-highlights {
+  margin: 24px 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 10px;
+}
+.project-meta-list li,
+.project-reference-list li,
+.project-highlights li {
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid var(--rule-soft);
+  background: oklch(1 0 0 / 0.025);
+}
+.project-reference-list a {
+  color: var(--accent-warm);
+}
+
+.project-hero-media img {
+  width: 100%;
+  display: block;
+  border-radius: 18px;
+  border: 1px solid var(--rule);
+  box-shadow: var(--glass-shadow);
+}
+
+.project-main {
+  padding: 20px 0 90px;
+}
+
+.project-section {
+  padding: 46px 0;
+}
+.project-section + .project-section {
+  border-top: 1px solid var(--rule-soft);
+}
+.project-section.section-alt {
+  background: linear-gradient(180deg, oklch(1 0 0 / 0.025), transparent 76%);
+}
+
+.project-section h2 {
+  margin: 0 0 16px;
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+  font-size: clamp(1.32rem, 2.3vw, 2rem);
+}
+.project-section p {
+  margin: 0;
+  color: var(--ink-dim);
+  max-width: 78ch;
+}
+
+.project-media-embed {
+  width: min(100%, 920px);
+  aspect-ratio: 16 / 9;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid var(--rule);
+  background: oklch(0.12 0.009 45);
+}
+.project-media-embed iframe,
+.project-media-embed video,
+.project-media-embed img,
+.project-media-embed object {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+
+.project-media-embed--document {
+  aspect-ratio: auto;
+  min-height: 560px;
+}
+
+@media (max-width: 980px) {
+  .project-hero-grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  .project-main {
+    padding-bottom: 64px;
+  }
+}
+
+@media (max-width: 640px) {
+  .project-hero {
+    padding-top: 60px;
+    padding-bottom: 36px;
+  }
+  .project-hero-actions {
+    flex-wrap: wrap;
+    align-items: flex-start;
+  }
+  .project-section {
+    padding: 34px 0;
+  }
+}
