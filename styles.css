@@ -1723,11 +1723,16 @@ html[data-theme="light"] .hero-figure .caption { color: rgba(0,0,0,0.35); }
    ========================================================= */
 .contact-shell {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 60px;
-  align-items: center;
+  grid-template-columns: minmax(0, 1.35fr) minmax(320px, 420px);
+  gap: clamp(28px, 4vw, 64px);
+  align-items: start;
 }
-@media (max-width: 860px) { .contact-shell { grid-template-columns: 1fr; gap: 36px; } }
+@media (max-width: 980px) {
+  .contact-shell {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+}
 .contact-headline {
   font-family: 'Syne', sans-serif;
   font-weight: 700;
@@ -1739,19 +1744,36 @@ html[data-theme="light"] .hero-figure .caption { color: rgba(0,0,0,0.35); }
 .contact-card {
   border-radius: var(--radius);
   padding: 40px;
+  width: 100%;
+  justify-self: end;
 }
-.contact-card p { margin: 0 0 14px; font-size: 16px; font-weight: 300; }
+.contact-card p {
+  margin: 0 0 14px;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.45;
+}
 .contact-card strong {
-  display: inline-block;
+  display: block;
+  margin-bottom: 4px;
   font-family: 'Barlow', monospace;
   font-size: 11px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--ink-faint);
-  width: 90px;
   font-weight: 500;
 }
-
+.contact-actions {
+  margin-top: 24px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+@media (max-width: 980px) {
+  .contact-card {
+    justify-self: stretch;
+  }
+}
 /* =========================================================
    FULL PORTFOLIO GRID
    ========================================================= */
