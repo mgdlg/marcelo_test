@@ -203,7 +203,7 @@
         toggleBtn?.setAttribute("aria-pressed", "true");
         if (toggleLabel) toggleLabel.textContent = "Light mode";
       } else {
-        htmlEl.removeAttribute("data-theme");
+        htmlEl.setAttribute("data-theme", "light");
         toggleBtn?.setAttribute("aria-pressed", "false");
         if (toggleLabel) toggleLabel.textContent = "Dark mode";
       }
