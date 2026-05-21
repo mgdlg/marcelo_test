@@ -20,7 +20,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Barlow:wght@300;400;500;600&display=swap"
     rel="stylesheet"
   />
   <link
@@ -86,7 +86,7 @@
   </header>
 
   <div class="top-nav-wrap">
-    <nav class="top-nav">
+    <nav class="top-nav liquid-glass">
       <div class="nav-inner">
         <a href="#video">Video Resume</a>
         <a href="#about">About</a>
@@ -102,7 +102,7 @@
       </div>
     </nav>
 
-    <button id="themeToggle" class="theme-toggle" type="button" aria-pressed="false">
+    <button id="themeToggle" class="theme-toggle liquid-glass" type="button" aria-pressed="false">
       <span class="toggle-dot" aria-hidden="true"></span>
       <span id="themeToggleLabel">Dark mode</span>
     </button>
@@ -2192,6 +2192,77 @@ function setTheme(theme) {
         ticking = true;
       }
     });
+  })();
+</script>
+<script>
+  (function () {
+    const navPill = document.querySelector(".top-nav");
+    if (!navPill) return;
+
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (reduceMotion.matches) return;
+
+    let rafId = null;
+    let targetX = 0;
+    let targetY = 0;
+    let driftX = 0;
+    let driftY = 0;
+    let currentTiltX = 0;
+    let currentTiltY = 0;
+
+    const spring = () => {
+      currentTiltX += (targetX - currentTiltX) * 0.12;
+      currentTiltY += (targetY - currentTiltY) * 0.12;
+      driftX += ((targetX * 1.2) - driftX) * 0.14;
+      driftY += ((targetY * 1.2) - driftY) * 0.14;
+
+      navPill.style.setProperty("--liquid-tilt-x", `${currentTiltX.toFixed(2)}deg`);
+      navPill.style.setProperty("--liquid-tilt-y", `${(-currentTiltY).toFixed(2)}deg`);
+      navPill.style.setProperty("--liquid-drift-x", `${driftX.toFixed(2)}px`);
+      navPill.style.setProperty("--liquid-drift-y", `${driftY.toFixed(2)}px`);
+
+      if (
+        Math.abs(targetX - currentTiltX) > 0.02 ||
+        Math.abs(targetY - currentTiltY) > 0.02 ||
+        Math.abs(driftX) > 0.02 ||
+        Math.abs(driftY) > 0.02
+      ) {
+        rafId = requestAnimationFrame(spring);
+      } else {
+        rafId = null;
+      }
+    };
+
+    const queueSpring = () => {
+      if (rafId === null) {
+        rafId = requestAnimationFrame(spring);
+      }
+    };
+
+    const setTargetFromEvent = (event) => {
+      const rect = navPill.getBoundingClientRect();
+      const relX = (event.clientX - rect.left) / rect.width;
+      const relY = (event.clientY - rect.top) / rect.height;
+      targetX = (relX - 0.5) * 6;
+      targetY = (relY - 0.5) * 6;
+      queueSpring();
+    };
+
+    navPill.addEventListener("mousemove", setTargetFromEvent);
+    navPill.addEventListener("touchmove", (event) => {
+      const touch = event.touches[0];
+      if (!touch) return;
+      setTargetFromEvent(touch);
+    }, { passive: true });
+
+    const reset = () => {
+      targetX = 0;
+      targetY = 0;
+      queueSpring();
+    };
+
+    navPill.addEventListener("mouseleave", reset);
+    navPill.addEventListener("touchend", reset);
   })();
 </script>
 </body>
