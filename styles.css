@@ -2186,3 +2186,170 @@ html[data-theme="light"] ::selection {
   background: oklch(0.48 0.16 242 / 0.20);
   color: oklch(0.10 0 0);
 }
+
+/* =========================================================
+   PROJECT DETAIL PAGES
+   ========================================================= */
+.project-page .site-footer { margin-top: 0; }
+
+.project-hero {
+  padding: 128px 0 84px;
+  border-bottom: 1px solid var(--rule-soft);
+  background:
+    radial-gradient(ellipse 120% 90% at 12% 0%, oklch(0.30 0.06 58 / 0.16) 0%, transparent 56%),
+    radial-gradient(ellipse 100% 120% at 90% 10%, oklch(0.34 0.06 25 / 0.15) 0%, transparent 62%);
+}
+
+.project-hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.9fr);
+  gap: 44px;
+  align-items: center;
+}
+
+.project-hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 26px;
+}
+
+.project-back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--rule);
+  background: rgba(255,255,255,0.03);
+  color: var(--ink);
+  text-decoration: none;
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.project-back-link:hover { border-color: var(--accent-glow); color: var(--accent-warm); }
+
+.project-hero h1 {
+  margin: 0 0 16px;
+  font-family: var(--font-display);
+  font-size: clamp(34px, 5vw, 60px);
+  line-height: 1.03;
+  letter-spacing: -0.02em;
+}
+
+.project-lead {
+  margin: 0;
+  max-width: 66ch;
+  color: var(--ink-dim);
+  font-size: clamp(17px, 2.1vw, 21px);
+}
+
+.project-meta-list,
+.project-highlights,
+.project-reference-list {
+  margin: 24px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.project-meta-list li,
+.project-highlights li,
+.project-reference-list li {
+  position: relative;
+  margin-top: 12px;
+  padding-left: 22px;
+  color: var(--ink-dim);
+}
+
+.project-meta-list li::before,
+.project-highlights li::before,
+.project-reference-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.7em;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent-warm), var(--accent-glow));
+  box-shadow: 0 0 0 4px oklch(1 0 0 / 0.05);
+}
+
+.project-hero-media img {
+  width: 100%;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--rule);
+  box-shadow: var(--glass-shadow);
+}
+
+.project-main { padding: 28px 0 84px; }
+.project-section { padding: 62px 0; }
+.project-section h2 {
+  margin: 0 0 18px;
+  font-family: var(--font-display);
+  letter-spacing: -0.01em;
+  font-size: clamp(26px, 3.1vw, 36px);
+}
+.project-section p,
+.project-section li { max-width: 78ch; }
+
+.section-alt {
+  border-top: 1px solid var(--rule-soft);
+  border-bottom: 1px solid var(--rule-soft);
+  background: linear-gradient(180deg, transparent 0%, oklch(1 0 0 / 0.02) 100%);
+}
+
+.project-media-stack { display: grid; gap: 22px; }
+.project-media-embed {
+  width: 100%;
+  overflow: hidden;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--rule);
+  box-shadow: var(--glass-shadow);
+  background: oklch(0.08 0.01 45 / 0.9);
+}
+.project-media-embed iframe {
+  display: block;
+  width: 100%;
+  min-height: 420px;
+  border: 0;
+}
+.project-media-embed--document iframe { min-height: 640px; }
+
+.project-media-description,
+.project-media-download { margin: 0; color: var(--ink-dim); }
+.project-media-download a,
+.project-reference-list a,
+.project-section a {
+  color: var(--accent-warm);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.24em;
+}
+
+@media (max-width: 920px) {
+  .project-hero { padding: 108px 0 70px; }
+  .project-hero-grid { grid-template-columns: 1fr; gap: 26px; }
+}
+
+@media (max-width: 680px) {
+  .project-hero-actions { flex-wrap: wrap; }
+  .project-media-embed iframe { min-height: 260px; }
+  .project-media-embed--document iframe { min-height: 420px; }
+  .project-section { padding: 48px 0; }
+}
+
+html[data-theme="light"] .project-hero {
+  background:
+    radial-gradient(ellipse 130% 90% at 10% 5%, oklch(0.85 0.07 245 / 0.18) 0%, transparent 62%),
+    linear-gradient(180deg, oklch(1 0 0 / 0.86), oklch(1 0 0 / 0.78));
+}
+html[data-theme="light"] .project-back-link { background: rgba(255,255,255,0.8); }
+html[data-theme="light"] .section-alt {
+  background: linear-gradient(180deg, oklch(0.96 0 0 / 0.45), oklch(0.96 0 0 / 0.65));
+}
+html[data-theme="light"] .project-media-embed {
+  background: #fff;
+  box-shadow: 0 10px 24px -14px rgba(0,0,0,0.22);
+}
