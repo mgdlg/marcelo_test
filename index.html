@@ -20,7 +20,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Barlow:wght@300;400;500;600&display=swap"
     rel="stylesheet"
   />
   <link
@@ -86,7 +86,7 @@
   </header>
 
   <div class="top-nav-wrap">
-    <nav class="top-nav">
+    <nav class="top-nav liquid-glass nav-liquid" aria-label="Primary">
       <div class="nav-inner">
         <a href="#video">Video Resume</a>
         <a href="#about">About</a>
@@ -2191,6 +2191,32 @@ function setTheme(theme) {
         window.requestAnimationFrame(onScroll);
         ticking = true;
       }
+    });
+  })();
+</script>
+<script>
+  (function () {
+    const nav = document.querySelector('.nav-liquid');
+    if (!nav) return;
+
+    nav.addEventListener('pointermove', (event) => {
+      const rect = nav.getBoundingClientRect();
+      const x = (event.clientX - rect.left) / rect.width;
+      const y = (event.clientY - rect.top) / rect.height;
+      const tiltX = (0.5 - y) * 6;
+      const tiltY = (x - 0.5) * 8;
+
+      nav.style.setProperty('--pointer-x', `${(x * 100).toFixed(2)}%`);
+      nav.style.setProperty('--pointer-y', `${(y * 100).toFixed(2)}%`);
+      nav.style.setProperty('--tilt-x', `${tiltX.toFixed(2)}deg`);
+      nav.style.setProperty('--tilt-y', `${tiltY.toFixed(2)}deg`);
+    });
+
+    nav.addEventListener('pointerleave', () => {
+      nav.style.removeProperty('--pointer-x');
+      nav.style.removeProperty('--pointer-y');
+      nav.style.removeProperty('--tilt-x');
+      nav.style.removeProperty('--tilt-y');
     });
   })();
 </script>
