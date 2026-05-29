@@ -1733,8 +1733,8 @@ html[data-theme="light"] .hero-figure .caption { color: rgba(0,0,0,0.35); }
    ========================================================= */
 .contact-shell {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(320px, 420px);
-  gap: clamp(28px, 4vw, 64px);
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(36px, 4vw, 64px);
   align-items: start;
 }
 .contact-shell > :first-child {
@@ -1758,7 +1758,7 @@ html[data-theme="light"] .hero-figure .caption { color: rgba(0,0,0,0.35); }
 .contact-card {
   border-radius: var(--radius);
   padding: 40px;
-  width: 100%;
+  width: min(100%, 560px);
   justify-self: end;
 }
 .contact-card p {
