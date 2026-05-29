@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8" />
   <title>Marcelo Guzmán · GIS &amp; Environmental Intelligence</title>
@@ -45,9 +45,9 @@
         <a href="#contact">Contact</a>
       </div>
     </nav>
-    <button id="themeToggle" class="theme-toggle" type="button" aria-pressed="true">
+    <button id="themeToggle" class="theme-toggle" type="button" aria-pressed="false">
       <span class="toggle-dot" aria-hidden="true"></span>
-      <span id="themeToggleLabel">Dark</span>
+      <span id="themeToggleLabel">Light</span>
     </button>
   </div>
 
@@ -92,7 +92,7 @@
           </div>
 
           <figure class="hero-figure">
-            <img src="images/portrait.jpg" alt="Marcelo Guzmán" />
+            <img class="theme-swap" src="images/portrait.jpg" data-light-src="images/portrait.jpg" data-dark-src="images/portrait_dark.jpg" alt="Marcelo Guzmán" />
             <figcaption class="caption">
               <span>MGDLG · 26°N</span>
               <span>GIS · 2025</span>
@@ -1096,13 +1096,21 @@
       const btn   = document.getElementById('themeToggle');
       const label = document.getElementById('themeToggleLabel');
       const html  = document.documentElement;
-      const stored = localStorage.getItem('portfolio-theme') || 'dark';
+      const stored = localStorage.getItem('portfolio-theme') || 'light';
 
       function applyTheme(theme) {
         html.setAttribute('data-theme', theme);
         if (label) label.textContent = theme === 'light' ? 'Light' : 'Dark';
         if (btn)   btn.setAttribute('aria-pressed', theme === 'dark' ? 'true' : 'false');
         localStorage.setItem('portfolio-theme', theme);
+
+        document.querySelectorAll('img.theme-swap').forEach((img) => {
+          const lightSrc = img.getAttribute('data-light-src');
+          const darkSrc = img.getAttribute('data-dark-src');
+          if (!lightSrc || !darkSrc) return;
+          img.src = theme === 'dark' ? darkSrc : lightSrc;
+        });
+
         /* Swap Leaflet tile layer if map already initialised */
         if (window._mapDarkLayer && window._mapLightLayer && window._leafletMap) {
           if (theme === 'light') {
@@ -1123,7 +1131,7 @@
       applyTheme(stored);
 
       btn?.addEventListener('click', () => {
-        const cur = html.getAttribute('data-theme') || 'dark';
+        const cur = html.getAttribute('data-theme') || 'light';
         applyTheme(cur === 'dark' ? 'light' : 'dark');
       });
     })();

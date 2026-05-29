@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8" />
   <title>Riparian Forests & Urban Bird Diversity</title>
@@ -814,7 +814,7 @@
     }
 
     const storedTheme = localStorage.getItem("theme");
-    setTheme(storedTheme || "dark");
+    setTheme(storedTheme || "light");
 
     toggleBtn?.addEventListener("click", () => {
       const isDark = htmlEl.getAttribute("data-theme") === "dark";
