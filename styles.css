@@ -402,10 +402,12 @@ em, i { font-style: italic; }
 .hero {
   position: relative;
   min-height: 100vh;
-  display: flex;
-  align-items: center;
   padding: 180px 0 120px;
   overflow: hidden;
+}
+
+.hero .container {
+  width: 100%;
 }
 
 .hero-grid {
@@ -576,11 +578,22 @@ html[data-theme="light"] .hero-figure::after {
 html[data-theme="light"] .hero-figure .caption { color: rgba(0,0,0,0.35); }
 
 /* hero ticker */
-.hero-ticker {
-  margin-top: 80px;
-  padding: 18px 0;
+.hero-skill-alternatives {
+  margin-top: 76px;
+  display: block;
   border-top: 1px solid var(--rule-soft);
   border-bottom: 1px solid var(--rule-soft);
+  background:
+    linear-gradient(90deg, var(--bg-0) 0%, transparent 16%, transparent 84%, var(--bg-0) 100%),
+    oklch(0.08 0.01 45 / 0.42);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  overflow: hidden;
+}
+
+.hero-ticker {
+  min-width: 0;
+  padding: 18px 0;
   display: flex;
   gap: 60px;
   overflow: hidden;
@@ -590,6 +603,7 @@ html[data-theme="light"] .hero-figure .caption { color: rgba(0,0,0,0.35); }
   text-transform: uppercase;
   color: var(--ink-faint);
   white-space: nowrap;
+  mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
 }
 .hero-ticker .track {
   display: flex;
@@ -602,6 +616,23 @@ html[data-theme="light"] .hero-figure .caption { color: rgba(0,0,0,0.35); }
   margin-right: 18px;
   color: var(--accent-warm);
 }
+
+@media (max-width: 1100px) {
+  .hero-skill-alternatives {
+    margin-top: 56px;
+  }
+
+  .hero-ticker {
+    padding: 14px 0 18px;
+  }
+}
+
+@media (max-width: 960px) {
+  .hero-skill-alternatives {
+    display: none;
+  }
+}
+
 @keyframes ticker {
   0% { transform: translateX(0); }
   100% { transform: translateX(-100%); }
@@ -2182,7 +2213,12 @@ html[data-theme="light"] .showcase-thumbs button { border-color: rgba(0,0,0,0.09
 html[data-theme="light"] .showcase-thumbs button.is-active { border-color: oklch(0.48 0.16 242); }
 
 /* Ticker */
-html[data-theme="light"] .hero-ticker { border-color: rgba(0,0,0,0.07); }
+html[data-theme="light"] .hero-skill-alternatives {
+  border-color: rgba(0,0,0,0.07);
+  background:
+    linear-gradient(90deg, var(--bg-0) 0%, transparent 16%, transparent 84%, var(--bg-0) 100%),
+    rgba(255,255,255,0.58);
+}
 html[data-theme="light"] .hero-ticker .track span::before { color: oklch(0.48 0.16 242); }
 
 /* Deck quote cards */
