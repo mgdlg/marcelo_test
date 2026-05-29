@@ -1733,18 +1733,12 @@ html[data-theme="light"] .hero-figure .caption { color: rgba(0,0,0,0.35); }
    ========================================================= */
 .contact-shell {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(320px, 420px);
-  gap: clamp(28px, 4vw, 64px);
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(32px, 4vw, 56px);
   align-items: start;
 }
 .contact-shell > :first-child {
   min-width: 0;
-}
-@media (max-width: 980px) {
-  .contact-shell {
-    grid-template-columns: 1fr;
-    gap: 36px;
-  }
 }
 .contact-headline {
   font-family: 'Syne', sans-serif;
@@ -1753,13 +1747,14 @@ html[data-theme="light"] .hero-figure .caption { color: rgba(0,0,0,0.35); }
   font-size: clamp(44px, 5.2vw, 88px);
   line-height: 1;
   margin: 0 0 24px;
-  max-width: 10.5ch;
+  max-width: 15ch;
 }
 .contact-card {
   border-radius: var(--radius);
   padding: 40px;
   width: 100%;
-  justify-self: end;
+  max-width: 560px;
+  justify-self: start;
 }
 .contact-card p {
   margin: 0 0 14px;
@@ -1783,9 +1778,10 @@ html[data-theme="light"] .hero-figure .caption { color: rgba(0,0,0,0.35); }
   gap: 10px;
   flex-wrap: wrap;
 }
-@media (max-width: 980px) {
+@media (max-width: 680px) {
   .contact-card {
-    justify-self: stretch;
+    max-width: none;
+    padding: 28px;
   }
 }
 /* =========================================================
