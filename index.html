@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8" />
   <title>Marcelo Guzmán · GIS &amp; Environmental Intelligence</title>
@@ -45,9 +45,9 @@
         <a href="#contact">Contact</a>
       </div>
     </nav>
-    <button id="themeToggle" class="theme-toggle" type="button" aria-pressed="true">
+    <button id="themeToggle" class="theme-toggle" type="button" aria-pressed="false">
       <span class="toggle-dot" aria-hidden="true"></span>
-      <span id="themeToggleLabel">Dark</span>
+      <span id="themeToggleLabel">Light</span>
     </button>
   </div>
 
@@ -1096,7 +1096,7 @@
       const btn   = document.getElementById('themeToggle');
       const label = document.getElementById('themeToggleLabel');
       const html  = document.documentElement;
-      const stored = localStorage.getItem('portfolio-theme') || 'dark';
+      const stored = localStorage.getItem('portfolio-theme') || 'light';
 
       function applyTheme(theme) {
         html.setAttribute('data-theme', theme);
@@ -1123,7 +1123,7 @@
       applyTheme(stored);
 
       btn?.addEventListener('click', () => {
-        const cur = html.getAttribute('data-theme') || 'dark';
+        const cur = html.getAttribute('data-theme') || 'light';
         applyTheme(cur === 'dark' ? 'light' : 'dark');
       });
     })();
