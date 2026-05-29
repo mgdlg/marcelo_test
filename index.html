@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="light" data-hero-ticker-mode="rail">
 <head>
   <meta charset="UTF-8" />
   <title>Marcelo Guzmán · GIS &amp; Environmental Intelligence</title>
@@ -88,6 +88,15 @@
               <a class="btn primary" href="#featured">Begin the journey</a>
               <a class="btn ghost" href="https://www.linkedin.com/in/marcelo-guzman-063063128/" target="_blank" rel="noopener">LinkedIn</a>
               <a class="btn ghost" href="#contact">Contact</a>
+            </div>
+
+            <div class="hero-ticker-switcher" aria-label="Hero text carousel layout alternatives">
+              <span>Carousel alternatives</span>
+              <div class="hero-ticker-switcher-buttons" role="group" aria-label="Choose a non-overlapping hero carousel treatment">
+                <button type="button" class="is-active" data-hero-ticker-option="rail" aria-pressed="true">Docked rail</button>
+                <button type="button" data-hero-ticker-option="chips" aria-pressed="false">Skill chips</button>
+                <button type="button" data-hero-ticker-option="stack" aria-pressed="false">Side stack</button>
+              </div>
             </div>
           </div>
 
@@ -1193,6 +1202,27 @@
         });
       }, { threshold: 0.12 });
       els.forEach(el => obs.observe(el));
+    })();
+
+    /* ----- Hero carousel layout alternatives ----- */
+    (function initHeroTickerAlternatives() {
+      const root = document.documentElement;
+      const buttons = Array.from(document.querySelectorAll('[data-hero-ticker-option]'));
+      if (!buttons.length) return;
+      const modes = new Set(buttons.map((button) => button.dataset.heroTickerOption));
+      const saved = localStorage.getItem('heroTickerMode');
+      function apply(mode) {
+        const next = modes.has(mode) ? mode : 'rail';
+        root.dataset.heroTickerMode = next;
+        buttons.forEach((button) => {
+          const isActive = button.dataset.heroTickerOption === next;
+          button.classList.toggle('is-active', isActive);
+          button.setAttribute('aria-pressed', String(isActive));
+        });
+        localStorage.setItem('heroTickerMode', next);
+      }
+      buttons.forEach((button) => button.addEventListener('click', () => apply(button.dataset.heroTickerOption)));
+      apply(saved || root.dataset.heroTickerMode || 'rail');
     })();
 
     /* ----- Image belt 3D ----- */
