@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8" />
   <title>University of Debrecen — Advanced GIS & Research Internship</title>
@@ -138,7 +138,7 @@
     }
 
     const storedTheme = localStorage.getItem("theme");
-    setTheme(storedTheme || "dark");
+    setTheme(storedTheme || "light");
 
     toggleBtn?.addEventListener("click", () => {
       const isDark = htmlEl.getAttribute("data-theme") === "dark";
