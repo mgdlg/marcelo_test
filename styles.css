@@ -820,13 +820,14 @@ html[data-theme="light"] .hero-figure .caption { color: rgba(0,0,0,0.35); }
 /* leaflet popup theme */
 .leaflet-container { background: oklch(0.18 0.05 248); font-family: 'Barlow', sans-serif; }
 .leaflet-popup-content-wrapper, .leaflet-popup-tip {
-  background: oklch(0.20 0.05 248);
+  background: oklch(0.10 0.018 248);
   color: var(--ink);
+  border: 1px solid rgba(255,255,255,0.08);
   border-radius: 18px;
-  box-shadow: 0 16px 40px -10px rgba(0,0,0,0.5);
+  box-shadow: 0 18px 44px -10px rgba(0,0,0,0.72);
 }
 .leaflet-popup-content { margin: 0; min-width: 240px; }
-.portfolio-map-popup .leaflet-popup-close-button { color: var(--ink); }
+.portfolio-map-popup .leaflet-popup-close-button { color: oklch(0.94 0.02 248); }
 .map-pin-dot {
   display: block;
   width: 14px;
@@ -856,10 +857,17 @@ html[data-theme="light"] .hero-figure .caption { color: rgba(0,0,0,0.35); }
   font-size: 11px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--ink-faint);
+  color: oklch(0.74 0.018 248 / 0.72);
   margin-bottom: 10px;
 }
-.map-project-card { display: none; }
+.map-project-card {
+  display: none;
+  background: oklch(0.075 0.014 248);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 14px;
+  padding: 10px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
+}
 .map-project-card.is-active { display: block; }
 .map-project-card img {
   width: 100%;
@@ -869,11 +877,16 @@ html[data-theme="light"] .hero-figure .caption { color: rgba(0,0,0,0.35); }
   margin-bottom: 10px;
 }
 .map-project-card h4 {
+  color: oklch(0.96 0.012 248);
   font-size: 17px;
   font-style: normal;
   margin: 4px 0 6px;
 }
-.map-project-card p { font-size: 13px; line-height: 1.45; }
+.map-project-card p {
+  color: oklch(0.78 0.014 248 / 0.82);
+  font-size: 13px;
+  line-height: 1.45;
+}
 .map-project-card .btn { padding: 9px 16px; font-size: 11px; }
 .map-popup-carousel-nav {
   display: flex;
@@ -2192,13 +2205,14 @@ html[data-theme="light"] .deck-card::before { color: oklch(0.48 0.16 242); opaci
 html[data-theme="light"] .leaflet-container { background: oklch(0.970 0 0); }
 html[data-theme="light"] .leaflet-popup-content-wrapper,
 html[data-theme="light"] .leaflet-popup-tip {
-  background: oklch(0.982 0 0);
-  color: var(--ink);
+  background: oklch(0.10 0.018 248);
+  color: oklch(0.94 0.02 248);
+  border-color: rgba(255,255,255,0.08);
 }
 html[data-theme="light"] .map-nav-btn {
-  background: rgba(0,0,0,0.04);
-  border-color: rgba(0,0,0,0.10);
-  color: var(--ink);
+  background: rgba(255,255,255,0.06);
+  border-color: rgba(255,255,255,0.14);
+  color: oklch(0.94 0.02 248);
 }
 html[data-theme="light"] .portfolio-map {
   filter: saturate(0.7) brightness(1.05);
