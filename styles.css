@@ -2363,15 +2363,41 @@ body.project-page {
   padding: 0;
   list-style: none;
   display: grid;
-  gap: 10px;
+  gap: 0;
 }
+
+/* key/value rows — thin rule dividers, no boxes */
 .project-meta-list li,
-.project-reference-list li,
+.project-reference-list li {
+  padding: 12px 2px;
+  border-top: 1px solid var(--rule-soft);
+  font-size: 15px;
+  font-weight: 300;
+  color: var(--ink-dim);
+}
+.project-meta-list li strong,
+.project-reference-list li strong {
+  color: var(--ink);
+  font-weight: 500;
+}
+
+/* key contributions — accent-dash bullets, matching the main page lists */
+.project-highlights { gap: 14px; }
 .project-highlights li {
-  padding: 12px 14px;
-  border-radius: 14px;
-  border: 1px solid var(--rule-soft);
-  background: oklch(1 0 0 / 0.025);
+  position: relative;
+  padding-left: 24px;
+  font-size: 15px;
+  font-weight: 300;
+  color: var(--ink-dim);
+}
+.project-highlights li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 12px;
+  width: 14px;
+  height: 1px;
+  background: var(--accent-warm);
 }
 .project-reference-list a {
   color: var(--accent-warm);
@@ -2458,6 +2484,145 @@ body.project-page {
   }
 }
 
+/* hero eyebrow sits tighter above the title */
+.project-hero .eyebrow {
+  margin: 0 0 18px;
+}
+
+/* sub-headings within sections */
+.project-section h3 {
+  margin: 28px 0 10px;
+  font-family: var(--font-display);
+  font-size: clamp(1.05rem, 1.6vw, 1.32rem);
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+/* figures with captions */
+.project-figure {
+  margin: 28px 0 0;
+  display: grid;
+  gap: 12px;
+}
+.project-figure img {
+  width: 100%;
+  display: block;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--rule);
+  background: oklch(0.12 0.009 45);
+  box-shadow: var(--glass-shadow);
+}
+.project-figure figcaption {
+  font-size: 13px;
+  font-weight: 300;
+  line-height: 1.5;
+  color: var(--ink-faint);
+  max-width: 80ch;
+}
+.project-figure figcaption strong {
+  color: var(--ink-dim);
+  font-weight: 500;
+}
+
+/* data tables */
+.table-wrapper {
+  margin: 28px 0 0;
+  overflow-x: auto;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--rule);
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur)) saturate(1.2);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(1.2);
+}
+.project-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--ink-dim);
+}
+.project-table caption {
+  caption-side: top;
+  text-align: left;
+  padding: 14px 16px 10px;
+  font-family: 'Barlow', monospace;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.project-table th,
+.project-table td {
+  padding: 12px 16px;
+  text-align: left;
+  vertical-align: top;
+  border-top: 1px solid var(--rule-soft);
+}
+.project-table thead th {
+  font-family: 'Barlow', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--ink);
+  border-top: none;
+}
+.project-table tbody tr:hover { background: oklch(1 0 0 / 0.025); }
+.project-table ul { margin: 0; padding-left: 18px; }
+.project-table ul li { margin-bottom: 4px; }
+
+/* species list grid (appendix) */
+.species-grid {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+}
+.species-grid h3 { margin: 18px 0 4px; }
+.species-grid > div > h3:first-child { margin-top: 0; }
+.species-grid p { margin: 0; font-size: 14px; }
+@media (max-width: 680px) { .species-grid { grid-template-columns: 1fr; gap: 16px; } }
+
+/* numbered bibliography */
+.project-reference-ol {
+  margin: 8px 0 0;
+  padding-left: 22px;
+  display: grid;
+  gap: 10px;
+}
+.project-reference-ol li {
+  padding-left: 6px;
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.5;
+  color: var(--ink-dim);
+}
+.project-reference-ol li::marker {
+  color: var(--accent-warm);
+  font-family: 'Barlow', monospace;
+  font-size: 12px;
+}
+
+/* media stacks (video + document embeds) */
+.project-media-stack {
+  display: grid;
+  gap: 20px;
+}
+.project-media-description {
+  margin: 0;
+  max-width: 80ch;
+  font-size: 15px;
+  font-weight: 300;
+  color: var(--ink-dim);
+}
+.project-media-download { margin: 0; }
+.project-media-download a {
+  font-family: 'Barlow', monospace;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent-warm);
+}
+
 
 html[data-theme="light"] body.project-page {
   background:
@@ -2482,13 +2647,6 @@ html[data-theme="light"] .project-back-link:hover {
   background: rgba(255,255,255,0.96);
 }
 
-html[data-theme="light"] .project-meta-list li,
-html[data-theme="light"] .project-reference-list li,
-html[data-theme="light"] .project-highlights li {
-  border-color: rgba(0,0,0,0.10);
-  background: rgba(255,255,255,0.86);
-}
-
 html[data-theme="light"] .project-hero-media img,
 html[data-theme="light"] .project-media-embed {
   border-color: rgba(0,0,0,0.12);
@@ -2501,4 +2659,17 @@ html[data-theme="light"] .project-section + .project-section {
 }
 html[data-theme="light"] .project-section.section-alt {
   background: linear-gradient(180deg, rgba(17, 24, 39, 0.03), transparent 78%);
+}
+
+html[data-theme="light"] .project-figure img {
+  border-color: rgba(0,0,0,0.12);
+  background: oklch(0.985 0 0);
+  box-shadow: 0 10px 30px -18px rgba(0,0,0,0.22);
+}
+html[data-theme="light"] .table-wrapper {
+  border-color: rgba(0,0,0,0.10);
+  background: rgba(255,255,255,0.86);
+}
+html[data-theme="light"] .project-table tbody tr:hover {
+  background: rgba(0,0,0,0.025);
 }
