@@ -2092,7 +2092,7 @@ html[data-theme="light"] .grain {
   opacity: 0.05;
   mix-blend-mode: multiply;
 }
-html[data-theme="light"] .aura > span { opacity: 0; }
+html[data-theme="light"] .aura > span { opacity: 0 !important; }
 
 /* Glass cards */
 html[data-theme="light"] .liquid-glass {
