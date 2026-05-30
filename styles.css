@@ -1119,6 +1119,22 @@ html[data-theme="light"] .hero-figure .caption { color: rgba(0,0,0,0.35); }
   background: rgba(0,0,0,0.2);
   min-height: 380px;
 }
+
+.feature-media-embed {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  min-height: 560px;
+  background: rgba(255,255,255,0.04);
+}
+
+.featured-linkedin-embed {
+  width: min(100%, 504px);
+  height: min(72vh, 760px);
+  min-height: 560px;
+  border: 0;
+  background: #fff;
+}
 .featured-slide-image {
   position: absolute;
   inset: 0;
