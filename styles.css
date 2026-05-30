@@ -1100,12 +1100,40 @@ html[data-theme="light"] .hero-figure .caption { color: rgba(0,0,0,0.35); }
   background: var(--accent-warm);
 }
 
+.featured-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.featured-actions .btn {
+  padding: 12px 18px;
+  font-size: 11px;
+}
+
 .feature-media {
   position: relative;
   border-radius: 22px;
   overflow: hidden;
   background: rgba(0,0,0,0.2);
   min-height: 380px;
+}
+
+.feature-media-embed {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  min-height: 560px;
+  background: rgba(255,255,255,0.04);
+}
+
+.featured-linkedin-embed {
+  width: min(100%, 504px);
+  height: min(72vh, 760px);
+  min-height: 560px;
+  border: 0;
+  background: #fff;
 }
 .featured-slide-image {
   position: absolute;
