@@ -1100,6 +1100,18 @@ html[data-theme="light"] .hero-figure .caption { color: rgba(0,0,0,0.35); }
   background: var(--accent-warm);
 }
 
+.featured-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.featured-actions .btn {
+  padding: 12px 18px;
+  font-size: 11px;
+}
+
 .feature-media {
   position: relative;
   border-radius: 22px;
