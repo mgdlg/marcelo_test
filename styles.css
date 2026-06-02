@@ -1720,6 +1720,23 @@ html[data-theme="light"] .hero-figure .caption { color: rgba(0,0,0,0.35); }
   margin-top: 6px;
 }
 
+.awards-stat-link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+  border-radius: 18px;
+  transition: background var(--t-fast), outline-color var(--t-fast), transform var(--t-fast);
+}
+.awards-stat-link:hover,
+.awards-stat-link:focus-visible {
+  background: oklch(1 0 0 / 0.05);
+  outline: 1px solid oklch(0.72 0.08 63 / 0.42);
+  outline-offset: 8px;
+}
+.awards-stat-link:hover {
+  transform: translateY(-1px);
+}
+
 .award-row {
   border-radius: 22px;
   padding: 24px 28px;
