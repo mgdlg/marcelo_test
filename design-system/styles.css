@@ -1,0 +1,22 @@
+/* =========================================================
+   Marcelo Guzmán · GIS & Environmental Intelligence
+   Design System — global entry point.
+
+   Aesthetic: "Futuristic Organic Gradient Modernist".
+   Dual theme (warm-dark default / achromatic-light), liquid-glass
+   surfaces, an atmospheric grain + aura backdrop, Syne display type
+   over Barlow body with Instrument Serif editorial italics.
+
+   Consumers link THIS file only. Everything below is shipped.
+   ========================================================= */
+
+/* --- foundations / tokens --- */
+@import "tokens/fonts.css";
+@import "tokens/colors.css";
+@import "tokens/typography.css";
+@import "tokens/spacing.css";
+
+/* --- base layer --- */
+@import "base/elements.css";
+@import "base/atmosphere.css";
+@import "base/animations.css";

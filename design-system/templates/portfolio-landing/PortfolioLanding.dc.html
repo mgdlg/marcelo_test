@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<!-- @template name="Portfolio Landing" description="Warm-dark GIS portfolio hero + skills strip in the Marcelo Guzmán brand" -->
+<helmet>
+  <script src="./ds-base.js"></script>
+</helmet>
+
+<div class="substrate"></div>
+<div class="grain"></div>
+
+<main style="min-height:100vh">
+  <section style="position:relative;padding:170px 0 90px;overflow:hidden">
+    <div class="aura">
+      <span style="width:520px;height:520px;left:-8%;top:6%;background:var(--spec-amber)"></span>
+      <span style="width:360px;height:360px;right:-6%;top:38%;background:var(--spec-magenta);animation-delay:-9s"></span>
+    </div>
+
+    <div style="max-width:var(--maxw);margin:0 auto;padding:0 32px;position:relative">
+      <p style="display:inline-flex;align-items:center;gap:12px;font-family:var(--font-mono);font-size:12px;font-weight:500;letter-spacing:0.28em;text-transform:uppercase;color:var(--ink-faint);margin:0 0 28px">
+        <span style="width:36px;height:1px;background:linear-gradient(90deg,var(--accent-warm),transparent)"></span>
+        GIS · Remote Sensing · Environmental Intelligence
+      </p>
+
+      <h1 style="font-size:clamp(56px,9vw,128px);line-height:0.92;letter-spacing:-0.02em;margin:0">
+        <span style="display:block;color:var(--ink)">Marcelo</span>
+        <span style="display:block;background:linear-gradient(120deg,oklch(0.96 0.006 60) 0%,oklch(0.80 0.14 68) 45%,oklch(0.68 0.10 52) 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">Guzmán</span>
+      </h1>
+
+      <p style="margin:30px 0 10px;font-size:clamp(18px,1.7vw,22px);font-weight:300;line-height:1.5;max-width:52ch;color:var(--ink-dim)">
+        Biologist &amp; GIS specialist translating complex geospatial and ecological signals into clear, actionable environmental intelligence.
+      </p>
+      <p style="font-size:14px;color:var(--ink-faint);font-weight:300;letter-spacing:0.04em;margin-bottom:34px">
+        A single-page atlas of fieldwork, models, and instruments.
+      </p>
+
+      <div style="display:flex;flex-wrap:wrap;gap:14px">
+        <x-import component-from-global-scope="MarceloGuzmNGISDesignSystem_344c90.Button" href="#work" hint-size="200px,48px">Begin the journey</x-import>
+        <x-import component-from-global-scope="MarceloGuzmNGISDesignSystem_344c90.Button" variant="ghost" arrow="{{ false }}" hint-size="130px,48px">LinkedIn</x-import>
+      </div>
+    </div>
+  </section>
+
+  <section id="work" style="position:relative;padding:40px 0 130px">
+    <div style="max-width:var(--maxw);margin:0 auto;padding:0 32px">
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px">
+        <x-import component-from-global-scope="MarceloGuzmNGISDesignSystem_344c90.Card" kicker="01 / GIS & Remote Sensing" title="Spatial measurement" hint-size="100%,260px">
+          <p style="font-size:15px;font-weight:300;line-height:1.6;margin:0;color:var(--ink-dim)">ArcGIS Pro, ModelBuilder, multispectral imagery, UAV photogrammetry, DEM/DSM.</p>
+        </x-import>
+        <x-import component-from-global-scope="MarceloGuzmNGISDesignSystem_344c90.Card" kicker="02 / Data Science" title="Computational fluency" hint-size="100%,260px">
+          <p style="font-size:15px;font-weight:300;line-height:1.6;margin:0;color:var(--ink-dim)">R, Python, SQL, reproducible geospatial modeling and statistical analysis.</p>
+        </x-import>
+        <x-import component-from-global-scope="MarceloGuzmNGISDesignSystem_344c90.Card" kicker="03 / Field Work" title="Ecological practice" hint-size="100%,260px">
+          <p style="font-size:15px;font-weight:300;line-height:1.6;margin:0;color:var(--ink-dim)">Impact assessments, quantitative ecology, ornithology, community engagement.</p>
+        </x-import>
+      </div>
+    </div>
+  </section>
+</main>
+</x-dc>
+</body>
+</html>

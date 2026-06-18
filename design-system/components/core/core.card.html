@@ -1,0 +1,75 @@
+<!-- @dsCard group="Components" viewport="700x560" name="Core primitives" subtitle="Buttons, tags, pills, glass panels & cards" -->
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="../../styles.css" />
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>
+  body { margin: 0; padding: 30px 34px; }
+  .row { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-bottom: 30px; }
+  .grp-label {
+    font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.22em;
+    text-transform: uppercase; color: var(--ink-faint); margin: 0 0 14px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .grp-label::before { content: ""; width: 22px; height: 1px; background: var(--accent-warm); }
+  .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+  const { Button, Tag, TagList, Pill, GlassPanel, Card, Eyebrow, InstrumentLabel } = window.MarceloGuzmNGISDesignSystem_344c90;
+
+  function Demo() {
+    return (
+      <div>
+        <p className="grp-label">Buttons</p>
+        <div className="row">
+          <Button>Begin the journey</Button>
+          <Button variant="ghost">LinkedIn</Button>
+          <Button size="sm">Small</Button>
+          <Button size="lg">Large</Button>
+          <Button disabled>Disabled</Button>
+        </div>
+
+        <p className="grp-label">Tags &amp; pills</p>
+        <div className="row">
+          <TagList>
+            <Tag>ArcGIS Pro</Tag><Tag>QGIS</Tag><Tag active>NDVI / NWI</Tag>
+            <Tag>UAV photogrammetry</Tag><Tag>R · Python · SQL</Tag>
+          </TagList>
+        </div>
+        <div className="row">
+          <Pill>2024–25</Pill>
+          <Pill solid>Featured</Pill>
+          <Eyebrow>GIS · Remote Sensing</Eyebrow>
+          <InstrumentLabel num="04">Featured work</InstrumentLabel>
+        </div>
+
+        <p className="grp-label">Cards on glass</p>
+        <div className="cards">
+          <Card kicker="01 / GIS &amp; Remote Sensing" title="Spatial measurement">
+            <TagList>
+              <Tag>ArcGIS Pro</Tag><Tag>ModelBuilder</Tag><Tag>DEM / DSM</Tag><Tag>Multispectral</Tag>
+            </TagList>
+          </Card>
+          <Card kicker="05 · Casework" title="Riparian Forests &amp; Bird Diversity" interactive>
+            <p style={{ fontSize: '15px', fontWeight: 300, margin: '0 0 18px' }}>
+              Multispectral remote sensing along an urban river, linked to point-count bird surveys.
+            </p>
+            <Button size="sm" variant="ghost">View case study</Button>
+          </Card>
+        </div>
+      </div>
+    );
+  }
+  ReactDOM.createRoot(document.getElementById('root')).render(<Demo />);
+</script>
+</body>
+</html>

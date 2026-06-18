@@ -1,0 +1,25 @@
+<!-- @dsCard group="Colors" viewport="700x190" name="Dark — surfaces & ink" subtitle="Warm near-black base with warm off-white ink (default theme)" -->
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  body { margin: 0; padding: 26px 30px; }
+  .row { display: flex; gap: 14px; }
+  .sw { flex: 1; }
+  .chip { height: 78px; border-radius: 14px; border: 1px solid var(--rule); }
+  .name { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); margin-top: 10px; }
+  .val { font-family: var(--font-mono); font-size: 10px; color: var(--ink-faint); margin-top: 2px; }
+</style>
+</head>
+<body>
+  <div class="row">
+    <div class="sw"><div class="chip" style="background:var(--bg-0)"></div><div class="name">bg-0 · page</div><div class="val">L 0.08 · 45°</div></div>
+    <div class="sw"><div class="chip" style="background:var(--bg-1)"></div><div class="name">bg-1 · raised</div><div class="val">L 0.11 · 45°</div></div>
+    <div class="sw"><div class="chip" style="background:var(--ink)"></div><div class="name">ink</div><div class="val">L 0.94 · 50°</div></div>
+    <div class="sw"><div class="chip" style="background:var(--ink-dim)"></div><div class="name">ink-dim</div><div class="val">L 0.76 / .78α</div></div>
+    <div class="sw"><div class="chip" style="background:var(--ink-faint)"></div><div class="name">ink-faint</div><div class="val">L 0.62 / .55α</div></div>
+  </div>
+</body>
+</html>

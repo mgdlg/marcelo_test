@@ -1,0 +1,30 @@
+<!-- @dsCard group="Spacing" viewport="700x220" name="Elevation & glass" subtitle="Float shadow, glass blur, and the masked hairline" -->
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  body { margin: 0; padding: 30px 34px; display: flex; gap: 24px; align-items: center; }
+  .float { width: 150px; height: 110px; border-radius: 22px; background: var(--bg-1);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.20), 0 10px 28px rgba(0,0,0,0.26), 0 28px 60px rgba(0,0,0,0.32), 0 56px 100px -20px rgba(0,0,0,0.40); }
+  .glass { width: 200px; height: 110px; border-radius: 22px; padding: 16px; }
+  .lab { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-faint); margin-top: 12px; }
+  .gt { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); }
+</style>
+</head>
+<body>
+  <div>
+    <div class="float"></div>
+    <div class="lab">shadow-float</div>
+  </div>
+  <div>
+    <div class="glass liquid-glass"><span class="gt">liquid-glass</span></div>
+    <div class="lab">blur · saturate · masked hairline</div>
+  </div>
+  <div>
+    <div class="glass liquid-glass-strong"><span class="gt">liquid-glass-strong</span></div>
+    <div class="lab">heavier blur · overlay panels</div>
+  </div>
+</body>
+</html>

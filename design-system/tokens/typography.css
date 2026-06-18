@@ -1,0 +1,51 @@
+/* =========================================================
+   Typography — Marcelo Guzmán GIS Design System
+   Three families:
+     Syne           → display / headings (geometric grotesque)
+     Barlow         → body, UI, and mono-style label runs
+     Instrument Serif → editorial italic pull-quotes & figures
+   ========================================================= */
+
+:root {
+  /* ---- families ---- */
+  --font-display: 'Syne', system-ui, sans-serif;
+  --font-body:    'Barlow', system-ui, -apple-system, sans-serif;
+  --font-mono:    'Barlow', ui-monospace, monospace;   /* used mono-style: wide tracking, uppercase */
+  --font-serif:   'Instrument Serif', Georgia, serif;
+
+  /* ---- weights ---- */
+  --w-light:    300; /* @kind font */
+  --w-regular:  400; /* @kind font */
+  --w-medium:   500; /* @kind font */
+  --w-semibold: 600; /* @kind font */
+  --w-bold:     700; /* @kind font */
+
+  /* ---- display type scale (fluid, clamp-based) ---- */
+  --fs-hero:   clamp(64px, 11vw, 168px); /* @kind font */
+  --fs-h1:     clamp(62px, 9vw, 148px);  /* @kind font */
+  --fs-h2:     clamp(40px, 5.5vw, 84px); /* @kind font */
+  --fs-h3:     clamp(22px, 2.2vw, 30px); /* @kind font */
+  --fs-h4:     19px; /* @kind font */
+
+  /* ---- body scale ---- */
+  --fs-lead:   clamp(24px, 2.4vw, 34px); /* @kind font */
+  --fs-intro:  clamp(17px, 1.4vw, 21px); /* @kind font */
+  --fs-body:   17px; /* @kind font */
+  --fs-sm:     15px; /* @kind font */
+  --fs-xs:     13px; /* @kind font */
+
+  /* ---- label / mono scale ---- */
+  --fs-eyebrow: 12px; /* @kind font */
+  --fs-label:   11px; /* @kind font */
+
+  /* ---- line-heights ---- */
+  --lh-tight:   1.05; /* @kind font */
+  --lh-snug:    1.25; /* @kind font */
+  --lh-body:    1.55; /* @kind font */
+
+  /* ---- letter-spacing ---- */
+  --ls-display: -0.02em; /* @kind font */
+  --ls-eyebrow:  0.28em; /* @kind font */
+  --ls-label:    0.18em; /* @kind font */
+  --ls-pill:     0.12em; /* @kind font */
+}

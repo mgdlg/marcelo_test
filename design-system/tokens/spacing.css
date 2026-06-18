@@ -1,0 +1,56 @@
+/* =========================================================
+   Spacing, radii, shadows, motion — Marcelo Guzmán GIS Design System
+   ========================================================= */
+
+:root {
+  /* ---- layout ---- */
+  --maxw: 1240px;            /* content container max width */
+  --gutter: 32px;           /* container side padding      */
+  --section-y: 140px;       /* vertical section rhythm     */
+
+  /* ---- spacing scale (4px base) ---- */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 60px;
+  --space-9: 80px;
+
+  /* ---- corner radii ---- */
+  --radius:      28px;      /* large cards & panels        */
+  --radius-md:   22px;      /* media frames, award rows    */
+  --radius-sm:   16px;      /* small cards                 */
+  --radius-xs:   14px;      /* chips of media, tabs        */
+  --radius-pill: 9999px;    /* buttons, tags, nav pill     */
+
+  /* ---- shadows ---- */
+  --shadow-card:  0 3px 24px rgba(0, 0, 0, 0.06);
+  --shadow-glass: 0 12px 40px -12px rgba(0, 0, 0, 0.55);
+  --shadow-float:
+    0 2px 6px rgba(0,0,0,0.20),
+    0 10px 28px rgba(0,0,0,0.26),
+    0 28px 60px rgba(0,0,0,0.32),
+    0 56px 100px -20px rgba(0,0,0,0.40);
+
+  /* glass surface tokens */
+  --glass-bg:     rgba(255, 255, 255, 0.03);
+  --glass-stroke: rgba(255, 255, 255, 0.10);
+  --glass-blur:   18px;
+
+  /* ---- motion ---- */
+  --ease: cubic-bezier(.2, .7, .2, 1); /* @kind other */  /* the one house easing curve */
+  --t-fast: 220ms var(--ease);
+  --t-base: 520ms var(--ease);
+  --t-slow: 900ms var(--ease);
+}
+
+/* Light theme softens the glass surfaces */
+html[data-theme="light"] {
+  --glass-bg:     rgba(255, 255, 255, 0.75);
+  --glass-stroke: rgba(0, 0, 0, 0.07);
+  --glass-blur:   22px;
+  --shadow-glass: 0 6px 30px -8px rgba(0, 0, 0, 0.08);
+}

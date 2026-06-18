@@ -1,0 +1,71 @@
+/* =========================================================
+   Colors — Marcelo Guzmán GIS Design System
+   Dual theme. DARK is the default (warm near-black + amber gold).
+   LIGHT is achromatic white + a single cool-blue accent.
+   Set the theme with  <html data-theme="dark">  or  data-theme="light".
+   All values are oklch for perceptual consistency.
+   ========================================================= */
+
+:root {
+  /* ---- DARK (default) — "warm dark" ---- */
+
+  /* ink / text */
+  --ink:        oklch(0.94 0.006 50);          /* primary warm off-white   */
+  --ink-dim:    oklch(0.76 0.008 50 / 0.78);   /* secondary body           */
+  --ink-faint:  oklch(0.62 0.006 50 / 0.55);   /* labels, captions, meta   */
+
+  /* rules / hairlines */
+  --rule:       oklch(1 0 0 / 0.10);
+  --rule-soft:  oklch(1 0 0 / 0.055);
+
+  /* surfaces — near-black warm base */
+  --bg-0:       oklch(0.08 0.008 45);          /* page                     */
+  --bg-1:       oklch(0.11 0.009 45);          /* raised panel             */
+  --bg-card:    oklch(0.15 0.008 45 / 0.55);   /* translucent card fill    */
+
+  /* atmospheric aura hues — warm spectrum bands */
+  --spec-azure:   oklch(0.42 0.06 55);
+  --spec-magenta: oklch(0.38 0.06 20);
+  --spec-amber:   oklch(0.60 0.10 62);
+
+  /* accents — amber gold (the single brand accent in dark) */
+  --accent-warm: oklch(0.74 0.12 65);          /* primary accent           */
+  --accent-glow: oklch(0.62 0.08 55);          /* dimmer companion         */
+
+  /* ---- semantic aliases (theme-agnostic names) ---- */
+  --text-strong:   var(--ink);
+  --text-body:     var(--ink-dim);
+  --text-muted:    var(--ink-faint);
+  --surface-page:  var(--bg-0);
+  --surface-raised:var(--bg-1);
+  --surface-card:  var(--bg-card);
+  --border-hair:   var(--rule);
+  --border-faint:  var(--rule-soft);
+  --accent:        var(--accent-warm);
+  --accent-soft:   var(--accent-glow);
+
+  /* on-accent ink — text that sits on a filled accent surface */
+  --on-accent: oklch(0.16 0.04 250);
+}
+
+/* =========================================================
+   LIGHT — achromatic neutrals + one cool-blue accent
+   ========================================================= */
+html[data-theme="light"] {
+  --ink:        oklch(0.10 0 0);
+  --ink-dim:    oklch(0.30 0 0 / 0.75);
+  --ink-faint:  oklch(0.50 0 0 / 0.55);
+
+  --rule:       oklch(0 0 0 / 0.09);
+  --rule-soft:  oklch(0 0 0 / 0.05);
+
+  --bg-0:       oklch(0.982 0 0);
+  --bg-1:       oklch(0.970 0 0);
+  --bg-card:    oklch(1 0 0 / 0.90);
+
+  /* cool-blue accent replaces the amber gold */
+  --accent-warm: oklch(0.48 0.16 242);
+  --accent-glow: oklch(0.60 0.14 238);
+
+  --on-accent: oklch(0.982 0 0);
+}

@@ -1,0 +1,22 @@
+<!-- @dsCard group="Colors" viewport="700x200" name="Accent — amber gold" subtitle="The single brand accent in dark theme" -->
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  body { margin: 0; padding: 26px 30px; display: flex; gap: 16px; align-items: stretch; }
+  .big { flex: 1.4; border-radius: 16px; background: linear-gradient(180deg, oklch(0.78 0.13 75 / 0.95), oklch(0.62 0.18 30 / 0.95)); display: flex; align-items: flex-end; padding: 16px; }
+  .big span { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: oklch(0.16 0.04 250); }
+  .sw { flex: 1; }
+  .chip { height: 88px; border-radius: 14px; border: 1px solid var(--rule); }
+  .name { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); margin-top: 10px; }
+  .val { font-family: var(--font-mono); font-size: 10px; color: var(--ink-faint); margin-top: 2px; }
+</style>
+</head>
+<body>
+  <div class="big"><span>primary gradient · amber → rust</span></div>
+  <div class="sw"><div class="chip" style="background:var(--accent-warm)"></div><div class="name">accent-warm</div><div class="val">L 0.74 · C 0.12 · 65°</div></div>
+  <div class="sw"><div class="chip" style="background:var(--accent-glow)"></div><div class="name">accent-glow</div><div class="val">L 0.62 · C 0.08 · 55°</div></div>
+</body>
+</html>

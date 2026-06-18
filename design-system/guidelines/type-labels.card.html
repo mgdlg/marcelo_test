@@ -1,0 +1,22 @@
+<!-- @dsCard group="Type" viewport="700x180" name="Labels — mono Barlow" subtitle="Wide-tracked uppercase for eyebrows, meta & instrument labels" -->
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  body { margin: 0; padding: 30px 34px; display: flex; flex-direction: column; gap: 22px; }
+  .eyebrow { display:inline-flex; align-items:center; gap:12px; font-family: var(--font-mono); font-size:12px; font-weight:500; letter-spacing:0.28em; text-transform:uppercase; color: var(--ink-faint); }
+  .eyebrow::before { content:""; width:36px; height:1px; background: linear-gradient(90deg, var(--accent-warm), transparent); }
+  .inst { display:inline-flex; align-items:center; gap:12px; font-family: var(--font-mono); font-size:11px; font-weight:500; letter-spacing:0.24em; text-transform:uppercase; color: var(--ink-faint); }
+  .inst::before { content:""; width:32px; height:1px; background: currentColor; opacity:.7; }
+  .inst .n { color: var(--accent-warm); }
+  .meta-row { font-family: var(--font-mono); font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color: var(--ink-faint); }
+</style>
+</head>
+<body>
+  <span class="eyebrow">GIS · Remote Sensing · Environmental Intelligence</span>
+  <span class="inst"><span class="n">03</span>&nbsp;Instrumentation</span>
+  <span class="meta-row">IRCA Consultants · 2025–Present · Project Manager</span>
+</body>
+</html>

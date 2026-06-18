@@ -1,0 +1,24 @@
+<!-- @dsCard group="Spacing" viewport="700x200" name="Spacing scale" subtitle="4px base · used for gaps, padding & section rhythm" -->
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  body { margin: 0; padding: 26px 30px; display: flex; flex-direction: column; gap: 9px; }
+  .row { display: flex; align-items: center; gap: 16px; }
+  .bar { height: 14px; background: linear-gradient(90deg, var(--accent-warm), var(--accent-glow)); border-radius: 3px; }
+  .lab { font-family: var(--font-mono); font-size: 11px; color: var(--ink); width: 130px; }
+  .lab span { color: var(--ink-faint); }
+</style>
+</head>
+<body>
+  <div class="row"><div class="lab">space-2 <span>8</span></div><div class="bar" style="width:8px"></div></div>
+  <div class="row"><div class="lab">space-3 <span>12</span></div><div class="bar" style="width:12px"></div></div>
+  <div class="row"><div class="lab">space-4 <span>16</span></div><div class="bar" style="width:16px"></div></div>
+  <div class="row"><div class="lab">space-5 <span>24</span></div><div class="bar" style="width:24px"></div></div>
+  <div class="row"><div class="lab">space-6 <span>32 · gutter</span></div><div class="bar" style="width:32px"></div></div>
+  <div class="row"><div class="lab">space-7 <span>48</span></div><div class="bar" style="width:48px"></div></div>
+  <div class="row"><div class="lab">space-9 <span>80</span></div><div class="bar" style="width:80px"></div></div>
+</body>
+</html>

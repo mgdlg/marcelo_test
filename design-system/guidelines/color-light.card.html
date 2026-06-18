@@ -1,0 +1,25 @@
+<!-- @dsCard group="Colors" viewport="700x200" name="Light — neutrals & blue" subtitle="Achromatic surfaces with a single cool-blue accent" -->
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  body { margin: 0; padding: 26px 30px; background: var(--bg-0); }
+  .row { display: flex; gap: 14px; }
+  .sw { flex: 1; }
+  .chip { height: 78px; border-radius: 14px; border: 1px solid var(--rule); }
+  .name { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); margin-top: 10px; }
+  .val { font-family: var(--font-mono); font-size: 10px; color: var(--ink-faint); margin-top: 2px; }
+</style>
+</head>
+<body>
+  <div class="row">
+    <div class="sw"><div class="chip" style="background:var(--bg-0)"></div><div class="name">bg-0</div><div class="val">L 0.982</div></div>
+    <div class="sw"><div class="chip" style="background:var(--bg-1)"></div><div class="name">bg-1</div><div class="val">L 0.970</div></div>
+    <div class="sw"><div class="chip" style="background:var(--ink)"></div><div class="name">ink</div><div class="val">L 0.10</div></div>
+    <div class="sw"><div class="chip" style="background:var(--accent-warm)"></div><div class="name">accent</div><div class="val">L 0.48 · 242°</div></div>
+    <div class="sw"><div class="chip" style="background:var(--accent-glow)"></div><div class="name">accent-glow</div><div class="val">L 0.60 · 238°</div></div>
+  </div>
+</body>
+</html>

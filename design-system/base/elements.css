@@ -1,0 +1,106 @@
+/* =========================================================
+   Base elements — Marcelo Guzmán GIS Design System
+   Element-level defaults so raw HTML inherits the brand voice.
+   Tokens come from tokens/*.css.
+   ========================================================= */
+
+* { box-sizing: border-box; }
+
+html {
+  background: var(--bg-0);
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-optical-sizing: auto;
+  font-weight: var(--w-regular);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Body stays transparent so the fixed .substrate (z-index:-3) shows through.
+   When .substrate isn't present, the html background provides the base color. */
+body {
+  background: transparent;
+}
+
+/* ---- headings: Syne display ---- */
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: var(--w-bold);
+  font-style: normal;
+  letter-spacing: var(--ls-display);
+  line-height: var(--lh-tight);
+  color: var(--ink);
+}
+h1 { font-size: var(--fs-h1); margin: 0; }
+h2 { font-size: var(--fs-h2); margin: 0 0 36px; }
+h3 { font-size: var(--fs-h3); margin: 0 0 12px; font-weight: var(--w-semibold); }
+h4 { font-size: var(--fs-h4); margin: 0 0 8px; font-weight: var(--w-semibold); }
+
+/* ---- text ---- */
+p { margin: 0 0 1em; color: var(--ink-dim); max-width: 68ch; }
+a { color: var(--ink); text-decoration: none; transition: color var(--t-fast); }
+a:hover { color: var(--accent-warm); }
+strong, b { color: var(--ink); font-weight: var(--w-medium); }
+em, i { font-style: italic; }
+
+::selection { background: var(--accent-warm); color: var(--on-accent); }
+html[data-theme="light"] ::selection {
+  background: oklch(0.48 0.16 242 / 0.20);
+  color: oklch(0.10 0 0);
+}
+
+/* =========================================================
+   Editorial helper classes (used across the system)
+   ========================================================= */
+
+/* eyebrow — wide-tracked uppercase mono label with a leading rule */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-mono);
+  font-size: var(--fs-eyebrow);
+  font-weight: var(--w-medium);
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin: 0 0 28px;
+}
+.eyebrow::before {
+  content: "";
+  width: 36px;
+  height: 1px;
+  background: linear-gradient(90deg, var(--accent-warm), transparent);
+}
+
+/* lead paragraph — Syne semibold statement */
+.lead {
+  font-family: var(--font-display);
+  font-weight: var(--w-semibold);
+  font-size: var(--fs-lead);
+  line-height: var(--lh-snug);
+  color: var(--ink);
+}
+
+/* serif editorial figure — Instrument Serif italic */
+.serif-figure {
+  font-family: var(--font-serif);
+  font-style: italic;
+  color: var(--ink);
+}
+
+/* section intro — light, wide-measure */
+.section-intro {
+  font-size: var(--fs-intro);
+  font-weight: var(--w-light);
+  line-height: 1.5;
+  color: var(--ink-dim);
+  max-width: 62ch;
+}
