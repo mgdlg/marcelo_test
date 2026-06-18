@@ -38,6 +38,7 @@
   --t-fast: 220ms cubic-bezier(.2,.7,.2,1);
   --t-base: 520ms cubic-bezier(.2,.7,.2,1);
   --t-slow: 900ms cubic-bezier(.2,.7,.2,1);
+  --ease: cubic-bezier(.2,.7,.2,1);
 }
 
 * { box-sizing: border-box; }
@@ -2738,4 +2739,168 @@ html[data-theme="light"] .table-wrapper {
 }
 html[data-theme="light"] .project-table tbody tr:hover {
   background: rgba(0,0,0,0.025);
+}
+
+/* =========================================================
+   ANIMATIONS — Marcelo Guzmán GIS Design System
+   ========================================================= */
+
+/* entrance reveals */
+.fx-rise,
+.fx-fade,
+.fx-blur {
+  animation-duration: 900ms;
+  animation-timing-function: var(--ease, cubic-bezier(.2, .7, .2, 1));
+  animation-fill-mode: both;
+  animation-delay: var(--fx-delay, 0ms);
+}
+.fx-rise { animation-name: ds-rise; }
+.fx-fade { animation-name: ds-fade; }
+.fx-blur { animation-name: ds-blur-in; }
+
+@keyframes ds-rise {
+  from { opacity: 0; transform: translate3d(0, 26px, 0); }
+  to   { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+@keyframes ds-fade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes ds-blur-in {
+  from { opacity: 0; filter: blur(14px); transform: scale(1.02); }
+  to   { opacity: 1; filter: blur(0); transform: scale(1); }
+}
+
+/* media reveal, Ken Burns drift, and hover sheen */
+.media-frame {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.media-frame > img,
+.media-frame > .media-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform-origin: center;
+  transition: transform var(--t-slow, 900ms var(--ease)), filter var(--t-base, 520ms var(--ease));
+  will-change: transform;
+}
+.media-frame.media-kenburns > img,
+.media-frame.media-kenburns > .media-img {
+  animation: ds-kenburns 24s var(--ease, cubic-bezier(.2, .7, .2, 1)) infinite alternate;
+}
+@keyframes ds-kenburns {
+  0%   { transform: scale(1.04) translate3d(0, 0, 0); }
+  100% { transform: scale(1.12) translate3d(-1.5%, -2%, 0); }
+}
+.media-frame:hover > img,
+.media-frame:hover > .media-img {
+  transform: scale(1.07);
+  filter: saturate(1.05) contrast(1.04);
+}
+.media-frame::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -60%;
+  width: 45%;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(105deg, transparent, rgba(255, 255, 255, 0.22), transparent);
+  transform: skewX(-18deg);
+  opacity: 0;
+}
+.media-frame:hover::after {
+  animation: ds-sheen 900ms var(--ease, cubic-bezier(.2, .7, .2, 1));
+}
+@keyframes ds-sheen {
+  0%   { left: -60%; opacity: 0; }
+  18%  { opacity: 1; }
+  100% { left: 130%; opacity: 0; }
+}
+
+/* soft spectral card halo */
+.card-glow {
+  position: relative;
+  transition: transform var(--t-base, 520ms var(--ease));
+}
+.card-glow::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(120% 120% at 50% 0%,
+    oklch(0.74 0.12 65 / 0.45) 0%,
+    oklch(0.58 0.12 30 / 0.18) 38%,
+    transparent 70%);
+  filter: blur(16px);
+  transition: opacity var(--t-base, 520ms var(--ease));
+}
+.card-glow:hover { transform: translateY(-4px); }
+.card-glow:hover::before { opacity: 1; }
+html[data-theme="light"] .card-glow::before {
+  background: radial-gradient(120% 120% at 50% 0%,
+    oklch(0.48 0.16 242 / 0.30) 0%,
+    oklch(0.60 0.14 238 / 0.12) 40%,
+    transparent 70%);
+}
+
+/* button shine; .btn uses ::after for its arrow, so its sweep uses ::before */
+.btn-shine,
+.btn { position: relative; overflow: hidden; }
+.btn-shine:not(.btn)::after,
+.btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  pointer-events: none;
+  background: linear-gradient(105deg, transparent, rgba(255, 255, 255, 0.45), transparent);
+  transform: skewX(-20deg);
+  opacity: 0;
+}
+.btn-shine:not(.btn):hover::after,
+.btn:hover::before {
+  animation: ds-btn-shine 780ms var(--ease, cubic-bezier(.2, .7, .2, 1));
+}
+@keyframes ds-btn-shine {
+  0%   { left: -75%; opacity: 0; }
+  20%  { opacity: 1; }
+  100% { left: 130%; opacity: 0; }
+}
+
+/* glowing marker accent */
+.fx-pulse {
+  animation: ds-pulse 3.4s var(--ease, cubic-bezier(.2, .7, .2, 1)) infinite;
+}
+@keyframes ds-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 oklch(0.74 0.12 65 / 0.45); }
+  50%      { box-shadow: 0 0 14px 2px oklch(0.74 0.12 65 / 0.30); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fx-rise, .fx-fade, .fx-blur,
+  .media-frame.media-kenburns > img,
+  .media-frame.media-kenburns > .media-img,
+  .fx-pulse {
+    animation: none !important;
+  }
+  .fx-rise, .fx-fade, .fx-blur {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+  .media-frame:hover::after,
+  .btn-shine:hover::after,
+  .btn:hover::before {
+    animation: none;
+  }
 }
