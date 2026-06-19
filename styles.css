@@ -2904,3 +2904,34 @@ html[data-theme="light"] .card-glow::before {
     animation: none;
   }
 }
+
+/* =========================================================
+   EMS LIGHT RAYS + ELECTROMAGNETIC DUST  (image-free backdrop)
+   Replaces the legacy spectrum*.png section backgrounds.
+   ========================================================= */
+.ems-bg{position:fixed;inset:0;z-index:-2;pointer-events:none;overflow:hidden}
+.ems-aura{position:absolute;inset:-16%;pointer-events:none;opacity:.1;filter:blur(10px) hue-rotate(var(--ems-shift,0deg));transition:filter 1.1s ease;animation:emsADrift 30s ease-in-out infinite;
+  background:
+    radial-gradient(46% 58% at 0% 34%,  rgba(250,244,250,.20), transparent 60%),
+    radial-gradient(52% 64% at 4% 40%,  hsla(315,46%,78%,.15), transparent 66%),
+    radial-gradient(50% 60% at 100% 18%,rgba(242,247,255,.24), transparent 60%),
+    radial-gradient(56% 66% at 102% 26%,hsla(220,50%,78%,.15), transparent 66%),
+    radial-gradient(42% 52% at 100% 86%,hsla(195,50%,78%,.12), transparent 62%),
+    radial-gradient(78% 52% at 34% -12%,rgba(255,250,246,.20), transparent 60%);}
+.ems-rays{position:absolute;inset:-22%;pointer-events:none;background-size:cover;background-position:center;mix-blend-mode:screen;opacity:.055;filter:blur(24px) brightness(1.18);animation:emsRDrift 36s ease-in-out infinite;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='720' height='480'%3E%3Cfilter id='c'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.010 0.018' numOctaves='3' seed='11' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0.95 0 0 0 -0.2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23c)'/%3E%3C/svg%3E");
+  -webkit-mask-image:radial-gradient(118% 100% at 50% 42%, transparent 28%, #000 86%);
+  mask-image:radial-gradient(118% 100% at 50% 42%, transparent 28%, #000 86%);}
+#ems-dust{position:fixed;inset:0;width:100%;height:100%;display:block;pointer-events:none}
+@keyframes emsADrift{0%{transform:translate(0,0) scale(1)}50%{transform:translate(2%,-1.4%) scale(1.05)}100%{transform:translate(0,0) scale(1)}}
+@keyframes emsRDrift{0%{transform:translate(0,0) scale(1.02)}50%{transform:translate(-2.4%,1.6%) scale(1.08)}100%{transform:translate(0,0) scale(1.02)}}
+.aura{display:none !important;}
+/* light mode: rays become soft cool tints + grey mist; dust flips to dark specks (handled in JS) */
+html[data-theme="light"] .ems-aura{opacity:1;filter:blur(12px) hue-rotate(var(--ems-shift,0deg));
+  background:
+    radial-gradient(52% 62% at 1% 32%, hsla(315,55%,70%,.13), transparent 64%),
+    radial-gradient(54% 64% at 100% 18%, hsla(220,72%,66%,.17), transparent 64%),
+    radial-gradient(46% 56% at 100% 84%, hsla(195,70%,66%,.13), transparent 62%),
+    radial-gradient(72% 50% at 40% -12%, rgba(255,255,255,.55), transparent 60%);}
+html[data-theme="light"] .ems-rays{mix-blend-mode:multiply;opacity:.11;filter:blur(26px) invert(1) brightness(1.1)}
+@media (prefers-reduced-motion:reduce){.ems-aura,.ems-rays{animation:none}}
