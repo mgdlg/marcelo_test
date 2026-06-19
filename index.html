@@ -1615,20 +1615,22 @@
     var now=performance.now();
     shift.cur+=(shift.target-shift.cur)*0.03;
     document.documentElement.style.setProperty("--ems-shift",shift.cur.toFixed(1)+"deg");
-    if(isLight()||document.hidden){ctx.clearRect(0,0,W,H);return schedule();}
-    ctx.clearRect(0,0,W,H);ctx.globalCompositeOperation="lighter";
+    if(document.hidden){ctx.clearRect(0,0,W,H);return schedule();}
+    var lt=isLight();
+    ctx.clearRect(0,0,W,H);ctx.globalCompositeOperation=lt?"source-over":"lighter";
     if(now-ptr.last>140)ptr.spd*=0.9;
-    if(ptr.on){var am=ambient(ptr.x,ptr.y);var g=ctx.createRadialGradient(ptr.x,ptr.y,0,ptr.x,ptr.y,160);g.addColorStop(0,"hsla("+am[0].toFixed(0)+",60%,82%,0.12)");g.addColorStop(1,"hsla("+am[0].toFixed(0)+",60%,82%,0)");ctx.fillStyle=g;ctx.beginPath();ctx.arc(ptr.x,ptr.y,160,0,6.2832);ctx.fill();}
+    if(!lt&&ptr.on){var am=ambient(ptr.x,ptr.y);var g=ctx.createRadialGradient(ptr.x,ptr.y,0,ptr.x,ptr.y,160);g.addColorStop(0,"hsla("+am[0].toFixed(0)+",60%,82%,0.12)");g.addColorStop(1,"hsla("+am[0].toFixed(0)+",60%,82%,0)");ctx.fillStyle=g;ctx.beginPath();ctx.arc(ptr.x,ptr.y,160,0,6.2832);ctx.fill();}
     for(var i=0;i<N;i++){var p=parts[i];
       p.vx+=(Math.random()-0.5)*0.018+Math.sin(now*0.0006+p.ph)*0.006;p.vy+=-0.0055+(Math.random()-0.5)*0.018;
       if(ptr.on){var dx=p.x-ptr.x,dy=p.y-ptr.y,d2=dx*dx+dy*dy,R=150;if(d2<R*R){var d=Math.sqrt(d2)||.01,f=(1-d/R)*(0.5+ptr.spd*0.11);p.vx+=dx/d*f-dy/d*f*0.35;p.vy+=dy/d*f+dx/d*f*0.35;}}
       p.vx*=0.95;p.vy*=0.95;p.x+=p.vx;p.y+=p.vy;
       if(p.y<-14){p.y=H+14;p.x=rnd(0,W);p.vx=rnd(-.1,.1);p.vy=rnd(-.1,.1);}
       if(p.x<-20)p.x=W+20;else if(p.x>W+20)p.x=-20;
-      var am2=ambient(p.x,p.y),tw=0.7+0.3*Math.sin(now*0.002*p.tw+p.ph),b=(0.12+0.88*am2[1])*tw;
-      if(b<=0.02)continue;
-      var h=(am2[0]+p.off+360)%360,sat=(26+am2[1]*40).toFixed(0);
-      ctx.fillStyle="hsla("+h.toFixed(0)+","+sat+"%,82%,"+Math.min(0.98,b).toFixed(3)+")";
+      var am2=ambient(p.x,p.y),tw=0.7+0.3*Math.sin(now*0.002*p.tw+p.ph),inten=(0.12+0.88*am2[1])*tw;
+      if(inten<=0.02)continue;
+      var h=(am2[0]+p.off+360)%360;
+      if(lt){var sa=(28+am2[1]*34).toFixed(0),al=Math.min(0.42,inten*0.5).toFixed(3);ctx.fillStyle="hsla("+h.toFixed(0)+","+sa+"%,44%,"+al+")";}
+      else{var sd=(26+am2[1]*40).toFixed(0);ctx.fillStyle="hsla("+h.toFixed(0)+","+sd+"%,82%,"+Math.min(0.98,inten).toFixed(3)+")";}
       ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,6.2832);ctx.fill();
     }
     schedule();
