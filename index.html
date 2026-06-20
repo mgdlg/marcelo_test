@@ -31,7 +31,7 @@
     <canvas id="ems-dust"></canvas>
   </div>
   <!-- ==========================================================
-       Satellites over North America — full-bleed real-time ground-track map
+       Satellites over the United States — full-bleed real-time ground-track map
        ========================================================== -->
   <div class="sky-bg" aria-hidden="true"><svg id="sky-dome"></svg></div>
 
@@ -1652,9 +1652,9 @@
   var svg=document.getElementById('sky-dome');if(!svg)return;
   var DEG=Math.PI/180,Re=6371,mu=398600.4418,SPEED=8;
   var LAT=25.6866,LON=-100.3161,ALT=0.54,obsGd={longitude:LON*DEG,latitude:LAT*DEG,height:ALT};
-  // Field of view: a continental "satellites over North America" window — on the order of 100x the
-  // footprint of the old local sky-dome over Monterrey, so several satellites are in view at once.
-  var LON0=-168,LON1=-52,LAT0=8,LAT1=72,MLON=10,MLAT=6;
+  // Field of view: a "satellites over the United States" window (continental US). Monterrey sits near
+  // the southern edge and stays marked, keeping the local tie-in while the smaller area cuts clutter.
+  var LON0=-126,LON1=-66,LAT0=23,LAT1=50,MLON=4,MLAT=3;
   // Analytic fallback constellation; sub-satellite point is derived from the orbital elements.
   var SIM=(function(){
     var nm=['LANDSAT 8','LANDSAT 9','SENTINEL-2A','SENTINEL-2B','SENTINEL-1A','SENTINEL-3A','TERRA','AQUA','WORLDVIEW-2','WORLDVIEW-3','GEOEYE-1','SPOT-6','SPOT-7','PLEIADES NEO 3','PLEIADES NEO 4','ICEYE-X12','SKYSAT-C11','RADARSAT-2','NOAA-20','NOAA-21','METOP-B','METOP-C','SUOMI NPP','JASON-3','SARAL','CARTOSAT-3','KOMPSAT-3A','GCOM-W1','RESOURCESAT-2A','PROBA-V','SMAP','CBERS-4A'];
@@ -1683,8 +1683,8 @@
   function inBox(ll){return ll.lon>=LON0-MLON&&ll.lon<=LON1+MLON&&ll.lat>=LAT0-MLAT&&ll.lat<=LAT1+MLAT;}
   function simDate(){return new Date(t0+(Date.now()-t0)*SPEED);}
   function buildGrid(){while(grid.firstChild)grid.removeChild(grid.firstChild);var p=pal();
-    for(var la=LAT0;la<=LAT1+0.001;la+=16){var a=proj(la,LON0),b=proj(la,LON1);grid.appendChild(E('line',{x1:a[0].toFixed(1),y1:a[1].toFixed(1),x2:b[0].toFixed(1),y2:b[1].toFixed(1),stroke:p.line,'stroke-width':0.7}));}
-    for(var lo=LON0;lo<=LON1+0.001;lo+=20){var c=proj(LAT0,lo),d=proj(LAT1,lo);grid.appendChild(E('line',{x1:c[0].toFixed(1),y1:c[1].toFixed(1),x2:d[0].toFixed(1),y2:d[1].toFixed(1),stroke:p.line,'stroke-width':0.7}));}
+    for(var la=LAT0;la<=LAT1+0.001;la+=5){var a=proj(la,LON0),b=proj(la,LON1);grid.appendChild(E('line',{x1:a[0].toFixed(1),y1:a[1].toFixed(1),x2:b[0].toFixed(1),y2:b[1].toFixed(1),stroke:p.line,'stroke-width':0.7}));}
+    for(var lo=LON0;lo<=LON1+0.001;lo+=10){var c=proj(LAT0,lo),d=proj(LAT1,lo);grid.appendChild(E('line',{x1:c[0].toFixed(1),y1:c[1].toFixed(1),x2:d[0].toFixed(1),y2:d[1].toFixed(1),stroke:p.line,'stroke-width':0.7}));}
     var m=proj(LAT,LON);
     grid.appendChild(E('circle',{cx:m[0].toFixed(1),cy:m[1].toFixed(1),r:8,fill:'none',stroke:p.ic,'stroke-width':0.8,'stroke-opacity':0.45}));
     grid.appendChild(E('circle',{cx:m[0].toFixed(1),cy:m[1].toFixed(1),r:2.6,fill:p.ic}));
