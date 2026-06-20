@@ -1650,13 +1650,13 @@
   <script>
 (function(){
   var svg=document.getElementById('sky-dome');if(!svg)return;
-  var DEG=Math.PI/180,Re=6371,mu=398600.4418,SPEED=3;
+  var DEG=Math.PI/180,Re=6371,mu=398600.4418,SPEED=4;
   // Field of view: a circular azimuthal-equidistant disk centered on the continental US — looking
   // straight down through a round window. Satellites and cities are plotted by bearing + great-circle
   // distance from the center; anything beyond CMAX degrees of center is off the disk and hidden.
   var CLAT=39.8,CLON=-98.6,CMAX=26;
   // Reference cities (lat/lon) spread across the map: two West Coast, one East Coast.
-  var CITIES=[{n:'SEATTLE',lat:47.61,lon:-122.33},{n:'LOS ANGELES',lat:34.05,lon:-118.24},{n:'NEW YORK',lat:40.71,lon:-74.01}];
+  var CITIES=[{n:'SEA',lat:47.61,lon:-122.33},{n:'LA',lat:34.05,lon:-118.24},{n:'NY',lat:40.71,lon:-74.01}];
   // Analytic fallback constellation; sub-satellite point is derived from the orbital elements.
   var SIM=(function(){
     var nm=['LANDSAT 8','LANDSAT 9','SENTINEL-2A','SENTINEL-2B','SENTINEL-1A','SENTINEL-3A','TERRA','AQUA','WORLDVIEW-2','WORLDVIEW-3','GEOEYE-1','SPOT-6','SPOT-7','PLEIADES NEO 3','PLEIADES NEO 4','ICEYE-X12','SKYSAT-C11','RADARSAT-2','NOAA-20','NOAA-21','METOP-B','METOP-C','SUOMI NPP','JASON-3','SARAL','CARTOSAT-3','KOMPSAT-3A','GCOM-W1','RESOURCESAT-2A','PROBA-V','SMAP','CBERS-4A'];
@@ -1688,7 +1688,6 @@
     [['N',0],['E',90],['S',180],['W',270]].forEach(function(d){var an=d[1]*DEG,lx=cx+(R+16)*Math.sin(an),ly=cy-(R+16)*Math.cos(an);var t=E('text',{x:lx.toFixed(1),y:(ly+4).toFixed(1),'text-anchor':'middle','font-family':'ui-monospace,monospace','font-size':11,fill:p.txt});t.textContent=d[0];grid.appendChild(t);});
     grid.appendChild(E('circle',{cx:cx,cy:cy,r:2,fill:p.txt}));
     CITIES.forEach(function(ct){var m=proj(ct.lat,ct.lon);if(m[2]>CMAX)return;var rt=m[0]>cx;
-      grid.appendChild(E('circle',{cx:m[0].toFixed(1),cy:m[1].toFixed(1),r:8,fill:'none',stroke:p.ic,'stroke-width':0.8,'stroke-opacity':0.45}));
       grid.appendChild(E('circle',{cx:m[0].toFixed(1),cy:m[1].toFixed(1),r:2.6,fill:p.ic}));
       var t=E('text',{x:(m[0]+(rt?-12:12)).toFixed(1),y:(m[1]+4).toFixed(1),'text-anchor':rt?'end':'start','font-family':'ui-monospace,monospace','font-size':11,fill:p.txt});t.textContent=ct.n;grid.appendChild(t);});}
   function buildSat(s){var p=pal();
