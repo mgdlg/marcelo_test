@@ -414,19 +414,24 @@ em, i { font-style: italic; }
 }
 /* Hero scrim: softly washes the satellite backdrop behind the hero copy so the text reads
    cleanly. Sits above the fixed background (z-index:-1) and below the hero content (z-index:1).
-   Uses the themed page color so it fades seamlessly into the surface in both light and dark. */
+   Bottom is inset by the hero's bottom padding (120px) so the scrim ends right below the skill
+   ticker bar. Colour is the exact --bg-0 page base per theme, so it melts into the surface. */
 .hero::before {
   content: "";
   position: absolute;
-  inset: 0;
+  inset: 0 0 120px 0;
   z-index: 0;
   pointer-events: none;
   background: radial-gradient(130% 100% at 30% 48%,
-    rgba(13,12,10,0.96) 0%, rgba(13,12,10,0.76) 40%, rgba(13,12,10,0) 72%);
+    oklch(0.08 0.008 45) 0%,
+    oklch(0.08 0.008 45 / 0.76) 40%,
+    oklch(0.08 0.008 45 / 0) 72%);
 }
 html[data-theme="light"] .hero::before {
   background: radial-gradient(130% 100% at 30% 48%,
-    rgba(249,249,249,0.97) 0%, rgba(249,249,249,0.80) 40%, rgba(249,249,249,0) 72%);
+    oklch(0.982 0 0) 0%,
+    oklch(0.982 0 0 / 0.80) 40%,
+    oklch(0.982 0 0 / 0) 72%);
 }
 
 .hero-grid {
