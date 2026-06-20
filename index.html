@@ -28,9 +28,13 @@
        ========================================================== -->
   <div class="ems-bg" aria-hidden="true">
     <div class="ems-aura"></div>
-    <div class="ems-rays"></div>
     <canvas id="ems-dust"></canvas>
   </div>
+  <!-- ==========================================================
+       Satellites over North America — full-bleed real-time ground-track map
+       ========================================================== -->
+  <div class="sky-bg" aria-hidden="true"><svg id="sky-dome"></svg></div>
+
 
   <div class="grain" aria-hidden="true"></div>
 
@@ -1600,7 +1604,8 @@
   var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches;
   var ptr={x:-9999,y:-9999,spd:0,on:false,last:0};
   var shift={cur:0,target:0};
-  var AUR=[{x:.07,y:.30,h:312,s:1.0,r:.42},{x:-.02,y:.74,h:280,s:.8,r:.40},{x:1.0,y:.22,h:222,s:1.0,r:.46},{x:1.02,y:.82,h:190,s:.9,r:.42},{x:.5,y:-.06,h:44,s:.45,r:.52},{x:.5,y:1.06,h:165,s:.4,r:.52}];
+  /* Peripheral (edge) light sources removed; only the top "sunshine" + a soft bottom uplight remain. */
+  var AUR=[{x:.5,y:-.06,h:44,s:.55,r:.56},{x:.5,y:1.06,h:165,s:.42,r:.54}];
   var HUEMAP={top:0,about:-12,awards:-24,skills:-34,featured:16,projects:-52,references:36,experience:64,education:88,video:116,contact:150,"full-portfolio":150};
   function rnd(a,b){return a+Math.random()*(b-a);}
   function isLight(){return document.documentElement.getAttribute("data-theme")==="light";}
@@ -1628,16 +1633,94 @@
       if(p.x<-20)p.x=W+20;else if(p.x>W+20)p.x=-20;
       var am2=ambient(p.x,p.y),tw=0.7+0.3*Math.sin(now*0.002*p.tw+p.ph),inten=(0.12+0.88*am2[1])*tw;
       if(inten<=0.02)continue;
-      var h=(am2[0]+p.off+360)%360;
-      if(lt){var sa=(28+am2[1]*34).toFixed(0),al=Math.min(0.42,inten*0.5).toFixed(3);ctx.fillStyle="hsla("+h.toFixed(0)+","+sa+"%,44%,"+al+")";}
+      var h=(am2[0]+p.off+360)%360,dr=p.r;
+      if(lt){var sa=(32+am2[1]*38).toFixed(0),al=Math.min(0.66,0.18+inten*0.72).toFixed(3);dr=p.r*2.3;ctx.fillStyle="hsla("+h.toFixed(0)+","+sa+"%,28%,"+al+")";}
       else{var sd=(26+am2[1]*40).toFixed(0);ctx.fillStyle="hsla("+h.toFixed(0)+","+sd+"%,82%,"+Math.min(0.98,inten).toFixed(3)+")";}
-      ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,6.2832);ctx.fill();
+      ctx.beginPath();ctx.arc(p.x,p.y,dr,0,6.2832);ctx.fill();
     }
     schedule();
   }
   if("IntersectionObserver" in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){var id=e.target.id;if(id in HUEMAP)shift.target=HUEMAP[id];}});},{threshold:0.5});document.querySelectorAll("section[id]").forEach(function(s){io.observe(s);});}
   window.addEventListener("resize",resize);
   resize();frame();
+})();
+
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/satellite.js/5.0.0/satellite.min.js"></script>
+  <script>
+(function(){
+  var svg=document.getElementById('sky-dome');if(!svg)return;
+  var DEG=Math.PI/180,Re=6371,mu=398600.4418,SPEED=8;
+  var LAT=25.6866,LON=-100.3161,ALT=0.54,obsGd={longitude:LON*DEG,latitude:LAT*DEG,height:ALT};
+  // Field of view: a continental "satellites over North America" window — on the order of 100x the
+  // footprint of the old local sky-dome over Monterrey, so several satellites are in view at once.
+  var LON0=-168,LON1=-52,LAT0=8,LAT1=72,MLON=10,MLAT=6;
+  // Analytic fallback constellation; sub-satellite point is derived from the orbital elements.
+  var SIM=(function(){
+    var nm=['LANDSAT 8','LANDSAT 9','SENTINEL-2A','SENTINEL-2B','SENTINEL-1A','SENTINEL-3A','TERRA','AQUA','WORLDVIEW-2','WORLDVIEW-3','GEOEYE-1','SPOT-6','SPOT-7','PLEIADES NEO 3','PLEIADES NEO 4','ICEYE-X12','SKYSAT-C11','RADARSAT-2','NOAA-20','NOAA-21','METOP-B','METOP-C','SUOMI NPP','JASON-3','SARAL','CARTOSAT-3','KOMPSAT-3A','GCOM-W1','RESOURCESAT-2A','PROBA-V','SMAP','CBERS-4A'];
+    var a=[];for(var i=0;i<nm.length;i++){a.push({n:nm[i],alt:500+((i*97)%420),inc:97.4+(i%5)*0.45,raan:(i*53)%360,M0:(i*137.50776)%360});}
+    return a;
+  })();
+  var NS='http://www.w3.org/2000/svg',MODE='sim';
+  var grid=document.createElementNS(NS,'g'),trails=document.createElementNS(NS,'g'),icons=document.createElementNS(NS,'g');
+  svg.appendChild(grid);svg.appendChild(trails);svg.appendChild(icons);
+  var W=0,H=0,sats=[],t0=Date.now();
+  function isLight(){return document.documentElement.getAttribute('data-theme')==='light';}
+  function pal(){return isLight()
+    ?{line:'rgba(20,30,55,.10)',line0:'rgba(20,30,55,.18)',txt:'#6a7088',ic:'#b9781f',pan:'#e6ecf5',trail:'#2f9e96',tag:'rgba(255,255,255,.7)',tagln:'rgba(40,55,90,.25)',tt:'#26303f'}
+    :{line:'rgba(255,255,255,.08)',line0:'rgba(255,255,255,.16)',txt:'#6a6f84',ic:'#e6a23c',pan:'#1d2233',trail:'#6fd0c8',tag:'rgba(12,14,22,.7)',tagln:'rgba(230,162,60,.3)',tt:'#eef0f6'};}
+  function E(t,a){var e=document.createElementNS(NS,t);for(var k in a)e.setAttribute(k,a[k]);return e;}
+  function gmst(d){var jd=d/86400000+2440587.5,T=(jd-2451545)/36525,g=280.46061837+360.98564736629*(jd-2451545)+0.000387933*T*T-T*T*T/38710000;return ((g%360+360)%360)*DEG;}
+  function simSub(s,date){var sec=date.getTime()/1000,a=Re+s.alt,P=2*Math.PI*Math.sqrt(a*a*a/mu),u=s.M0*DEG+2*Math.PI*sec/P,i=s.inc*DEG,O=s.raan*DEG;
+    var xo=Math.cos(u),yo=Math.sin(u),x1=xo,y1=yo*Math.cos(i),z1=yo*Math.sin(i);
+    var X=x1*Math.cos(O)-y1*Math.sin(O),Y=x1*Math.sin(O)+y1*Math.cos(O),Z=z1;
+    var lon=((Math.atan2(Y,X)-gmst(date.getTime()))/DEG+540)%360-180;
+    var lat=Math.asin(Z/Math.sqrt(X*X+Y*Y+Z*Z))/DEG;
+    return{lat:lat,lon:lon};}
+  function realSub(rec,date){try{var pv=satellite.propagate(rec,date);if(!pv||!pv.position)return null;var gd=satellite.eciToGeodetic(pv.position,satellite.gstime(date));return{lat:satellite.degreesLat(gd.latitude),lon:satellite.degreesLong(gd.longitude)};}catch(e){return null;}}
+  function sub(s,date){return MODE==='real'?realSub(s.rec,date):simSub(s,date);}
+  function proj(lat,lon){return[(lon-LON0)/(LON1-LON0)*W,(LAT1-lat)/(LAT1-LAT0)*H];}
+  function inBox(ll){return ll.lon>=LON0-MLON&&ll.lon<=LON1+MLON&&ll.lat>=LAT0-MLAT&&ll.lat<=LAT1+MLAT;}
+  function simDate(){return new Date(t0+(Date.now()-t0)*SPEED);}
+  function buildGrid(){while(grid.firstChild)grid.removeChild(grid.firstChild);var p=pal();
+    for(var la=LAT0;la<=LAT1+0.001;la+=16){var a=proj(la,LON0),b=proj(la,LON1);grid.appendChild(E('line',{x1:a[0].toFixed(1),y1:a[1].toFixed(1),x2:b[0].toFixed(1),y2:b[1].toFixed(1),stroke:p.line,'stroke-width':0.7}));}
+    for(var lo=LON0;lo<=LON1+0.001;lo+=20){var c=proj(LAT0,lo),d=proj(LAT1,lo);grid.appendChild(E('line',{x1:c[0].toFixed(1),y1:c[1].toFixed(1),x2:d[0].toFixed(1),y2:d[1].toFixed(1),stroke:p.line,'stroke-width':0.7}));}
+    var m=proj(LAT,LON);
+    grid.appendChild(E('circle',{cx:m[0].toFixed(1),cy:m[1].toFixed(1),r:8,fill:'none',stroke:p.ic,'stroke-width':0.8,'stroke-opacity':0.45}));
+    grid.appendChild(E('circle',{cx:m[0].toFixed(1),cy:m[1].toFixed(1),r:2.6,fill:p.ic}));
+    var t=E('text',{x:(m[0]+12).toFixed(1),y:(m[1]+4).toFixed(1),'font-family':'ui-monospace,monospace','font-size':11,fill:p.txt});t.textContent='MONTERREY';grid.appendChild(t);}
+  function buildSat(s){var p=pal();
+    s.trail=E('polyline',{fill:'none',stroke:p.trail,'stroke-width':1.1,'stroke-opacity':.5,'stroke-linejoin':'round'});trails.appendChild(s.trail);
+    var g=document.createElementNS(NS,'g');
+    g.appendChild(E('rect',{x:-6,y:-3.2,width:12,height:6.4,rx:1.4,fill:p.ic}));
+    g.appendChild(E('rect',{x:-14,y:-3.6,width:6,height:7.2,rx:1,fill:p.pan,stroke:p.ic,'stroke-width':.8}));
+    g.appendChild(E('rect',{x:8,y:-3.6,width:6,height:7.2,rx:1,fill:p.pan,stroke:p.ic,'stroke-width':.8}));
+    var tw=s.n.length*6+10;
+    g.appendChild(E('rect',{x:-20-tw,y:-8,width:tw,height:16,rx:8,fill:p.tag,stroke:p.tagln,'stroke-width':.8}));
+    var tx=E('text',{x:-20-tw/2,y:3.4,'text-anchor':'middle','font-family':'ui-monospace,monospace','font-size':9.5,fill:p.tt});tx.textContent=s.n;
+    g.appendChild(tx);s.g=g;s.tx=tx;icons.appendChild(g);}
+  function retheme(){buildGrid();var p=pal();sats.forEach(function(s){s.trail.setAttribute('stroke',p.trail);var c=s.g.childNodes;c[0].setAttribute('fill',p.ic);c[1].setAttribute('fill',p.pan);c[1].setAttribute('stroke',p.ic);c[2].setAttribute('fill',p.pan);c[2].setAttribute('stroke',p.ic);c[3].setAttribute('fill',p.tag);c[3].setAttribute('stroke',p.tagln);s.tx.setAttribute('fill',p.tt);});}
+  function resize(){W=window.innerWidth;H=window.innerHeight;svg.setAttribute('viewBox','0 0 '+W+' '+H);buildGrid();}
+  function tick(){var date=simDate();
+    for(var k=0;k<sats.length;k++){var s=sats[k];var ll=sub(s,date);
+      if(ll&&inBox(ll)){var pp=proj(ll.lat,ll.lon);s.g.setAttribute('transform','translate('+pp[0].toFixed(1)+','+pp[1].toFixed(1)+')');s.g.style.display='';}
+      else{s.g.style.display='none';}
+      var pts='';for(var m=0;m<=40;m++){var lo=sub(s,new Date(date.getTime()-m*45000));if(!lo||!inBox(lo))break;var q=proj(lo.lat,lo.lon);pts=q[0].toFixed(1)+','+q[1].toFixed(1)+' '+pts;}
+      s.trail.setAttribute('points',pts.trim());}}
+  function startSim(){MODE='sim';SIM.forEach(function(s){sats.push(s);buildSat(s);});}
+  function startReal(list){MODE='real';for(var i=0;i<list.length;i++){var rec=satellite.twoline2satrec(list[i].l1,list[i].l2);if(rec&&!rec.error){var o={n:list[i].n,rec:rec};sats.push(o);buildSat(o);}}if(sats.length<3){sats.length=0;while(icons.firstChild)icons.removeChild(icons.firstChild);while(trails.firstChild)trails.removeChild(trails.firstChild);startSim();}}
+  function parseTLE(txt){var L=txt.split(/\r?\n/),out=[];for(var i=0;i+2<L.length;i+=3){var nm=(L[i]||'').trim();if(!nm)continue;if(L[i+1]&&L[i+1].charAt(0)==='1'&&L[i+2]&&L[i+2].charAt(0)==='2')out.push({n:nm,l1:L[i+1],l2:L[i+2]});if(out.length>=80)break;}return out;}
+  resize();window.addEventListener('resize',resize);
+  new MutationObserver(retheme).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+  function go(){
+    if(typeof satellite==='undefined'){startSim();}
+    else{var ctrl=new AbortController(),to=setTimeout(function(){ctrl.abort();},6000);
+      fetch('https://celestrak.org/NORAD/elements/gp.php?GROUP=resource&FORMAT=tle',{signal:ctrl.signal})
+        .then(function(r){return r.text();}).then(function(t){clearTimeout(to);var list=parseTLE(t);if(list.length>=3){startReal(list);}else{startSim();}})
+        .catch(function(){clearTimeout(to);startSim();});}
+    setInterval(tick,1000);tick();
+  }
+  go();
 })();
 
   </script>
