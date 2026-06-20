@@ -31,7 +31,7 @@
     <canvas id="ems-dust"></canvas>
   </div>
   <!-- ==========================================================
-       Satellites over North America — full-bleed real-time ground-track map
+       Satellites over the United States — full-bleed real-time azimuthal disk
        ========================================================== -->
   <div class="sky-bg" aria-hidden="true"><svg id="sky-dome"></svg></div>
 
@@ -1650,11 +1650,13 @@
   <script>
 (function(){
   var svg=document.getElementById('sky-dome');if(!svg)return;
-  var DEG=Math.PI/180,Re=6371,mu=398600.4418,SPEED=8;
-  var LAT=25.6866,LON=-100.3161,ALT=0.54,obsGd={longitude:LON*DEG,latitude:LAT*DEG,height:ALT};
-  // Field of view: a continental "satellites over North America" window — on the order of 100x the
-  // footprint of the old local sky-dome over Monterrey, so several satellites are in view at once.
-  var LON0=-168,LON1=-52,LAT0=8,LAT1=72,MLON=10,MLAT=6;
+  var DEG=Math.PI/180,Re=6371,mu=398600.4418,SPEED=4;
+  // Field of view: a circular azimuthal-equidistant disk centered on the continental US — looking
+  // straight down through a round window. Satellites and cities are plotted by bearing + great-circle
+  // distance from the center; anything beyond CMAX degrees of center is off the disk and hidden.
+  var CLAT=39.8,CLON=-98.6,CMAX=26;
+  // Reference cities (lat/lon) spread across the map: two West Coast, one East Coast.
+  var CITIES=[{n:'SEA',lat:47.61,lon:-122.33},{n:'LA',lat:34.05,lon:-118.24},{n:'NY',lat:40.71,lon:-74.01}];
   // Analytic fallback constellation; sub-satellite point is derived from the orbital elements.
   var SIM=(function(){
     var nm=['LANDSAT 8','LANDSAT 9','SENTINEL-2A','SENTINEL-2B','SENTINEL-1A','SENTINEL-3A','TERRA','AQUA','WORLDVIEW-2','WORLDVIEW-3','GEOEYE-1','SPOT-6','SPOT-7','PLEIADES NEO 3','PLEIADES NEO 4','ICEYE-X12','SKYSAT-C11','RADARSAT-2','NOAA-20','NOAA-21','METOP-B','METOP-C','SUOMI NPP','JASON-3','SARAL','CARTOSAT-3','KOMPSAT-3A','GCOM-W1','RESOURCESAT-2A','PROBA-V','SMAP','CBERS-4A'];
@@ -1664,7 +1666,7 @@
   var NS='http://www.w3.org/2000/svg',MODE='sim';
   var grid=document.createElementNS(NS,'g'),trails=document.createElementNS(NS,'g'),icons=document.createElementNS(NS,'g');
   svg.appendChild(grid);svg.appendChild(trails);svg.appendChild(icons);
-  var W=0,H=0,sats=[],t0=Date.now();
+  var W=0,H=0,cx=0,cy=0,R=0,sats=[],t0=Date.now();
   function isLight(){return document.documentElement.getAttribute('data-theme')==='light';}
   function pal(){return isLight()
     ?{line:'rgba(20,30,55,.10)',line0:'rgba(20,30,55,.18)',txt:'#6a7088',ic:'#b9781f',pan:'#e6ecf5',trail:'#2f9e96',tag:'rgba(255,255,255,.7)',tagln:'rgba(40,55,90,.25)',tt:'#26303f'}
@@ -1679,16 +1681,15 @@
     return{lat:lat,lon:lon};}
   function realSub(rec,date){try{var pv=satellite.propagate(rec,date);if(!pv||!pv.position)return null;var gd=satellite.eciToGeodetic(pv.position,satellite.gstime(date));return{lat:satellite.degreesLat(gd.latitude),lon:satellite.degreesLong(gd.longitude)};}catch(e){return null;}}
   function sub(s,date){return MODE==='real'?realSub(s.rec,date):simSub(s,date);}
-  function proj(lat,lon){return[(lon-LON0)/(LON1-LON0)*W,(LAT1-lat)/(LAT1-LAT0)*H];}
-  function inBox(ll){return ll.lon>=LON0-MLON&&ll.lon<=LON1+MLON&&ll.lat>=LAT0-MLAT&&ll.lat<=LAT1+MLAT;}
+  function proj(lat,lon){var f1=CLAT*DEG,f=lat*DEG,dl=(lon-CLON)*DEG,cc=Math.sin(f1)*Math.sin(f)+Math.cos(f1)*Math.cos(f)*Math.cos(dl);cc=cc>1?1:(cc<-1?-1:cc);var c=Math.acos(cc)/DEG,th=Math.atan2(Math.sin(dl)*Math.cos(f),Math.cos(f1)*Math.sin(f)-Math.sin(f1)*Math.cos(f)*Math.cos(dl)),r=R*c/CMAX;return[cx+r*Math.sin(th),cy-r*Math.cos(th),c];}
   function simDate(){return new Date(t0+(Date.now()-t0)*SPEED);}
   function buildGrid(){while(grid.firstChild)grid.removeChild(grid.firstChild);var p=pal();
-    for(var la=LAT0;la<=LAT1+0.001;la+=16){var a=proj(la,LON0),b=proj(la,LON1);grid.appendChild(E('line',{x1:a[0].toFixed(1),y1:a[1].toFixed(1),x2:b[0].toFixed(1),y2:b[1].toFixed(1),stroke:p.line,'stroke-width':0.7}));}
-    for(var lo=LON0;lo<=LON1+0.001;lo+=20){var c=proj(LAT0,lo),d=proj(LAT1,lo);grid.appendChild(E('line',{x1:c[0].toFixed(1),y1:c[1].toFixed(1),x2:d[0].toFixed(1),y2:d[1].toFixed(1),stroke:p.line,'stroke-width':0.7}));}
-    var m=proj(LAT,LON);
-    grid.appendChild(E('circle',{cx:m[0].toFixed(1),cy:m[1].toFixed(1),r:8,fill:'none',stroke:p.ic,'stroke-width':0.8,'stroke-opacity':0.45}));
-    grid.appendChild(E('circle',{cx:m[0].toFixed(1),cy:m[1].toFixed(1),r:2.6,fill:p.ic}));
-    var t=E('text',{x:(m[0]+12).toFixed(1),y:(m[1]+4).toFixed(1),'font-family':'ui-monospace,monospace','font-size':11,fill:p.txt});t.textContent='MONTERREY';grid.appendChild(t);}
+    [1/3,2/3,1].forEach(function(fr,idx){grid.appendChild(E('circle',{cx:cx,cy:cy,r:(R*fr).toFixed(1),fill:'none',stroke:idx===2?p.line0:p.line,'stroke-width':idx===2?1:0.7}));});
+    [['N',0],['E',90],['S',180],['W',270]].forEach(function(d){var an=d[1]*DEG,lx=cx+(R+16)*Math.sin(an),ly=cy-(R+16)*Math.cos(an);var t=E('text',{x:lx.toFixed(1),y:(ly+4).toFixed(1),'text-anchor':'middle','font-family':'ui-monospace,monospace','font-size':11,fill:p.txt});t.textContent=d[0];grid.appendChild(t);});
+    grid.appendChild(E('circle',{cx:cx,cy:cy,r:2,fill:p.txt}));
+    CITIES.forEach(function(ct){var m=proj(ct.lat,ct.lon);if(m[2]>CMAX)return;var rt=m[0]>cx;
+      grid.appendChild(E('circle',{cx:m[0].toFixed(1),cy:m[1].toFixed(1),r:2.6,fill:p.ic}));
+      var t=E('text',{x:(m[0]+(rt?-12:12)).toFixed(1),y:(m[1]+4).toFixed(1),'text-anchor':rt?'end':'start','font-family':'ui-monospace,monospace','font-size':11,fill:p.txt});t.textContent=ct.n;grid.appendChild(t);});}
   function buildSat(s){var p=pal();
     s.trail=E('polyline',{fill:'none',stroke:p.trail,'stroke-width':1.1,'stroke-opacity':.5,'stroke-linejoin':'round'});trails.appendChild(s.trail);
     var g=document.createElementNS(NS,'g');
@@ -1700,12 +1701,12 @@
     var tx=E('text',{x:-20-tw/2,y:3.4,'text-anchor':'middle','font-family':'ui-monospace,monospace','font-size':9.5,fill:p.tt});tx.textContent=s.n;
     g.appendChild(tx);s.g=g;s.tx=tx;icons.appendChild(g);}
   function retheme(){buildGrid();var p=pal();sats.forEach(function(s){s.trail.setAttribute('stroke',p.trail);var c=s.g.childNodes;c[0].setAttribute('fill',p.ic);c[1].setAttribute('fill',p.pan);c[1].setAttribute('stroke',p.ic);c[2].setAttribute('fill',p.pan);c[2].setAttribute('stroke',p.ic);c[3].setAttribute('fill',p.tag);c[3].setAttribute('stroke',p.tagln);s.tx.setAttribute('fill',p.tt);});}
-  function resize(){W=window.innerWidth;H=window.innerHeight;svg.setAttribute('viewBox','0 0 '+W+' '+H);buildGrid();}
+  function resize(){W=window.innerWidth;H=window.innerHeight;cx=W/2;cy=H/2;R=Math.min(W,H)*0.44;svg.setAttribute('viewBox','0 0 '+W+' '+H);buildGrid();}
   function tick(){var date=simDate();
-    for(var k=0;k<sats.length;k++){var s=sats[k];var ll=sub(s,date);
-      if(ll&&inBox(ll)){var pp=proj(ll.lat,ll.lon);s.g.setAttribute('transform','translate('+pp[0].toFixed(1)+','+pp[1].toFixed(1)+')');s.g.style.display='';}
+    for(var k=0;k<sats.length;k++){var s=sats[k];var ll=sub(s,date);var pp=ll?proj(ll.lat,ll.lon):null;
+      if(pp&&pp[2]<=CMAX){s.g.setAttribute('transform','translate('+pp[0].toFixed(1)+','+pp[1].toFixed(1)+')');s.g.style.display='';}
       else{s.g.style.display='none';}
-      var pts='';for(var m=0;m<=40;m++){var lo=sub(s,new Date(date.getTime()-m*45000));if(!lo||!inBox(lo))break;var q=proj(lo.lat,lo.lon);pts=q[0].toFixed(1)+','+q[1].toFixed(1)+' '+pts;}
+      var pts='';for(var m=0;m<=40;m++){var lo=sub(s,new Date(date.getTime()-m*45000));if(!lo)break;var q=proj(lo.lat,lo.lon);if(q[2]>CMAX)break;pts=q[0].toFixed(1)+','+q[1].toFixed(1)+' '+pts;}
       s.trail.setAttribute('points',pts.trim());}}
   function startSim(){MODE='sim';SIM.forEach(function(s){sats.push(s);buildSat(s);});}
   function startReal(list){MODE='real';for(var i=0;i<list.length;i++){var rec=satellite.twoline2satrec(list[i].l1,list[i].l2);if(rec&&!rec.error){var o={n:list[i].n,rec:rec};sats.push(o);buildSat(o);}}if(sats.length<3){sats.length=0;while(icons.firstChild)icons.removeChild(icons.firstChild);while(trails.firstChild)trails.removeChild(trails.firstChild);startSim();}}
