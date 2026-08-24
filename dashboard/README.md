@@ -16,6 +16,11 @@ its legends, stat strips and data tables, which carry every number.
 
 ## Embedding it in the portfolio
 
+`project-impact-dashboard.html` at the repo root is the live wrapper — it is reached from the first
+card of the **Full portfolio** grid on `index.html` and already does everything below (full-bleed
+embed, auto-height, theme sync). The rest of this section is the recipe, for embedding it somewhere
+else.
+
 Drop this where the dashboard should appear:
 
 ```html
