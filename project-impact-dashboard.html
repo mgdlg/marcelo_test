@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <title>Environmental Compliance · Impact Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta
+    name="description"
+    content="Impact dashboard for 39 regulatory and consulting deliverables owned end to end across 13 industrial clients and 12 sectors, Sep 2025 – Aug 2026."
+  />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700&family=Barlow:wght@300;400;500;600&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    /* The dashboard is a self-contained page that centres itself, so it runs
+       full-bleed here rather than inside a .container. It reports its own
+       height over postMessage; the value below is only a pre-load placeholder. */
+    .dashboard-embed { padding: 0 0 24px; }
+    .project-hero { padding-bottom: 34px; }
+    /* Line the hero up with the dashboard's own 1160px content grid so the
+       left edges match once the embed takes over. */
+    .project-hero .container { max-width: 1160px; padding-left: 20px; padding-right: 20px; }
+    @media (max-width: 760px) { .project-hero .container { padding-left: 15px; padding-right: 15px; } }
+    .dashboard-frame {
+      display: block;
+      width: 100%;
+      height: 1400px;
+      border: 0;
+      background: transparent;
+      color-scheme: normal;
+    }
+    .dashboard-aside {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 22px;
+      align-items: baseline;
+      margin-top: 18px;
+    }
+  </style>
+</head>
+<body class="project-page">
+  <div class="substrate" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+
+  <header class="project-hero">
+    <div class="container">
+      <div class="project-hero-actions">
+        <a class="project-back-link" href="index.html#full-portfolio">← Back to Portfolio</a>
+        <button id="themeToggle" class="theme-toggle" type="button" aria-pressed="false">
+          <span class="toggle-dot" aria-hidden="true"></span>
+          <span id="themeToggleLabel">Dark mode</span>
+        </button>
+      </div>
+      <p class="eyebrow">Case study</p>
+      <h1>Environmental Compliance · Impact Dashboard</h1>
+      <p class="dashboard-aside">
+        <a class="project-back-link" href="dashboard/impact-dashboard.html" target="_blank" rel="noopener">
+          Open the dashboard on its own ↗
+        </a>
+      </p>
+    </div>
+  </header>
+
+  <main class="project-main">
+    <section class="project-section dashboard-embed">
+      <iframe
+        id="dashboardFrame"
+        class="dashboard-frame"
+        src="dashboard/impact-dashboard.html?bg=transparent"
+        title="Marcelo Guzmán — environmental compliance impact dashboard"
+      ></iframe>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>© <span id="year"></span> Marcelo Guzmán. Built with HTML &amp; CSS, hosted on GitHub Pages.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    const htmlEl = document.documentElement;
+    const toggleBtn = document.getElementById("themeToggle");
+    const toggleLabel = document.getElementById("themeToggleLabel");
+    const frame = document.getElementById("dashboardFrame");
+
+    /* Keep the embedded dashboard on the same theme as this page. */
+    function syncFrameTheme(theme) {
+      if (!frame || !frame.contentWindow) return;
+      frame.contentWindow.postMessage({ type: "impact-dashboard:theme", theme: theme }, "*");
+    }
+
+    function setTheme(theme) {
+      if (theme === "dark") {
+        htmlEl.setAttribute("data-theme", "dark");
+        toggleBtn?.setAttribute("aria-pressed", "true");
+        if (toggleLabel) toggleLabel.textContent = "Light mode";
+      } else {
+        htmlEl.setAttribute("data-theme", "light");
+        toggleBtn?.setAttribute("aria-pressed", "false");
+        if (toggleLabel) toggleLabel.textContent = "Dark mode";
+      }
+      syncFrameTheme(theme);
+    }
+
+    /* "theme" is what the project pages store; "portfolio-theme" is what the
+       index stores — read both so arriving from either keeps the same mode. */
+    const storedTheme =
+      localStorage.getItem("theme") || localStorage.getItem("portfolio-theme") || "light";
+    setTheme(storedTheme);
+
+    toggleBtn?.addEventListener("click", () => {
+      const isDark = htmlEl.getAttribute("data-theme") === "dark";
+      const nextTheme = isDark ? "light" : "dark";
+      setTheme(nextTheme);
+      localStorage.setItem("theme", nextTheme);
+    });
+
+    /* The dashboard posts its own height so the iframe never scrolls internally. */
+    window.addEventListener("message", (event) => {
+      if (event.source !== frame.contentWindow) return;
+      const data = event.data;
+      if (data && data.type === "impact-dashboard:height" && typeof data.height === "number") {
+        frame.style.height = data.height + "px";
+      }
+    });
+
+    frame.addEventListener("load", () => {
+      setTheme(htmlEl.getAttribute("data-theme") || "light");
+    });
+  </script>
+</body>
+</html>

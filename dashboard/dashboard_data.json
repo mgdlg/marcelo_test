@@ -1,0 +1,285 @@
+{
+  "generated_at": "2026-08-24 16:56:40.003892Z",
+  "source": "Point-in-time export of the project-management records, taken before offboarding. Real client names retained per Marcelo's instruction.",
+  "person": {
+    "name": "Marcelo Guzman",
+    "roles": [
+      {
+        "title": "Environmental Compliance Coordinator",
+        "period": "Apr 2026 - Present"
+      },
+      {
+        "title": "Environmental Project Manager",
+        "period": "Sep 2025 - Apr 2026"
+      }
+    ]
+  },
+  "totals": {
+    "deliverables": 39,
+    "clients": 13,
+    "sectors": 12,
+    "deliverable_types": 12,
+    "project_days": 1135
+  },
+  "status_mix": {
+    "In progress": 4,
+    "Delivered": 35
+  },
+  "by_type": {
+    "Consulting / Field Supervision": 8,
+    "Environmental Impact Statement (MIA)": 6,
+    "Other": 6,
+    "Water / Waste Registration": 5,
+    "Legal Requirements Matrix": 3,
+    "Annual Operating Certificate (COA)": 3,
+    "Technical Justification Study (ETJ)": 2,
+    "Operating License": 2,
+    "Construction Permit (LFA)": 1,
+    "Compliance Report": 1,
+    "Annual Environmental / ESG Report": 1,
+    "Compensation Program (PRCA)": 1
+  },
+  "by_client": {
+    "Allied": 9,
+    "UDEM": 5,
+    "Grupo Troy": 5,
+    "Reprosa": 5,
+    "LAU Industries": 4,
+    "Frisa": 2,
+    "Grupo 210": 1,
+    "Solario": 1,
+    "Draxton": 1,
+    "Deacero": 1,
+    "Tarmex": 1,
+    "Ask Chemicals": 1,
+    "Porcelanite Lamosa": 1
+  },
+  "by_sector": {
+    "Metals & manufacturing": 9,
+    "Manufacturing": 6,
+    "Private university": 5,
+    "Real-estate development": 5,
+    "Industrial manufacturing": 4,
+    "Other industrial": 3,
+    "Forging (aerospace & energy)": 2,
+    "Construction / solar": 1,
+    "Automotive iron casting": 1,
+    "Steel production": 1,
+    "Foundry chemicals": 1,
+    "Ceramics & tile": 1
+  },
+  "monthly_throughput": {
+    "2025-09": 0,
+    "2025-10": 3,
+    "2025-11": 1,
+    "2025-12": 5,
+    "2026-01": 1,
+    "2026-02": 0,
+    "2026-03": 1,
+    "2026-04": 0,
+    "2026-05": 3,
+    "2026-06": 7
+  },
+  "turnaround_days": {
+    "n": 28,
+    "median": 30,
+    "avg": 40.5,
+    "min": 12,
+    "max": 123,
+    "total": 1135,
+    "buckets": {
+      "<=2 wks": 1,
+      "2-4 wks": 14,
+      "1-2 mo": 9,
+      "2 mo+": 4
+    }
+  },
+  "on_time": {
+    "method": "delivery date = first 'completed'-type status entry; grace 15 calendar days; excludes on-hold and no-due items",
+    "grace_days": 15,
+    "delivered": 34,
+    "on_time": 28,
+    "rate_pct": 90,
+    "outliers": [
+      {
+        "task": "Matriz de RL",
+        "client": "Ask Chemicals",
+        "type": "Legal Requirements Matrix",
+        "delay_days": 81
+      },
+      {
+        "task": "Informe Semestral DAR (1-2026)",
+        "client": "Reprosa",
+        "type": "Water / Waste Registration",
+        "delay_days": 67
+      },
+      {
+        "task": "COA Federal 2025",
+        "client": "Frisa",
+        "type": "Annual Operating Certificate (COA)",
+        "delay_days": 42
+      },
+      {
+        "task": "MIA-Supervisión amb en campo",
+        "client": "Solario",
+        "type": "Environmental Impact Statement (MIA)",
+        "delay_days": 41
+      },
+      {
+        "task": "RG-RME",
+        "client": "Allied",
+        "type": "Water / Waste Registration",
+        "delay_days": 32
+      },
+      {
+        "task": "COA Estatal 2025",
+        "client": "Frisa",
+        "type": "Annual Operating Certificate (COA)",
+        "delay_days": 17
+      }
+    ],
+    "note": "Headline rate is the business-adjusted read: 28 of 31 fixed-date deliverables. Across all 34 dated deliverables, including the three set aside, the rate is 82%.",
+    "rate_pct_strict": 82,
+    "adjusted": {
+      "basis": "excludes deliverables with no fixed hand-off date: open-ended field supervision, extended-scope engagements, and annual filings gated on client-supplied data",
+      "denominator": 31,
+      "on_time": 28,
+      "rate_pct": 90,
+      "excluded": [
+        {
+          "task": "Matriz de RL",
+          "type": "Legal Requirements Matrix",
+          "delay_days": 81,
+          "reason": "extended-scope engagement, 123-day duration"
+        },
+        {
+          "task": "COA Federal 2025",
+          "type": "Annual Operating Certificate (COA)",
+          "delay_days": 42,
+          "reason": "annual federal filing, gated on client data"
+        },
+        {
+          "task": "MIA-Supervisión amb en campo",
+          "type": "Environmental Impact Statement (MIA)",
+          "delay_days": 41,
+          "reason": "continuous field supervision, no fixed deliverable date"
+        }
+      ]
+    }
+  },
+  "financial": {
+    "currency_note": "MXN unless USD noted; USD at ~18 MXN/USD",
+    "reference_pricing_mxn": {
+      "MIA": 119220,
+      "operating_license": 95000,
+      "forestry_land_use_study": 85770,
+      "waste_registration": 15850,
+      "compliance_manuals": 118800,
+      "monthly_supervision": 28000
+    },
+    "sample_engagement_mxn": 5300000,
+    "estimated_portfolio_value_mxn": 7380000,
+    "estimated_portfolio_value_usd": 410000,
+    "new_annual_revenue_usd": 85000,
+    "savings_per_compensation_project_usd": 6000,
+    "note": "Portfolio value is a MODELED estimate (reference unit pricing and the value of recent contracted engagements), not billed totals.",
+    "sample_engagement_note": "UDEM regularization contracts, multi-phase"
+  },
+  "site_footprint": {
+    "total_acres": 507.45,
+    "total_hectares": 205.36,
+    "site_count": 7,
+    "sites": [
+      {
+        "name": "Poligono general Garcia",
+        "acres": 311.63
+      },
+      {
+        "name": "Nadadores",
+        "acres": 88.02
+      },
+      {
+        "name": "Loma Larga",
+        "acres": 61.5
+      },
+      {
+        "name": "Frisa SC",
+        "acres": 29.85
+      },
+      {
+        "name": "Frisa Aerospace",
+        "acres": 15.1
+      },
+      {
+        "name": "GAIA 3",
+        "acres": 1.24
+      },
+      {
+        "name": "Ampliacion Nave 9",
+        "acres": 0.1
+      }
+    ],
+    "note": "Total polygon footprint of managed client sites (KML/KMZ). Distinct from ~556 acres of UAV survey coverage."
+  },
+  "drone_program": {
+    "missions": 56,
+    "survey_coverage_acres": 556,
+    "reforestation_survival_pct": 92,
+    "permit_threshold_pct": 80,
+    "steep_slope_nobuild_pct": 45,
+    "construction_sites": 5
+  },
+  "esg_highlight": {
+    "title": "Independent Environmental & Social (E&S) / ESG report",
+    "framework": "IFC Performance Standards",
+    "client": "Deacero (steel producer)",
+    "scope": "E&S baseline, impacts + mitigation, Environmental & Social Management System, social plans, limited compliance review"
+  },
+  "featured_projects": [
+    {
+      "name": "Biodiversity Baseline app",
+      "tech": "R / Shiny (published)",
+      "url": "https://ircaconsultores.shinyapps.io/Biodiversidad_GITHUB_SHINYAPPS_V1/",
+      "desc": "Automates EIA biodiversity baselines from GBIF; flags protected-species & IUCN Red List; exports GIS-ready CSVs + APA references."
+    },
+    {
+      "name": "RETC / PRTR Analytics app",
+      "tech": "R / Shiny (published)",
+      "url": "https://ircaconsultores.shinyapps.io/retc/",
+      "desc": "Summarizes Pollutant Release & Transfer Register data for client process reviews (CEC framework)."
+    },
+    {
+      "name": "Rio Santa Catarina fire-risk model",
+      "tech": "Google Earth Engine, R, ArcGIS StoryMaps",
+      "desc": "City fire/flood/erosion risk (NDVI/LST/NDMI, PCA); invited GIS expert, featured by Info7 & El Norte."
+    },
+    {
+      "name": "Urbanization Index",
+      "tech": "R, ArcGIS Pro, ModelBuilder",
+      "desc": "Reusable geospatial workflow grading urban-to-rural gradients for ornithology research; published tutorials."
+    },
+    {
+      "name": "UAV Accuracy Assessment",
+      "tech": "Emlid RTK, Pix4D, ENVI",
+      "desc": "Benchmarked DSM/orthomosaic accuracy across GCP & RTK pipelines."
+    }
+  ],
+  "skills": [
+    "ArcGIS Pro",
+    "ModelBuilder",
+    "QGIS",
+    "ENVI",
+    "Pix4D",
+    "Google Earth Engine",
+    "ArcGIS StoryMaps",
+    "UAV photogrammetry",
+    "DEM/DSM/DTM",
+    "NDVI/NDWI/LST/NDMI",
+    "R",
+    "R/Shiny",
+    "Python",
+    "SQL",
+    "Git/GitHub",
+    "HTML/CSS/JS"
+  ]
+}

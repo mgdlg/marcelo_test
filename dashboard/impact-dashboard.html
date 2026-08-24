@@ -1,0 +1,1557 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Marcelo Guzmán — environmental compliance impact dashboard</title>
+<meta name="description" content="Static impact dashboard: 39 regulatory and consulting deliverables owned end-to-end across 13 industrial clients, Sep 2025 – Aug 2026." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+/* ============================================================
+   Tokens — mirrored from the portfolio's styles.css so the
+   dashboard reads as one of its pages. Light is the base;
+   dark is declared under both prefers-color-scheme and the
+   [data-theme] stamp the portfolio's toggle sets.
+   ============================================================ */
+:root{
+  color-scheme: light;
+
+  --page:       oklch(0.982 0 0);
+  --surface:    oklch(1 0 0 / 0.90);
+  --surface-2:  oklch(0.970 0 0);
+  --ink:        oklch(0.10 0 0);
+  --ink-2:      oklch(0.30 0 0 / 0.75);
+  --ink-3:      oklch(0.55 0 0);
+  --rule:       oklch(0 0 0 / 0.09);
+  --rule-soft:  oklch(0 0 0 / 0.05);
+  --track:      oklch(0 0 0 / 0.09);
+  --card-shadow: 0 3px 24px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.95);
+
+  /* data-mark colors (mirrored in the JS PALETTE — canvas can't read CSS vars) */
+  --teal:        #00806B;
+  --warm:        #C0741A;
+  --accent-text: #00695A;
+  --t1:#5FB9A4; --t2:#22957F; --t3:#00755F; --t4:#0B4A40;
+  --w1:#E0A96B; --w2:#C0741A;
+
+  --radius:    28px;
+  --radius-sm: 16px;
+
+  --sans:    'Barlow', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --display: 'Syne', system-ui, -apple-system, sans-serif;
+  --mono:    ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
+}
+
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme: dark;
+    --page:       oklch(0.08 0.008 45);
+    --surface:    oklch(0.15 0.008 45 / 0.55);
+    --surface-2:  oklch(0.11 0.009 45);
+    --ink:        oklch(0.94 0.006 50);
+    --ink-2:      oklch(0.76 0.008 50 / 0.78);
+    --ink-3:      oklch(0.62 0.006 50);
+    --rule:       oklch(1 0 0 / 0.10);
+    --rule-soft:  oklch(1 0 0 / 0.055);
+    --track:      oklch(1 0 0 / 0.10);
+    --card-shadow: inset 0 1px 1px rgba(255,255,255,0.08);
+    --teal:        #22A98D;
+    --warm:        #CE7C22;
+    --accent-text: #5CC6AA;
+    --t1:#84D6C1; --t2:#45B79E; --t3:#1F947C; --t4:#186F5E;
+    --w1:#E3AE72; --w2:#CE7C22;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme: dark;
+  --page:       oklch(0.08 0.008 45);
+  --surface:    oklch(0.15 0.008 45 / 0.55);
+  --surface-2:  oklch(0.11 0.009 45);
+  --ink:        oklch(0.94 0.006 50);
+  --ink-2:      oklch(0.76 0.008 50 / 0.78);
+  --ink-3:      oklch(0.62 0.006 50);
+  --rule:       oklch(1 0 0 / 0.10);
+  --rule-soft:  oklch(1 0 0 / 0.055);
+  --track:      oklch(1 0 0 / 0.10);
+  --card-shadow: inset 0 1px 1px rgba(255,255,255,0.08);
+  --teal:        #22A98D;
+  --warm:        #CE7C22;
+  --accent-text: #5CC6AA;
+  --t1:#84D6C1; --t2:#45B79E; --t3:#1F947C; --t4:#186F5E;
+  --w1:#E3AE72; --w2:#CE7C22;
+}
+
+*,*::before,*::after{ box-sizing:border-box; }
+
+html{ background: var(--page); }
+/* ?bg=transparent lets the host page's own background show through the iframe */
+html[data-bg="transparent"], html[data-bg="transparent"] body{ background: transparent; }
+
+body{
+  margin:0;
+  background: var(--page);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size:17px;
+  font-weight:400;
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+
+.wrap{ max-width:1160px; margin:0 auto; padding:38px 20px 48px; }
+
+/* ---------- typography ---------- */
+h1,h2,h3{ margin:0; font-family: var(--display); font-weight:600; letter-spacing:-0.02em; line-height:1.16; }
+h1{ font-size:clamp(30px,4vw,44px); font-weight:700; }
+h2{ font-size:22px; }
+h3{ font-size:17px; }
+p{ margin:0; }
+a{ color: var(--accent-text); text-decoration:none; border-bottom:1px solid currentColor; }
+a:hover{ color: var(--ink); }
+a:focus-visible,summary:focus-visible{ outline:2px solid var(--accent-text); outline-offset:3px; border-radius:4px; }
+
+.eyebrow{
+  font-family: var(--sans);
+  font-size:11px; font-weight:500; letter-spacing:0.24em; text-transform:uppercase;
+  color: var(--ink-3); margin:0 0 12px;
+}
+.mono{ font-family: var(--mono); font-variant-numeric: tabular-nums; }
+.note{ font-size:13.5px; line-height:1.55; color: var(--ink-3); }
+.sr-only{
+  position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+  overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0;
+}
+
+/* ---------- header ---------- */
+.head{ border-bottom:1px solid var(--rule); padding-bottom:32px; margin-bottom:30px; }
+.roles{ display:flex; flex-wrap:wrap; gap:9px 10px; margin:18px 0 0; padding:0; list-style:none; }
+.roles li{
+  font-size:14px; color: var(--ink-2);
+  border:1px solid var(--rule); border-radius:999px; padding:5px 14px;
+  background: var(--surface);
+}
+.roles li b{ font-weight:600; color: var(--ink); }
+.roles li span{ font-family: var(--mono); font-size:11.5px; color: var(--ink-3); margin-left:7px; }
+.lede{ margin-top:18px; max-width:62ch; color: var(--ink-2); font-size:17px; }
+
+.hero{ display:flex; align-items:baseline; gap:16px; margin-top:26px; flex-wrap:wrap; }
+.hero-num{ font-family: var(--display); font-size:clamp(52px,7vw,72px); font-weight:700; line-height:1; letter-spacing:-0.035em; color: var(--ink); }
+.hero-cap{ font-size:16px; color: var(--ink-2); max-width:34ch; }
+
+.meta{ display:flex; flex-wrap:wrap; gap:7px 20px; margin-top:24px; font-size:13px; color: var(--ink-3); }
+.meta span{ display:inline-flex; align-items:center; gap:8px; }
+.meta span::before{ content:""; width:5px; height:5px; border-radius:50%; background: var(--teal); flex:none; }
+
+/* ---------- KPI tiles ---------- */
+.kpis{ display:grid; grid-template-columns:repeat(auto-fit,minmax(143px,1fr)); gap:12px; margin-bottom:30px; }
+.kpi{
+  background: var(--surface); border:1px solid var(--rule); border-radius: var(--radius-sm);
+  padding:17px 17px 15px; box-shadow: var(--card-shadow);
+}
+.kpi .k-label{ font-size:13px; color: var(--ink-3); margin-bottom:8px; line-height:1.35; }
+.kpi .k-value{ font-family: var(--display); font-size:31px; font-weight:700; letter-spacing:-0.028em; line-height:1.05; color: var(--ink); }
+.kpi .k-value .unit{ font-family: var(--sans); font-size:15px; font-weight:500; color: var(--ink-2); margin-left:4px; letter-spacing:0; }
+.kpi .k-sub{ font-size:12px; color: var(--ink-3); margin-top:7px; font-family: var(--mono); }
+.kpi .est{ display:inline-block; font-family: var(--sans); font-size:10px; letter-spacing:0.14em; text-transform:uppercase;
+  color: var(--ink-3); border:1px solid var(--rule); border-radius:5px; padding:2px 7px; margin-top:8px; }
+
+/* ---------- grid + cards ---------- */
+.grid{ display:grid; grid-template-columns:repeat(12,1fr); gap:16px; }
+.card{
+  background: var(--surface); border:1px solid var(--rule); border-radius: var(--radius);
+  box-shadow: var(--card-shadow);
+  backdrop-filter: blur(22px) saturate(1.08);
+  -webkit-backdrop-filter: blur(22px) saturate(1.08);
+  padding:24px 24px 20px; min-width:0;
+}
+.c4{ grid-column: span 4; } .c6{ grid-column: span 6; }
+.c8{ grid-column: span 8; } .c12{ grid-column: span 12; }
+.card-head{ margin-bottom:18px; }
+.card-head p{ font-size:13.5px; color: var(--ink-3); margin-top:6px; line-height:1.5; }
+.section-rule{ grid-column:span 12; border-top:1px solid var(--rule); margin:16px 0 2px; padding-top:20px; }
+.section-rule .eyebrow{ margin:0; }
+
+/* ---------- charts ---------- */
+.chart{ position:relative; width:100%; }
+.h-donut{ height:220px; }
+.h-bars{ height:240px; }
+.h-tall{ height:372px; }
+
+.legend{ list-style:none; margin:16px 0 0; padding:0; display:flex; flex-direction:column; gap:1px; }
+.legend li{ display:flex; align-items:center; gap:10px; padding:6px 0; font-size:14px; border-top:1px solid var(--rule-soft); }
+.legend li:first-child{ border-top:0; }
+.legend .sw{ width:10px; height:10px; border-radius:3px; flex:none; }
+.legend .nm{ color: var(--ink-2); min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.legend .vl{ margin-left:auto; font-family: var(--mono); font-variant-numeric: tabular-nums; color: var(--ink); font-size:13px; }
+.legend .gl{ font-size:12px; color: var(--ink-3); }
+.legend .grp{ font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color: var(--ink-3);
+  padding-top:11px; border-top:1px solid var(--rule); }
+.legend .grp .vl{ letter-spacing:0; }
+
+/* stat strip */
+.stats{ display:flex; flex-wrap:wrap; gap:0; margin-top:18px; border-top:1px solid var(--rule); }
+.stats div{ flex:1 1 88px; padding:13px 14px 2px 0; }
+.stats dt{ font-size:12px; color: var(--ink-3); margin-bottom:4px; }
+.stats dd{ margin:0; font-family: var(--mono); font-size:18px; font-variant-numeric: tabular-nums; color: var(--ink); }
+.stats dd small{ font-size:12.5px; color: var(--ink-3); font-family: var(--sans); }
+
+/* CSS bar list (sectors) */
+.barlist{ list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:2px 28px; }
+.barlist li{ display:grid; grid-template-columns:1fr auto; align-items:center; gap:5px 10px; padding:8px 0; border-top:1px solid var(--rule-soft); }
+.barlist li:first-child, .barlist li:nth-child(2){ border-top:0; }
+@media (max-width:759px){ .barlist li:nth-child(2){ border-top:1px solid var(--rule-soft); } }
+.barlist .nm{ font-size:14px; color: var(--ink-2); }
+.barlist .vl{ font-family: var(--mono); font-size:13px; color: var(--ink); font-variant-numeric: tabular-nums; }
+.barlist .tr{ grid-column:1 / -1; height:5px; border-radius:3px; background: var(--track); overflow:hidden; }
+.barlist .fl{ display:block; height:100%; border-radius:3px; background: var(--teal); }
+
+/* meter */
+.meter{ margin-top:30px; }
+.meter-track{ position:relative; height:12px; border-radius:6px; background: var(--track); overflow:visible; }
+.meter-mark-label{
+  position:absolute; bottom:calc(100% + 9px); transform:translateX(-50%); white-space:nowrap;
+  font-family: var(--mono); font-size:11.5px; color: var(--ink-3);
+}
+.meter-fill{ position:absolute; inset:0 auto 0 0; border-radius:6px; background: var(--teal); }
+.meter-mark{ position:absolute; top:-5px; bottom:-5px; width:2px; background: var(--ink-2); border-radius:1px; }
+.meter-scale{ display:flex; justify-content:space-between; margin-top:9px; font-family: var(--mono); font-size:12px; color: var(--ink-3); }
+
+/* chips / tags */
+.chips{ list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:8px; }
+.chips li{
+  font-size:13.5px; color: var(--ink-2); background: var(--surface-2);
+  border:1px solid var(--rule); border-radius:999px; padding:5px 13px;
+}
+.chips.mono-chips li{ font-family: var(--mono); font-size:12.5px; }
+
+/* key-value rows */
+.rows{ margin:0; padding:0; list-style:none; }
+.rows li{ display:flex; align-items:baseline; gap:14px; padding:10px 0; border-top:1px solid var(--rule-soft); font-size:14.5px; }
+.rows li:first-child{ border-top:0; }
+.rows .nm{ color: var(--ink-2); min-width:0; }
+.rows .nm small{ display:block; color: var(--ink-3); font-size:12.5px; }
+.rows .vl{ margin-left:auto; font-family: var(--mono); font-variant-numeric: tabular-nums; color: var(--ink); white-space:nowrap; }
+
+/* figure block (financial / drone headline numbers) */
+.fig{ display:flex; align-items:baseline; gap:11px; flex-wrap:wrap; }
+.fig .n{ font-family: var(--display); font-size:38px; font-weight:700; letter-spacing:-0.03em; line-height:1.05; }
+.fig .s{ font-family: var(--mono); font-size:13px; color: var(--ink-3); }
+.tag-est{ display:inline-block; font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color: var(--ink-3);
+  border:1px solid var(--rule); border-radius:5px; padding:2px 7px; vertical-align:middle; }
+
+/* project cards */
+.projects{ display:grid; grid-template-columns:repeat(auto-fit,minmax(262px,1fr)); gap:14px; }
+.proj{ border:1px solid var(--rule); border-radius: var(--radius-sm); padding:17px; background: var(--surface-2); display:flex; flex-direction:column; gap:8px; }
+.proj h3{ font-size:16px; }
+.proj .tech{ font-family: var(--mono); font-size:11.5px; color: var(--ink-3); }
+.proj p{ font-size:13.5px; color: var(--ink-2); }
+.proj .lnk{ margin-top:auto; padding-top:5px; font-size:13px; }
+
+/* data tables (progressive disclosure) */
+details{ margin-top:14px; border-top:1px solid var(--rule-soft); padding-top:11px; }
+summary{ cursor:pointer; font-size:13px; color: var(--ink-3); list-style:none; display:inline-flex; align-items:center; gap:7px; }
+summary::-webkit-details-marker{ display:none; }
+summary::before{ content:"+"; font-family: var(--mono); }
+details[open] summary::before{ content:"−"; }
+summary:hover{ color: var(--ink); }
+table{ width:100%; border-collapse:collapse; margin-top:11px; font-size:13.5px; }
+th,td{ text-align:left; padding:6px 10px 6px 0; border-bottom:1px solid var(--rule-soft); }
+th{ font-weight:600; color: var(--ink-3); font-size:11px; letter-spacing:0.12em; text-transform:uppercase; }
+td.num, th.num{ text-align:right; font-family: var(--mono); font-variant-numeric: tabular-nums; padding-right:0; }
+
+/* footnotes */
+.fn{ margin-top:14px; padding-top:12px; border-top:1px solid var(--rule-soft); font-size:12.5px; line-height:1.55; color: var(--ink-3); }
+.fn sup{ font-family: var(--mono); }
+.method{ margin-top:32px; padding-top:24px; border-top:1px solid var(--rule); }
+.method ol{ margin:14px 0 0; padding-left:20px; font-size:13.5px; color: var(--ink-3); line-height:1.65; }
+.method li{ margin-bottom:8px; }
+.method li b{ color: var(--ink-2); font-weight:600; }
+
+.fallback{ display:none; font-size:13px; color: var(--ink-3); padding:10px 0; }
+.no-chart .chart{ display:none; }
+.no-chart .fallback{ display:block; }
+.no-chart details{ border-top:0; }
+
+/* ---------- responsive ---------- */
+@media (max-width:1000px){
+  .c4{ grid-column: span 6; }
+  .c6, .c8{ grid-column: span 12; }
+}
+@media (max-width:759px){
+  .wrap{ padding:26px 15px 36px; }
+  .grid{ gap:13px; }
+  .c4{ grid-column: span 12; }
+  .card{ padding:19px 17px 16px; border-radius:22px; }
+  .h-tall{ height:400px; }
+  .kpis{ grid-template-columns:repeat(auto-fit,minmax(138px,1fr)); }
+  .kpi .k-value{ font-size:27px; }
+}
+
+@media print{
+  body{ background:#fff; }
+  .card{ break-inside:avoid; }
+  details{ display:none; }
+}
+@media (prefers-reduced-motion:reduce){
+  *{ animation:none !important; transition:none !important; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ============================ HEADER ============================ -->
+  <header class="head">
+    <p class="eyebrow">Impact dashboard · environmental compliance</p>
+    <h1 id="hdr-name">Marcelo Guzmán</h1>
+    <ul class="roles" id="hdr-roles"></ul>
+    <p class="lede">Regulatory permitting, compliance reporting and geospatial analysis for heavy-industry
+      clients at a Monterrey-based environmental consultancy — owned end-to-end, from field survey and
+      authority filing through to invoicing and follow-up.</p>
+
+    <div class="hero">
+      <span class="hero-num mono" id="hero-num">—</span>
+      <span class="hero-cap" id="hero-cap"></span>
+    </div>
+
+    <div class="meta" id="hdr-meta"></div>
+  </header>
+
+  <noscript>
+    <p class="note" style="padding:12px 0;">This dashboard renders its figures from an embedded data block and
+      needs JavaScript to draw. All underlying numbers are in <code>dashboard_data.json</code>.</p>
+  </noscript>
+
+  <!-- ============================ KPI TILES ============================ -->
+  <section aria-label="Headline metrics">
+    <div class="kpis" id="kpis"></div>
+  </section>
+
+  <div class="grid">
+
+    <div class="section-rule"><p class="eyebrow">Delivery record</p></div>
+
+    <!-- -------- on-time -------- -->
+    <section class="card c6" aria-labelledby="h-ontime">
+      <div class="card-head">
+        <h2 id="h-ontime">On-time delivery</h2>
+        <p>Measured on the true hand-off date, with a 15-day grace window.</p>
+      </div>
+      <div class="chart h-donut">
+        <canvas id="c-ontime" role="img"
+          aria-label="Donut chart of on-time delivery: 28 of 31 fixed-date deliverables were handed over within the 15-day grace window, 90 percent."></canvas>
+      </div>
+      <p class="fallback">Chart library unavailable — the figures are listed below.</p>
+      <ul class="legend" id="lg-ontime"></ul>
+      <div id="ontime-outliers"></div>
+      <p class="fn"><sup>1</sup> On-time = handed over on or before the target date + 15 calendar days,
+        measured from the first <em>completed</em> entry in each deliverable's status history — close and
+        invoice dates run weeks later and overstate lateness. Items on hold or with no target date are
+        excluded, leaving 34 of 39 dated deliverables. Three of those are not fixed-date deliverables and are
+        set aside from the headline rate; counting all 34 including them, the rate is 82%. Delays are stated
+        against internal target dates, without client attribution.</p>
+    </section>
+
+    <!-- -------- turnaround -------- -->
+    <section class="card c6" aria-labelledby="h-turn">
+      <div class="card-head">
+        <h2 id="h-turn">Turnaround distribution</h2>
+        <p>Working duration from kickoff to delivery.</p>
+      </div>
+      <div class="chart h-bars">
+        <canvas id="c-turn" role="img"
+          aria-label="Column chart of turnaround time buckets: 1 deliverable at two weeks or less, 14 at two to four weeks, 9 at one to two months, 4 at two months or more."></canvas>
+      </div>
+      <p class="fallback">Chart library unavailable — the figures are listed below.</p>
+      <dl class="stats" id="turn-stats"></dl>
+      <div id="tb-turn"></div>
+      <p class="fn"><sup>2</sup> From the recorded working-duration field, present on 28 of the 39
+        deliverables; the remaining 11 carry no duration and are excluded from the median, average and
+        range.</p>
+    </section>
+
+    <div class="section-rule"><p class="eyebrow">Portfolio mix</p></div>
+
+    <!-- -------- by type -------- -->
+    <section class="card c6" aria-labelledby="h-type">
+      <div class="card-head">
+        <h2 id="h-type">Deliverables by type</h2>
+        <p>12 distinct regulatory and consulting instruments.</p>
+      </div>
+      <div class="chart h-tall">
+        <canvas id="c-type" role="img"
+          aria-label="Horizontal bar chart of deliverables by type, led by consulting and field supervision with 8, environmental impact statements with 6, and water and waste registrations with 5."></canvas>
+      </div>
+      <p class="fallback">Chart library unavailable — the figures are listed below.</p>
+      <div id="tb-type"></div>
+    </section>
+
+    <!-- -------- by client -------- -->
+    <section class="card c6" aria-labelledby="h-client">
+      <div class="card-head">
+        <h2 id="h-client">Deliverables by client</h2>
+        <p>13 client accounts across the two roles.</p>
+      </div>
+      <div class="chart h-tall">
+        <canvas id="c-client" role="img"
+          aria-label="Horizontal bar chart of deliverables by client, led by Allied with 9, then UDEM, Grupo Troy and Reprosa with 5 each."></canvas>
+      </div>
+      <p class="fallback">Chart library unavailable — the figures are listed below.</p>
+      <div id="tb-client"></div>
+      <p class="fn"><sup>3</sup> 37 of the 39 deliverables carry a client on the record; two internal
+        arboriculture items are unassigned.</p>
+    </section>
+
+    <!-- -------- sectors -------- -->
+    <section class="card c12" aria-labelledby="h-sector">
+      <div class="card-head">
+        <h2 id="h-sector">Sectors served</h2>
+        <p>12 industry sectors — steel, forging, foundry chemicals, automotive casting, ceramics,
+          solar construction, real estate and higher education.</p>
+      </div>
+      <ul class="barlist" id="sector-list"></ul>
+      <div id="marquee" style="margin-top:16px;"></div>
+    </section>
+
+    <div class="section-rule"><p class="eyebrow">Commercial &amp; field impact</p></div>
+
+    <!-- -------- financial -------- -->
+    <section class="card c6" aria-labelledby="h-fin">
+      <div class="card-head">
+        <h2 id="h-fin">Financial contribution</h2>
+        <p>Modeled portfolio value plus the revenue and savings lines opened.</p>
+      </div>
+      <div id="fin-hero"></div>
+      <ul class="rows" id="fin-rows" style="margin-top:16px;"></ul>
+      <details>
+        <summary>Reference unit pricing (MXN)</summary>
+        <div id="fin-ref"></div>
+      </details>
+      <p class="fn"><sup>4</sup> Portfolio value is a <b>modeled estimate</b> — published reference unit prices
+        and the value of recent contracted engagements — not billed revenue. Converted at roughly 18 MXN
+        per USD.</p>
+    </section>
+
+    <!-- -------- geospatial / drone -------- -->
+    <section class="card c6" aria-labelledby="h-geo">
+      <div class="card-head">
+        <h2 id="h-geo">Geospatial &amp; drone program</h2>
+        <p>UAV photogrammetry built in-house for permitting, reforestation monitoring and terrain screening.</p>
+      </div>
+      <div id="geo-fig"></div>
+      <div id="geo-meter" style="margin-top:18px;"></div>
+      <ul class="rows" id="geo-rows" style="margin-top:16px;"></ul>
+      <details>
+        <summary>Managed site polygons</summary>
+        <div id="site-list"></div>
+      </details>
+      <p class="fn"><sup>5</sup> Survey coverage (flown area) and site footprint (client polygons under
+        management, from KML/KMZ) are separate measurements and are not additive.</p>
+    </section>
+
+    <!-- -------- ESG -------- -->
+    <section class="card c12" aria-labelledby="h-esg">
+      <div class="card-head">
+        <h2 id="h-esg">ESG highlight</h2>
+      </div>
+      <div id="esg"></div>
+    </section>
+
+    <div class="section-rule"><p class="eyebrow">Technical work</p></div>
+
+    <!-- -------- featured projects -------- -->
+    <section class="card c12" aria-labelledby="h-proj">
+      <div class="card-head">
+        <h2 id="h-proj">Featured projects</h2>
+        <p>Analytical tools and studies built alongside the compliance work.</p>
+      </div>
+      <div class="projects" id="projects"></div>
+    </section>
+
+    <!-- -------- skills -------- -->
+    <section class="card c12" aria-labelledby="h-skills">
+      <div class="card-head">
+        <h2 id="h-skills">Stack</h2>
+      </div>
+      <ul class="chips mono-chips" id="skills"></ul>
+    </section>
+
+  </div>
+
+  <!-- ============================ METHOD ============================ -->
+  <section class="method" aria-labelledby="h-method">
+    <h2 id="h-method">Method &amp; sources</h2>
+    <ol>
+      <li><b>Source.</b> A point-in-time export of the project-management records as of
+        <span id="m-date">—</span>, covering every deliverable assigned across both roles. The page is
+        static: no API call, no credential, nothing fetched at view time.</li>
+      <li><b>Delivery date.</b> Taken from the first <em>completed</em> entry in each deliverable's status
+        history, not the close or invoice date, which run weeks later and overstate lateness.</li>
+      <li><b>On-time.</b> Handed over on or before target + 15 calendar days. Items on hold or without a
+        target date are excluded (34 of 39 qualify). Items filed and awaiting an authority's response are
+        counted as delivered — the wait is with the agency, not the deliverable.</li>
+      <li><b>Estimates.</b> Every figure marked <span class="tag-est">estimated</span> is modeled from
+        published reference unit prices and contracted engagement values, not billed totals.</li>
+      <li><b>Client detail.</b> Account names appear at roster level only. Delay figures are stated against
+        internal target dates, without client attribution, and no penalty or enforcement detail is published here.</li>
+    </ol>
+  </section>
+
+</div>
+
+<!-- =================================================================
+     DATA — baked in at build time. This block is a verbatim copy of
+     dashboard_data.json; to refresh the dashboard, regenerate that file
+     and replace everything between the script tags below. Nothing on
+     this page is fetched at view time and no credential ships with it.
+     ================================================================= -->
+<script type="application/json" id="dashboard-data">
+{
+  "generated_at": "2026-08-24 16:56:40.003892Z",
+  "source": "Point-in-time export of the project-management records, taken before offboarding. Real client names retained per Marcelo's instruction.",
+  "person": {
+    "name": "Marcelo Guzman",
+    "roles": [
+      {
+        "title": "Environmental Compliance Coordinator",
+        "period": "Apr 2026 - Present"
+      },
+      {
+        "title": "Environmental Project Manager",
+        "period": "Sep 2025 - Apr 2026"
+      }
+    ]
+  },
+  "totals": {
+    "deliverables": 39,
+    "clients": 13,
+    "sectors": 12,
+    "deliverable_types": 12,
+    "project_days": 1135
+  },
+  "status_mix": {
+    "In progress": 4,
+    "Delivered": 35
+  },
+  "by_type": {
+    "Consulting / Field Supervision": 8,
+    "Environmental Impact Statement (MIA)": 6,
+    "Other": 6,
+    "Water / Waste Registration": 5,
+    "Legal Requirements Matrix": 3,
+    "Annual Operating Certificate (COA)": 3,
+    "Technical Justification Study (ETJ)": 2,
+    "Operating License": 2,
+    "Construction Permit (LFA)": 1,
+    "Compliance Report": 1,
+    "Annual Environmental / ESG Report": 1,
+    "Compensation Program (PRCA)": 1
+  },
+  "by_client": {
+    "Allied": 9,
+    "UDEM": 5,
+    "Grupo Troy": 5,
+    "Reprosa": 5,
+    "LAU Industries": 4,
+    "Frisa": 2,
+    "Grupo 210": 1,
+    "Solario": 1,
+    "Draxton": 1,
+    "Deacero": 1,
+    "Tarmex": 1,
+    "Ask Chemicals": 1,
+    "Porcelanite Lamosa": 1
+  },
+  "by_sector": {
+    "Metals & manufacturing": 9,
+    "Manufacturing": 6,
+    "Private university": 5,
+    "Real-estate development": 5,
+    "Industrial manufacturing": 4,
+    "Other industrial": 3,
+    "Forging (aerospace & energy)": 2,
+    "Construction / solar": 1,
+    "Automotive iron casting": 1,
+    "Steel production": 1,
+    "Foundry chemicals": 1,
+    "Ceramics & tile": 1
+  },
+  "monthly_throughput": {
+    "2025-09": 0,
+    "2025-10": 3,
+    "2025-11": 1,
+    "2025-12": 5,
+    "2026-01": 1,
+    "2026-02": 0,
+    "2026-03": 1,
+    "2026-04": 0,
+    "2026-05": 3,
+    "2026-06": 7
+  },
+  "turnaround_days": {
+    "n": 28,
+    "median": 30,
+    "avg": 40.5,
+    "min": 12,
+    "max": 123,
+    "total": 1135,
+    "buckets": {
+      "<=2 wks": 1,
+      "2-4 wks": 14,
+      "1-2 mo": 9,
+      "2 mo+": 4
+    }
+  },
+  "on_time": {
+    "method": "delivery date = first 'completed'-type status entry; grace 15 calendar days; excludes on-hold and no-due items",
+    "grace_days": 15,
+    "delivered": 34,
+    "on_time": 28,
+    "rate_pct": 90,
+    "outliers": [
+      {
+        "task": "Matriz de RL",
+        "client": "Ask Chemicals",
+        "type": "Legal Requirements Matrix",
+        "delay_days": 81
+      },
+      {
+        "task": "Informe Semestral DAR (1-2026)",
+        "client": "Reprosa",
+        "type": "Water / Waste Registration",
+        "delay_days": 67
+      },
+      {
+        "task": "COA Federal 2025",
+        "client": "Frisa",
+        "type": "Annual Operating Certificate (COA)",
+        "delay_days": 42
+      },
+      {
+        "task": "MIA-Supervisión amb en campo",
+        "client": "Solario",
+        "type": "Environmental Impact Statement (MIA)",
+        "delay_days": 41
+      },
+      {
+        "task": "RG-RME",
+        "client": "Allied",
+        "type": "Water / Waste Registration",
+        "delay_days": 32
+      },
+      {
+        "task": "COA Estatal 2025",
+        "client": "Frisa",
+        "type": "Annual Operating Certificate (COA)",
+        "delay_days": 17
+      }
+    ],
+    "note": "Headline rate is the business-adjusted read: 28 of 31 fixed-date deliverables. Across all 34 dated deliverables, including the three set aside, the rate is 82%.",
+    "rate_pct_strict": 82,
+    "adjusted": {
+      "basis": "excludes deliverables with no fixed hand-off date: open-ended field supervision, extended-scope engagements, and annual filings gated on client-supplied data",
+      "denominator": 31,
+      "on_time": 28,
+      "rate_pct": 90,
+      "excluded": [
+        {
+          "task": "Matriz de RL",
+          "type": "Legal Requirements Matrix",
+          "delay_days": 81,
+          "reason": "extended-scope engagement, 123-day duration"
+        },
+        {
+          "task": "COA Federal 2025",
+          "type": "Annual Operating Certificate (COA)",
+          "delay_days": 42,
+          "reason": "annual federal filing, gated on client data"
+        },
+        {
+          "task": "MIA-Supervisión amb en campo",
+          "type": "Environmental Impact Statement (MIA)",
+          "delay_days": 41,
+          "reason": "continuous field supervision, no fixed deliverable date"
+        }
+      ]
+    }
+  },
+  "financial": {
+    "currency_note": "MXN unless USD noted; USD at ~18 MXN/USD",
+    "reference_pricing_mxn": {
+      "MIA": 119220,
+      "operating_license": 95000,
+      "forestry_land_use_study": 85770,
+      "waste_registration": 15850,
+      "compliance_manuals": 118800,
+      "monthly_supervision": 28000
+    },
+    "sample_engagement_mxn": 5300000,
+    "estimated_portfolio_value_mxn": 7380000,
+    "estimated_portfolio_value_usd": 410000,
+    "new_annual_revenue_usd": 85000,
+    "savings_per_compensation_project_usd": 6000,
+    "note": "Portfolio value is a MODELED estimate (reference unit pricing and the value of recent contracted engagements), not billed totals.",
+    "sample_engagement_note": "UDEM regularization contracts, multi-phase"
+  },
+  "site_footprint": {
+    "total_acres": 507.45,
+    "total_hectares": 205.36,
+    "site_count": 7,
+    "sites": [
+      {
+        "name": "Poligono general Garcia",
+        "acres": 311.63
+      },
+      {
+        "name": "Nadadores",
+        "acres": 88.02
+      },
+      {
+        "name": "Loma Larga",
+        "acres": 61.5
+      },
+      {
+        "name": "Frisa SC",
+        "acres": 29.85
+      },
+      {
+        "name": "Frisa Aerospace",
+        "acres": 15.1
+      },
+      {
+        "name": "GAIA 3",
+        "acres": 1.24
+      },
+      {
+        "name": "Ampliacion Nave 9",
+        "acres": 0.1
+      }
+    ],
+    "note": "Total polygon footprint of managed client sites (KML/KMZ). Distinct from ~556 acres of UAV survey coverage."
+  },
+  "drone_program": {
+    "missions": 56,
+    "survey_coverage_acres": 556,
+    "reforestation_survival_pct": 92,
+    "permit_threshold_pct": 80,
+    "steep_slope_nobuild_pct": 45,
+    "construction_sites": 5
+  },
+  "esg_highlight": {
+    "title": "Independent Environmental & Social (E&S) / ESG report",
+    "framework": "IFC Performance Standards",
+    "client": "Deacero (steel producer)",
+    "scope": "E&S baseline, impacts + mitigation, Environmental & Social Management System, social plans, limited compliance review"
+  },
+  "featured_projects": [
+    {
+      "name": "Biodiversity Baseline app",
+      "tech": "R / Shiny (published)",
+      "url": "https://ircaconsultores.shinyapps.io/Biodiversidad_GITHUB_SHINYAPPS_V1/",
+      "desc": "Automates EIA biodiversity baselines from GBIF; flags protected-species & IUCN Red List; exports GIS-ready CSVs + APA references."
+    },
+    {
+      "name": "RETC / PRTR Analytics app",
+      "tech": "R / Shiny (published)",
+      "url": "https://ircaconsultores.shinyapps.io/retc/",
+      "desc": "Summarizes Pollutant Release & Transfer Register data for client process reviews (CEC framework)."
+    },
+    {
+      "name": "Rio Santa Catarina fire-risk model",
+      "tech": "Google Earth Engine, R, ArcGIS StoryMaps",
+      "desc": "City fire/flood/erosion risk (NDVI/LST/NDMI, PCA); invited GIS expert, featured by Info7 & El Norte."
+    },
+    {
+      "name": "Urbanization Index",
+      "tech": "R, ArcGIS Pro, ModelBuilder",
+      "desc": "Reusable geospatial workflow grading urban-to-rural gradients for ornithology research; published tutorials."
+    },
+    {
+      "name": "UAV Accuracy Assessment",
+      "tech": "Emlid RTK, Pix4D, ENVI",
+      "desc": "Benchmarked DSM/orthomosaic accuracy across GCP & RTK pipelines."
+    }
+  ],
+  "skills": [
+    "ArcGIS Pro",
+    "ModelBuilder",
+    "QGIS",
+    "ENVI",
+    "Pix4D",
+    "Google Earth Engine",
+    "ArcGIS StoryMaps",
+    "UAV photogrammetry",
+    "DEM/DSM/DTM",
+    "NDVI/NDWI/LST/NDMI",
+    "R",
+    "R/Shiny",
+    "Python",
+    "SQL",
+    "Git/GitHub",
+    "HTML/CSS/JS"
+  ]
+}
+</script>
+
+
+<!-- Only external dependency. No SRI hash is pinned because cdnjs serves a
+     build that is not reproducible from the npm tarball; add one from
+     cdnjs.com/libraries/Chart.js if your deployment requires it. -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"
+        crossorigin="anonymous" referrerpolicy="no-referrer" defer></script>
+
+<script>
+(function () {
+  'use strict';
+
+  var DATA = JSON.parse(document.getElementById('dashboard-data').textContent);
+  var root = document.documentElement;
+  var charts = [];
+
+  /* ---------------------------------------------------------------- theme */
+  var qs = new URLSearchParams(location.search);
+  var qTheme = (qs.get('theme') || '').toLowerCase();
+  if (qTheme === 'light' || qTheme === 'dark') root.setAttribute('data-theme', qTheme);
+  if ((qs.get('bg') || '').toLowerCase() === 'transparent') root.setAttribute('data-bg', 'transparent');
+
+  var mqlDark   = window.matchMedia('(prefers-color-scheme: dark)');
+  var mqlMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  function mode() {
+    var t = root.getAttribute('data-theme');
+    if (t === 'dark' || t === 'light') return t;
+    return mqlDark.matches ? 'dark' : 'light';
+  }
+
+  /* Canvas cannot read CSS custom properties, so the mark colors live here
+     as well. Kept in lockstep with the :root token blocks above. */
+  var PALETTE = {
+    light: {
+      surface:'#FEFEFE', ink:'#030303', ink2:'#5E5E5E', ink3:'#717171',
+      grid:'#E7E7E7', track:'#E7E7E7',
+      teal:'#00806B', warm:'#C0741A',
+      tealRamp:['#5FB9A4','#22957F','#00755F','#0B4A40'],
+      warmRamp:['#E0A96B','#C0741A'],
+      tipBg:'#030303', tipInk:'#FEFEFE'
+    },
+    dark: {
+      surface:'#090504', ink:'#EFEAE8', ink2:'#9D9996', ink3:'#898583',
+      grid:'#221E1D', track:'#221E1D',
+      teal:'#22A98D', warm:'#CE7C22',
+      tealRamp:['#84D6C1','#45B79E','#1F947C','#186F5E'],
+      warmRamp:['#E3AE72','#CE7C22'],
+      tipBg:'#EFEAE8', tipInk:'#090504'
+    }
+  };
+  function P() { return PALETTE[mode()]; }
+
+  /* ------------------------------------------------------------- helpers */
+  var SANS = getComputedStyle(root).getPropertyValue('--sans').trim() ||
+             "'Barlow', system-ui, sans-serif";
+  var nf = new Intl.NumberFormat('en-US');
+  function n(v) { return nf.format(v); }
+  function el(tag, cls, txt) {
+    var e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (txt != null) e.textContent = txt;
+    return e;
+  }
+  function usdK(v) { return '$' + Math.round(v / 1000) + 'K'; }
+  function usd10K(v) { return '$' + Math.round(v / 10000) * 10 + 'K'; }
+  function mxnM(v) { return '$' + (v / 1e6).toFixed(1) + 'M'; }
+  function mxn(v)  { return '$' + n(v); }
+  function sortedPairs(obj) {
+    return Object.keys(obj).map(function (k) { return [k, obj[k]]; })
+      .sort(function (a, b) { return b[1] - a[1]; });
+  }
+  function table(head, rows, container) {
+    var d = el('details'), s = el('summary', null, 'View data table');
+    var t = el('table'), thead = el('thead'), tr = el('tr');
+    head.forEach(function (h, i) {
+      var th = el('th', i ? 'num' : null, h); tr.appendChild(th);
+    });
+    thead.appendChild(tr); t.appendChild(thead);
+    var tb = el('tbody');
+    rows.forEach(function (r) {
+      var row = el('tr');
+      r.forEach(function (c, i) { row.appendChild(el('td', i ? 'num' : null, c)); });
+      tb.appendChild(row);
+    });
+    t.appendChild(tb); d.appendChild(s); d.appendChild(t);
+    container.appendChild(d);
+    return d;
+  }
+
+  /* ------------------------------------------------------- static content */
+  function renderHeader() {
+    var ul = document.getElementById('hdr-roles');
+    DATA.person.roles.forEach(function (r) {
+      var li = el('li');
+      li.appendChild(el('b', null, r.title));
+      li.appendChild(el('span', null, r.period.replace(' - ', ' – ')));
+      ul.appendChild(li);
+    });
+
+    document.getElementById('hero-num').textContent = n(DATA.totals.deliverables);
+    document.getElementById('hero-cap').textContent =
+      'regulatory and consulting deliverables owned end to end — scoped, produced, filed and followed through.';
+
+    var d = new Date(DATA.generated_at.slice(0, 10) + 'T00:00:00Z');
+    var pretty = d.toLocaleDateString('en-GB',
+      { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
+    document.getElementById('m-date').textContent = pretty;
+
+    var meta = document.getElementById('hdr-meta');
+    [ 'Data as of ' + pretty,
+      DATA.totals.deliverables + ' tracked deliverables',
+      'Sep 2025 – Aug 2026'
+    ].forEach(function (t) { meta.appendChild(el('span', null, t)); });
+  }
+
+  function kpi(label, value, unit, sub, estimated) {
+    var c = el('div', 'kpi');
+    c.appendChild(el('div', 'k-label', label));
+    var v = el('div', 'k-value');
+    v.appendChild(document.createTextNode(value));
+    if (unit) v.appendChild(el('span', 'unit', unit));
+    c.appendChild(v);
+    if (sub) c.appendChild(el('div', 'k-sub', sub));
+    if (estimated) c.appendChild(el('span', 'est', 'estimated'));
+    return c;
+  }
+
+  function renderKPIs() {
+    var t = DATA.totals, f = DATA.financial, dr = DATA.drone_program, g = document.getElementById('kpis');
+    [ kpi('Clients served', n(t.clients), null, 'accounts'),
+      kpi('Sectors', n(t.sectors), null, 'industries'),
+      kpi('Deliverable types', n(t.deliverable_types), null, 'instruments'),
+      kpi('Project-days managed', n(t.project_days), null, 'cumulative'),
+      kpi('On-time delivery', DATA.on_time.adjusted.rate_pct, '%',
+          DATA.on_time.adjusted.on_time + ' of ' + DATA.on_time.adjusted.denominator),
+      kpi('Portfolio value managed', '~' + usd10K(f.estimated_portfolio_value_usd), null,
+          'USD · ≈ ' + mxnM(f.estimated_portfolio_value_mxn) + ' MXN', true),
+      kpi('UAV survey coverage', '~' + n(dr.survey_coverage_acres), ' acres',
+          dr.missions + ' missions')
+    ].forEach(function (c) { g.appendChild(c); });
+  }
+
+  function renderSectors() {
+    var list = document.getElementById('sector-list');
+    var pairs = sortedPairs(DATA.by_sector);
+    var max = pairs[0][1];
+    pairs.forEach(function (p) {
+      var li = el('li');
+      li.appendChild(el('span', 'nm', p[0]));
+      li.appendChild(el('span', 'vl', String(p[1])));
+      var tr = el('span', 'tr'), fl = el('span', 'fl');
+      fl.style.width = (p[1] / max * 100).toFixed(1) + '%';
+      tr.appendChild(fl); li.appendChild(tr);
+      list.appendChild(li);
+    });
+
+    var m = document.getElementById('marquee');
+    m.appendChild(el('p', 'eyebrow', 'Client roster'));
+    var ul = el('ul', 'chips');
+    ['Frisa', 'Deacero', 'Draxton', 'Ask Chemicals', 'Porcelanite Lamosa',
+     'LAU Industries', 'Reprosa', 'Tarmex', 'Allied', 'Solario',
+     'Grupo Troy', 'Grupo 210', 'UDEM']
+      .forEach(function (c) { ul.appendChild(el('li', null, c)); });
+    m.appendChild(ul);
+  }
+
+  function renderFinancial() {
+    var f = DATA.financial;
+
+    var hero = document.getElementById('fin-hero');
+    var fig = el('div', 'fig');
+    var num = el('span', 'n mono', '~' + usd10K(f.estimated_portfolio_value_usd));
+    fig.appendChild(num);
+    fig.appendChild(el('span', 'tag-est', 'estimated'));
+    hero.appendChild(fig);
+    hero.appendChild(el('p', 's mono', '≈ ' + mxnM(f.estimated_portfolio_value_mxn) + ' MXN'));
+    hero.appendChild(el('p', 'note',
+      'Portfolio value managed across the 35 delivered items, from reference unit pricing and the ' +
+      'value of recent contracted engagements.'));
+
+    var rows = document.getElementById('fin-rows');
+    [ ['New annual revenue opened', 'four new service lines introduced',
+       usdK(f.new_annual_revenue_usd) + ' / yr'],
+      ['Saved per compensation project', 'in-house photogrammetry replacing contracted survey',
+       usdK(f.savings_per_compensation_project_usd)],
+      ['Largest multi-phase engagement', f.sample_engagement_note || 'all phases',
+       mxn(f.sample_engagement_mxn) + ' MXN']
+    ].forEach(function (r) {
+      var li = el('li');
+      var nm = el('span', 'nm');
+      nm.appendChild(document.createTextNode(r[0]));
+      nm.appendChild(el('small', null, r[1]));
+      li.appendChild(nm);
+      li.appendChild(el('span', 'vl', r[2]));
+      rows.appendChild(li);
+    });
+
+    var refNames = {
+      MIA: 'Environmental impact statement (MIA)',
+      operating_license: 'Operating license',
+      compliance_manuals: 'Compliance manuals',
+      forestry_land_use_study: 'Forestry / land-use change study',
+      monthly_supervision: 'Monthly site supervision',
+      waste_registration: 'Waste registration'
+    };
+    var ref = sortedPairs(f.reference_pricing_mxn).map(function (p) {
+      return [refNames[p[0]] || p[0], mxn(p[1])];
+    });
+    var box = document.getElementById('fin-ref');
+    var t = el('table'), thead = el('thead'), tr = el('tr');
+    tr.appendChild(el('th', null, 'Instrument'));
+    tr.appendChild(el('th', 'num', 'MXN'));
+    thead.appendChild(tr); t.appendChild(thead);
+    var tb = el('tbody');
+    ref.forEach(function (r) {
+      var row = el('tr');
+      row.appendChild(el('td', null, r[0]));
+      row.appendChild(el('td', 'num', r[1]));
+      tb.appendChild(row);
+    });
+    t.appendChild(tb); box.appendChild(t);
+    box.appendChild(el('p', 'note',
+      'Published unit prices from a real client proposal, used as the per-instrument multiplier behind the ' +
+      'modeled portfolio value.'));
+  }
+
+  function renderGeo() {
+    var d = DATA.drone_program, s = DATA.site_footprint;
+
+    var fig = el('div', 'fig');
+    fig.appendChild(el('span', 'n mono', '~' + n(d.survey_coverage_acres)));
+    fig.appendChild(el('span', 's', 'acres surveyed'));
+    var wrap = document.getElementById('geo-fig');
+    wrap.appendChild(fig);
+    wrap.appendChild(el('p', 's mono', d.missions + ' UAV missions flown'));
+
+    var m = document.getElementById('geo-meter');
+    m.appendChild(el('h3', null, 'Reforestation survival'));
+    m.appendChild(el('p', 'note',
+      d.reforestation_survival_pct + '% survival against an ' + d.permit_threshold_pct +
+      '% permit threshold — verified from drone imagery.'));
+    var meter = el('div', 'meter');
+    var track = el('div', 'meter-track');
+    var fill = el('div', 'meter-fill');
+    fill.style.width = d.reforestation_survival_pct + '%';
+    var mark = el('div', 'meter-mark');
+    mark.style.left = d.permit_threshold_pct + '%';
+    var markLabel = el('span', 'meter-mark-label', d.permit_threshold_pct + '% permit threshold');
+    markLabel.style.left = d.permit_threshold_pct + '%';
+    track.appendChild(fill); track.appendChild(mark); track.appendChild(markLabel);
+    track.setAttribute('role', 'img');
+    track.setAttribute('aria-label',
+      'Meter: ' + d.reforestation_survival_pct + ' percent reforestation survival, ' +
+      d.permit_threshold_pct + ' percent permit threshold marked.');
+    meter.appendChild(track);
+    var scale = el('div', 'meter-scale');
+    scale.appendChild(el('span', null, '0%'));
+    scale.appendChild(el('span', null, d.reforestation_survival_pct + '% achieved'));
+    meter.appendChild(scale);
+    m.appendChild(meter);
+
+    var rows = document.getElementById('geo-rows');
+    [ ['Site footprint under management', 'client polygons from KML / KMZ',
+       n(Math.round(s.total_acres)) + ' ac · ' + n(Math.round(s.total_hectares)) + ' ha'],
+      ['Client sites mapped', 'distinct polygons', String(s.site_count)],
+      ['Steep-slope no-build identified', 'across ' + d.construction_sites + ' construction sites',
+       '>' + d.steep_slope_nobuild_pct + '% of area']
+    ].forEach(function (r) {
+      var li = el('li');
+      var nm = el('span', 'nm');
+      nm.appendChild(document.createTextNode(r[0]));
+      nm.appendChild(el('small', null, r[1]));
+      li.appendChild(nm);
+      li.appendChild(el('span', 'vl', r[2]));
+      rows.appendChild(li);
+    });
+
+    var box = document.getElementById('site-list');
+    var t = el('table'), thead = el('thead'), tr = el('tr');
+    tr.appendChild(el('th', null, 'Site'));
+    tr.appendChild(el('th', 'num', 'Acres'));
+    thead.appendChild(tr); t.appendChild(thead);
+    var tb = el('tbody');
+    s.sites.forEach(function (site) {
+      var row = el('tr');
+      row.appendChild(el('td', null, site.name));
+      row.appendChild(el('td', 'num', site.acres.toFixed(2)));
+      tb.appendChild(row);
+    });
+    var tf = el('tr');
+    tf.appendChild(el('td', null, 'Total'));
+    tf.appendChild(el('td', 'num', s.total_acres.toFixed(2)));
+    tb.appendChild(tf);
+    t.appendChild(tb); box.appendChild(t);
+  }
+
+  function renderESG() {
+    var e = DATA.esg_highlight, box = document.getElementById('esg');
+    box.appendChild(el('h3', null, e.title));
+    var ul = el('ul', 'chips');
+    [e.framework, e.client].forEach(function (c) { ul.appendChild(el('li', null, c)); });
+    ul.style.margin = '10px 0 12px';
+    box.appendChild(ul);
+    box.appendChild(el('p', null,
+      'Authored an independent E&S assessment for a steel producer, benchmarked to the ' +
+      e.framework + '. Scope: ' + e.scope.charAt(0).toLowerCase() + e.scope.slice(1) + '.'));
+  }
+
+  function renderProjects() {
+    var g = document.getElementById('projects');
+    DATA.featured_projects.forEach(function (p) {
+      var c = el('article', 'proj');
+      c.appendChild(el('h3', null, p.name));
+      c.appendChild(el('p', 'tech mono', p.tech));
+      c.appendChild(el('p', null, p.desc));
+      if (p.url) {
+        var w = el('p', 'lnk');
+        var a = el('a', null, 'Open the app ↗');
+        a.href = p.url; a.target = '_blank'; a.rel = 'noopener noreferrer';
+        a.setAttribute('aria-label', 'Open ' + p.name + ' in a new tab');
+        w.appendChild(a);
+        c.appendChild(w);
+      }
+      g.appendChild(c);
+    });
+  }
+
+  function renderSkills() {
+    var ul = document.getElementById('skills');
+    DATA.skills.forEach(function (s) { ul.appendChild(el('li', null, s)); });
+  }
+
+  /* --------------------------------------------------------- chart legends */
+  function legendRow(ul, cssVar, name, gloss, value) {
+    var li = el('li');
+    var sw = el('span', 'sw');
+    sw.style.background = 'var(' + cssVar + ')';
+    li.appendChild(sw);
+    var nm = el('span', 'nm', name);
+    li.appendChild(nm);
+    if (gloss) li.appendChild(el('span', 'gl', gloss));
+    li.appendChild(el('span', 'vl', value));
+    ul.appendChild(li);
+    return li;
+  }
+  function legendGroup(ul, name, value) {
+    var li = el('li', 'grp');
+    li.appendChild(el('span', 'nm', name));
+    li.appendChild(el('span', 'vl', value));
+    ul.appendChild(li);
+  }
+
+  function renderOnTimeLegend() {
+    var o = DATA.on_time, a = o.adjusted, ul = document.getElementById('lg-ontime');
+    var excludedNames = a.excluded.map(function (x) { return x.task; });
+    var misses = o.outliers.filter(function (x) { return excludedNames.indexOf(x.task) === -1; });
+
+    legendRow(ul, '--teal', 'Within grace window', '≤ target + ' + o.grace_days + ' d', String(a.on_time));
+    legendRow(ul, '--warm', 'Beyond grace window', null, String(misses.length));
+    legendGroup(ul, 'Fixed-date deliverables', String(a.denominator));
+
+    var box = document.getElementById('ontime-outliers');
+
+    function delayTable(summaryText, rows, withReason) {
+      var d = el('details'), sm = el('summary', null, summaryText);
+      var t = el('table'), thead = el('thead'), tr = el('tr');
+      tr.appendChild(el('th', null, 'Deliverable'));
+      tr.appendChild(el('th', null, withReason ? 'Why it is set aside' : 'Type'));
+      tr.appendChild(el('th', 'num', 'Days'));
+      thead.appendChild(tr); t.appendChild(thead);
+      var tb = el('tbody');
+      rows.forEach(function (x) {
+        var row = el('tr');
+        row.appendChild(el('td', null, x.task));
+        row.appendChild(el('td', null, withReason ? x.reason : x.type));
+        row.appendChild(el('td', 'num', '+' + x.delay_days));
+        tb.appendChild(row);
+      });
+      t.appendChild(tb); d.appendChild(sm); d.appendChild(t);
+      box.appendChild(d);
+    }
+
+    delayTable('The ' + misses.length + ' deliverables past the grace window', misses, false);
+    delayTable(a.excluded.length + ' items set aside from the rate', a.excluded, true);
+  }
+
+  function renderTurnStats() {
+    var t = DATA.turnaround_days, dl = document.getElementById('turn-stats');
+    [ ['Median', Math.round(t.median), 'd'],
+      ['Average', Math.round(t.avg), 'd'],
+      ['Range', t.min + '–' + t.max, 'd'],
+      ['Measured', t.n, 'of ' + DATA.totals.deliverables]
+    ].forEach(function (r) {
+      var d = el('div');
+      d.appendChild(el('dt', null, r[0]));
+      var dd = el('dd', null, String(r[1]) + ' ');
+      dd.appendChild(el('small', null, r[2]));
+      d.appendChild(dd);
+      dl.appendChild(d);
+    });
+  }
+
+  /* ---------------------------------------------------------- Chart.js ---- */
+  var TYPE_SHORT = {
+    'Consulting / Field Supervision': 'Consulting / field supervision',
+    'Environmental Impact Statement (MIA)': 'Impact statement (MIA)',
+    'Other': 'Other',
+    'Water / Waste Registration': 'Water / waste registration',
+    'Legal Requirements Matrix': 'Legal requirements matrix',
+    'Annual Operating Certificate (COA)': 'Operating certificate (COA)',
+    'Technical Justification Study (ETJ)': 'Justification study (ETJ)',
+    'Operating License': 'Operating license',
+    'Construction Permit (LFA)': 'Construction permit (LFA)',
+    'Compliance Report': 'Compliance report',
+    'Annual Environmental / ESG Report': 'Annual ESG report',
+    'Compensation Program (PRCA)': 'Compensation program (PRCA)'
+  };
+
+  function anim() { return mqlMotion.matches ? false : { duration: 420 }; }
+
+  function tooltipCfg(unitFn) {
+    var p = P();
+    return {
+      enabled: true,
+      backgroundColor: p.tipBg,
+      titleColor: p.tipInk,
+      bodyColor: p.tipInk,
+      borderWidth: 0,
+      cornerRadius: 6,
+      padding: 9,
+      displayColors: false,
+      titleFont: { family: SANS, size: 12, weight: '600' },
+      bodyFont:  { family: SANS, size: 12 },
+      callbacks: { label: unitFn }
+    };
+  }
+
+  /* value labels: on the cap of a column, at the tip of a bar */
+  function valueLabels(opts) {
+    opts = opts || {};
+    return {
+      id: 'valueLabels',
+      afterDatasetsDraw: function (chart) {
+        var p = P(), ctx = chart.ctx;
+        var meta = chart.getDatasetMeta(0);
+        var data = chart.data.datasets[0].data;
+        ctx.save();
+        ctx.fillStyle = p.ink2;
+        ctx.font = '600 11.5px ' + SANS;
+        meta.data.forEach(function (bar, i) {
+          if (opts.only != null && opts.only !== i) return;
+          if (!data[i] && opts.skipZero !== false) return;
+          var txt = String(data[i]);
+          if (opts.horizontal) {
+            ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
+            ctx.fillText(txt, bar.x + 7, bar.y);
+          } else {
+            ctx.textAlign = 'center'; ctx.textBaseline = 'bottom';
+            ctx.fillText(txt, bar.x, bar.y - 6);
+          }
+        });
+        ctx.restore();
+      }
+    };
+  }
+
+  /* centred figure inside a doughnut */
+  function centerText(big, small) {
+    return {
+      id: 'centerText',
+      afterDraw: function (chart) {
+        var p = P(), ctx = chart.ctx, a = chart.chartArea;
+        if (!a) return;
+        var cx = (a.left + a.right) / 2, cy = (a.top + a.bottom) / 2;
+        ctx.save();
+        ctx.textAlign = 'center';
+        ctx.fillStyle = p.ink;
+        ctx.font = '600 26px ' + SANS;
+        ctx.textBaseline = 'alphabetic';
+        ctx.fillText(big, cx, cy + 3);
+        ctx.fillStyle = p.ink3;
+        ctx.font = '400 11.5px ' + SANS;
+        ctx.textBaseline = 'top';
+        ctx.fillText(small, cx, cy + 10);
+        ctx.restore();
+      }
+    };
+  }
+
+  function donut(id, labels, values, colors, big, small, unitFn) {
+    var p = P();
+    return new Chart(document.getElementById(id), {
+      type: 'doughnut',
+      data: {
+        labels: labels,
+        datasets: [{
+          data: values,
+          backgroundColor: colors,
+          borderColor: p.surface,   /* the 2px surface gap between segments */
+          borderWidth: 2,
+          hoverOffset: 4
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        cutout: '66%',
+        animation: anim(),
+        layout: { padding: 4 },
+        plugins: { legend: { display: false }, tooltip: tooltipCfg(unitFn) }
+      },
+      plugins: [centerText(big, small)]
+    });
+  }
+
+  function columns(id, labels, values, colors, opts) {
+    opts = opts || {};
+    var p = P();
+    return new Chart(document.getElementById(id), {
+      type: 'bar',
+      data: {
+        labels: labels,
+        datasets: [{
+          data: values,
+          backgroundColor: colors,
+          borderRadius: 4,
+          borderSkipped: 'start',
+          maxBarThickness: 24,
+          categoryPercentage: 0.78,
+          barPercentage: 0.92
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        animation: anim(),
+        layout: { padding: { top: 18, right: 4 } },
+        scales: {
+          x: {
+            grid: { display: false },
+            border: { color: p.grid },
+            ticks: { color: p.ink3, font: { family: SANS, size: 11 }, maxRotation: 0, autoSkip: false }
+          },
+          y: {
+            display: opts.hideY !== true,
+            beginAtZero: true,
+            grid: { color: p.grid, drawTicks: false },
+            border: { display: false },
+            ticks: {
+              color: p.ink3, font: { family: SANS, size: 11 },
+              precision: 0, stepSize: opts.stepSize || 2, padding: 6
+            }
+          }
+        },
+        plugins: { legend: { display: false }, tooltip: tooltipCfg(opts.unitFn) }
+      },
+      plugins: [valueLabels({ only: opts.labelOnly, horizontal: false })]
+    });
+  }
+
+  function hbars(id, labels, values, color, unitFn) {
+    var p = P();
+    return new Chart(document.getElementById(id), {
+      type: 'bar',
+      data: {
+        labels: labels,
+        datasets: [{
+          data: values,
+          backgroundColor: color,
+          borderRadius: 4,
+          borderSkipped: 'start',
+          maxBarThickness: 16,
+          categoryPercentage: 0.86,
+          barPercentage: 0.9
+        }]
+      },
+      options: {
+        indexAxis: 'y',
+        responsive: true,
+        maintainAspectRatio: false,
+        animation: anim(),
+        layout: { padding: { right: 26 } },
+        scales: {
+          x: { display: false, beginAtZero: true, grace: '6%' },
+          y: {
+            grid: { display: false },
+            border: { display: false },
+            ticks: {
+              color: p.ink2, font: { family: SANS, size: 11.5 }, autoSkip: false, padding: 4,
+              callback: function (value, index) {
+                var full = this.chart.data.labels[index];
+                var cap = this.chart.width < 420 ? 22 : 30;
+                return full.length > cap ? full.slice(0, cap - 1).trim() + '…' : full;
+              }
+            },
+            afterFit: function (scale) { scale.width = Math.min(scale.width, 190); }
+          }
+        },
+        plugins: { legend: { display: false }, tooltip: tooltipCfg(unitFn) }
+      },
+      plugins: [valueLabels({ horizontal: true })]
+    });
+  }
+
+  function deliverableUnit(ctx) {
+    var v = ctx.chart.options.indexAxis === 'y' ? ctx.parsed.x : ctx.parsed.y;
+    if (v == null) v = ctx.parsed;
+    return v + (v === 1 ? ' deliverable' : ' deliverables');
+  }
+
+  function buildCharts() {
+    if (typeof Chart === 'undefined') return;
+    Chart.defaults.font.family = SANS;
+
+    var p = P();
+
+    /* 1 — on-time */
+    var a = DATA.on_time.adjusted;
+    charts.push(donut(
+      'c-ontime',
+      ['Within grace window', 'Beyond grace window'],
+      [a.on_time, a.denominator - a.on_time],
+      [p.teal, p.warm],
+      a.rate_pct + '%',
+      'on time',
+      function (ctx) { return ctx.label + ' — ' + ctx.parsed + ' of ' + a.denominator; }
+    ));
+
+    /* 2 — turnaround buckets (ordered → ordinal ramp) */
+    var b = DATA.turnaround_days.buckets;
+    var bKeys = ['<=2 wks', '2-4 wks', '1-2 mo', '2 mo+'];
+    var bLabels = ['≤ 2 wks', '2–4 wks', '1–2 mo', '2 mo +'];
+    charts.push(columns(
+      'c-turn', bLabels, bKeys.map(function (k) { return b[k]; }), p.tealRamp,
+      { hideY: true, unitFn: deliverableUnit }
+    ));
+
+    /* 3 — by type */
+    var tp = sortedPairs(DATA.by_type);
+    charts.push(hbars(
+      'c-type',
+      tp.map(function (x) { return TYPE_SHORT[x[0]] || x[0]; }),
+      tp.map(function (x) { return x[1]; }),
+      p.teal, deliverableUnit
+    ));
+
+    /* 4 — by client */
+    var cl = sortedPairs(DATA.by_client);
+    charts.push(hbars(
+      'c-client',
+      cl.map(function (x) { return x[0]; }),
+      cl.map(function (x) { return x[1]; }),
+      p.teal, deliverableUnit
+    ));
+  }
+
+  /* --------------------------------------------------------- data tables */
+  function renderTables() {
+    table(['Deliverable type', 'Count'],
+      sortedPairs(DATA.by_type).map(function (x) { return [x[0], String(x[1])]; }),
+      document.getElementById('tb-type'));
+
+    table(['Client', 'Count'],
+      sortedPairs(DATA.by_client).map(function (x) { return [x[0], String(x[1])]; })
+        .concat([['Total with a client on record',
+          String(sortedPairs(DATA.by_client).reduce(function (a, x) { return a + x[1]; }, 0))]]),
+      document.getElementById('tb-client'));
+
+    var b = DATA.turnaround_days.buckets;
+    table(['Turnaround', 'Deliverables'],
+      [['≤ 2 weeks', String(b['<=2 wks'])],
+       ['2–4 weeks', String(b['2-4 wks'])],
+       ['1–2 months', String(b['1-2 mo'])],
+       ['2 months or more', String(b['2 mo+'])]],
+      document.getElementById('tb-turn'));
+  }
+
+  /* ------------------------------------------------- theme + iframe glue */
+  function rebuild() {
+    charts.forEach(function (c) { c.destroy(); });
+    charts = [];
+    buildCharts();
+    postHeight();
+  }
+
+  var lastH = 0, ticking = false;
+  function postHeight() {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(function () {
+      ticking = false;
+      var h = Math.ceil(document.documentElement.getBoundingClientRect().height);
+      if (h === lastH || window.parent === window) { lastH = h; return; }
+      lastH = h;
+      try {
+        window.parent.postMessage({ type: 'impact-dashboard:height', height: h }, '*');
+      } catch (e) { /* cross-origin parent that refuses messages — ignore */ }
+    });
+  }
+
+  window.addEventListener('message', function (ev) {
+    var d = ev.data;
+    if (!d || typeof d !== 'object') return;
+    if (d.type !== 'impact-dashboard:theme' && d.type !== 'theme') return;
+    var t = String(d.theme || '').toLowerCase();
+    if (t === 'light' || t === 'dark') root.setAttribute('data-theme', t);
+    else root.removeAttribute('data-theme');
+    rebuild();
+  });
+
+  function onSchemeChange() { if (!root.hasAttribute('data-theme')) rebuild(); }
+  if (mqlDark.addEventListener) mqlDark.addEventListener('change', onSchemeChange);
+  else if (mqlDark.addListener) mqlDark.addListener(onSchemeChange);
+
+  /* ------------------------------------------------------------- startup */
+  function init() {
+    renderHeader();
+    renderKPIs();
+    renderSectors();
+    renderFinancial();
+    renderGeo();
+    renderESG();
+    renderProjects();
+    renderSkills();
+    renderOnTimeLegend();
+    renderTurnStats();
+    renderTables();
+
+    if (typeof Chart === 'undefined') {
+      /* CDN blocked or offline: every figure is still on the page in the
+         legends, stat strips and data tables. */
+      document.body.classList.add('no-chart');
+      Array.prototype.forEach.call(document.querySelectorAll('details'), function (d) {
+        d.open = true;
+      });
+    } else {
+      buildCharts();
+    }
+
+    postHeight();
+    if (window.ResizeObserver) {
+      new ResizeObserver(postHeight).observe(document.body);
+    } else {
+      window.addEventListener('resize', postHeight);
+    }
+    Array.prototype.forEach.call(document.querySelectorAll('details'), function (d) {
+      d.addEventListener('toggle', postHeight);
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
+</body>
+</html>

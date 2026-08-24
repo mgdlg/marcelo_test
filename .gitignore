@@ -1,0 +1,10 @@
+# Never commit API credentials or the row-level export they produce.
+# Any token stays in the environment and is revoked at offboarding.
+.env
+.env.*
+clickup_raw_snapshot*.json
+**/clickup_raw_snapshot*.json
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
