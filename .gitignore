@@ -1,5 +1,5 @@
-# Never commit ClickUp credentials or the row-level export they produce.
-# The token is an env var (CLICKUP_TOKEN) and is revoked at offboarding.
+# Never commit API credentials or the row-level export they produce.
+# Any token stays in the environment and is revoked at offboarding.
 .env
 .env.*
 clickup_raw_snapshot*.json

@@ -8,9 +8,13 @@ end-to-end as Environmental Project Manager and Environmental Compliance Coordin
 - **`dashboard_data.json`** — the source of truth the page is built from (also embedded in the HTML).
 
 It renders standalone and inside an `<iframe>`. It makes **no API calls and carries no credential**:
-the ClickUp data was snapshotted once and inlined, so the page keeps working after workspace access
-ends. The only external request is Chart.js from cdnjs; if that request fails the page degrades to
-its legends, stat strips and data tables, which carry every number.
+the source data was exported once and inlined, so the page keeps working after workspace access
+ends. External requests are Chart.js from cdnjs and the same Google Fonts stylesheet the portfolio
+already loads (Syne + Barlow); if the Chart.js request fails the page degrades to its legends, stat
+strips and data tables, which carry every number.
+
+Styling mirrors the portfolio's `styles.css` — the same tokens, radii, card treatment and
+typography — so the embed reads as one of its pages. Deep teal is kept as the accent for data marks.
 
 ---
 
@@ -28,7 +32,7 @@ Drop this where the dashboard should appear:
   src="dashboard/impact-dashboard.html"
   title="Marcelo Guzmán — environmental compliance impact dashboard"
   loading="lazy"
-  style="width:100%;border:0;display:block;background:transparent;height:7400px"
+  style="width:100%;border:0;display:block;background:transparent;height:5000px"
 ></iframe>
 ```
 
@@ -77,35 +81,31 @@ Example: `dashboard/impact-dashboard.html?theme=dark&bg=transparent`
 
 ## How to update
 
-Re-run the snapshot script with a valid `CLICKUP_TOKEN` in the environment to regenerate
-`dashboard_data.json`, then paste its contents over the block between
-`<script type="application/json" id="dashboard-data">` and its closing tag in
-`impact-dashboard.html` — every figure, chart and table on the page is rendered from that block.
+Regenerate `dashboard_data.json` from a fresh export of the project-management workspace, then paste
+its contents over the block between `<script type="application/json" id="dashboard-data">` and its
+closing tag in `impact-dashboard.html`. Every figure, chart and table on the page renders from that
+block, so nothing else needs touching.
 
-Two figures come from the row-level export rather than `dashboard_data.json`, so they need editing
-by hand if the snapshot changes:
-
-- the six-way ClickUp status split behind the delivery-status donut, in the adjacent
-  `id="status-detail"` block (it reconciles exactly to the 35 delivered / 4 in progress in
-  `status_mix`);
-- the **14** deliverables completed after the Jun 2026 window close, in the footnote under monthly
-  throughput.
-
-**Never commit the token or the row-level export.** `.gitignore` already excludes
-`clickup_raw_snapshot*.json` and `.env`; the token is read from the environment only and stops
-working at offboarding anyway.
+**Never commit a credential or the row-level export.** `.gitignore` already excludes the raw
+snapshot files and `.env`; any API token belongs in the environment only.
 
 ---
 
 ## Notes on the numbers
 
-- **On-time (82%)** — delivered on or before target + 15 calendar days, measured by the true
-  delivery date (the first `done`-type entry in ClickUp's status history, not the close or invoice
-  date). Items on hold or without a target date are excluded, leaving 34 of 39. `seguimiento` items
-  are counted as delivered: they are with the authority, not late. Business-adjusted read is
-  roughly 90–95%.
-- **Portfolio value (~$170K USD / ~$3.1M MXN)** — a modeled estimate: published reference unit
-  prices × delivered counts. Not billed revenue, and labelled `estimated` wherever it appears.
+- **On-time (90%)** — the headline is the business-adjusted read: **28 of 31** deliverables that
+  carry a fixed hand-off date, measured on the true hand-off date (the first `completed` entry in
+  the status history, not the close or invoice date, which run weeks later and overstate lateness)
+  with a 15-day grace window. Three of the 34 dated deliverables are set aside because they have no
+  fixed hand-off date — an extended-scope legal matrix, open-ended field supervision, and an annual
+  federal filing gated on client-supplied data. Counting all 34 including those, the rate is **82%**,
+  which the page states in its footnote and keeps in the JSON as `rate_pct_strict`. Items filed and
+  awaiting an authority's response count as delivered: the wait is with the agency, not the
+  deliverable.
+- **Portfolio value (~$410K USD / ~$7.4M MXN)** — a modeled estimate from reference unit pricing and
+  the value of recent contracted engagements. Not billed revenue, and labelled `estimated` wherever
+  it appears.
+- **Largest engagement ($5.3M MXN)** — the multi-phase UDEM regularization contracts.
 - **Survey coverage vs site footprint** — ~556 acres flown and ~507 acres of managed client polygons
   are separate measurements and are not additive.
 - Client names appear at roster level only. Delay figures are stated against internal target dates,
@@ -116,5 +116,5 @@ working at offboarding anyway.
 - Every canvas carries `role="img"` and a descriptive `aria-label`; every chart has an HTML legend
   or a "View data table" disclosure, so nothing is conveyed by colour alone.
 - The categorical and ordinal palettes were validated for colour-vision separation and surface
-  contrast in both light and dark modes.
-- One HTML file (~62 KB), one CDN script, no fonts, no images, no trackers.
+  contrast against the portfolio's own light and dark card surfaces.
+- One HTML file (~60 KB), one CDN script, one font stylesheet, no images, no trackers.

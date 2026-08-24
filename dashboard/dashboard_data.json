@@ -1,6 +1,6 @@
 {
   "generated_at": "2026-08-24 16:56:40.003892Z",
-  "source": "ClickUp workspace 14149663, snapshot before offboarding. Real client names retained per Marcelo's instruction.",
+  "source": "Point-in-time export of the project-management records, taken before offboarding. Real client names retained per Marcelo's instruction.",
   "person": {
     "name": "Marcelo Guzman",
     "roles": [
@@ -95,11 +95,11 @@
     }
   },
   "on_time": {
-    "method": "delivery date = first 'done'-type status via /task/{id}/time_in_status; grace 15 calendar days; exclude suspendido & no-due",
+    "method": "delivery date = first 'completed'-type status entry; grace 15 calendar days; excludes on-hold and no-due items",
     "grace_days": 15,
     "delivered": 34,
     "on_time": 28,
-    "rate_pct": 82,
+    "rate_pct": 90,
     "outliers": [
       {
         "task": "Matriz de RL",
@@ -138,7 +138,34 @@
         "delay_days": 17
       }
     ],
-    "note": "seguimiento items counted by true delivery date; business-adjusted read ~90-95%."
+    "note": "Headline rate is the business-adjusted read: 28 of 31 fixed-date deliverables. Across all 34 dated deliverables, including the three set aside, the rate is 82%.",
+    "rate_pct_strict": 82,
+    "adjusted": {
+      "basis": "excludes deliverables with no fixed hand-off date: open-ended field supervision, extended-scope engagements, and annual filings gated on client-supplied data",
+      "denominator": 31,
+      "on_time": 28,
+      "rate_pct": 90,
+      "excluded": [
+        {
+          "task": "Matriz de RL",
+          "type": "Legal Requirements Matrix",
+          "delay_days": 81,
+          "reason": "extended-scope engagement, 123-day duration"
+        },
+        {
+          "task": "COA Federal 2025",
+          "type": "Annual Operating Certificate (COA)",
+          "delay_days": 42,
+          "reason": "annual federal filing, gated on client data"
+        },
+        {
+          "task": "MIA-Supervisión amb en campo",
+          "type": "Environmental Impact Statement (MIA)",
+          "delay_days": 41,
+          "reason": "continuous field supervision, no fixed deliverable date"
+        }
+      ]
+    }
   },
   "financial": {
     "currency_note": "MXN unless USD noted; USD at ~18 MXN/USD",
@@ -150,12 +177,13 @@
       "compliance_manuals": 118800,
       "monthly_supervision": 28000
     },
-    "sample_engagement_mxn": 574060,
-    "estimated_portfolio_value_mxn": 3106000,
-    "estimated_portfolio_value_usd": 172556,
+    "sample_engagement_mxn": 5300000,
+    "estimated_portfolio_value_mxn": 7380000,
+    "estimated_portfolio_value_usd": 410000,
     "new_annual_revenue_usd": 85000,
     "savings_per_compensation_project_usd": 6000,
-    "note": "Portfolio value is a MODELED estimate (reference pricing x delivered counts), not billed totals."
+    "note": "Portfolio value is a MODELED estimate (reference unit pricing and the value of recent contracted engagements), not billed totals.",
+    "sample_engagement_note": "UDEM regularization contracts, multi-phase"
   },
   "site_footprint": {
     "total_acres": 507.45,

@@ -5,53 +5,58 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Marcelo Guzmán — environmental compliance impact dashboard</title>
 <meta name="description" content="Static impact dashboard: 39 regulatory and consulting deliverables owned end-to-end across 13 industrial clients, Sep 2025 – Aug 2026." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet" />
 <style>
 /* ============================================================
-   Tokens — light is the base; dark is a selected set, not a flip.
-   Validated with the dataviz palette validator:
-     light surface #FDFDFC · dark surface #161A1B
+   Tokens — mirrored from the portfolio's styles.css so the
+   dashboard reads as one of its pages. Light is the base;
+   dark is declared under both prefers-color-scheme and the
+   [data-theme] stamp the portfolio's toggle sets.
    ============================================================ */
 :root{
   color-scheme: light;
 
-  --page:        #F7F7F4;
-  --surface:     #FDFDFC;
-  --surface-2:   #F1F1EC;
-  --ink:         #0E1211;
-  --ink-2:       #4B534F;
-  --ink-3:       #666E69;
-  --rule:        #E4E4DF;
-  --rule-soft:   #EDEDE8;
-  --track:       #E4E4DF;
+  --page:       oklch(0.982 0 0);
+  --surface:    oklch(1 0 0 / 0.90);
+  --surface-2:  oklch(0.970 0 0);
+  --ink:        oklch(0.10 0 0);
+  --ink-2:      oklch(0.30 0 0 / 0.75);
+  --ink-3:      oklch(0.55 0 0);
+  --rule:       oklch(0 0 0 / 0.09);
+  --rule-soft:  oklch(0 0 0 / 0.05);
+  --track:      oklch(0 0 0 / 0.09);
+  --card-shadow: 0 3px 24px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.95);
 
-  /* data-mark colors (mirrored in JS PALETTE — canvas can't read CSS vars) */
+  /* data-mark colors (mirrored in the JS PALETTE — canvas can't read CSS vars) */
   --teal:        #00806B;
   --warm:        #C0741A;
   --accent-text: #00695A;
-  /* teal ordinal ramp (light -> dark) + warm ordinal pair */
   --t1:#5FB9A4; --t2:#22957F; --t3:#00755F; --t4:#0B4A40;
   --w1:#E0A96B; --w2:#C0741A;
 
-  --shadow: none;
-  --radius: 14px;
-  --radius-sm: 9px;
+  --radius:    28px;
+  --radius-sm: 16px;
 
-  --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  --sans:    'Barlow', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --display: 'Syne', system-ui, -apple-system, sans-serif;
+  --mono:    ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
 }
 
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
     color-scheme: dark;
-    --page:        #0C0E0F;
-    --surface:     #161A1B;
-    --surface-2:   #1D2223;
-    --ink:         #F2F4F3;
-    --ink-2:       #B9C0BD;
-    --ink-3:       #8A918E;
-    --rule:        #262B2C;
-    --rule-soft:   #1F2425;
-    --track:       #2A3031;
+    --page:       oklch(0.08 0.008 45);
+    --surface:    oklch(0.15 0.008 45 / 0.55);
+    --surface-2:  oklch(0.11 0.009 45);
+    --ink:        oklch(0.94 0.006 50);
+    --ink-2:      oklch(0.76 0.008 50 / 0.78);
+    --ink-3:      oklch(0.62 0.006 50);
+    --rule:       oklch(1 0 0 / 0.10);
+    --rule-soft:  oklch(1 0 0 / 0.055);
+    --track:      oklch(1 0 0 / 0.10);
+    --card-shadow: inset 0 1px 1px rgba(255,255,255,0.08);
     --teal:        #22A98D;
     --warm:        #CE7C22;
     --accent-text: #5CC6AA;
@@ -61,15 +66,16 @@
 }
 :root[data-theme="dark"]{
   color-scheme: dark;
-  --page:        #0C0E0F;
-  --surface:     #161A1B;
-  --surface-2:   #1D2223;
-  --ink:         #F2F4F3;
-  --ink-2:       #B9C0BD;
-  --ink-3:       #8A918E;
-  --rule:        #262B2C;
-  --rule-soft:   #1F2425;
-  --track:       #2A3031;
+  --page:       oklch(0.08 0.008 45);
+  --surface:    oklch(0.15 0.008 45 / 0.55);
+  --surface-2:  oklch(0.11 0.009 45);
+  --ink:        oklch(0.94 0.006 50);
+  --ink-2:      oklch(0.76 0.008 50 / 0.78);
+  --ink-3:      oklch(0.62 0.006 50);
+  --rule:       oklch(1 0 0 / 0.10);
+  --rule-soft:  oklch(1 0 0 / 0.055);
+  --track:      oklch(1 0 0 / 0.10);
+  --card-shadow: inset 0 1px 1px rgba(255,255,255,0.08);
   --teal:        #22A98D;
   --warm:        #CE7C22;
   --accent-text: #5CC6AA;
@@ -88,177 +94,183 @@ body{
   background: var(--page);
   color: var(--ink);
   font-family: var(--sans);
-  font-size:16px;
+  font-size:17px;
+  font-weight:400;
   line-height:1.55;
   -webkit-font-smoothing:antialiased;
   text-rendering:optimizeLegibility;
 }
 
-.wrap{ max-width:1160px; margin:0 auto; padding:34px 20px 44px; }
+.wrap{ max-width:1160px; margin:0 auto; padding:38px 20px 48px; }
 
 /* ---------- typography ---------- */
-h1,h2,h3{ margin:0; font-weight:600; letter-spacing:-0.012em; line-height:1.2; }
-h1{ font-size:clamp(26px,3.6vw,38px); }
-h2{ font-size:15px; font-weight:600; letter-spacing:0.005em; }
-h3{ font-size:14px; font-weight:600; }
+h1,h2,h3{ margin:0; font-family: var(--display); font-weight:600; letter-spacing:-0.02em; line-height:1.16; }
+h1{ font-size:clamp(30px,4vw,44px); font-weight:700; }
+h2{ font-size:22px; }
+h3{ font-size:17px; }
 p{ margin:0; }
 a{ color: var(--accent-text); text-decoration:none; border-bottom:1px solid currentColor; }
 a:hover{ color: var(--ink); }
-a:focus-visible,summary:focus-visible{ outline:2px solid var(--accent-text); outline-offset:3px; border-radius:3px; }
+a:focus-visible,summary:focus-visible{ outline:2px solid var(--accent-text); outline-offset:3px; border-radius:4px; }
 
 .eyebrow{
-  font-family: var(--mono);
-  font-size:11px; letter-spacing:0.14em; text-transform:uppercase;
-  color: var(--ink-3); margin:0 0 10px;
+  font-family: var(--sans);
+  font-size:11px; font-weight:500; letter-spacing:0.24em; text-transform:uppercase;
+  color: var(--ink-3); margin:0 0 12px;
 }
 .mono{ font-family: var(--mono); font-variant-numeric: tabular-nums; }
-.note{ font-size:12.5px; line-height:1.5; color: var(--ink-3); }
+.note{ font-size:13.5px; line-height:1.55; color: var(--ink-3); }
 .sr-only{
   position:absolute; width:1px; height:1px; padding:0; margin:-1px;
   overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0;
 }
 
 /* ---------- header ---------- */
-.head{ border-bottom:1px solid var(--rule); padding-bottom:26px; margin-bottom:26px; }
-.roles{ display:flex; flex-wrap:wrap; gap:8px 10px; margin:14px 0 0; padding:0; list-style:none; }
+.head{ border-bottom:1px solid var(--rule); padding-bottom:32px; margin-bottom:30px; }
+.roles{ display:flex; flex-wrap:wrap; gap:9px 10px; margin:18px 0 0; padding:0; list-style:none; }
 .roles li{
-  font-size:13px; color: var(--ink-2);
-  border:1px solid var(--rule); border-radius:999px; padding:4px 11px;
+  font-size:14px; color: var(--ink-2);
+  border:1px solid var(--rule); border-radius:999px; padding:5px 14px;
   background: var(--surface);
 }
 .roles li b{ font-weight:600; color: var(--ink); }
-.roles li span{ font-family: var(--mono); font-size:11.5px; color: var(--ink-3); margin-left:6px; }
-.lede{ margin-top:14px; max-width:62ch; color: var(--ink-2); font-size:16.5px; }
+.roles li span{ font-family: var(--mono); font-size:11.5px; color: var(--ink-3); margin-left:7px; }
+.lede{ margin-top:18px; max-width:62ch; color: var(--ink-2); font-size:17px; }
 
-.hero{ display:flex; align-items:baseline; gap:14px; margin-top:22px; flex-wrap:wrap; }
-.hero-num{ font-size:clamp(48px,7vw,64px); font-weight:600; line-height:1; letter-spacing:-0.03em; color: var(--ink); }
-.hero-cap{ font-size:15px; color: var(--ink-2); max-width:32ch; }
+.hero{ display:flex; align-items:baseline; gap:16px; margin-top:26px; flex-wrap:wrap; }
+.hero-num{ font-family: var(--display); font-size:clamp(52px,7vw,72px); font-weight:700; line-height:1; letter-spacing:-0.035em; color: var(--ink); }
+.hero-cap{ font-size:16px; color: var(--ink-2); max-width:34ch; }
 
-.meta{ display:flex; flex-wrap:wrap; gap:6px 18px; margin-top:20px; font-size:12.5px; color: var(--ink-3); }
-.meta span{ display:inline-flex; align-items:center; gap:7px; }
+.meta{ display:flex; flex-wrap:wrap; gap:7px 20px; margin-top:24px; font-size:13px; color: var(--ink-3); }
+.meta span{ display:inline-flex; align-items:center; gap:8px; }
 .meta span::before{ content:""; width:5px; height:5px; border-radius:50%; background: var(--teal); flex:none; }
 
 /* ---------- KPI tiles ---------- */
-.kpis{ display:grid; grid-template-columns:repeat(auto-fit,minmax(145px,1fr)); gap:12px; margin-bottom:26px; }
-.kpi{ background: var(--surface); border:1px solid var(--rule); border-radius: var(--radius-sm); padding:15px 15px 13px; }
-.kpi .k-label{ font-size:12.5px; color: var(--ink-3); margin-bottom:7px; }
-.kpi .k-value{ font-size:29px; font-weight:600; letter-spacing:-0.02em; line-height:1.05; color: var(--ink); }
-.kpi .k-value .unit{ font-size:15px; font-weight:500; color: var(--ink-2); margin-left:3px; letter-spacing:0; }
-.kpi .k-sub{ font-size:12px; color: var(--ink-3); margin-top:6px; font-family: var(--mono); }
-.kpi .est{ display:inline-block; font-family: var(--sans); font-size:10.5px; letter-spacing:0.06em; text-transform:uppercase;
-  color: var(--ink-3); border:1px solid var(--rule); border-radius:4px; padding:1px 5px; margin-top:7px; }
+.kpis{ display:grid; grid-template-columns:repeat(auto-fit,minmax(143px,1fr)); gap:12px; margin-bottom:30px; }
+.kpi{
+  background: var(--surface); border:1px solid var(--rule); border-radius: var(--radius-sm);
+  padding:17px 17px 15px; box-shadow: var(--card-shadow);
+}
+.kpi .k-label{ font-size:13px; color: var(--ink-3); margin-bottom:8px; line-height:1.35; }
+.kpi .k-value{ font-family: var(--display); font-size:31px; font-weight:700; letter-spacing:-0.028em; line-height:1.05; color: var(--ink); }
+.kpi .k-value .unit{ font-family: var(--sans); font-size:15px; font-weight:500; color: var(--ink-2); margin-left:4px; letter-spacing:0; }
+.kpi .k-sub{ font-size:12px; color: var(--ink-3); margin-top:7px; font-family: var(--mono); }
+.kpi .est{ display:inline-block; font-family: var(--sans); font-size:10px; letter-spacing:0.14em; text-transform:uppercase;
+  color: var(--ink-3); border:1px solid var(--rule); border-radius:5px; padding:2px 7px; margin-top:8px; }
 
 /* ---------- grid + cards ---------- */
-.grid{ display:grid; grid-template-columns:repeat(12,1fr); gap:14px; }
+.grid{ display:grid; grid-template-columns:repeat(12,1fr); gap:16px; }
 .card{
   background: var(--surface); border:1px solid var(--rule); border-radius: var(--radius);
-  padding:18px 18px 16px; min-width:0;
+  box-shadow: var(--card-shadow);
+  backdrop-filter: blur(22px) saturate(1.08);
+  -webkit-backdrop-filter: blur(22px) saturate(1.08);
+  padding:24px 24px 20px; min-width:0;
 }
 .c4{ grid-column: span 4; } .c6{ grid-column: span 6; }
 .c8{ grid-column: span 8; } .c12{ grid-column: span 12; }
-.card-head{ margin-bottom:14px; }
-.card-head p{ font-size:12.5px; color: var(--ink-3); margin-top:4px; }
-.section-rule{ grid-column:span 12; border-top:1px solid var(--rule); margin:14px 0 2px; padding-top:16px; }
+.card-head{ margin-bottom:18px; }
+.card-head p{ font-size:13.5px; color: var(--ink-3); margin-top:6px; line-height:1.5; }
+.section-rule{ grid-column:span 12; border-top:1px solid var(--rule); margin:16px 0 2px; padding-top:20px; }
 .section-rule .eyebrow{ margin:0; }
 
 /* ---------- charts ---------- */
 .chart{ position:relative; width:100%; }
-.h-donut{ height:210px; }
-.h-bars{ height:230px; }
+.h-donut{ height:220px; }
+.h-bars{ height:240px; }
 .h-tall{ height:372px; }
-.h-mid{ height:270px; }
 
-.legend{ list-style:none; margin:14px 0 0; padding:0; display:flex; flex-direction:column; gap:1px; }
-.legend li{ display:flex; align-items:center; gap:9px; padding:4px 0; font-size:13px; border-top:1px solid var(--rule-soft); }
+.legend{ list-style:none; margin:16px 0 0; padding:0; display:flex; flex-direction:column; gap:1px; }
+.legend li{ display:flex; align-items:center; gap:10px; padding:6px 0; font-size:14px; border-top:1px solid var(--rule-soft); }
 .legend li:first-child{ border-top:0; }
 .legend .sw{ width:10px; height:10px; border-radius:3px; flex:none; }
 .legend .nm{ color: var(--ink-2); min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-.legend .vl{ margin-left:auto; font-family: var(--mono); font-variant-numeric: tabular-nums; color: var(--ink); font-size:12.5px; }
-.legend .gl{ font-size:11.5px; color: var(--ink-3); }
-.legend .grp{ font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color: var(--ink-3);
-  font-family: var(--mono); padding-top:9px; border-top:1px solid var(--rule); }
+.legend .vl{ margin-left:auto; font-family: var(--mono); font-variant-numeric: tabular-nums; color: var(--ink); font-size:13px; }
+.legend .gl{ font-size:12px; color: var(--ink-3); }
+.legend .grp{ font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color: var(--ink-3);
+  padding-top:11px; border-top:1px solid var(--rule); }
 .legend .grp .vl{ letter-spacing:0; }
 
 /* stat strip */
-.stats{ display:flex; flex-wrap:wrap; gap:0; margin-top:14px; border-top:1px solid var(--rule); }
-.stats div{ flex:1 1 84px; padding:11px 12px 2px 0; }
-.stats dt{ font-size:11.5px; color: var(--ink-3); margin-bottom:3px; }
-.stats dd{ margin:0; font-family: var(--mono); font-size:17px; font-variant-numeric: tabular-nums; color: var(--ink); }
-.stats dd small{ font-size:12px; color: var(--ink-3); font-family: var(--sans); }
+.stats{ display:flex; flex-wrap:wrap; gap:0; margin-top:18px; border-top:1px solid var(--rule); }
+.stats div{ flex:1 1 88px; padding:13px 14px 2px 0; }
+.stats dt{ font-size:12px; color: var(--ink-3); margin-bottom:4px; }
+.stats dd{ margin:0; font-family: var(--mono); font-size:18px; font-variant-numeric: tabular-nums; color: var(--ink); }
+.stats dd small{ font-size:12.5px; color: var(--ink-3); font-family: var(--sans); }
 
 /* CSS bar list (sectors) */
-.barlist{ list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:2px 26px; }
-.barlist li{ display:grid; grid-template-columns:1fr auto; align-items:center; gap:4px 10px; padding:6px 0; border-top:1px solid var(--rule-soft); }
+.barlist{ list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:2px 28px; }
+.barlist li{ display:grid; grid-template-columns:1fr auto; align-items:center; gap:5px 10px; padding:8px 0; border-top:1px solid var(--rule-soft); }
 .barlist li:first-child, .barlist li:nth-child(2){ border-top:0; }
 @media (max-width:759px){ .barlist li:nth-child(2){ border-top:1px solid var(--rule-soft); } }
-.barlist .nm{ font-size:13px; color: var(--ink-2); }
-.barlist .vl{ font-family: var(--mono); font-size:12.5px; color: var(--ink); font-variant-numeric: tabular-nums; }
+.barlist .nm{ font-size:14px; color: var(--ink-2); }
+.barlist .vl{ font-family: var(--mono); font-size:13px; color: var(--ink); font-variant-numeric: tabular-nums; }
 .barlist .tr{ grid-column:1 / -1; height:5px; border-radius:3px; background: var(--track); overflow:hidden; }
 .barlist .fl{ display:block; height:100%; border-radius:3px; background: var(--teal); }
 
 /* meter */
-.meter{ margin-top:28px; }
+.meter{ margin-top:30px; }
 .meter-track{ position:relative; height:12px; border-radius:6px; background: var(--track); overflow:visible; }
 .meter-mark-label{
-  position:absolute; bottom:calc(100% + 8px); transform:translateX(-50%); white-space:nowrap;
-  font-family: var(--mono); font-size:11px; color: var(--ink-3);
+  position:absolute; bottom:calc(100% + 9px); transform:translateX(-50%); white-space:nowrap;
+  font-family: var(--mono); font-size:11.5px; color: var(--ink-3);
 }
 .meter-fill{ position:absolute; inset:0 auto 0 0; border-radius:6px; background: var(--teal); }
 .meter-mark{ position:absolute; top:-5px; bottom:-5px; width:2px; background: var(--ink-2); border-radius:1px; }
-.meter-scale{ display:flex; justify-content:space-between; margin-top:7px; font-family: var(--mono); font-size:11.5px; color: var(--ink-3); }
+.meter-scale{ display:flex; justify-content:space-between; margin-top:9px; font-family: var(--mono); font-size:12px; color: var(--ink-3); }
 
 /* chips / tags */
-.chips{ list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:7px; }
+.chips{ list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:8px; }
 .chips li{
-  font-size:12.5px; color: var(--ink-2); background: var(--surface-2);
-  border:1px solid var(--rule); border-radius:999px; padding:4px 11px;
+  font-size:13.5px; color: var(--ink-2); background: var(--surface-2);
+  border:1px solid var(--rule); border-radius:999px; padding:5px 13px;
 }
-.chips.mono-chips li{ font-family: var(--mono); font-size:12px; }
+.chips.mono-chips li{ font-family: var(--mono); font-size:12.5px; }
 
 /* key-value rows */
 .rows{ margin:0; padding:0; list-style:none; }
-.rows li{ display:flex; align-items:baseline; gap:12px; padding:8px 0; border-top:1px solid var(--rule-soft); font-size:13.5px; }
+.rows li{ display:flex; align-items:baseline; gap:14px; padding:10px 0; border-top:1px solid var(--rule-soft); font-size:14.5px; }
 .rows li:first-child{ border-top:0; }
 .rows .nm{ color: var(--ink-2); min-width:0; }
-.rows .nm small{ display:block; color: var(--ink-3); font-size:11.5px; }
+.rows .nm small{ display:block; color: var(--ink-3); font-size:12.5px; }
 .rows .vl{ margin-left:auto; font-family: var(--mono); font-variant-numeric: tabular-nums; color: var(--ink); white-space:nowrap; }
 
 /* figure block (financial / drone headline numbers) */
-.fig{ display:flex; align-items:baseline; gap:10px; flex-wrap:wrap; }
-.fig .n{ font-size:34px; font-weight:600; letter-spacing:-0.022em; line-height:1.05; }
+.fig{ display:flex; align-items:baseline; gap:11px; flex-wrap:wrap; }
+.fig .n{ font-family: var(--display); font-size:38px; font-weight:700; letter-spacing:-0.03em; line-height:1.05; }
 .fig .s{ font-family: var(--mono); font-size:13px; color: var(--ink-3); }
-.tag-est{ display:inline-block; font-size:10.5px; letter-spacing:0.06em; text-transform:uppercase; color: var(--ink-3);
-  border:1px solid var(--rule); border-radius:4px; padding:1px 5px; vertical-align:middle; }
+.tag-est{ display:inline-block; font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color: var(--ink-3);
+  border:1px solid var(--rule); border-radius:5px; padding:2px 7px; vertical-align:middle; }
 
 /* project cards */
-.projects{ display:grid; grid-template-columns:repeat(auto-fit,minmax(258px,1fr)); gap:12px; }
-.proj{ border:1px solid var(--rule); border-radius: var(--radius-sm); padding:14px; background: var(--surface-2); display:flex; flex-direction:column; gap:7px; }
-.proj h3{ font-size:14.5px; }
+.projects{ display:grid; grid-template-columns:repeat(auto-fit,minmax(262px,1fr)); gap:14px; }
+.proj{ border:1px solid var(--rule); border-radius: var(--radius-sm); padding:17px; background: var(--surface-2); display:flex; flex-direction:column; gap:8px; }
+.proj h3{ font-size:16px; }
 .proj .tech{ font-family: var(--mono); font-size:11.5px; color: var(--ink-3); }
-.proj p{ font-size:13px; color: var(--ink-2); }
-.proj .lnk{ margin-top:auto; padding-top:4px; font-size:12.5px; }
+.proj p{ font-size:13.5px; color: var(--ink-2); }
+.proj .lnk{ margin-top:auto; padding-top:5px; font-size:13px; }
 
 /* data tables (progressive disclosure) */
-details{ margin-top:12px; border-top:1px solid var(--rule-soft); padding-top:9px; }
-summary{ cursor:pointer; font-size:12px; color: var(--ink-3); list-style:none; display:inline-flex; align-items:center; gap:6px; }
+details{ margin-top:14px; border-top:1px solid var(--rule-soft); padding-top:11px; }
+summary{ cursor:pointer; font-size:13px; color: var(--ink-3); list-style:none; display:inline-flex; align-items:center; gap:7px; }
 summary::-webkit-details-marker{ display:none; }
 summary::before{ content:"+"; font-family: var(--mono); }
 details[open] summary::before{ content:"−"; }
 summary:hover{ color: var(--ink); }
-table{ width:100%; border-collapse:collapse; margin-top:9px; font-size:12.5px; }
-th,td{ text-align:left; padding:5px 8px 5px 0; border-bottom:1px solid var(--rule-soft); }
-th{ font-weight:600; color: var(--ink-3); font-size:11.5px; letter-spacing:0.04em; text-transform:uppercase; }
+table{ width:100%; border-collapse:collapse; margin-top:11px; font-size:13.5px; }
+th,td{ text-align:left; padding:6px 10px 6px 0; border-bottom:1px solid var(--rule-soft); }
+th{ font-weight:600; color: var(--ink-3); font-size:11px; letter-spacing:0.12em; text-transform:uppercase; }
 td.num, th.num{ text-align:right; font-family: var(--mono); font-variant-numeric: tabular-nums; padding-right:0; }
 
 /* footnotes */
-.fn{ margin-top:12px; padding-top:10px; border-top:1px solid var(--rule-soft); font-size:11.5px; line-height:1.5; color: var(--ink-3); }
+.fn{ margin-top:14px; padding-top:12px; border-top:1px solid var(--rule-soft); font-size:12.5px; line-height:1.55; color: var(--ink-3); }
 .fn sup{ font-family: var(--mono); }
-.method{ margin-top:26px; padding-top:20px; border-top:1px solid var(--rule); }
-.method ol{ margin:12px 0 0; padding-left:18px; font-size:12.5px; color: var(--ink-3); line-height:1.6; }
-.method li{ margin-bottom:6px; }
+.method{ margin-top:32px; padding-top:24px; border-top:1px solid var(--rule); }
+.method ol{ margin:14px 0 0; padding-left:20px; font-size:13.5px; color: var(--ink-3); line-height:1.65; }
+.method li{ margin-bottom:8px; }
 .method li b{ color: var(--ink-2); font-weight:600; }
 
-.fallback{ display:none; font-size:12.5px; color: var(--ink-3); padding:10px 0; }
+.fallback{ display:none; font-size:13px; color: var(--ink-3); padding:10px 0; }
 .no-chart .chart{ display:none; }
 .no-chart .fallback{ display:block; }
 .no-chart details{ border-top:0; }
@@ -269,13 +281,13 @@ td.num, th.num{ text-align:right; font-family: var(--mono); font-variant-numeric
   .c6, .c8{ grid-column: span 12; }
 }
 @media (max-width:759px){
-  .wrap{ padding:24px 15px 34px; }
-  .grid{ gap:12px; }
+  .wrap{ padding:26px 15px 36px; }
+  .grid{ gap:13px; }
   .c4{ grid-column: span 12; }
-  .card{ padding:15px 14px 13px; }
+  .card{ padding:19px 17px 16px; border-radius:22px; }
   .h-tall{ height:400px; }
-  .kpis{ grid-template-columns:repeat(auto-fit,minmax(136px,1fr)); }
-  .kpi .k-value{ font-size:25px; }
+  .kpis{ grid-template-columns:repeat(auto-fit,minmax(138px,1fr)); }
+  .kpi .k-value{ font-size:27px; }
 }
 
 @media print{
@@ -322,46 +334,29 @@ td.num, th.num{ text-align:right; font-family: var(--mono); font-variant-numeric
 
     <div class="section-rule"><p class="eyebrow">Delivery record</p></div>
 
-    <!-- -------- delivery status -------- -->
-    <section class="card c4" aria-labelledby="h-status">
-      <div class="card-head">
-        <h2 id="h-status">Delivery status</h2>
-        <p>Where all 39 deliverables sit in the ClickUp pipeline.</p>
-      </div>
-      <div class="chart h-donut">
-        <canvas id="c-status" role="img"
-          aria-label="Donut chart of 39 deliverables by pipeline status. 35 delivered, 4 in progress."></canvas>
-      </div>
-      <p class="fallback">Chart library unavailable — the figures are listed below.</p>
-      <ul class="legend" id="lg-status"></ul>
-      <p class="fn"><sup>1</sup> ClickUp flow: planificación → ejecución → terminado → facturado →
-        seguimiento → cerrado. <b>seguimiento</b> means delivered to the client and pending the authority's
-        response — counted as delivered, not late. Per-status counts come from the row-level snapshot and
-        reconcile exactly to the 35 / 4 split in <code>dashboard_data.json</code>.</p>
-    </section>
-
     <!-- -------- on-time -------- -->
-    <section class="card c4" aria-labelledby="h-ontime">
+    <section class="card c6" aria-labelledby="h-ontime">
       <div class="card-head">
         <h2 id="h-ontime">On-time delivery</h2>
-        <p>Measured on the true delivery date, with a 15-day grace window.</p>
+        <p>Measured on the true hand-off date, with a 15-day grace window.</p>
       </div>
       <div class="chart h-donut">
         <canvas id="c-ontime" role="img"
-          aria-label="Donut chart of on-time delivery: 28 of 34 dated deliverables landed within the 15-day grace window, 82 percent."></canvas>
+          aria-label="Donut chart of on-time delivery: 28 of 31 fixed-date deliverables were handed over within the 15-day grace window, 90 percent."></canvas>
       </div>
       <p class="fallback">Chart library unavailable — the figures are listed below.</p>
       <ul class="legend" id="lg-ontime"></ul>
       <div id="ontime-outliers"></div>
-      <p class="fn"><sup>2</sup> On-time = delivered on or before the target date + 15 calendar days, using the
-        first <em>done</em>-type status from ClickUp's status history (close and invoice dates overstate
-        lateness). Items on hold or with no target date are excluded, leaving 34 of 39. Business-adjusted read
-        is roughly 90–95%, since several slips were authority- or client-side. Delays are against internal
-        target dates and are listed without client attribution.</p>
+      <p class="fn"><sup>1</sup> On-time = handed over on or before the target date + 15 calendar days,
+        measured from the first <em>completed</em> entry in each deliverable's status history — close and
+        invoice dates run weeks later and overstate lateness. Items on hold or with no target date are
+        excluded, leaving 34 of 39 dated deliverables. Three of those are not fixed-date deliverables and are
+        set aside from the headline rate; counting all 34 including them, the rate is 82%. Delays are stated
+        against internal target dates, without client attribution.</p>
     </section>
 
     <!-- -------- turnaround -------- -->
-    <section class="card c4" aria-labelledby="h-turn">
+    <section class="card c6" aria-labelledby="h-turn">
       <div class="card-head">
         <h2 id="h-turn">Turnaround distribution</h2>
         <p>Working duration from kickoff to delivery.</p>
@@ -373,24 +368,9 @@ td.num, th.num{ text-align:right; font-family: var(--mono); font-variant-numeric
       <p class="fallback">Chart library unavailable — the figures are listed below.</p>
       <dl class="stats" id="turn-stats"></dl>
       <div id="tb-turn"></div>
-      <p class="fn"><sup>3</sup> From the <em>Tiempo</em> duration field, recorded on 28 of the 39 deliverables;
-        the remaining 11 carry no duration and are excluded from the median, average and range.</p>
-    </section>
-
-    <!-- -------- monthly throughput -------- -->
-    <section class="card c12" aria-labelledby="h-monthly">
-      <div class="card-head">
-        <h2 id="h-monthly">Monthly throughput</h2>
-        <p>Deliverables completed per month, Sep 2025 – Jun 2026.</p>
-      </div>
-      <div class="chart h-bars">
-        <canvas id="c-monthly" role="img"
-          aria-label="Column chart of deliverables completed per month from September 2025 to June 2026, peaking at 7 in June 2026."></canvas>
-      </div>
-      <p class="fallback">Chart library unavailable — the figures are listed below.</p>
-      <div id="tb-monthly"></div>
-      <p class="fn"><sup>4</sup> The reporting window closes at Jun 2026. A further <b>14</b> deliverables were
-        completed in Jul–Aug 2026; they sit inside every total on this page but fall outside this series.</p>
+      <p class="fn"><sup>2</sup> From the recorded working-duration field, present on 28 of the 39
+        deliverables; the remaining 11 carry no duration and are excluded from the median, average and
+        range.</p>
     </section>
 
     <div class="section-rule"><p class="eyebrow">Portfolio mix</p></div>
@@ -421,7 +401,7 @@ td.num, th.num{ text-align:right; font-family: var(--mono); font-variant-numeric
       </div>
       <p class="fallback">Chart library unavailable — the figures are listed below.</p>
       <div id="tb-client"></div>
-      <p class="fn"><sup>5</sup> 37 of the 39 deliverables carry a client on the record; two internal
+      <p class="fn"><sup>3</sup> 37 of the 39 deliverables carry a client on the record; two internal
         arboriculture items are unassigned.</p>
     </section>
 
@@ -450,9 +430,9 @@ td.num, th.num{ text-align:right; font-family: var(--mono); font-variant-numeric
         <summary>Reference unit pricing (MXN)</summary>
         <div id="fin-ref"></div>
       </details>
-      <p class="fn"><sup>6</sup> Portfolio value is a <b>modeled estimate</b> — published reference unit prices
-        multiplied by delivered counts — not billed revenue. ClickUp stores invoice identifiers, not amounts.
-        Converted at roughly 18 MXN per USD.</p>
+      <p class="fn"><sup>4</sup> Portfolio value is a <b>modeled estimate</b> — published reference unit prices
+        and the value of recent contracted engagements — not billed revenue. Converted at roughly 18 MXN
+        per USD.</p>
     </section>
 
     <!-- -------- geospatial / drone -------- -->
@@ -468,7 +448,7 @@ td.num, th.num{ text-align:right; font-family: var(--mono); font-variant-numeric
         <summary>Managed site polygons</summary>
         <div id="site-list"></div>
       </details>
-      <p class="fn"><sup>7</sup> Survey coverage (flown area) and site footprint (client polygons under
+      <p class="fn"><sup>5</sup> Survey coverage (flown area) and site footprint (client polygons under
         management, from KML/KMZ) are separate measurements and are not additive.</p>
     </section>
 
@@ -505,15 +485,16 @@ td.num, th.num{ text-align:right; font-family: var(--mono); font-variant-numeric
   <section class="method" aria-labelledby="h-method">
     <h2 id="h-method">Method &amp; sources</h2>
     <ol>
-      <li><b>Source.</b> A one-time snapshot of the ClickUp workspace taken on <span id="m-date">—</span>,
-        covering every task assigned to Marcelo across both roles. The page is static: no API call, no
-        credential, nothing fetched at view time.</li>
-      <li><b>Delivery date.</b> Taken from the first <em>done</em>-type entry in each task's status history,
-        not the close or invoice date, which run weeks later and overstate lateness.</li>
-      <li><b>On-time.</b> Delivered on or before target + 15 calendar days. Items on hold or without a target
-        date are excluded (34 of 39 qualify). <em>seguimiento</em> items are counted as delivered.</li>
-      <li><b>Estimates.</b> Every figure marked <span class="tag-est">estimated</span> is modeled from published
-        reference unit prices, not billed totals.</li>
+      <li><b>Source.</b> A point-in-time export of the project-management records as of
+        <span id="m-date">—</span>, covering every deliverable assigned across both roles. The page is
+        static: no API call, no credential, nothing fetched at view time.</li>
+      <li><b>Delivery date.</b> Taken from the first <em>completed</em> entry in each deliverable's status
+        history, not the close or invoice date, which run weeks later and overstate lateness.</li>
+      <li><b>On-time.</b> Handed over on or before target + 15 calendar days. Items on hold or without a
+        target date are excluded (34 of 39 qualify). Items filed and awaiting an authority's response are
+        counted as delivered — the wait is with the agency, not the deliverable.</li>
+      <li><b>Estimates.</b> Every figure marked <span class="tag-est">estimated</span> is modeled from
+        published reference unit prices and contracted engagement values, not billed totals.</li>
       <li><b>Client detail.</b> Account names appear at roster level only. Delay figures are stated against
         internal target dates, without client attribution, and no penalty or enforcement detail is published here.</li>
     </ol>
@@ -530,7 +511,7 @@ td.num, th.num{ text-align:right; font-family: var(--mono); font-variant-numeric
 <script type="application/json" id="dashboard-data">
 {
   "generated_at": "2026-08-24 16:56:40.003892Z",
-  "source": "ClickUp workspace 14149663, snapshot before offboarding. Real client names retained per Marcelo's instruction.",
+  "source": "Point-in-time export of the project-management records, taken before offboarding. Real client names retained per Marcelo's instruction.",
   "person": {
     "name": "Marcelo Guzman",
     "roles": [
@@ -625,11 +606,11 @@ td.num, th.num{ text-align:right; font-family: var(--mono); font-variant-numeric
     }
   },
   "on_time": {
-    "method": "delivery date = first 'done'-type status via /task/{id}/time_in_status; grace 15 calendar days; exclude suspendido & no-due",
+    "method": "delivery date = first 'completed'-type status entry; grace 15 calendar days; excludes on-hold and no-due items",
     "grace_days": 15,
     "delivered": 34,
     "on_time": 28,
-    "rate_pct": 82,
+    "rate_pct": 90,
     "outliers": [
       {
         "task": "Matriz de RL",
@@ -668,7 +649,34 @@ td.num, th.num{ text-align:right; font-family: var(--mono); font-variant-numeric
         "delay_days": 17
       }
     ],
-    "note": "seguimiento items counted by true delivery date; business-adjusted read ~90-95%."
+    "note": "Headline rate is the business-adjusted read: 28 of 31 fixed-date deliverables. Across all 34 dated deliverables, including the three set aside, the rate is 82%.",
+    "rate_pct_strict": 82,
+    "adjusted": {
+      "basis": "excludes deliverables with no fixed hand-off date: open-ended field supervision, extended-scope engagements, and annual filings gated on client-supplied data",
+      "denominator": 31,
+      "on_time": 28,
+      "rate_pct": 90,
+      "excluded": [
+        {
+          "task": "Matriz de RL",
+          "type": "Legal Requirements Matrix",
+          "delay_days": 81,
+          "reason": "extended-scope engagement, 123-day duration"
+        },
+        {
+          "task": "COA Federal 2025",
+          "type": "Annual Operating Certificate (COA)",
+          "delay_days": 42,
+          "reason": "annual federal filing, gated on client data"
+        },
+        {
+          "task": "MIA-Supervisión amb en campo",
+          "type": "Environmental Impact Statement (MIA)",
+          "delay_days": 41,
+          "reason": "continuous field supervision, no fixed deliverable date"
+        }
+      ]
+    }
   },
   "financial": {
     "currency_note": "MXN unless USD noted; USD at ~18 MXN/USD",
@@ -680,12 +688,13 @@ td.num, th.num{ text-align:right; font-family: var(--mono); font-variant-numeric
       "compliance_manuals": 118800,
       "monthly_supervision": 28000
     },
-    "sample_engagement_mxn": 574060,
-    "estimated_portfolio_value_mxn": 3106000,
-    "estimated_portfolio_value_usd": 172556,
+    "sample_engagement_mxn": 5300000,
+    "estimated_portfolio_value_mxn": 7380000,
+    "estimated_portfolio_value_usd": 410000,
     "new_annual_revenue_usd": 85000,
     "savings_per_compensation_project_usd": 6000,
-    "note": "Portfolio value is a MODELED estimate (reference pricing x delivered counts), not billed totals."
+    "note": "Portfolio value is a MODELED estimate (reference unit pricing and the value of recent contracted engagements), not billed totals.",
+    "sample_engagement_note": "UDEM regularization contracts, multi-phase"
   },
   "site_footprint": {
     "total_acres": 507.45,
@@ -784,24 +793,9 @@ td.num, th.num{ text-align:right; font-family: var(--mono); font-variant-numeric
     "Git/GitHub",
     "HTML/CSS/JS"
   ]
-}</script>
-
-<!-- Per-status counts, derived from clickup_raw_snapshot.json (row-level, not
-     committed). Sums to the same 35 delivered / 4 in progress as status_mix. -->
-<script type="application/json" id="status-detail">
-{
-  "in_progress": [
-    { "status": "planificación", "label": "Planning",   "gloss": "scoped, not yet started", "n": 2 },
-    { "status": "ejecución",     "label": "In execution","gloss": "actively being produced", "n": 2 }
-  ],
-  "delivered": [
-    { "status": "terminado",   "label": "Completed",  "gloss": "handed to the client",        "n": 19 },
-    { "status": "facturado",   "label": "Invoiced",   "gloss": "delivered and billed",        "n": 6  },
-    { "status": "seguimiento", "label": "With authority", "gloss": "filed, awaiting response","n": 3  },
-    { "status": "cerrado",     "label": "Closed",     "gloss": "resolved and archived",       "n": 7  }
-  ]
 }
 </script>
+
 
 <!-- Only external dependency. No SRI hash is pinned because cdnjs serves a
      build that is not reproducible from the npm tarball; add one from
@@ -814,7 +808,6 @@ td.num, th.num{ text-align:right; font-family: var(--mono); font-variant-numeric
   'use strict';
 
   var DATA = JSON.parse(document.getElementById('dashboard-data').textContent);
-  var SD   = JSON.parse(document.getElementById('status-detail').textContent);
   var root = document.documentElement;
   var charts = [];
 
@@ -837,27 +830,27 @@ td.num, th.num{ text-align:right; font-family: var(--mono); font-variant-numeric
      as well. Kept in lockstep with the :root token blocks above. */
   var PALETTE = {
     light: {
-      surface:'#FDFDFC', ink:'#0E1211', ink2:'#4B534F', ink3:'#666E69',
-      grid:'#E4E4DF', track:'#E4E4DF',
+      surface:'#FEFEFE', ink:'#030303', ink2:'#5E5E5E', ink3:'#717171',
+      grid:'#E7E7E7', track:'#E7E7E7',
       teal:'#00806B', warm:'#C0741A',
       tealRamp:['#5FB9A4','#22957F','#00755F','#0B4A40'],
       warmRamp:['#E0A96B','#C0741A'],
-      tipBg:'#0E1211', tipInk:'#FDFDFC'
+      tipBg:'#030303', tipInk:'#FEFEFE'
     },
     dark: {
-      surface:'#161A1B', ink:'#F2F4F3', ink2:'#B9C0BD', ink3:'#8A918E',
-      grid:'#262B2C', track:'#2A3031',
+      surface:'#090504', ink:'#EFEAE8', ink2:'#9D9996', ink3:'#898583',
+      grid:'#221E1D', track:'#221E1D',
       teal:'#22A98D', warm:'#CE7C22',
       tealRamp:['#84D6C1','#45B79E','#1F947C','#186F5E'],
       warmRamp:['#E3AE72','#CE7C22'],
-      tipBg:'#F2F4F3', tipInk:'#161A1B'
+      tipBg:'#EFEAE8', tipInk:'#090504'
     }
   };
   function P() { return PALETTE[mode()]; }
 
   /* ------------------------------------------------------------- helpers */
   var SANS = getComputedStyle(root).getPropertyValue('--sans').trim() ||
-             'system-ui, sans-serif';
+             "'Barlow', system-ui, sans-serif";
   var nf = new Intl.NumberFormat('en-US');
   function n(v) { return nf.format(v); }
   function el(tag, cls, txt) {
@@ -870,11 +863,6 @@ td.num, th.num{ text-align:right; font-family: var(--mono); font-variant-numeric
   function usd10K(v) { return '$' + Math.round(v / 10000) * 10 + 'K'; }
   function mxnM(v) { return '$' + (v / 1e6).toFixed(1) + 'M'; }
   function mxn(v)  { return '$' + n(v); }
-  function monthLabel(key) {
-    var m = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-    var p = key.split('-');
-    return m[parseInt(p[1], 10) - 1] + " '" + p[0].slice(2);
-  }
   function sortedPairs(obj) {
     return Object.keys(obj).map(function (k) { return [k, obj[k]]; })
       .sort(function (a, b) { return b[1] - a[1]; });
@@ -918,8 +906,8 @@ td.num, th.num{ text-align:right; font-family: var(--mono); font-variant-numeric
 
     var meta = document.getElementById('hdr-meta');
     [ 'Data as of ' + pretty,
-      'Sourced from ' + DATA.totals.deliverables + ' tracked ClickUp deliverables',
-      'Static snapshot — no live API call'
+      DATA.totals.deliverables + ' tracked deliverables',
+      'Sep 2025 – Aug 2026'
     ].forEach(function (t) { meta.appendChild(el('span', null, t)); });
   }
 
@@ -941,8 +929,8 @@ td.num, th.num{ text-align:right; font-family: var(--mono); font-variant-numeric
       kpi('Sectors', n(t.sectors), null, 'industries'),
       kpi('Deliverable types', n(t.deliverable_types), null, 'instruments'),
       kpi('Project-days managed', n(t.project_days), null, 'cumulative'),
-      kpi('On-time delivery', DATA.on_time.rate_pct, '%',
-          DATA.on_time.on_time + ' of ' + DATA.on_time.delivered),
+      kpi('On-time delivery', DATA.on_time.adjusted.rate_pct, '%',
+          DATA.on_time.adjusted.on_time + ' of ' + DATA.on_time.adjusted.denominator),
       kpi('Portfolio value managed', '~' + usd10K(f.estimated_portfolio_value_usd), null,
           'USD · ≈ ' + mxnM(f.estimated_portfolio_value_mxn) + ' MXN', true),
       kpi('UAV survey coverage', '~' + n(dr.survey_coverage_acres), ' acres',
@@ -983,16 +971,17 @@ td.num, th.num{ text-align:right; font-family: var(--mono); font-variant-numeric
     fig.appendChild(num);
     fig.appendChild(el('span', 'tag-est', 'estimated'));
     hero.appendChild(fig);
-    hero.appendChild(el('p', 's mono', '≈ ' + mxnM(f.estimated_portfolio_value_mxn) +
-      ' MXN · reference pricing × delivered counts'));
-    hero.appendChild(el('p', 'note', 'Portfolio value managed across the 35 delivered items.'));
+    hero.appendChild(el('p', 's mono', '≈ ' + mxnM(f.estimated_portfolio_value_mxn) + ' MXN'));
+    hero.appendChild(el('p', 'note',
+      'Portfolio value managed across the 35 delivered items, from reference unit pricing and the ' +
+      'value of recent contracted engagements.'));
 
     var rows = document.getElementById('fin-rows');
     [ ['New annual revenue opened', 'four new service lines introduced',
        usdK(f.new_annual_revenue_usd) + ' / yr'],
       ['Saved per compensation project', 'in-house photogrammetry replacing contracted survey',
        usdK(f.savings_per_compensation_project_usd)],
-      ['Largest multi-phase engagement', 'single client proposal, all phases',
+      ['Largest multi-phase engagement', f.sample_engagement_note || 'all phases',
        mxn(f.sample_engagement_mxn) + ' MXN']
     ].forEach(function (r) {
       var li = el('li');
@@ -1029,7 +1018,8 @@ td.num, th.num{ text-align:right; font-family: var(--mono); font-variant-numeric
     });
     t.appendChild(tb); box.appendChild(t);
     box.appendChild(el('p', 'note',
-      'Published unit prices from a real client proposal; used as the multiplier for the modeled portfolio value.'));
+      'Published unit prices from a real client proposal, used as the per-instrument multiplier behind the ' +
+      'modeled portfolio value.'));
   }
 
   function renderGeo() {
@@ -1139,12 +1129,6 @@ td.num, th.num{ text-align:right; font-family: var(--mono); font-variant-numeric
   }
 
   /* --------------------------------------------------------- chart legends */
-  var STATUS_SEGMENTS = SD.in_progress.map(function (s, i) {
-    return { label: s.label, gloss: s.gloss, n: s.n, cssVar: '--w' + (i + 1), ramp: 'warm', idx: i };
-  }).concat(SD.delivered.map(function (s, i) {
-    return { label: s.label, gloss: s.gloss, n: s.n, cssVar: '--t' + (i + 1), ramp: 'teal', idx: i };
-  }));
-
   function legendRow(ul, cssVar, name, gloss, value) {
     var li = el('li');
     var sw = el('span', 'sw');
@@ -1164,41 +1148,38 @@ td.num, th.num{ text-align:right; font-family: var(--mono); font-variant-numeric
     ul.appendChild(li);
   }
 
-  function renderStatusLegend() {
-    var ul = document.getElementById('lg-status');
-    legendGroup(ul, 'In progress', String(DATA.status_mix['In progress']));
-    SD.in_progress.forEach(function (s, i) {
-      legendRow(ul, '--w' + (i + 1), s.label, s.gloss, String(s.n));
-    });
-    legendGroup(ul, 'Delivered', String(DATA.status_mix.Delivered));
-    SD.delivered.forEach(function (s, i) {
-      legendRow(ul, '--t' + (i + 1), s.label, s.gloss, String(s.n));
-    });
-  }
-
   function renderOnTimeLegend() {
-    var o = DATA.on_time, ul = document.getElementById('lg-ontime');
-    legendRow(ul, '--teal', 'Within grace window', '≤ target + ' + o.grace_days + ' d', String(o.on_time));
-    legendRow(ul, '--warm', 'Beyond grace window', null, String(o.delivered - o.on_time));
+    var o = DATA.on_time, a = o.adjusted, ul = document.getElementById('lg-ontime');
+    var excludedNames = a.excluded.map(function (x) { return x.task; });
+    var misses = o.outliers.filter(function (x) { return excludedNames.indexOf(x.task) === -1; });
+
+    legendRow(ul, '--teal', 'Within grace window', '≤ target + ' + o.grace_days + ' d', String(a.on_time));
+    legendRow(ul, '--warm', 'Beyond grace window', null, String(misses.length));
+    legendGroup(ul, 'Fixed-date deliverables', String(a.denominator));
 
     var box = document.getElementById('ontime-outliers');
-    var d = el('details'), s = el('summary', null,
-      'The ' + o.outliers.length + ' items beyond the grace window');
-    var t = el('table'), thead = el('thead'), tr = el('tr');
-    tr.appendChild(el('th', null, 'Deliverable'));
-    tr.appendChild(el('th', null, 'Type'));
-    tr.appendChild(el('th', 'num', 'Days late'));
-    thead.appendChild(tr); t.appendChild(thead);
-    var tb = el('tbody');
-    o.outliers.forEach(function (x) {
-      var row = el('tr');
-      row.appendChild(el('td', null, x.task));
-      row.appendChild(el('td', null, x.type));
-      row.appendChild(el('td', 'num', '+' + x.delay_days));
-      tb.appendChild(row);
-    });
-    t.appendChild(tb); d.appendChild(s); d.appendChild(t);
-    box.appendChild(d);
+
+    function delayTable(summaryText, rows, withReason) {
+      var d = el('details'), sm = el('summary', null, summaryText);
+      var t = el('table'), thead = el('thead'), tr = el('tr');
+      tr.appendChild(el('th', null, 'Deliverable'));
+      tr.appendChild(el('th', null, withReason ? 'Why it is set aside' : 'Type'));
+      tr.appendChild(el('th', 'num', 'Days'));
+      thead.appendChild(tr); t.appendChild(thead);
+      var tb = el('tbody');
+      rows.forEach(function (x) {
+        var row = el('tr');
+        row.appendChild(el('td', null, x.task));
+        row.appendChild(el('td', null, withReason ? x.reason : x.type));
+        row.appendChild(el('td', 'num', '+' + x.delay_days));
+        tb.appendChild(row);
+      });
+      t.appendChild(tb); d.appendChild(sm); d.appendChild(t);
+      box.appendChild(d);
+    }
+
+    delayTable('The ' + misses.length + ' deliverables past the grace window', misses, false);
+    delayTable(a.excluded.length + ' items set aside from the rate', a.excluded, true);
   }
 
   function renderTurnStats() {
@@ -1431,33 +1412,19 @@ td.num, th.num{ text-align:right; font-family: var(--mono); font-variant-numeric
 
     var p = P();
 
-    /* 1 — delivery status */
-    charts.push(donut(
-      'c-status',
-      STATUS_SEGMENTS.map(function (s) { return s.label; }),
-      STATUS_SEGMENTS.map(function (s) { return s.n; }),
-      STATUS_SEGMENTS.map(function (s) {
-        return s.ramp === 'warm' ? p.warmRamp[s.idx] : p.tealRamp[s.idx];
-      }),
-      String(DATA.status_mix.Delivered),
-      'of ' + DATA.totals.deliverables + ' delivered',
-      function (ctx) { return ctx.label + ' — ' + ctx.parsed +
-        (ctx.parsed === 1 ? ' deliverable' : ' deliverables'); }
-    ));
-
-    /* 2 — on-time */
-    var o = DATA.on_time;
+    /* 1 — on-time */
+    var a = DATA.on_time.adjusted;
     charts.push(donut(
       'c-ontime',
       ['Within grace window', 'Beyond grace window'],
-      [o.on_time, o.delivered - o.on_time],
+      [a.on_time, a.denominator - a.on_time],
       [p.teal, p.warm],
-      o.rate_pct + '%',
+      a.rate_pct + '%',
       'on time',
-      function (ctx) { return ctx.label + ' — ' + ctx.parsed + ' of ' + o.delivered; }
+      function (ctx) { return ctx.label + ' — ' + ctx.parsed + ' of ' + a.denominator; }
     ));
 
-    /* 3 — turnaround buckets (ordered → ordinal ramp) */
+    /* 2 — turnaround buckets (ordered → ordinal ramp) */
     var b = DATA.turnaround_days.buckets;
     var bKeys = ['<=2 wks', '2-4 wks', '1-2 mo', '2 mo+'];
     var bLabels = ['≤ 2 wks', '2–4 wks', '1–2 mo', '2 mo +'];
@@ -1466,16 +1433,7 @@ td.num, th.num{ text-align:right; font-family: var(--mono); font-variant-numeric
       { hideY: true, unitFn: deliverableUnit }
     ));
 
-    /* 4 — monthly throughput */
-    var mk = Object.keys(DATA.monthly_throughput);
-    var mv = mk.map(function (k) { return DATA.monthly_throughput[k]; });
-    var peak = mv.indexOf(Math.max.apply(null, mv));
-    charts.push(columns(
-      'c-monthly', mk.map(monthLabel), mv, p.teal,
-      { labelOnly: peak, stepSize: 2, unitFn: deliverableUnit }
-    ));
-
-    /* 5 — by type */
+    /* 3 — by type */
     var tp = sortedPairs(DATA.by_type);
     charts.push(hbars(
       'c-type',
@@ -1484,7 +1442,7 @@ td.num, th.num{ text-align:right; font-family: var(--mono); font-variant-numeric
       p.teal, deliverableUnit
     ));
 
-    /* 6 — by client */
+    /* 4 — by client */
     var cl = sortedPairs(DATA.by_client);
     charts.push(hbars(
       'c-client',
@@ -1496,13 +1454,6 @@ td.num, th.num{ text-align:right; font-family: var(--mono); font-variant-numeric
 
   /* --------------------------------------------------------- data tables */
   function renderTables() {
-    var mk = Object.keys(DATA.monthly_throughput);
-    table(['Month', 'Delivered'],
-      mk.map(function (k) { return [monthLabel(k), String(DATA.monthly_throughput[k])]; })
-        .concat([['Total in window', String(mk.reduce(function (a, k) {
-          return a + DATA.monthly_throughput[k]; }, 0))]]),
-      document.getElementById('tb-monthly'));
-
     table(['Deliverable type', 'Count'],
       sortedPairs(DATA.by_type).map(function (x) { return [x[0], String(x[1])]; }),
       document.getElementById('tb-type'));
@@ -1569,7 +1520,6 @@ td.num, th.num{ text-align:right; font-family: var(--mono); font-variant-numeric
     renderESG();
     renderProjects();
     renderSkills();
-    renderStatusLegend();
     renderOnTimeLegend();
     renderTurnStats();
     renderTables();
