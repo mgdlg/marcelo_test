@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <title>IRCA Environmental Apps · Shiny, R &amp; Compliance Analytics</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta
+    name="description"
+    content="R/Shiny applications that automate environmental impact assessment baselines and pollutant-register reviews for consulting teams, alongside GIS, imagery and drone-based compliance monitoring."
+  />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700&family=Barlow:wght@300;400;500;600&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    .app-grid{
+      display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+      gap:18px; margin-top:22px;
+    }
+    .app-card{
+      border:1px solid var(--rule); border-radius:var(--radius-sm);
+      padding:22px; background:var(--bg-card); display:flex; flex-direction:column; gap:10px;
+    }
+    .app-card h3{ font-family:'Syne',system-ui,sans-serif; font-size:19px; margin:0; color:var(--ink); }
+    .app-card .app-stack{
+      font-family:'Barlow',monospace; font-size:11px; letter-spacing:0.18em;
+      text-transform:uppercase; color:var(--ink-faint);
+    }
+    .app-card p{ margin:0; font-size:15px; color:var(--ink-dim); }
+    .app-card ul{ margin:0; padding-left:18px; font-size:14.5px; color:var(--ink-dim); line-height:1.6; }
+    .app-card .app-actions{ margin-top:auto; padding-top:6px; }
+  </style>
+</head>
+<body class="project-page">
+  <div class="substrate" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+
+  <header class="project-hero">
+    <div class="container project-hero-grid">
+      <div>
+        <div class="project-hero-actions">
+          <a class="project-back-link" href="index.html#full-portfolio">← Back to Portfolio</a>
+          <button id="themeToggle" class="theme-toggle" type="button" aria-pressed="false">
+            <span class="toggle-dot" aria-hidden="true"></span>
+            <span id="themeToggleLabel">Dark mode</span>
+          </button>
+        </div>
+        <p class="eyebrow">Case study</p>
+        <h1>IRCA Environmental Apps · Shiny, R &amp; Compliance Analytics</h1>
+        <p class="project-lead">
+          R/Shiny applications that make recurring environmental workflows faster, more transparent and
+          easier to reproduce for consulting teams — built alongside the GIS, imagery and drone-based
+          monitoring that backs client compliance and due diligence.
+        </p>
+        <ul class="project-meta-list">
+          <li><strong>Role:</strong> Environmental Monitoring Coordinator · IRCA Consultores</li>
+          <li><strong>Stack:</strong> R, R/Shiny, rgbif, GIS &amp; UAV remote sensing</li>
+          <li><strong>Output:</strong> Two published applications, in use for client work</li>
+        </ul>
+      </div>
+      <div class="project-hero-media">
+        <img decoding="async" fetchpriority="high" src="images/r-gbif.jpeg"
+             alt="R script querying GBIF occurrence records and filtering them by IUCN Red List category" />
+      </div>
+    </div>
+  </header>
+
+  <main class="project-main">
+    <section class="project-section section-alt">
+      <div class="container">
+        <h2>Key Contributions</h2>
+        <ul class="project-highlights">
+          <li>Built and published two R/Shiny applications that turn manual, repeated analysis into a reproducible workflow.</li>
+          <li>Automated environmental impact assessment biodiversity baselines from research-grade occurrence data.</li>
+          <li>Combined GIS, imagery analysis and drone-based remote sensing into environmental impact permit compliance reports.</li>
+          <li>Extended monitoring to compensation obligations, including reforestation commitments.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="project-section">
+      <div class="container">
+        <h2>The Applications</h2>
+
+        <div class="app-grid">
+          <article class="app-card">
+            <p class="app-stack">R / Shiny · published</p>
+            <h3>Biodiversity Baseline app</h3>
+            <p>
+              Upload a KML/KMZ area of influence and get a defensible species baseline back, with the
+              citations an assessment needs.
+            </p>
+            <ul>
+              <li>Queries research-grade GBIF records for the uploaded area of influence.</li>
+              <li>Cross-references species against protected-species and IUCN Red List status.</li>
+              <li>Exports GIS-ready CSVs, full occurrence tables, dataset citations and APA references for Environmental Impact Assessment baselines.</li>
+            </ul>
+            <p class="app-actions">
+              <a class="btn primary" href="https://ircaconsultores.shinyapps.io/Biodiversidad_GITHUB_SHINYAPPS_V1/"
+                 target="_blank" rel="noopener">Open the Biodiversity app ↗</a>
+            </p>
+          </article>
+
+          <article class="app-card">
+            <p class="app-stack">R / Shiny · published</p>
+            <h3>RETC / PRTR Analytics app</h3>
+            <p>
+              Summarizes Pollutant Release and Transfer Register components used in client process
+              reviews.
+            </p>
+            <ul>
+              <li>Aligns with North American pollutant-transfer reporting concepts from the Commission for Environmental Cooperation.</li>
+              <li>Turns register data into the summaries a process review actually reads from.</li>
+            </ul>
+            <p class="app-actions">
+              <a class="btn ghost" href="https://ircaconsultores.shinyapps.io/retc/"
+                 target="_blank" rel="noopener">Open the RETC app ↗</a>
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="project-section section-alt">
+      <div class="container">
+        <h2>Affiliation and Contributors</h2>
+        <ul class="project-reference-list">
+          <li><strong>Affiliation:</strong> IRCA Consultores</li>
+          <li><strong>Contributor:</strong> Marcelo Guzmán (Environmental Monitoring Coordinator)</li>
+          <li><strong>Users:</strong> Consulting teams preparing environmental impact assessments and client process reviews</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="project-section">
+      <div class="container">
+        <h2>Project Overview</h2>
+        <p>
+          As Environmental Monitoring Coordinator, I support clients' compliance and due diligence by
+          combining GIS, imagery analysis and drone-based remote sensing into environmental impact permit
+          compliance reports. Monitoring work also covers compensation obligations, including
+          reforestation commitments.
+        </p>
+        <p>
+          The same work kept surfacing the same manual steps — pulling occurrence records for an area of
+          influence, checking them against protected-species lists, assembling citations, summarizing
+          register data for a process review. I built the two Shiny applications above to do that work
+          once and repeatably, so a baseline that used to be assembled by hand each time is now a file
+          upload and an export, with the references attached.
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>© <span id="year"></span> Marcelo Guzmán. Built with HTML &amp; CSS, hosted on GitHub Pages.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    const htmlEl = document.documentElement;
+    const toggleBtn = document.getElementById("themeToggle");
+    const toggleLabel = document.getElementById("themeToggleLabel");
+
+    function setTheme(theme) {
+      if (theme === "dark") {
+        htmlEl.setAttribute("data-theme", "dark");
+        toggleBtn?.setAttribute("aria-pressed", "true");
+        if (toggleLabel) toggleLabel.textContent = "Light mode";
+      } else {
+        htmlEl.setAttribute("data-theme", "light");
+        toggleBtn?.setAttribute("aria-pressed", "false");
+        if (toggleLabel) toggleLabel.textContent = "Dark mode";
+      }
+    }
+
+    /* "theme" is what the project pages store; "portfolio-theme" is what the
+       index stores — read both so arriving from either keeps the same mode. */
+    const storedTheme =
+      localStorage.getItem("theme") || localStorage.getItem("portfolio-theme") || "light";
+    setTheme(storedTheme);
+
+    toggleBtn?.addEventListener("click", () => {
+      const isDark = htmlEl.getAttribute("data-theme") === "dark";
+      const nextTheme = isDark ? "light" : "dark";
+      setTheme(nextTheme);
+      localStorage.setItem("theme", nextTheme);
+    });
+  </script>
+</body>
+</html>

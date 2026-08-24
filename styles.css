@@ -2286,6 +2286,21 @@ html[data-theme="light"] .dot.active { background: oklch(0.48 0.16 242); width: 
 html[data-theme="light"] .media-dot { background: rgba(0,0,0,0.16); }
 html[data-theme="light"] .media-dot.is-active { background: oklch(0.48 0.16 242); }
 
+/* Cards whose art is a dark screenshot need more body behind the title in
+   light mode than a light photograph does — the title ink is near-black. */
+.portfolio-card.card-dark-art .portfolio-card-overlay {
+  background: linear-gradient(180deg,
+    oklch(0.16 0.04 250 / 0.10) 0%,
+    oklch(0.16 0.04 250 / 0.42) 55%,
+    oklch(0.13 0.04 250 / 0.86) 100%);
+}
+html[data-theme="light"] .portfolio-card.card-dark-art .portfolio-card-overlay {
+  background: linear-gradient(180deg,
+    oklch(0.982 0 0 / 0.12) 0%,
+    oklch(0.982 0 0 / 0.74) 46%,
+    oklch(0.970 0 0 / 0.97) 100%);
+}
+
 /* Portfolio card overlay */
 html[data-theme="light"] .portfolio-card-overlay {
   background: linear-gradient(180deg,
