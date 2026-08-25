@@ -427,12 +427,14 @@ td.num, th.num{ text-align:right; font-family: var(--mono); font-variant-numeric
       <div id="fin-hero"></div>
       <ul class="rows" id="fin-rows" style="margin-top:16px;"></ul>
       <details>
-        <summary>Reference unit pricing (MXN)</summary>
+        <summary>Reference unit pricing</summary>
         <div id="fin-ref"></div>
       </details>
-      <p class="fn"><sup>4</sup> Portfolio value is a <b>modeled estimate</b> — published reference unit prices
-        and the value of recent contracted engagements — not billed revenue. Converted at roughly 18 MXN
-        per USD.</p>
+      <p class="fn"><sup>4</sup> Portfolio value is a <b>modeled estimate</b> built from
+        <b>two client proposals</b> — published reference unit prices and the value of recent contracted
+        engagements — not billed revenue. <b>29 of the 35</b> delivered items are priced against a
+        quotation rather than a type average; the range spans how the remaining six are valued. Quotations
+        are issued in Mexican pesos before tax and converted at <span id="fn-rate">—</span>.</p>
     </section>
 
     <!-- -------- geospatial / drone -------- -->
@@ -494,7 +496,11 @@ td.num, th.num{ text-align:right; font-family: var(--mono); font-variant-numeric
         target date are excluded (34 of 39 qualify). Items filed and awaiting an authority's response are
         counted as delivered — the wait is with the agency, not the deliverable.</li>
       <li><b>Estimates.</b> Every figure marked <span class="tag-est">estimated</span> is modeled from
-        published reference unit prices and contracted engagement values, not billed totals.</li>
+        published reference unit prices and contracted engagement values, not billed totals. The price
+        book draws on two client proposals, covering 29 of the 35 delivered items.</li>
+      <li><b>Currency.</b> Every figure on this page is shown in US dollars. The underlying quotations and
+        contracts are issued in Mexican pesos before tax, and are converted at
+        <span id="m-rate">—</span>. A different rate moves every converted figure proportionally.</li>
       <li><b>Client detail.</b> Account names appear at roster level only. Delay figures are stated against
         internal target dates, without client attribution, and no penalty or enforcement detail is published here.</li>
     </ol>
@@ -679,22 +685,36 @@ td.num, th.num{ text-align:right; font-family: var(--mono); font-variant-numeric
     }
   },
   "financial": {
-    "currency_note": "MXN unless USD noted; USD at ~18 MXN/USD",
+    "currency_note": "Source quotations are denominated in MXN; every figure on the dashboard is displayed in USD at the rate below.",
+    "usd_mxn_rate": 16.94,
+    "usd_mxn_rate_date": "2026-08-25",
+    "usd_mxn_rate_source": "mid-market",
     "reference_pricing_mxn": {
       "MIA": 119220,
-      "operating_license": 95000,
+      "operating_license": 92950,
       "forestry_land_use_study": 85770,
-      "waste_registration": 15850,
+      "waste_registration": 16125,
       "compliance_manuals": 118800,
-      "monthly_supervision": 28000
+      "monthly_supervision": 28000,
+      "wastewater_registration": 16900,
+      "legal_compliance_matrix": 61750,
+      "waste_management_plan": 57400,
+      "technical_justification_study": 57700,
+      "emergency_response_program": 75100
     },
+    "reference_pricing_samples": 2,
+    "priced_deliverables": 29,
+    "priced_of": 35,
     "sample_engagement_mxn": 5300000,
+    "sample_engagement_note": "UDEM regularization contracts, multi-phase",
     "estimated_portfolio_value_mxn": 7380000,
-    "estimated_portfolio_value_usd": 410000,
+    "estimated_portfolio_value_range_mxn": [
+      7028250,
+      7539576
+    ],
     "new_annual_revenue_usd": 85000,
     "savings_per_compensation_project_usd": 6000,
-    "note": "Portfolio value is a MODELED estimate (reference unit pricing and the value of recent contracted engagements), not billed totals.",
-    "sample_engagement_note": "UDEM regularization contracts, multi-phase"
+    "note": "Portfolio value is a MODELED estimate built from two client proposals: reference unit pricing and the value of recent contracted engagements, not billed totals. 29 of the 35 delivered items are priced against a quotation rather than a type average."
   },
   "site_footprint": {
     "total_acres": 507.45,
@@ -859,10 +879,12 @@ td.num, th.num{ text-align:right; font-family: var(--mono); font-variant-numeric
     if (txt != null) e.textContent = txt;
     return e;
   }
-  function usdK(v) { return '$' + Math.round(v / 1000) + 'K'; }
-  function usd10K(v) { return '$' + Math.round(v / 10000) * 10 + 'K'; }
-  function mxnM(v) { return '$' + (v / 1e6).toFixed(1) + 'M'; }
-  function mxn(v)  { return '$' + n(v); }
+  /* Source quotations are in MXN; the page displays USD only. One rate, from
+     the data block, so the conversion never drifts between sections. */
+  var RATE = DATA.financial.usd_mxn_rate;
+  function toUsd(mxnValue) { return mxnValue / RATE; }
+  function usdK(v) { return '$' + n(Math.round(v / 1000)) + 'K'; }
+  function usdFull(v) { return '$' + n(Math.round(v)); }
   function sortedPairs(obj) {
     return Object.keys(obj).map(function (k) { return [k, obj[k]]; })
       .sort(function (a, b) { return b[1] - a[1]; });
@@ -899,6 +921,16 @@ td.num, th.num{ text-align:right; font-family: var(--mono); font-variant-numeric
     document.getElementById('hero-cap').textContent =
       'regulatory and consulting deliverables owned end to end — scoped, produced, filed and followed through.';
 
+    var fx = DATA.financial;
+    var fxDate = new Date(fx.usd_mxn_rate_date + 'T00:00:00Z').toLocaleDateString('en-GB',
+      { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
+    var fxText = fx.usd_mxn_rate.toFixed(2) + ' MXN per USD (' + fx.usd_mxn_rate_source +
+      ', ' + fxDate + ')';
+    ['m-rate', 'fn-rate'].forEach(function (id) {
+      var node = document.getElementById(id);
+      if (node) node.textContent = fxText;
+    });
+
     var d = new Date(DATA.generated_at.slice(0, 10) + 'T00:00:00Z');
     var pretty = d.toLocaleDateString('en-GB',
       { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
@@ -931,8 +963,9 @@ td.num, th.num{ text-align:right; font-family: var(--mono); font-variant-numeric
       kpi('Project-days managed', n(t.project_days), null, 'cumulative'),
       kpi('On-time delivery', DATA.on_time.adjusted.rate_pct, '%',
           DATA.on_time.adjusted.on_time + ' of ' + DATA.on_time.adjusted.denominator),
-      kpi('Portfolio value managed', '~' + usd10K(f.estimated_portfolio_value_usd), null,
-          'USD · ≈ ' + mxnM(f.estimated_portfolio_value_mxn) + ' MXN', true),
+      kpi('Portfolio value managed', '~' + usdK(toUsd(f.estimated_portfolio_value_mxn)), null,
+          usdK(toUsd(f.estimated_portfolio_value_range_mxn[0])) + '–' +
+          usdK(toUsd(f.estimated_portfolio_value_range_mxn[1])) + ' range', true),
       kpi('UAV survey coverage', '~' + n(dr.survey_coverage_acres), ' acres',
           dr.missions + ' missions')
     ].forEach(function (c) { g.appendChild(c); });
@@ -967,14 +1000,17 @@ td.num, th.num{ text-align:right; font-family: var(--mono); font-variant-numeric
 
     var hero = document.getElementById('fin-hero');
     var fig = el('div', 'fig');
-    var num = el('span', 'n mono', '~' + usd10K(f.estimated_portfolio_value_usd));
-    fig.appendChild(num);
+    fig.appendChild(el('span', 'n mono', '~' + usdK(toUsd(f.estimated_portfolio_value_mxn))));
     fig.appendChild(el('span', 'tag-est', 'estimated'));
     hero.appendChild(fig);
-    hero.appendChild(el('p', 's mono', '≈ ' + mxnM(f.estimated_portfolio_value_mxn) + ' MXN'));
+    hero.appendChild(el('p', 's mono',
+      usdK(toUsd(f.estimated_portfolio_value_range_mxn[0])) + '–' +
+      usdK(toUsd(f.estimated_portfolio_value_range_mxn[1])) + ' depending on how the ' +
+      (f.priced_of - f.priced_deliverables) + ' unpriced items are valued'));
     hero.appendChild(el('p', 'note',
-      'Portfolio value managed across the 35 delivered items, from reference unit pricing and the ' +
-      'value of recent contracted engagements.'));
+      'Portfolio value managed across the ' + f.priced_of + ' delivered items. Built from ' +
+      f.reference_pricing_samples + ' client proposals: ' + f.priced_deliverables + ' of ' +
+      f.priced_of + ' items are priced against a quotation rather than a type average.'));
 
     var rows = document.getElementById('fin-rows');
     [ ['New annual revenue opened', 'four new service lines introduced',
@@ -982,7 +1018,7 @@ td.num, th.num{ text-align:right; font-family: var(--mono); font-variant-numeric
       ['Saved per compensation project', 'in-house photogrammetry replacing contracted survey',
        usdK(f.savings_per_compensation_project_usd)],
       ['Largest multi-phase engagement', f.sample_engagement_note || 'all phases',
-       mxn(f.sample_engagement_mxn) + ' MXN']
+       usdFull(toUsd(f.sample_engagement_mxn))]
     ].forEach(function (r) {
       var li = el('li');
       var nm = el('span', 'nm');
@@ -999,15 +1035,20 @@ td.num, th.num{ text-align:right; font-family: var(--mono); font-variant-numeric
       compliance_manuals: 'Compliance manuals',
       forestry_land_use_study: 'Forestry / land-use change study',
       monthly_supervision: 'Monthly site supervision',
-      waste_registration: 'Waste registration'
+      waste_registration: 'Waste generator registration',
+      wastewater_registration: 'Wastewater discharge registration',
+      legal_compliance_matrix: 'Legal compliance matrix',
+      waste_management_plan: 'Waste management plan',
+      technical_justification_study: 'Technical justification study (ETJ)',
+      emergency_response_program: 'Emergency response program'
     };
     var ref = sortedPairs(f.reference_pricing_mxn).map(function (p) {
-      return [refNames[p[0]] || p[0], mxn(p[1])];
+      return [refNames[p[0]] || p[0], usdFull(toUsd(p[1]))];
     });
     var box = document.getElementById('fin-ref');
     var t = el('table'), thead = el('thead'), tr = el('tr');
     tr.appendChild(el('th', null, 'Instrument'));
-    tr.appendChild(el('th', 'num', 'MXN'));
+    tr.appendChild(el('th', 'num', 'USD'));
     thead.appendChild(tr); t.appendChild(thead);
     var tb = el('tbody');
     ref.forEach(function (r) {
@@ -1018,8 +1059,9 @@ td.num, th.num{ text-align:right; font-family: var(--mono); font-variant-numeric
     });
     t.appendChild(tb); box.appendChild(t);
     box.appendChild(el('p', 'note',
-      'Published unit prices from a real client proposal, used as the per-instrument multiplier behind the ' +
-      'modeled portfolio value.'));
+      'Published unit prices from ' + f.reference_pricing_samples + ' real client proposals, used as the ' +
+      'per-instrument multiplier behind the modeled portfolio value. Quoted in MXN before tax and ' +
+      'converted here; where both proposals price the same instrument, the figure is the mean of the two.'));
   }
 
   function renderGeo() {

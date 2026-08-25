@@ -102,10 +102,15 @@ snapshot files and `.env`; any API token belongs in the environment only.
   which the page states in its footnote and keeps in the JSON as `rate_pct_strict`. Items filed and
   awaiting an authority's response count as delivered: the wait is with the agency, not the
   deliverable.
-- **Portfolio value (~$410K USD / ~$7.4M MXN)** — a modeled estimate from reference unit pricing and
-  the value of recent contracted engagements. Not billed revenue, and labelled `estimated` wherever
-  it appears.
-- **Largest engagement ($5.3M MXN)** — the multi-phase UDEM regularization contracts.
+- **Portfolio value (~$436K USD, range $415–445K)** — a modeled estimate built from **two client
+  proposals**: reference unit pricing and the value of recent contracted engagements. Not billed
+  revenue, and labelled `estimated` wherever it appears. 29 of the 35 delivered items are priced
+  against a quotation rather than a type average; the range spans how the remaining six are valued.
+- **Largest engagement ($312,869)** — the multi-phase UDEM regularization contracts.
+- **Currency** — the page displays USD only. Quotations and contracts are issued in MXN before tax
+  and converted at the single `usd_mxn_rate` in `dashboard_data.json` (16.94 MXN per USD,
+  mid-market, 25 Aug 2026). Every converted figure moves proportionally with that rate, so refresh
+  it alongside the data — nothing else needs touching.
 - **Survey coverage vs site footprint** — ~556 acres flown and ~507 acres of managed client polygons
   are separate measurements and are not additive.
 - Client names appear at roster level only. Delay figures are stated against internal target dates,

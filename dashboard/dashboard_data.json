@@ -168,22 +168,36 @@
     }
   },
   "financial": {
-    "currency_note": "MXN unless USD noted; USD at ~18 MXN/USD",
+    "currency_note": "Source quotations are denominated in MXN; every figure on the dashboard is displayed in USD at the rate below.",
+    "usd_mxn_rate": 16.94,
+    "usd_mxn_rate_date": "2026-08-25",
+    "usd_mxn_rate_source": "mid-market",
     "reference_pricing_mxn": {
       "MIA": 119220,
-      "operating_license": 95000,
+      "operating_license": 92950,
       "forestry_land_use_study": 85770,
-      "waste_registration": 15850,
+      "waste_registration": 16125,
       "compliance_manuals": 118800,
-      "monthly_supervision": 28000
+      "monthly_supervision": 28000,
+      "wastewater_registration": 16900,
+      "legal_compliance_matrix": 61750,
+      "waste_management_plan": 57400,
+      "technical_justification_study": 57700,
+      "emergency_response_program": 75100
     },
+    "reference_pricing_samples": 2,
+    "priced_deliverables": 29,
+    "priced_of": 35,
     "sample_engagement_mxn": 5300000,
+    "sample_engagement_note": "UDEM regularization contracts, multi-phase",
     "estimated_portfolio_value_mxn": 7380000,
-    "estimated_portfolio_value_usd": 410000,
+    "estimated_portfolio_value_range_mxn": [
+      7028250,
+      7539576
+    ],
     "new_annual_revenue_usd": 85000,
     "savings_per_compensation_project_usd": 6000,
-    "note": "Portfolio value is a MODELED estimate (reference unit pricing and the value of recent contracted engagements), not billed totals.",
-    "sample_engagement_note": "UDEM regularization contracts, multi-phase"
+    "note": "Portfolio value is a MODELED estimate built from two client proposals: reference unit pricing and the value of recent contracted engagements, not billed totals. 29 of the 35 delivered items are priced against a quotation rather than a type average."
   },
   "site_footprint": {
     "total_acres": 507.45,
