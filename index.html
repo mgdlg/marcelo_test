@@ -1204,21 +1204,6 @@
           if (!lightSrc || !darkSrc) return;
           img.src = theme === 'dark' ? darkSrc : lightSrc;
         });
-
-        /* Swap Leaflet tile layer if map already initialised */
-        if (window._mapDarkLayer && window._mapLightLayer && window._leafletMap) {
-          if (theme === 'light') {
-            window._leafletMap.removeLayer(window._mapDarkLayer);
-            window._leafletMap.removeLayer(window._mapDarkLabelLayer);
-            window._mapLightLayer.addTo(window._leafletMap);
-            window._mapLightLabelLayer.addTo(window._leafletMap);
-          } else {
-            window._leafletMap.removeLayer(window._mapLightLayer);
-            window._leafletMap.removeLayer(window._mapLightLabelLayer);
-            window._mapDarkLayer.addTo(window._leafletMap);
-            window._mapDarkLabelLayer.addTo(window._leafletMap);
-          }
-        }
       }
 
       /* Apply on load (before paint to avoid flash) */
@@ -1485,34 +1470,61 @@
           ]
         }
       ];
-      const map = L.map('portfolioMap', { worldCopyJump: true, minZoom: 2, scrollWheelZoom: false }).setView([30, -20], 2);
-      /* OSM (ODbL) and CARTO credits are required; the Leaflet prefix is not. */
-      map.attributionControl.setPrefix(false);
-      const tileCredit = '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions" target="_blank" rel="noopener">CARTO</a>';
-      const darkBase = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png', {
-        maxZoom: 19,
-        attribution: tileCredit
-      }).addTo(map);
-      const darkLabel = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_only_labels/{z}/{x}/{y}{r}.png', {
-        maxZoom: 19, opacity: 0.6
-      }).addTo(map);
-      const lightBase = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png', {
-        maxZoom: 19,
-        attribution: tileCredit
-      });
-      const lightLabel = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}{r}.png', {
-        maxZoom: 19, opacity: 0.7
-      });
-      window._leafletMap = map;
-      window._mapDarkLayer = darkBase;
-      window._mapDarkLabelLayer = darkLabel;
-      window._mapLightLayer = lightBase;
-      window._mapLightLabelLayer = lightLabel;
-      /* Apply correct tiles for current theme */
-      if (document.documentElement.getAttribute('data-theme') === 'light') {
-        map.removeLayer(darkBase); map.removeLayer(darkLabel);
-        lightBase.addTo(map); lightLabel.addTo(map);
+      /* Basemap: Natural Earth land + borders (public domain, no credit needed),
+         drawn as vectors so the map carries no tile-provider attribution. */
+      const map = L.map('portfolioMap', {
+        worldCopyJump: true, minZoom: 2, maxZoom: 6, scrollWheelZoom: false,
+        attributionControl: false,
+        maxBounds: [[-85, -540], [85, 540]], maxBoundsViscosity: 1
+      }).setView([30, -20], 2);
+      const basemap = { land: [], lines: [] };
+      const renderer = L.canvas({ padding: 0.5 });
+      function mapColor(name) { return getComputedStyle(el).getPropertyValue(name).trim(); }
+      function paintBasemap() {
+        const land = mapColor('--map-land'), coast = mapColor('--map-coast');
+        const border = mapColor('--map-border'), grid = mapColor('--map-grid');
+        basemap.land.forEach((l) => l.setStyle({ fillColor: land, color: coast }));
+        basemap.lines.forEach((l) => l.setStyle({ color: l.options.isGrid ? grid : border }));
       }
+      /* Faint graticule every 30°, across the three world copies. */
+      for (let lat = -60; lat <= 60; lat += 30) {
+        basemap.lines.push(L.polyline([[lat, -540], [lat, 540]], { renderer, weight: 1, interactive: false, isGrid: true }).addTo(map));
+      }
+      for (let lon = -540; lon <= 540; lon += 30) {
+        basemap.lines.push(L.polyline([[-85, lon], [85, lon]], { renderer, weight: 1, interactive: false, isGrid: true }).addTo(map));
+      }
+      paintBasemap();
+      function loadScript(src) {
+        return new Promise((resolve, reject) => {
+          const s = document.createElement('script');
+          s.src = src; s.onload = resolve; s.onerror = reject;
+          document.head.appendChild(s);
+        });
+      }
+      function loadBasemap() {
+        Promise.all([
+          fetch('vendor/map/world-50m.topo.json').then((r) => r.ok ? r.json() : Promise.reject(r.status)),
+          window.topojson ? null : loadScript('vendor/map/topojson-client.min.js')
+        ]).then(([topo]) => {
+          const land = topojson.feature(topo, topo.objects.land);
+          const borders = topojson.feature(topo, topo.objects.borders);
+          [-360, 0, 360].forEach((dx) => {
+            const shift = { coordsToLatLng: (c) => L.latLng(c[1], c[0] + dx), renderer, interactive: false };
+            basemap.land.push(L.geoJSON(land, Object.assign({ style: { weight: 0.8, fillOpacity: 1 } }, shift)).addTo(map));
+            basemap.lines.push(L.geoJSON(borders, Object.assign({ style: { weight: 0.6, fill: false } }, shift)).addTo(map));
+          });
+          paintBasemap();
+        }).catch(() => { /* pins and popups still work without the basemap */ });
+      }
+      if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver((entries) => {
+          if (entries.some((e) => e.isIntersecting)) { io.disconnect(); loadBasemap(); }
+        }, { rootMargin: '600px 0px' });
+        io.observe(el);
+      } else {
+        loadBasemap();
+      }
+      new MutationObserver(paintBasemap).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
       function icon(featured){
         return L.divIcon({
           className: 'portfolio-map-pin',
