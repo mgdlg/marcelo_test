@@ -264,6 +264,8 @@ h1, h2, h3, h4 {
 
 h1 { font-size: clamp(62px, 9vw, 148px); margin: 0; }
 h2 { font-size: clamp(40px, 5vw, 72px); margin: 0 0 36px; font-weight: 700; text-wrap: balance; }
+/* below 380px a 40px "environmental" is wider than the screen */
+@media (max-width: 380px) { h2 { font-size: 10.4vw; } }
 h3 { font-size: clamp(22px, 2.2vw, 30px); margin: 0 0 12px; font-weight: 600; }
 h4 { font-size: 19px; margin: 0 0 8px; font-weight: 600; }
 
@@ -464,8 +466,13 @@ html[data-theme="light"] .hero::before {
   .hero-grid .hero-figure { order: 1; max-width: 260px; margin: 0 auto; } /* photo first, centered */
 }
 
+/* the text column is a size container, so the name can be measured against it */
+.hero-grid > div { container-type: inline-size; }
 .hero h1 {
   font-size: clamp(64px, 11vw, 168px);
+  /* never wider than its column: "Guzmán" runs ~4.66em, and glyphs past the
+     box would lose the gradient that background-clip paints them with */
+  font-size: min(168px, max(64px, 11vw), 21cqi);
   line-height: 0.92;
   letter-spacing: -0.02em;
 }
@@ -483,6 +490,7 @@ html[data-theme="light"] .hero::before {
           background-clip: text;
   -webkit-text-fill-color: transparent;
   display: block;
+  width: fit-content; /* the gradient box always spans the whole word */
   font-style: normal;
 }
 
@@ -1673,6 +1681,7 @@ html[data-theme="light"] .hero-figure .caption { color: rgba(255,255,255,0.78); 
   gap: 24px;
 }
 .awards-shell .awards-summary {
+  container: awards-summary / inline-size;
   grid-column: span 5;
   border-radius: var(--radius);
   padding: 36px;
@@ -1803,13 +1812,16 @@ html[data-theme="light"] .hero-figure .caption { color: rgba(255,255,255,0.78); 
   margin: 0;
   color: var(--ink-dim);
 }
-@media (max-width: 640px) {
-  /* three columns are too narrow for tracked caps here: one count per line */
+/* a narrow summary card (small laptops, phones) can't fit three columns of
+   64px counts and tracked caps: one count per line instead */
+@container awards-summary (max-width: 390px) {
   .awards-stat-row { grid-template-columns: 1fr; gap: 14px; }
   .awards-stat:not(.awards-stat-link) { display: flex; align-items: baseline; gap: 16px; }
   .awards-stat:not(.awards-stat-link) .num { flex: 0 0 80px; }
   .awards-stat:not(.awards-stat-link) .label { margin-top: 0; }
   .awards-stat .num { font-size: 48px; }
+}
+@media (max-width: 640px) {
   .award-row { grid-template-columns: 1fr; gap: 12px; padding: 22px; }
   .award-year-pill { width: fit-content; }
 }
@@ -2466,6 +2478,9 @@ body.project-page {
   line-height: 1.06;
   letter-spacing: -0.025em;
 }
+
+/* below 380px a single long word ("Photogrammetry") is wider than the screen */
+@media (max-width: 380px) { .project-page h1 { font-size: 1.7rem; } }
 
 .project-lead {
   margin: 18px 0 0;
