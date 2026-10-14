@@ -1466,22 +1466,25 @@
         }
       ];
       const map = L.map('portfolioMap', { worldCopyJump: true, minZoom: 2, scrollWheelZoom: false }).setView([30, -20], 2);
-      /* OSM (ODbL) and CARTO credits are required; the Leaflet prefix is not. */
+      /* Esri Canvas tiles need no API key (CARTO's now do). Esri and OSM credits
+         are required; the Leaflet prefix is not. */
       map.attributionControl.setPrefix(false);
-      const tileCredit = '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions" target="_blank" rel="noopener">CARTO</a>';
-      const darkBase = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png', {
-        maxZoom: 19,
+      const tileCredit = 'Powered by <a href="https://www.esri.com" target="_blank" rel="noopener">Esri</a> &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>';
+      const esriCanvas = (name) => `https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/${name}/MapServer/tile/{z}/{y}/{x}`;
+      const tileOpts = { maxNativeZoom: 16, maxZoom: 18 };
+      const darkBase = L.tileLayer(esriCanvas('World_Dark_Gray_Base'), {
+        ...tileOpts,
         attribution: tileCredit
       }).addTo(map);
-      const darkLabel = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_only_labels/{z}/{x}/{y}{r}.png', {
-        maxZoom: 19, opacity: 0.6
+      const darkLabel = L.tileLayer(esriCanvas('World_Dark_Gray_Reference'), {
+        ...tileOpts, opacity: 0.6
       }).addTo(map);
-      const lightBase = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png', {
-        maxZoom: 19,
+      const lightBase = L.tileLayer(esriCanvas('World_Light_Gray_Base'), {
+        ...tileOpts,
         attribution: tileCredit
       });
-      const lightLabel = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}{r}.png', {
-        maxZoom: 19, opacity: 0.7
+      const lightLabel = L.tileLayer(esriCanvas('World_Light_Gray_Reference'), {
+        ...tileOpts, opacity: 0.7
       });
       window._leafletMap = map;
       window._mapDarkLayer = darkBase;
