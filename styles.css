@@ -1492,12 +1492,16 @@ html[data-theme="light"] .hero-figure .caption { color: rgba(0,0,0,0.35); }
   padding: 20px 0;
 }
 .letter-row + .letter-row { border-top: 1px solid var(--rule-soft); }
-.letter-info { min-width: 0; }
+.letter-info { flex: 1; min-width: 0; }
 .letter-row h3 {
   margin: 0 0 6px;
   font-size: 22px;
 }
 .letter-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  max-width: none;
   margin: 0;
   font-family: 'Barlow', monospace;
   font-size: 11px;
@@ -1505,10 +1509,7 @@ html[data-theme="light"] .hero-figure .caption { color: rgba(0,0,0,0.35); }
   text-transform: uppercase;
   color: var(--accent-warm);
 }
-.letter-meta span {
-  color: var(--ink-faint);
-  margin-right: 8px;
-}
+.letter-meta span { color: var(--ink-faint); }
 .letter-row .btn {
   flex-shrink: 0;
   padding: 10px 18px;
