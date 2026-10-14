@@ -1699,16 +1699,6 @@ html[data-theme="light"] .hero-figure .caption { color: rgba(255,255,255,0.78); 
   .awards-shell .awards-stack { grid-column: 1/-1; position: static; }
 }
 
-.awards-lead {
-  font-family: 'Syne', sans-serif;
-  font-weight: 600;
-  font-size: clamp(20px, 1.8vw, 26px);
-  line-height: 1.3;
-  color: var(--ink);
-  max-width: 36ch;
-  margin: 0;
-}
-
 .awards-stat-row {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
