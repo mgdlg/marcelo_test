@@ -1222,6 +1222,94 @@ html[data-theme="light"] .hero-figure .caption { color: rgba(255,255,255,0.78); 
 }
 .featured-slide-image.is-active { opacity: 1; }
 
+/* Landhawk slide: a three-step flow in place of a screenshot */
+.feature-media-flow {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 28px;
+  padding: clamp(24px, 4vw, 44px);
+  background:
+    radial-gradient(120% 90% at 0% 0%, oklch(0.74 0.12 65 / 0.10), transparent 60%),
+    rgba(255,255,255,0.03);
+  box-shadow: inset 0 0 0 1px var(--rule);
+}
+.flow-steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 14px;
+}
+.flow-steps li {
+  position: relative;
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  column-gap: 14px;
+  padding: 14px 18px;
+  border-radius: var(--radius-sm);
+  background: rgba(255,255,255,0.04);
+  box-shadow: inset 0 0 0 1px var(--rule);
+}
+/* connector through the gap to the next step */
+.flow-steps li:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  left: 37px;
+  bottom: -15px;
+  width: 1px;
+  height: 16px;
+  background: var(--accent-warm);
+}
+.flow-index {
+  grid-row: span 2;
+  font-family: 'Barlow', monospace;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: var(--accent-warm);
+  padding-top: 4px;
+}
+.flow-steps strong {
+  font-family: 'Syne', sans-serif;
+  font-size: 17px;
+  font-weight: 600;
+}
+.flow-steps li > span:last-child {
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--ink-dim);
+}
+.flow-stat {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  margin: 0;
+  max-width: none;
+  padding-top: 22px;
+  border-top: 1px solid var(--rule-soft);
+}
+.flow-stat-num {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: clamp(40px, 4vw, 52px);
+  line-height: 1;
+  color: var(--accent-warm);
+}
+.flow-approx {
+  /* Syne draws "~" as a dot-like mark; the body face reads as a tilde */
+  font-family: 'Barlow', sans-serif;
+  font-weight: 400;
+  margin-right: 0.04em;
+}
+.flow-stat > span:last-child {
+  font-family: 'Barlow', monospace;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
 .feature-media-nav {
   position: absolute;
   bottom: 16px;
@@ -1307,204 +1395,6 @@ html[data-theme="light"] .hero-figure .caption { color: rgba(255,255,255,0.78); 
 }
 
 /* =========================================================
-   PROJECTS LAB (tabs + showcase)
-   ========================================================= */
-.projects-lab {
-  display: grid;
-  grid-template-columns: 320px 1fr;
-  gap: 48px;
-  position: relative;
-}
-@media (max-width: 960px) { .projects-lab { grid-template-columns: 1fr; gap: 28px; } }
-
-.projects-lab-radio { display: none; }
-
-.projects-lab-ui {
-  position: sticky;
-  top: 120px;
-  align-self: start;
-  height: fit-content;
-}
-.projects-lab-heading { margin-bottom: 28px; }
-.projects-lab-kicker {
-  font-family: 'Syne', sans-serif;
-  font-weight: 700;
-  font-style: normal;
-  font-size: 30px;
-  margin: 0 0 4px;
-}
-.projects-lab-subkicker {
-  font-size: 14px;
-  font-weight: 300;
-  color: var(--ink-faint);
-  margin: 0;
-}
-.projects-lab-tabs {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  border-top: 1px solid var(--rule-soft);
-  padding-top: 16px;
-}
-.projects-lab-tab {
-  display: grid;
-  grid-template-columns: 38px 1fr;
-  gap: 14px;
-  padding: 14px 14px;
-  border-radius: 14px;
-  cursor: pointer;
-  transition: background var(--t-fast), transform var(--t-fast);
-  align-items: start;
-}
-.projects-lab-tab:hover {
-  background: rgba(255,255,255,0.04);
-  transform: translateX(2px);
-}
-.tab-index {
-  font-family: 'Barlow', monospace;
-  font-size: 11px;
-  letter-spacing: 0.18em;
-  color: var(--ink-faint);
-  padding-top: 3px;
-}
-.tab-title {
-  font-family: 'Syne', sans-serif;
-  font-weight: 500;
-  font-style: normal;
-  font-size: 17px;
-  line-height: 1.2;
-  color: var(--ink-dim);
-}
-
-#proj1:checked ~ .projects-lab-ui label[for="proj1"],
-#proj2:checked ~ .projects-lab-ui label[for="proj2"],
-#proj3:checked ~ .projects-lab-ui label[for="proj3"],
-#proj4:checked ~ .projects-lab-ui label[for="proj4"],
-#proj5:checked ~ .projects-lab-ui label[for="proj5"] {
-  background: rgba(255,255,255,0.06);
-}
-#proj1:checked ~ .projects-lab-ui label[for="proj1"] .tab-index,
-#proj2:checked ~ .projects-lab-ui label[for="proj2"] .tab-index,
-#proj3:checked ~ .projects-lab-ui label[for="proj3"] .tab-index,
-#proj4:checked ~ .projects-lab-ui label[for="proj4"] .tab-index,
-#proj5:checked ~ .projects-lab-ui label[for="proj5"] .tab-index { color: var(--accent-warm); }
-
-#proj1:checked ~ .projects-lab-ui label[for="proj1"] .tab-title,
-#proj2:checked ~ .projects-lab-ui label[for="proj2"] .tab-title,
-#proj3:checked ~ .projects-lab-ui label[for="proj3"] .tab-title,
-#proj4:checked ~ .projects-lab-ui label[for="proj4"] .tab-title,
-#proj5:checked ~ .projects-lab-ui label[for="proj5"] .tab-title { color: var(--ink); }
-
-.projects-lab-panels { position: relative; }
-.projects-lab-panel { display: none; animation: fade 600ms ease; }
-#proj1:checked ~ .projects-lab-panels #projPanel1,
-#proj2:checked ~ .projects-lab-panels #projPanel2,
-#proj3:checked ~ .projects-lab-panels #projPanel3,
-#proj4:checked ~ .projects-lab-panels #projPanel4,
-#proj5:checked ~ .projects-lab-panels #projPanel5 { display: block; }
-
-.project-row {
-  display: grid;
-  grid-template-columns: 1fr 1.15fr;
-  gap: 36px;
-  align-items: start;
-}
-@media (max-width: 1100px) { .project-row { grid-template-columns: 1fr; } }
-
-.project-card {
-  border-radius: var(--radius);
-  padding: 36px;
-}
-.project-card h3 { font-size: clamp(24px, 2.2vw, 32px); margin-bottom: 8px; }
-.project-card .project-meta {
-  font-family: 'Barlow', monospace;
-  font-size: 11px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--ink-faint);
-  margin-bottom: 22px;
-}
-.project-card p { font-size: 15px; font-weight: 300; line-height: 1.6; }
-.project-card ul {
-  list-style: none;
-  padding: 0;
-  margin: 16px 0;
-}
-.project-card ul li {
-  position: relative;
-  padding-left: 22px;
-  margin-bottom: 10px;
-  font-size: 14.5px;
-  font-weight: 300;
-  color: var(--ink-dim);
-}
-.project-card ul li::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 10px;
-  width: 12px;
-  height: 1px;
-  background: var(--accent-warm);
-}
-
-.project-card .project-media {
-  display: none; /* hide inside card; showcase displays them */
-}
-.small-note { font-size: 12px; color: var(--ink-faint); margin-top: 8px; }
-.external-embed { margin: 18px 0; }
-
-.project-showcase {
-  position: sticky;
-  top: 120px;
-  padding: 12px;
-  border-radius: var(--radius);
-  overflow: hidden;
-}
-/* inner radius = card radius - padding, so the corners stay concentric */
-.showcase-main {
-  position: relative;
-  aspect-ratio: 4 / 3;
-  border-radius: var(--radius-sm);
-  overflow: hidden;
-  background: rgba(0,0,0,0.25);
-}
-.showcase-main-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  transition: transform 1s ease;
-}
-.showcase-main:hover .showcase-main-img { transform: scale(1.03); }
-.showcase-thumbs {
-  display: flex;
-  gap: 8px;
-  margin-top: 12px;
-  flex-wrap: wrap;
-}
-.showcase-thumbs button {
-  width: 70px;
-  height: 56px;
-  border: 1px solid var(--rule);
-  border-radius: 10px;
-  overflow: hidden;
-  padding: 0;
-  background: none;
-  cursor: pointer;
-  transition: border-color var(--t-fast), transform var(--t-fast);
-}
-.showcase-thumbs button img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-.showcase-thumbs button.is-active {
-  border-color: var(--accent-warm);
-  transform: translateY(-2px);
-}
-
-/* =========================================================
    REFERENCES
    ========================================================= */
 .letters-list {
@@ -1544,8 +1434,8 @@ html[data-theme="light"] .hero-figure .caption { color: rgba(255,255,255,0.78); 
   padding: 10px 18px;
   font-size: 12px;
 }
-.letter-row .btn[download]::after { content: "↓"; }
-.letter-row .btn[download]:hover::after { transform: translateY(3px); }
+.btn[download]::after { content: "↓"; }
+.btn[download]:hover::after { transform: translateY(3px); }
 @media (max-width: 640px) {
   .letters-list { padding: 4px 20px; }
   .letter-row { flex-direction: column; align-items: flex-start; }
@@ -1894,7 +1784,7 @@ html[data-theme="light"] .hero-figure .caption { color: rgba(255,255,255,0.78); 
   border-radius: var(--radius);
   padding: 40px;
   width: 100%;
-  max-width: 620px;
+  max-width: 760px;
   justify-self: start;
 }
 .contact-card p {
@@ -2017,6 +1907,15 @@ html[data-theme="light"] .hero-figure .caption { color: rgba(255,255,255,0.78); 
   font-size: 22px;
   margin: 0 0 6px;
   color: var(--ink);
+}
+.portfolio-card-meta {
+  margin: 0 0 10px;
+  max-width: none;
+  font-family: 'Barlow', monospace;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
 }
 .view-project-link {
   font-family: 'Barlow', monospace;
@@ -2317,6 +2216,14 @@ html[data-theme="light"] .filter-btn.is-active {
   border-color: oklch(0.48 0.16 242);
 }
 
+/* Landhawk flow */
+html[data-theme="light"] .feature-media-flow {
+  background:
+    radial-gradient(120% 90% at 0% 0%, oklch(0.48 0.16 242 / 0.07), transparent 60%),
+    rgba(0,0,0,0.02);
+}
+html[data-theme="light"] .flow-steps li { background: rgba(255,255,255,0.75); }
+
 /* Dots */
 html[data-theme="light"] .dot { background: rgba(0,0,0,0.16); }
 html[data-theme="light"] .dot.active { background: oklch(0.48 0.16 242); width: 32px; border-radius: 9999px; }
@@ -2336,10 +2243,6 @@ html[data-theme="light"] .portfolio-card-overlay {
       oklch(0.982 0 0 / 0.97) 100%);
   }
 }
-
-/* Showcase */
-html[data-theme="light"] .showcase-thumbs button { border-color: rgba(0,0,0,0.09); }
-html[data-theme="light"] .showcase-thumbs button.is-active { border-color: oklch(0.48 0.16 242); }
 
 /* Ticker */
 html[data-theme="light"] .hero-skill-alternatives {
@@ -2401,9 +2304,6 @@ html[data-theme="light"] .letter-meta { color: oklch(0.42 0.16 242); }
 
 /* Edu meta */
 html[data-theme="light"] .edu-meta { color: oklch(0.42 0.16 242); }
-
-/* Project meta */
-html[data-theme="light"] .project-meta { color: oklch(0.48 0 0); }
 
 /* Featured slide subtitle */
 html[data-theme="light"] .featured-slide-subtitle i { color: oklch(0.42 0.14 242); }
