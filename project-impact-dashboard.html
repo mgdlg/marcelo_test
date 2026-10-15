@@ -55,7 +55,7 @@
         <a class="project-back-link" href="index.html#full-portfolio">← Back to Portfolio</a>
         <button id="themeToggle" class="theme-toggle" type="button" aria-pressed="false">
           <span class="toggle-dot" aria-hidden="true"></span>
-          <span id="themeToggleLabel">Dark mode</span>
+          <span id="themeToggleLabel">Light</span>
         </button>
       </div>
       <p class="eyebrow">Case study</p>
@@ -103,26 +103,26 @@
       if (theme === "dark") {
         htmlEl.setAttribute("data-theme", "dark");
         toggleBtn?.setAttribute("aria-pressed", "true");
-        if (toggleLabel) toggleLabel.textContent = "Light mode";
+        if (toggleLabel) toggleLabel.textContent = "Dark";
       } else {
         htmlEl.setAttribute("data-theme", "light");
         toggleBtn?.setAttribute("aria-pressed", "false");
-        if (toggleLabel) toggleLabel.textContent = "Dark mode";
+        if (toggleLabel) toggleLabel.textContent = "Light";
       }
       syncFrameTheme(theme);
     }
 
-    /* "theme" is what the project pages store; "portfolio-theme" is what the
-       index stores — read both so arriving from either keeps the same mode. */
+    /* "portfolio-theme" is the key the index uses; "theme" is the older key
+       these pages stored, read only as a fallback. */
     const storedTheme =
-      localStorage.getItem("theme") || localStorage.getItem("portfolio-theme") || "light";
+      localStorage.getItem("portfolio-theme") || localStorage.getItem("theme") || "light";
     setTheme(storedTheme);
 
     toggleBtn?.addEventListener("click", () => {
       const isDark = htmlEl.getAttribute("data-theme") === "dark";
       const nextTheme = isDark ? "light" : "dark";
       setTheme(nextTheme);
-      localStorage.setItem("theme", nextTheme);
+      localStorage.setItem("portfolio-theme", nextTheme);
     });
 
     /* The dashboard posts its own height so the iframe never scrolls internally. */
