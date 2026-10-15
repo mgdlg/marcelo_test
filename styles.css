@@ -1698,6 +1698,15 @@ html[data-theme="light"] .hero-figure .caption { color: rgba(255,255,255,0.78); 
   margin: 0;
   color: var(--ink-dim);
 }
+.award-row .award-link { margin-top: 10px; }
+.award-link a {
+  font-family: 'Barlow', monospace;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-warm);
+}
+.award-link a:hover { text-decoration: underline; }
 /* a narrow summary card (small laptops, phones) can't fit three columns of
    64px counts and tracked caps: one count per line instead */
 @container awards-summary (max-width: 390px) {
@@ -1710,57 +1719,6 @@ html[data-theme="light"] .hero-figure .caption { color: rgba(255,255,255,0.78); 
 @media (max-width: 640px) {
   .award-row { grid-template-columns: 1fr; gap: 12px; padding: 22px; }
   .award-year-pill { width: fit-content; }
-}
-
-.awards-docs {
-  margin-top: 50px;
-  padding: 36px;
-  border-radius: var(--radius);
-}
-.awards-docs h3 { font-size: 24px; margin-bottom: 6px; }
-.awards-docs > p {
-  font-size: 14px;
-  color: var(--ink-faint);
-  margin-bottom: 20px;
-}
-.compact-doc-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-/* title over description on the left, Preview / Download pills on the right */
-.compact-doc-list li {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto auto;
-  column-gap: 8px;
-  align-items: center;
-  font-size: 14px;
-  font-weight: 300;
-  line-height: 1.55;
-  color: var(--ink-dim);
-  padding: 18px 0;
-  border-top: 1px solid var(--rule-soft);
-}
-.compact-doc-list li strong { grid-column: 1; grid-row: 1; display: block; margin-bottom: 2px; }
-.compact-doc-list .doc-desc { grid-column: 1; grid-row: 2; }
-.compact-doc-list a {
-  grid-row: 1 / span 2;
-  padding: 7px 14px;
-  border: 1px solid var(--rule);
-  border-radius: 9999px;
-  font-family: 'Barlow', monospace;
-  font-size: 11px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--accent-warm);
-  transition: border-color var(--t-fast), background var(--t-fast);
-}
-.compact-doc-list a:hover { border-color: var(--accent-warm); }
-@media (max-width: 640px) {
-  .compact-doc-list li { display: flex; flex-wrap: wrap; gap: 0 6px; }
-  .compact-doc-list li strong,
-  .compact-doc-list .doc-desc { flex-basis: 100%; }
-  .compact-doc-list a { margin-top: 10px; }
 }
 
 /* =========================================================
