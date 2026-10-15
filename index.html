@@ -210,18 +210,32 @@
         <div class="section-header">
           <h2>Featured projects</h2>
           <p class="section-intro">
-            Four case studies: automating field data at Landhawk, compliance analytics, R/Shiny tools for
-            consultants, and remote sensing for an urban river.
+            Six case studies: automating field data at Landhawk, R/Shiny tools and compliance analytics at
+            IRCA, remote sensing for an urban river, and GIS research at the University of Debrecen.
           </p>
         </div>
 
         <div class="featured-carousel-wrapper">
+          <div class="featured-carousel-nav">
+            <div class="featured-dots" role="tablist" aria-label="Featured projects">
+              <button class="dot" type="button" onclick="currentSlide(1)" aria-label="Project 1 of 6"></button>
+              <button class="dot" type="button" onclick="currentSlide(2)" aria-label="Project 2 of 6"></button>
+              <button class="dot" type="button" onclick="currentSlide(3)" aria-label="Project 3 of 6"></button>
+              <button class="dot" type="button" onclick="currentSlide(4)" aria-label="Project 4 of 6"></button>
+              <button class="dot" type="button" onclick="currentSlide(5)" aria-label="Project 5 of 6"></button>
+              <button class="dot" type="button" onclick="currentSlide(6)" aria-label="Project 6 of 6"></button>
+            </div>
+            <div class="featured-arrows">
+              <button class="featured-nav-btn" type="button" onclick="plusSlides(-1)" aria-label="Previous project">‹</button>
+              <button class="featured-nav-btn" type="button" onclick="plusSlides(1)" aria-label="Next project">›</button>
+            </div>
+          </div>
           <div class="slideshow-container">
 
             <!-- Slide 1: Landhawk photolog automation -->
             <div class="mySlides fade">
               <div class="featured-slide-container liquid-glass">
-                <div class="numbertext">01 / 04</div>
+                <div class="numbertext">01 / 06</div>
                 <div class="featured-slide-left">
                   <h2 class="featured-slide-title">Photolog Automation in Python</h2>
                   <p class="featured-slide-subtitle"><i>GIS &amp; Reporting Specialist · Landhawk Consulting LLC · 2026</i></p>
@@ -254,41 +268,13 @@
               </div>
             </div>
 
-            <!-- Slide 2: Compliance impact dashboard -->
+            <!-- Slide 2: IRCA Shiny Apps -->
             <div class="mySlides fade">
               <div class="featured-slide-container liquid-glass">
-                <div class="numbertext">02 / 04</div>
-                <div class="featured-slide-left">
-                  <h2 class="featured-slide-title">Environmental Compliance Impact Dashboard</h2>
-                  <p class="featured-slide-subtitle"><i>IRCA Consultants · Sep 2025 – Aug 2026</i></p>
-                  <p class="featured-slide-maintext">
-                    A dashboard of the regulatory and consulting work I owned end to end at IRCA Consultants:
-                    what was delivered, for whom, how fast, and how often on time.
-                  </p>
-                  <ul class="featured-list">
-                    <li>39 deliverables for 13 industrial clients across 12 sectors.</li>
-                    <li>90% delivered on time (28 of 31 fixed-date deliverables), with a median turnaround of 30 days.</li>
-                    <li>56 drone missions covering ~556 acres of client sites.</li>
-                  </ul>
-                  <div class="featured-actions">
-                    <a class="btn primary" href="project-impact-dashboard.html">Open the dashboard</a>
-                  </div>
-                </div>
-                <div class="featured-slide-right">
-                  <div class="feature-media">
-                    <img loading="lazy" decoding="async" class="featured-slide-image is-active" src="images/impact-dashboard-card.jpg" alt="Impact dashboard: deliverables, clients, on-time delivery and turnaround charts">
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Slide 3: IRCA Shiny Apps -->
-            <div class="mySlides fade">
-              <div class="featured-slide-container liquid-glass">
-                <div class="numbertext">03 / 04</div>
+                <div class="numbertext">02 / 06</div>
                 <div class="featured-slide-left">
                   <h2 class="featured-slide-title">IRCA Environmental Apps · Shiny, R &amp; Compliance Analytics</h2>
-                  <p class="featured-slide-subtitle"><i>Environmental Monitoring Coordinator · IRCA Consultores</i></p>
+                  <p class="featured-slide-subtitle"><i>Environmental Monitoring Coordinator · IRCA</i></p>
                   <p class="featured-slide-maintext">
                     As Environmental Monitoring Coordinator, I support clients' compliance and due diligence by
                     combining <strong>GIS</strong>, <strong>imagery analysis</strong>, and
@@ -324,10 +310,38 @@
               </div>
             </div>
 
+            <!-- Slide 3: Compliance impact dashboard -->
+            <div class="mySlides fade">
+              <div class="featured-slide-container liquid-glass">
+                <div class="numbertext">03 / 06</div>
+                <div class="featured-slide-left">
+                  <h2 class="featured-slide-title">Environmental Compliance Impact Dashboard</h2>
+                  <p class="featured-slide-subtitle"><i>IRCA · Sep 2025 – Aug 2026</i></p>
+                  <p class="featured-slide-maintext">
+                    A dashboard of the regulatory and consulting work I owned end to end at IRCA:
+                    what was delivered, for whom, how fast, and how often on time.
+                  </p>
+                  <ul class="featured-list">
+                    <li>39 deliverables for 13 industrial clients across 12 sectors.</li>
+                    <li>90% delivered on time (28 of 31 fixed-date deliverables), with a median turnaround of 30 days.</li>
+                    <li>56 drone missions covering ~556 acres of client sites.</li>
+                  </ul>
+                  <div class="featured-actions">
+                    <a class="btn primary" href="project-impact-dashboard.html">Open the dashboard</a>
+                  </div>
+                </div>
+                <div class="featured-slide-right">
+                  <div class="feature-media">
+                    <img loading="lazy" decoding="async" class="featured-slide-image is-active" src="images/impact-dashboard-card.jpg" alt="Impact dashboard: deliverables, clients, on-time delivery and turnaround charts">
+                  </div>
+                </div>
+              </div>
+            </div>
+
             <!-- Slide 4: Río Santa Catarina -->
             <div class="mySlides fade">
               <div class="featured-slide-container liquid-glass">
-                <div class="numbertext">04 / 04</div>
+                <div class="numbertext">04 / 06</div>
                 <div class="featured-slide-left">
                   <h2 class="featured-slide-title">Río Santa Catarina · DATATON 2024 &amp; 2026</h2>
                   <p class="featured-slide-subtitle"><i>DATATON · GIS expert panel · Urban ecology &amp; risk</i></p>
@@ -359,17 +373,96 @@
               </div>
             </div>
 
-          </div>
-
-          <div class="featured-carousel-nav">
-            <button class="featured-nav-btn" type="button" onclick="plusSlides(-1)" aria-label="Previous">‹</button>
-            <div class="featured-dots" role="tablist">
-              <button class="dot" type="button" onclick="currentSlide(1)"></button>
-              <button class="dot" type="button" onclick="currentSlide(2)"></button>
-              <button class="dot" type="button" onclick="currentSlide(3)"></button>
-              <button class="dot" type="button" onclick="currentSlide(4)"></button>
+            <!-- Slide 5: UniDeb -->
+            <div class="mySlides fade">
+              <div class="featured-slide-container liquid-glass">
+                <div class="numbertext">05 / 06</div>
+                <div class="featured-slide-left">
+                  <h2 class="featured-slide-title">University of Debrecen · Advanced GIS &amp; Research Internship</h2>
+                  <p class="featured-slide-subtitle"><i>Stipendium Hungaricum Scholar · Feb–Jul 2025 · GPA 4.0/4.0</i></p>
+                  <p class="featured-slide-maintext">
+                    During my academic exchange at the <strong>University of Debrecen</strong>, I completed graduate-level
+                    coursework in <em>Remote Sensing with UAVs</em>, <em>Hyperspectral Remote Sensing</em>,
+                    <em>Models in GIS</em>, and <em>Environmental Policy &amp; Communication</em>.
+                  </p>
+                  <p class="featured-slide-maintext">
+                    I joined a research internship on bird ecological and physiological
+                    <strong>adaptation to urbanization</strong>, integrating <strong>GIS analysis</strong>,
+                    <strong>UAV processing</strong>, and <strong>field ecology</strong> into a Principal Component
+                    Analysis framework.
+                  </p>
+                  <ul class="featured-list">
+                    <li>Advanced geospatial modeling with ArcGIS Pro and ModelBuilder.</li>
+                    <li>Drone photogrammetry workflows and accuracy assessment.</li>
+                    <li>Applied GIS for ecological research and monitoring.</li>
+                  </ul>
+                  <div class="featured-actions">
+                    <a class="btn ghost" href="project-university-debrecen.html">Read the case study</a>
+                  </div>
+                </div>
+                <div class="featured-slide-right">
+                  <div class="feature-media" data-media>
+                    <img loading="lazy" decoding="async" class="featured-slide-image is-active" src="images/unideb-collage.jpeg" alt="Collage of UniDeb experience">
+                    <img loading="lazy" decoding="async" class="featured-slide-image" src="images/droneagro.jpeg" alt="Drone Agro">
+                    <img loading="lazy" decoding="async" class="featured-slide-image" src="images/lidar-drone.jpeg" alt="LIDAR drone setup">
+                    <img loading="lazy" decoding="async" class="featured-slide-image" src="images/tpf-letter.jpeg" alt="Tempus Public Foundation Letter of Award">
+                    <div class="feature-media-nav">
+                      <button type="button" class="media-btn" data-prev>‹</button>
+                      <div class="media-dots">
+                        <button type="button" class="media-dot is-active" data-dot="0"></button>
+                        <button type="button" class="media-dot" data-dot="1"></button>
+                        <button type="button" class="media-dot" data-dot="2"></button>
+                        <button type="button" class="media-dot" data-dot="3"></button>
+                      </div>
+                      <button type="button" class="media-btn" data-next>›</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <button class="featured-nav-btn" type="button" onclick="plusSlides(1)" aria-label="Next">›</button>
+
+            <!-- Slide 6: Urbanization Index -->
+            <div class="mySlides fade">
+              <div class="featured-slide-container liquid-glass">
+                <div class="numbertext">06 / 06</div>
+                <div class="featured-slide-left">
+                  <h2 class="featured-slide-title">Urbanization Index &amp; Blackbird Phenotypes</h2>
+                  <p class="featured-slide-subtitle"><i>Research internship · GIS analysis for <em>Turdus merula</em></i></p>
+                  <p class="featured-slide-maintext">
+                    Integrated <strong>geospatial analyses</strong> into the project's Urbanization Index (PCA) to
+                    quantify urban gradients affecting <em>Turdus merula</em> populations. Strengthened the analytical
+                    framework's accuracy and enabled statistically robust comparisons between urban and non-urban sites.
+                  </p>
+                  <ul class="featured-list">
+                    <li>Spatial layers of land cover, built-up density, and green-space distribution.</li>
+                    <li>Linked geospatial metrics to phenotypic measurements (mass, tarsus, wing morphology).</li>
+                    <li>Authored tutorials enabling the workflow to be replicated across other projects.</li>
+                  </ul>
+                  <div class="featured-actions">
+                    <a class="btn ghost" href="project-urbanization-index.html">Read the case study</a>
+                  </div>
+                </div>
+                <div class="featured-slide-right">
+                  <div class="feature-media" data-media>
+                    <img loading="lazy" decoding="async" class="featured-slide-image is-active" src="images/urbanization-index-map.jpg" alt="Urbanization index map">
+                    <img loading="lazy" decoding="async" class="featured-slide-image" src="images/blackbird-model.png" alt="ArcGIS ModelBuilder model">
+                    <img loading="lazy" decoding="async" class="featured-slide-image" src="images/nest-graphs.png" alt="Tree cover density per nest">
+                    <img loading="lazy" decoding="async" class="featured-slide-image" src="images/rscript-blackbird-screenshot.jpeg" alt="R script in ArcGIS Pro">
+                    <div class="feature-media-nav">
+                      <button type="button" class="media-btn" data-prev>‹</button>
+                      <div class="media-dots">
+                        <button type="button" class="media-dot is-active" data-dot="0"></button>
+                        <button type="button" class="media-dot" data-dot="1"></button>
+                        <button type="button" class="media-dot" data-dot="2"></button>
+                        <button type="button" class="media-dot" data-dot="3"></button>
+                      </div>
+                      <button type="button" class="media-btn" data-next>›</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
       </div>
@@ -484,7 +577,7 @@
           <div class="timeline-item animate-on-scroll">
             <div class="timeline-date">Apr 2026 – Sep 2026</div>
             <div class="timeline-content">
-              <h3>Environmental Compliance Coordinator · IRCA Consultants</h3>
+              <h3>Environmental Compliance Coordinator · IRCA</h3>
               <p>Led compliance monitoring and geospatial verification programs and supervised field teams for 12+ industrial clients in construction, steel, forging, foundry, ceramics, and automotive &amp; aerospace components.</p>
               <ul>
                 <li>Added four service lines worth USD $85,000+ in new annual revenue: UAV environmental monitoring, photogrammetry and remote sensing, reforestation assessments, and biological surveys, plus recurring supervision retainers.</li>
@@ -497,7 +590,7 @@
           <div class="timeline-item animate-on-scroll">
             <div class="timeline-date">Sep 2025 – Apr 2026</div>
             <div class="timeline-content">
-              <h3>Project Manager · IRCA Consultants</h3>
+              <h3>Project Manager · IRCA</h3>
               <p>Managed ~USD $210K in contracts delivering state and federal environmental permitting and audits for foundries, machining, automotive and aerospace parts, and construction clients.</p>
               <ul>
                 <li>Delivered 30+ regulatory instruments in 10 months at a 90%+ on-time rate, including 9 environmental impact statements, 7 operating licenses, and 4 air-emissions duct &amp; stack studies.</li>
@@ -1139,6 +1232,29 @@
       if (slides[slideIndex - 1]) slides[slideIndex - 1].style.display = 'block';
       if (dots[slideIndex - 1]) dots[slideIndex - 1].className += ' active';
     }
+
+    /* ----- Featured: swipe between projects on touch screens ----- */
+    (function featuredSwipe() {
+      const box = document.querySelector('.slideshow-container');
+      const nav = document.querySelector('.featured-carousel-nav');
+      if (!box || !nav) return;
+      let x0 = null, y0 = 0;
+      box.addEventListener('touchstart', (e) => {
+        /* image strips and embeds keep their own gestures */
+        if (e.target.closest('[data-media], iframe')) { x0 = null; return; }
+        x0 = e.touches[0].clientX; y0 = e.touches[0].clientY;
+      }, { passive: true });
+      box.addEventListener('touchend', (e) => {
+        if (x0 === null) return;
+        const dx = e.changedTouches[0].clientX - x0, dy = e.changedTouches[0].clientY - y0;
+        x0 = null;
+        if (Math.abs(dx) < 60 || Math.abs(dx) < Math.abs(dy) * 1.5) return;
+        plusSlides(dx < 0 ? 1 : -1);
+        /* a long project may have been read from the middle: bring the controls back into view */
+        const top = nav.getBoundingClientRect().top;
+        if (top < 0) window.scrollBy({ top: top - 24, behavior: 'smooth' });
+      }, { passive: true });
+    })();
 
     /* ----- Featured media mini-carousels ----- */
     (function initFeaturedMedia() {

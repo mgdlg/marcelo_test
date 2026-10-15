@@ -1349,13 +1349,18 @@ html[data-theme="light"] .hero-figure .caption { color: rgba(255,255,255,0.78); 
 }
 .media-dot.is-active { background: var(--accent-warm); }
 
-/* featured carousel bottom nav */
+/* featured carousel controls: a toolbar above the card, the one edge that
+   stays put when projects of different heights swap in */
 .featured-carousel-nav {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   gap: 24px;
-  margin-top: 36px;
+  margin: 0 0 20px;
+}
+.featured-arrows {
+  display: flex;
+  gap: 10px;
 }
 .featured-nav-btn {
   width: 48px;
